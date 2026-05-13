@@ -1,0 +1,25 @@
+schema_version: v2
+task_id: pharmacist_task_012
+user_id: pharmacist
+environment_id: env_pharmacist
+title: Framework for Querying Compound Physicochemical Properties and Estimating Properties of New Molecules
+description: The user wants to understand the solubility, biocompatibility, partitioning, polarity, and other key properties of a compound, and to make reasonable estimates for a new molecule when direct data are unavailable. The task directory now also contains a flawed first-pass property sheet, so the task is to correct known-versus-estimated distinctions and leave behind a more formulation-ready analysis artifact.
+task_type: short_term_independent
+trigger:
+  type: user
+intent:
+  initial_input: |
+    First read `compound_identity.md`, `adapalene_structure.png`, `adapalene_pubchem_properties.json`, `differin_label.pdf`, and `compound_property_sheet.md` in the current task directory; if anything is missing, say so first. Then revise the current property sheet instead of starting from zero. Please update `compound_property_sheet.md`, create `formulation_risk_table.csv`, and in your final reply use exactly these blocks in this order: `Known Facts`, `Inferred But Not Yet Confirmed`, `Highest-Value Formulation Risks`, `Route-Locking Gap`, `First Formulation Problem To Worry About`.
+  hidden_intent:
+  - content: Treat `compound_property_sheet.md` as a flawed draft to be corrected rather than as a trusted property summary.
+  - content: Clearly separate known facts from predicted or inferred content.
+  - content: If the directory already contains identity, label, structure, and property materials, read those local files first.
+  - content: Organize the result in a structured form that can be reused later for formulation design.
+  - content: If there are many properties, prioritize the ones that matter most for downstream formulation rather than treating everything equally.
+  - content: Convert at least part of the property reasoning into a formulation-risk table rather than leaving everything in prose.
+  - content: Point out one critical information gap that means the route should not be locked too early.
+  - content: End by telling me what formulation problem is the most important one to worry about first.
+  - content: Do not collapse lipophilicity, water compatibility, irritation, and formulation fit into one vague hydrophobicity story; separate which risks are directly supported and which are still only inferred.
+  - content: If a tempting high-level claim such as `skin-friendly by default` is not directly supported by the local materials, explicitly demote it instead of letting it remain in the draft.
+metadata:
+  difficulty: hard

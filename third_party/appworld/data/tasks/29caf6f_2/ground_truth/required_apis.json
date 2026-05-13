@@ -1,0 +1,12 @@
+[
+    "supervisor.complete_task",
+    "supervisor.show_account_passwords",
+    "supervisor.show_profile",
+    "phone.login",
+    "phone.search_contacts",
+    "phone.search_text_messages",
+    "phone.send_text_message",
+    "simple_note.login",
+    "simple_note.search_notes",
+    "simple_note.show_note"
+]

@@ -1,0 +1,4 @@
+Version,KeyVariable,EvaluationFocus,RouteRole
+A,ethanol+PG cosolvent balance (ratio to be set during formulation),precipitation after standing and API uniformity,baseline
+B,lower-irritation co-solvent (solvent composition inferred from route name and API data; not specified by Routes file),precipitation after standing plus mildness as secondary readout,backup
+C,alternative gel base (specific polymer not specified by source; solvent strategy not specified by Routes file; deferred per Routes note and Risk #5/#6),gel-base/pH handling behavior plus precipitation after standing (evaluated when considered),deferred

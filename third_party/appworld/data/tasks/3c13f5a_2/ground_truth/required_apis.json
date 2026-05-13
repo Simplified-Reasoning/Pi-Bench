@@ -1,0 +1,13 @@
+[
+    "supervisor.complete_task",
+    "supervisor.show_account_passwords",
+    "supervisor.show_profile",
+    "file_system.login",
+    "file_system.show_directory",
+    "file_system.show_file",
+    "phone.get_current_date_and_time",
+    "phone.login",
+    "phone.search_contacts",
+    "venmo.create_payment_request",
+    "venmo.login"
+]

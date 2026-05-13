@@ -1,0 +1,57 @@
+schema_version: v2
+user_id: law_trainee
+environment_id: env_law_trainee
+task_type: short_term_independent
+trigger:
+  type: user
+task_id: law_trainee_task_020
+title: "Court Filing Packet Handover SMS and Temporary Intake Reminder"
+description: "Coordinate a next-day court-side filing-packet handover by SMS and run one short temporary Todoist reminder pass for the user's own pre-handover checks. Evaluation focuses on whether the text and reminder content are concrete, easy to scan, and fully cleaned up."
+intent:
+  initial_input: |-
+    My phone number is 5707454150 and password is 'A!HFDCn'.
+    My Todoist email is stmcco@gmail.com and password is 'Ozz21Q4'.
+
+    I'm tied up in another call and need you to cover a quick court-side handover by text with 2873148336 for the Yuehai guarantee packet.
+    Put the handover details into one compact SMS that is easy to read on a phone, instead of splitting the handover across several texts.
+
+    After the text goes out, set up a temporary Todoist board called "Temporary Court Handover Reminder Board" with one short reminder item that covers my two pre-handover checks. In this same pass, clear the temporary reminder board before you reply so there is no leftover clutter.
+
+  hidden_intent:
+    - content: "In the SMS, confirm pickup for 11:30 a.m. tomorrow at the east gate of Jiangzhou Intermediate People's Court."
+    - content: "In the SMS, ask them to bring the original notarized power of attorney, two stamped copies of the evidence list, and one copy of the hearing notice."
+    - content: "In the SMS, ask for a reply before 8:00 p.m. today and ask them to flag immediately if any document is not ready or if the pickup time or location needs to change. In the temporary Todoist board, include a 10:45 a.m. packet-completeness recheck and a stamped-page check."
+    - content: "Put the handover details into one compact SMS that is easy to read on a phone, instead of splitting the handover across several texts."
+    - content: "Clear the temporary Todoist reminder board before replying so there is no leftover clutter from the handover pass."
+objectives:
+  tools:
+    - mcp_appworld_phone__send_text_message:
+        call: [phone_number, message]
+        result: [response.text_message_id]
+    - mcp_appworld_todoist__create_project:
+        call: [name]
+        result: [response.project_id]
+    - mcp_appworld_todoist__create_task:
+        call: [title, description, project_id]
+        result: [response.task_id]
+    - mcp_appworld_todoist__delete_project:
+        call: [project_id]
+        result: [response.message]
+  checklist:
+    - criterion: "The sent SMS handover message(s) explicitly identify the Yuehai guarantee dispute court-side handover."
+    - criterion: "The sent SMS handover message(s) confirm 11:30 a.m. tomorrow at the east gate of Jiangzhou Intermediate People's Court."
+    - criterion: "The sent SMS handover message(s) clearly list all three must-bring originals for the handover: the original notarized power of attorney, two stamped evidence-list copies, and one hearing-notice copy."
+    - criterion: "The sent SMS handover message(s) include a concrete reply deadline before 8:00 p.m. today."
+    - criterion: "The sent SMS handover message(s) ask the recipient to flag immediately if any document is not ready or if the pickup time or location needs to change. Substantially similar wording is acceptable."
+    - criterion: "At least one sent SMS presents the handover slot, must-bring packet items, and reply-by / risk-flag instruction in a compact scan-friendly format suitable for phone reading."
+    - criterion: "The temporary Todoist reminder coverage includes a 10:45 a.m. packet-completeness recheck for the user's own Yuehai pre-handover pass."
+    - criterion: "The temporary Todoist reminder coverage includes a stamped-page check for the user's own Yuehai pre-handover pass."
+    - criterion: "The temporary Todoist board is removed by the end of the task."
+  tools_evaluation_path: "data/law_trainee/scripts/law_trainee_task_020_5.py"
+metadata:
+  difficulty: medium
+  benchmark_role: test
+  preference_threads:
+    - concise_operational_followups
+    - deadline_and_followup_discipline
+    - cross_app_preparation_workflow

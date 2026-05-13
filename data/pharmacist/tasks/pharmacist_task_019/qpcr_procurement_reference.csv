@@ -1,0 +1,9 @@
+module,item,decision,why,source_task
+qPCR,Target-gene primers,must_buy,missing and the next qPCR run cannot start without them,pharmacist_task_018
+qPCR,Sealing film,must_buy,almost used up and needed for qPCR plate consistency,pharmacist_task_018
+RNA/qPCR,RNase-free filter tips,must_buy,tight inventory and contamination risk for RNA/qPCR workflow,pharmacist_task_018
+Cell assay,CCK-8 reagent,must_buy,low stock and the planned viability screen depends on it,pharmacist_task_018
+Cell assay,96-well cell plates,must_buy,low stock and CCK-8 plate format depends on them,pharmacist_task_018
+Cell culture,FBS,backup_buy,low stock and culture continuity risk,pharmacist_task_018
+Cell culture,Trypsin,backup_buy,low stock and passaging support risk,pharmacist_task_018
+General,0.22 um sterile filter,backup_buy,filtration support but not the top schedule blocker,pharmacist_task_018

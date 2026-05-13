@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="360" viewBox="0 0 980 360">
+  <rect width="980" height="360" fill="#f8f6f2"/>
+  <text x="40" y="42" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#1f2a1f">Figure 3. Density-Dependent Metastasis Inhibition Snapshot</text>
+  <text x="40" y="70" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#4d594d">Representative summary of how different DV1 surface densities change uptake, migration, and metastatic outcome. Note that better uptake alone does not fully predict the best in vivo outcome.</text>
+
+  <rect x="48" y="110" width="270" height="180" rx="14" ry="14" fill="#ffffff" stroke="#8b8b8b"/>
+  <text x="68" y="138" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#2a2a2a">Panel A. Binding / uptake by density</text>
+  <line x1="80" y1="250" x2="280" y2="250" stroke="#5c5c5c" stroke-width="2"/>
+  <line x1="80" y1="160" x2="80" y2="250" stroke="#5c5c5c" stroke-width="2"/>
+  <polyline points="90,230 130,205 170,178 210,195 250,214" fill="none" stroke="#2563eb" stroke-width="4"/>
+  <text x="92" y="278" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#2a2a2a">9k</text>
+  <text x="132" y="278" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#2a2a2a">24k</text>
+  <text x="170" y="278" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#2a2a2a">39k</text>
+  <text x="210" y="278" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#2a2a2a">53k</text>
+  <text x="250" y="278" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#2a2a2a">74k</text>
+
+  <rect x="356" y="110" width="270" height="180" rx="14" ry="14" fill="#ffffff" stroke="#8b8b8b"/>
+  <text x="376" y="138" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#2a2a2a">Panel B. Migration inhibition</text>
+  <line x1="390" y1="250" x2="580" y2="250" stroke="#5c5c5c" stroke-width="2"/>
+  <rect x="420" y="215" width="28" height="35" fill="#ca8a04"/>
+  <rect x="462" y="170" width="28" height="80" fill="#16a34a"/>
+  <rect x="504" y="188" width="28" height="62" fill="#2563eb"/>
+  <rect x="546" y="202" width="28" height="48" fill="#9a3412"/>
+  <text x="412" y="278" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#2a2a2a">L-DBCO</text>
+  <text x="462" y="278" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#2a2a2a">24k</text>
+  <text x="504" y="278" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#2a2a2a">39k</text>
+  <text x="546" y="278" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#2a2a2a">74k</text>
+
+  <rect x="664" y="110" width="270" height="180" rx="14" ry="14" fill="#ffffff" stroke="#8b8b8b"/>
+  <text x="684" y="138" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#2a2a2a">Panel C. In vivo metastasis</text>
+  <text x="690" y="178" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#2a2a2a">Primary-tumor escape:</text>
+  <text x="834" y="178" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#16a34a">slower with 24k DV1</text>
+  <text x="690" y="214" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#2a2a2a">Metastatic spread:</text>
+  <text x="826" y="214" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#16a34a">suppressed for 27 days</text>
+  <text x="690" y="250" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#2a2a2a">Interpretation:</text>
+  <text x="786" y="250" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#2a2a2a">signaling depends on peptide density</text>
+
+  <text x="42" y="330" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#465246">Use this figure together with the abstract, legend excerpt, and methods excerpt to reconstruct why one specific surface density outperforms the others and why the highest-density group is not automatically the best group.</text>
+</svg>

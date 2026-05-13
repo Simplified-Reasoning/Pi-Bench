@@ -1,0 +1,48 @@
+schema_version: v2
+task_id: researcher_task_016
+user_id: researcher
+environment_id: env_researcher
+title: splitwise
+description: "splitwise-phone"
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    Last week I organized a team-building trip for everyone in the research group. The file bill.txt contains some of the expenses and advance payments from that trip, you can read it. 
+    My Splitwise login info:
+    Email: la-mcco@gmail.com
+    Password: T8H2[32
+    Please help handle the payment collection.
+
+  hidden_intent:
+    - content: "Create a Splitwise group with everyone who participated in this team-building trip"
+    - content: "List all the people who owe money to me"
+    - content: "Create a Splitwise payment record for two expenses I paid in advance: cabin deposit, parking and toll fees ."
+    - content: "Send text messages to other students who also have paid in advance, reminding them to create a Splitwise payment record for the expenses they have paid in advance.,  My phone number is 2873148336, and the phone password is AEQ@e[a   "
+
+objectives:
+  tools:
+    - mcp_appworld_splitwise__create_group:
+        call: [name, member_emails]
+        result: [response.group_id]
+    - mcp_appworld_splitwise__add_member_to_group:
+        call: [group_id, user_email]
+    - mcp_appworld_splitwise__record_expense:
+        call: [group_id, paid_amount, payer_email, debtor_emails, debt_amounts]
+        result: [response.expense_id]
+    - mcp_appworld_phone__send_text_message:
+        call: [phone_number, message]
+        result: [response.text_message_id]
+  checklist:
+    - criterion: "State that there are two expenses I paid in advance: the cabin deposit of 560 USD, and parking and toll fees of 30 USD"
+    - criterion: "Provide a complete list of who owes me money and how much each person owes me in total."
+    - criterion: "The reminder text messages to the other classmates who also paid in advance should be polite and sincere"
+    - criterion: "The reminder text messages to the other classmates who also paid in advance should specify which payment requests they need to send and which people should be included in splitting each cost"
+    - criterion: "The reminder text messages to the other classmates who also paid in advance should thank them for their contribution to making this team-building trip a success"
+  tools_evaluation_path: "data/researcher/scripts/researcher_task_016_splitwise_phone.py"
+
+metadata:
+  difficulty: medium

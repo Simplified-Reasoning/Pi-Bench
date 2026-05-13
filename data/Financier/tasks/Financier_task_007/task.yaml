@@ -1,0 +1,37 @@
+schema_version: v2
+task_id: Financier_task_007
+user_id: Financier
+environment_id: env_Financier
+title: ''
+description: ''
+task_type: val
+trigger:
+  type: user
+
+intent:
+  initial_input: "For our Enterprise Macro-Risk Data Platform, we need to stress-test\
+    \ our portfolio models using simulated equity factors. Based on the Kenneth French\
+    \ Data Library's 'F-F_Research_Data_5_Factors_2x3_daily.CSV.zip', please write\
+    \ a Python script to process the raw file and generate at least 5 years of highly\
+    \ realistic synthetic daily data. Output the final dataframe to 'synthetic_ff5_daily.csv'.\
+    \ Please save the script directly into the current workspace as 'ff5_simulation.py'.\
+    \ You only need to write and save the script; do not attempt to execute it, and\
+    \ do not provide any text explanations or markdown reports."
+  hidden_intent:
+    - content: "The script must explicitly read and extract data directly from the\
+        \ specified zip archive ('F-F_Research_Data_5_Factors_2x3_daily.CSV.zip')\
+        \ using libraries like `zipfile`."
+    - content: "Data Cleaning: The script must explicitly contain code (e.g., `skiprows`)\
+        \ to drop the non-data metadata headers and copyright footers found in Kenneth\
+        \ French CSVs."
+    - content: "Schema Accuracy: The generated data must exclusively contain the exact\
+        \ 7 fields: Date, Mkt-RF, SMB, HML, RMW, CMA, and RF."
+    - content: "Advanced Simulation: The script must implement non-Gaussian methods\
+        \ (like Copula, GARCH, or Block Bootstrap) to capture fat tails or volatility\
+        \ clustering."
+objectives:
+  files_read:
+    - ff5_simulation.py
+
+metadata:
+  difficulty: medium

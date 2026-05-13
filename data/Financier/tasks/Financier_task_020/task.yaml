@@ -1,0 +1,50 @@
+schema_version: v2
+task_id: Financier_task_020
+user_id: Financier
+environment_id: env_Financier
+title: ''
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: "Regarding our macroeconomic backtesting project, please write a\
+    \ Python script to fetch the historical daily US Treasury Yield curve data for\
+    \ exactly the past 10 years (from 2016-01-01 to 2026-01-01), utilizing the same\
+    \ set of standard tenors we established earlier. Crucially, I need a valid yield\
+    \ value populated for the very first day (2016-01-01). You only need to write\
+    \ and save the script; do not attempt to execute it. The script must appropriately\
+    \ handle market holiday data gaps to ensure continuous time-series alignment.\
+    \ The script must export the final dataframe to a CSV file named 'UST_Yield_Curve_Daily.csv'.\
+    \ Please save the script directly into the current workspace as 'Data_Pipeline.py'."
+
+  hidden_intent:
+    - content: "The script must explicitly fetch data for the exact standard curve\
+        \ requested previously: 1Y (or 1 year), 2Y, 3Y, 5Y, 7Y, 10Y, and 20Y."
+    - content: "The script must explicitly use the U.S. Treasury as the absolute data\
+        \ source."
+    - content: "The script must always utilize a forward-fill method to handle missing\
+        \ daily data caused by holidays."
+    - content: "The script must strictly output only the requested tenors, avoiding\
+        \ any unsolicited derived metrics (like yield spreads) or unrequested tenors."
+objectives:
+  files_read:
+    - Data_Pipeline.py
+  tools_evaluation_path: "data/Financier/scripts/Financier_task_020.py"
+  checklist:
+    - criterion: "Full Calendar Alignment: The script explicitly aligns the dataset\
+        \ to a continuous 365-day daily calendar (e.g., utilizing `pd.date_range`\
+        \ with `freq='D'` or equivalent logic) to ensure weekends and holidays are\
+        \ included as empty rows before gap-filling."
+    - criterion: "Anti Look-Ahead Bias: The script explicitly describes a strategy\
+        \ to fetch historical data prior to the target start date (e.g., fetching\
+        \ year 2015) to act as a data buffer for forward-filling, and strictly prohibits\
+        \ the use of back-filling (`bfill`) which introduces future data into past\
+        \ dates."
+    - criterion: "Target Tenor Precision: The script explicitly filters the yield\
+        \ curve columns to retain exactly the 7 intermediate-to-long-term benchmark\
+        \ tenors (1Y, 2Y, 3Y, 5Y, 7Y, 10Y, 20Y), strictly omitting short-term bill\
+        \ tenors (like 1-month or 6-month) and the 30-year bond."
+metadata:
+  difficulty: medium

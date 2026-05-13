@@ -1,0 +1,4 @@
+["DELETE FROM alarms WHERE alarms.id = ?",[415],false]
+["UPDATE alarms SET repeat_days=?, record_hash=? WHERE alarms.id = ?",["[\"monday\", \"tuesday\", \"wednesday\", \"thursday\", \"friday\", \"saturday\", \"sunday\"]","qNT2KLVy/hI=",414],false]
+["UPDATE alarms SET record_hash=?, enabled=? WHERE alarms.id = ?",["IpGe+nuX/IY=",0,416],false]
+["UPDATE alarms SET record_hash=?, enabled=? WHERE alarms.id = ?",["l0Yx3tvKNCo=",0,418],false]

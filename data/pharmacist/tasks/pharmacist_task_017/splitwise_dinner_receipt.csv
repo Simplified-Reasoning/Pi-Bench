@@ -1,0 +1,11 @@
+field,value
+group_name,Lab Dinner Reconciliation
+payer_email,la-mcco@gmail.com
+member_email_1,stmcco@gmail.com
+member_email_2,deniseburch@gmail.com
+expense_description,small dinner with classmates
+initial_total,69.10
+late_tip_adjustment,9.00
+corrected_total,78.10
+correction_reason,late tip was added after the first receipt snapshot
+flow_requirement,record initial total first; check group expenses; update the same sandbox expense to corrected total; remove the sandbox expense entry afterward

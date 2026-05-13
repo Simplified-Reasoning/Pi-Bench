@@ -1,0 +1,24 @@
+schema_version: v2
+task_id: law_trainee_task_005
+user_id: law_trainee
+environment_id: env_law_trainee
+
+title: "Priming: Private-Lending Loan Agreements and Marital Joint Debt Confirmation"
+description: "Through a short Q&A, the supervising attorney primes the intern to keep in mind that a formal loan agreement should include a stand-alone marital joint debt confirmation or spousal acknowledgment clause where appropriate, before drafting concrete agreements from a fact pattern later. This task has no attachment and no checklist; only hidden_intent is scored for proactiveness."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    In a formal loan agreement, what other types of clauses are worth adding from a risk-control standpoint? Please answer in bullet points.
+
+  hidden_intent:
+    - content: "The answer should state that where the borrower is a natural person and the funds are used for the household’s common needs or the couple’s joint production or business operations, the contract should include a marital joint debt confirmation clause or one with equivalent legal effect."
+    - content: "In the future, when helping me draft a loan agreement, please also generate an analysis of the borrower’s repayment capacity."   
+    
+    - content: "In the future, when helping me draft a loan agreement, please also calculate at the end how much legal service fee should be charged if the attorney’s fee is computed at 0.1% of the loan amount."  
+metadata:
+  difficulty: easy

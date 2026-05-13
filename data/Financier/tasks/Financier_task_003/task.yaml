@@ -1,0 +1,28 @@
+schema_version: v2
+task_id: Financier_task_003
+user_id: Financier
+environment_id: env_Financier
+
+title: "Assess the Current Champion Route and Provide Go-Forward Recommendations Based on the Model Performance Report"
+description: "Based on the local model performance report, assess the effectiveness, stability, and governance implementability of the PD model in gray release, and produce structured go-forward recommendations suitable for investment committee discussion."
+
+task_type: short_term_contextual
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    Please use the local file Model_Performance_Report.md to evaluate the actual performance of the current Huadong Operating Loan PD model during the gray-release stage, and judge whether it is appropriate to continue advancing the current Champion route. If necessary, also compare the primary model with the backup candidate model and provide a recommendation suitable for discussion in the meeting.
+  hidden_intent:
+    - content: "Give the conclusion first, then the evidence; the opening should directly state whether the current Champion route should continue."
+
+    - content: "Use tables as much as possible in the model comparison section. Comparison dimensions should at least cover: modeling logic, interpretability, nonlinear representation capability, training efficiency, hyperparameter tuning complexity, and online maintenance/governance cost."
+
+    - content: "Output a fixed Meta Review module at the end, containing at least key assumptions, potential biases, information gaps, and next-step due diligence/monitoring recommendations."
+
+objectives:
+  checklist: []
+
+metadata:
+  difficulty: medium

@@ -1,0 +1,59 @@
+schema_version: v2
+user_id: law_trainee
+environment_id: env_law_trainee
+task_type: short_term_independent
+trigger:
+  type: user
+task_id: law_trainee_task_014
+title: "Partner Hearing-Prep Handover Note to Temporary Action Board"
+description: "Prepare one short partner-review handover note in Simple Note for the Yuehai guarantee dispute, then mirror the three live follow-up items in a temporary Todoist board and remove that board in the same pass. Evaluation focuses on whether the note and work items stay short, matter-specific, and easy to execute."
+intent:
+  initial_input: |-
+    My Simple Note email is stmcco@gmail.com and password is 'i#vhWEQ'.
+    My Todoist email is stmcco@gmail.com and password is 'Ozz21Q4'.
+
+    I'm still tied up in briefings, and the Yuehai guarantee dispute file needs to go up for partner review soon. My notes are not really in circulation shape yet.
+
+    Please clean them into a short handover note in Simple Note under "Partner Handover — Yuehai Guarantee Dispute Hearing Prep", then spin the immediate next-step items into a temporary Todoist board called "Temporary Hearing Prep Board - Yuehai" so I can review the workplan quickly.
+
+    For this rehearsal pass, create exactly three temporary work items for the live blockers, then remove the temporary board before you reply so there is no leftover clutter.
+
+  hidden_intent:
+    - content: "In the Simple Note, state that the hearing date is 18 April 2026 and that the Yuehai file is being prepared for partner review before that hearing."
+    - content: "In the Simple Note, state that guarantor exposure cannot be finalized until the signed guaranty versions are reconciled."
+    - content: "Make the three immediate work items cover signed-guaranty-version reconciliation, the bank-flow chart that still needs exhibit references, and the open confirmation points on preservation position and hearing speaking order."
+    - content: "Keep the Simple Note short and circulation-ready for quick partner review, rather than turning it into a long memo."
+    - content: "Remove the temporary Todoist board before replying so the rehearsal pass leaves no leftover clutter."
+objectives:
+  tools:
+    - mcp_appworld_simple_note__create_note:
+        call: [title, content]
+        result: [response.note_id]
+    - mcp_appworld_simple_note__update_note:
+        call: [note_id, content]
+        result: [response.message]
+    - mcp_appworld_todoist__create_project:
+        call: [name]
+        result: [response.project_id]
+    - mcp_appworld_todoist__create_task:
+        call: [title, project_id, description]
+        result: [response.task_id]
+    - mcp_appworld_todoist__delete_project:
+        call: [project_id]
+        result: [response.message]
+  checklist:
+    - criterion: "In the final Simple Note, use the title \"Partner Handover — Yuehai Guarantee Dispute Hearing Prep.\""
+    - criterion: "In the final Simple Note, state that the hearing date is 18 April 2026 and that the file is being prepared for partner review before the hearing. Substantially similar wording is acceptable."
+    - criterion: "In the final Simple Note, state that the guarantor-exposure position cannot be finalized until the signed guaranty versions are compared. Substantially similar wording is acceptable."
+    - criterion: "In the final Simple Note, identify the bank-flow chart as an immediate work item and state that it needs exhibit references. Substantially similar wording is acceptable."
+    - criterion: "In the final Simple Note, identify preservation position and hearing speaking order as open confirmation points before the hearing. Substantially similar wording is acceptable."
+    - criterion: "In the temporary Todoist board or final Simple Note, record the three immediate work items covering guaranty-version reconciliation, bank-flow-chart exhibit references, and preservation-position / hearing-speaking-order confirmation."
+    - criterion: "The temporary Todoist board is removed by the end of the task."
+  tools_evaluation_path: "data/law_trainee/scripts/law_trainee_task_014_5.py"
+metadata:
+  difficulty: medium
+  benchmark_role: test
+  preference_threads:
+    - concise_structured_internal_notes
+    - audit_ready_workflow
+    - cross_app_preparation_workflow

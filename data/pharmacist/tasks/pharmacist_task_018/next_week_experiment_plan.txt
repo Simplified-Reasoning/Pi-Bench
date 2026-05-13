@@ -1,0 +1,21 @@
+Plan for next week:
+
+Monday:
+- Perform one round of RNA extraction and reverse-transcription preparation
+
+Tuesday:
+- Run qPCR for the target genes and the housekeeping gene
+
+Wednesday:
+- Add replicates or rerun abnormal wells
+
+Thursday:
+- Run one first-round CCK-8 cytotoxicity screen
+
+Friday:
+- Read the plate and organize the initial qPCR / CCK-8 results
+
+Additional notes:
+- On the qPCR side, the biggest risks this week are missing sealing film, RNase-free filter tips, and target-gene primers.
+- On the cell-experiment side, the biggest risks are insufficient CCK-8, 96-well plates, and FBS.
+- The current procurement to-do list should be organized around preventing next week's schedule from breaking, rather than stockpiling a large amount of general consumables at once.

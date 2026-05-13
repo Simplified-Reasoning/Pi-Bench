@@ -1,0 +1,23 @@
+schema_version: v2
+task_id: researcher_task_018
+user_id: researcher
+environment_id: env_researcher
+
+title: "OpenClaw Technical Q&A Preference Task"
+description: "The user is following the OpenClaw buzz and wants, beyond comparison with typical agents, implicit coverage of product-level pros/cons, introductory blog posts, and usage examples."
+
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: "I've noticed OpenClaw getting popular lately and I'm curious. Can you explain how it differs from a regular agent?"
+  hidden_intent:
+    - content: "Summarize how OpenClaw compares to existing agent products on the market, and list OpenClaw's strengths and weaknesses."
+
+    - content: "Give some OpenClaw-related papers and the research institution and authors of these papers."
+
+
+metadata:
+  difficulty: easy

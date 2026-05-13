@@ -1,0 +1,2 @@
+["UPDATE alarms SET record_hash=?, label=? WHERE alarms.id = ?",["8oxIbt1qVWQ=","Standup Meeting",312],false]
+["INSERT INTO alarms (repeat_days, created_at, record_hash, user_id, time, label, enabled, snooze_minutes, vibration) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",["[\"wednesday\"]","2023-05-18 11:47:24.000000","XfAy2VUYf/w=",45,"11:50","Meeting Manager",1,15,1],false]

@@ -1,0 +1,12 @@
+Project note:
+
+The supervisor currently wants a short but well-grounded shortlist of linker-innovation directions that can be used for a group meeting and for later synthesis scheduling, rather than a very scattered idea pool.
+
+The discussion is expected to stay narrow enough for an actual group meeting and later synthesis scheduling.
+
+Right now the group is paying attention to:
+1. whether there is a clear precedent that can be extended
+2. which route is more suitable for early validation
+3. which routes remain interesting but may fit a later stage better
+
+The output should therefore converge into a discussion-friendly shortlist rather than laying every idea flat.

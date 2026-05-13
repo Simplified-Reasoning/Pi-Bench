@@ -1,0 +1,9 @@
+[
+    "supervisor.complete_task",
+    "supervisor.show_account_passwords",
+    "supervisor.show_profile",
+    "spotify.like_song",
+    "spotify.login",
+    "spotify.show_current_song",
+    "spotify.show_song_queue"
+]

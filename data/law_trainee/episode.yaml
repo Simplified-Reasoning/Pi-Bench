@@ -1,0 +1,63 @@
+schema_version: v2
+episode_id: ep_law_trainee
+user_id: law_trainee
+tasks:
+  - task_id: law_trainee_task_001
+    depends_on: []
+
+  - task_id: law_trainee_task_002
+    depends_on: []
+
+  - task_id: law_trainee_task_003
+    depends_on: []
+
+  - task_id: law_trainee_task_004
+    depends_on: []
+
+  - task_id: law_trainee_task_005
+    depends_on: []
+
+  - task_id: law_trainee_task_006
+    depends_on: []
+
+  - task_id: law_trainee_task_007
+    depends_on: [law_trainee_task_001, law_trainee_task_004]
+
+  - task_id: law_trainee_task_008
+    depends_on: []
+
+  - task_id: law_trainee_task_009
+    depends_on: []
+
+  - task_id: law_trainee_task_010
+    depends_on: []
+
+  - task_id: law_trainee_task_011
+    depends_on: [law_trainee_task_005]
+
+  - task_id: law_trainee_task_012
+    depends_on: []
+
+  - task_id: law_trainee_task_013
+    depends_on: [law_trainee_task_002, law_trainee_task_009]
+
+  - task_id: law_trainee_task_014
+    depends_on: []
+
+  - task_id: law_trainee_task_015
+    depends_on: []
+
+  - task_id: law_trainee_task_016
+    depends_on: [law_trainee_task_003]
+
+  - task_id: law_trainee_task_017
+    depends_on: [law_trainee_task_015]
+
+  - task_id: law_trainee_task_018
+    depends_on: []
+
+  - task_id: law_trainee_task_019
+    depends_on: [law_trainee_task_006, law_trainee_task_010]
+
+  - task_id: law_trainee_task_020
+    depends_on: []

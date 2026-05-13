@@ -1,0 +1,32 @@
+schema_version: v2
+task_id: Financier_task_001
+user_id: Financier
+environment_id: env_Financier
+title: PD Scorecard Validation Priority Framework
+description: "The user is preparing an independent validation of a logistic-regression\
+  \ PD scorecard and wants a risk-first assessment lens before getting pulled into\
+  \ detailed statistical testing. The task establishes the user's preferred validation\
+  \ style: conclusion first, high-risk issues first, decision support before formula-heavy\
+  \ detail."
+task_type: short_term_independent
+trigger:
+  type: user
+intent:
+  initial_input: |
+    First read `pd_validation_priority_draft.md` in the current task directory; if it is missing, say so first. Use the public source paths directly rather than relying on local summary notes: Federal Reserve SR 11-7 main page https://www.federalreserve.gov/supervisionreg/srletters/sr1107.htm, SR 11-7 PDF https://www.federalreserve.gov/supervisionreg/srletters/sr1107a1.pdf, and UCI Statlog German Credit Data page https://archive.ics.uci.edu/dataset/144/statlog+german+credit+data. Then revise the current priority draft instead of starting from zero. Please update `pd_validation_priority_draft.md`, and in your final reply use exactly these blocks in this order: `Priority Dimensions`, `High-Risk Red Flags`, `Decision-Oriented Framing`. I am preparing an independent validation of a PD logistic-regression scorecard, but I care most about high-risk issues, explainability, and whether the conclusion is strong enough to support a model-use decision. Please list 4 to 6 dimensions that should be checked first from a regulatory validation perspective, with brief reasons for why each matters. Keep the answer conclusion-first and risk-first.
+  hidden_intent:
+    - content: Treat the draft as weak and revise it toward a model-validation view
+        rather than a statistical tutorial.
+    - content: "Anchor the framework to SR 11-7 concepts: conceptual soundness, ongoing\
+        \ monitoring, outcomes analysis, effective challenge, limitations, and fit-for-use\
+        \ judgment."
+    - content: Use the German Credit Data context only as sample background, not as
+        evidence that a production PD model is representative.
+    - content: Prioritize dimensions that could affect model use or remediation decisions
+        before lower-level coefficient diagnostics.
+    - content: Preserve the user's preference for conclusion-first, risk-first validation
+        writing.
+    - content: Include explainability and use-decision support as first-class validation
+        concerns.
+metadata:
+  difficulty: medium

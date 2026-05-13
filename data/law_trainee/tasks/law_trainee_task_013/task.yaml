@@ -1,0 +1,56 @@
+schema_version: v2
+task_id: law_trainee_task_013
+user_id: law_trainee
+environment_id: env_law_trainee
+
+title: "Draft a Civil Complaint for Company Jia (Rent and Breach of Lease Contract)"
+description: "Based on the facts stated in Complaint_Facts.md, draft a first-pass civil complaint in the name of Company Jia for filing with a people’s court in mainland China. Evaluation focuses on correct party caption and prayers for relief, chronology and key facts, main bases of claim, and consistency with the case-summary attachment."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    Our firm recently took on a civil matter. The underlying facts are in Complaint_Facts.md. Company Jia intends to sue in a people’s court in mainland China; please draft the complaint according to standard complaint format from those facts. Fields for which you have no specific information may be left blank.
+
+  hidden_intent:
+    - content: "At the opening of the pleading, state the case participants (caption)."
+    - content: "In the “Prayers for Relief” section, enumerate the specific requests in separate numbered items."
+    - content: "In the “Facts and Legal Grounds” section, set out the relevant factual basis clearly."
+    - content: "In the “Facts and Legal Grounds” section, immediately after each factual statement, give the related legal basis."
+    - content: "At the end of the pleading, state clearly the court to which the complaint is submitted."
+objectives:
+  checklist:
+    - criterion: "In the caption at the opening of the pleading, state that the plaintiff is Company Jia."
+
+    - criterion: "In the caption at the opening of the pleading, state that the defendants are Company Yi, Company Ding, and Company Bing."
+
+    - criterion: "In “Prayers for Relief,” request that the court order Company Yi to pay economic damages to Company Jia. Substantially similar wording is acceptable."
+
+    - criterion: "In “Prayers for Relief,” request that the court order Company Bing to bear joint-and-several guarantor liability for Company Yi’s breach. Substantially similar wording is acceptable."
+
+    - criterion: "In “Prayers for Relief,” request that the court order Company Ding to return the property in kind. Substantially similar wording is acceptable."
+
+    - criterion: "In “Facts and Legal Grounds,” state that the finance lease contract between Company Jia and Company Yi was validly formed and is effective. Substantially similar wording is acceptable."
+
+    - criterion: "State that the legal basis for “the finance lease contract between Company Jia and Company Yi was validly formed and is effective” is paragraph 2 of Article 2 of the Interpretation of the Supreme People’s Court on Several Issues concerning the Application of Law in the Trial of Cases Involving Disputes over Financial Lease Contracts."
+
+    - criterion: "In “Facts and Legal Grounds,” state that Company Yi’s conduct constitutes a fundamental breach rendering performance of the contract purpose impossible, and that Company Jia therefore enjoys a statutory right of termination. Substantially similar wording is acceptable."
+
+    - criterion: "State that the legal basis for “Company Yi’s conduct constitutes a fundamental breach, rendering performance of the contract purpose impossible, and Company Jia enjoys a statutory right of termination” is paragraphs 3 and 4 of Article 563 of the Civil Code of the People’s Republic of China and paragraphs 1 and 2 of Article 5 of the Interpretation of the Supreme People’s Court on Several Issues concerning the Application of Law in the Trial of Cases Involving Disputes over Financial Lease Contracts."
+
+    - criterion: "In “Facts and Legal Grounds,” state that Company Yi must return double the earnest-money deposit to Company Jia: during formation of the finance lease, Company Jia paid RMB 500,000 as earnest money; due to Company Yi’s late performance and unauthorized transfer of the leased property in breach of contract, constituting a fundamental breach leading to rescission, Company Yi must return double the deposit totaling RMB 1 million to Company Jia. Substantially similar wording is acceptable."
+
+    - criterion: "State that the legal basis for the proposition that “Company Yi must return double the earnest-money deposit to Company Jia” is Article 587 of the Civil Code of the People’s Republic of China."
+
+    - criterion: "In “Facts and Legal Grounds,” state that Company Bing bears joint-and-several guarantor liability for Company Yi’s breach: Company Bing expressly assumed joint-and-several guarantor liability in the finance lease contract and signed to confirm; a joint-and-several suretyship should be deemed established, and Company Bing is jointly and severally liable for the aggregate value of the obligation to return the property in kind, default interest, and compensation for economic loss. Substantially similar wording is acceptable."
+
+    - criterion: "State that the legal basis for the proposition that “Company Bing bears joint-and-several guarantor liability for Company Yi’s breach” is Article 688 of the Civil Code of the People’s Republic of China."
+
+    - criterion: "In “Facts and Legal Grounds,” state that Company Ding must return the property in kind: during the finance-lease term Company Jia was the owner of the machine tools; Company Yi’s sale to Company Ding was a disposition without authority; netting the price of a concurrent batch of nuts, Company Ding acquired three machine tools for only RMB 4 million while their market value was RMB 7.5 million, so Company Ding is not a bona fide third-party purchaser; even though the three machine tools were delivered, Ding did not acquire ownership and must therefore return the property. Substantially similar wording is acceptable."
+
+    - criterion: "At the end of the pleading, state clearly that the complaint is submitted to the Shuizhou District People’s Court of Jiangzhou City."
+metadata:
+  difficulty: medium

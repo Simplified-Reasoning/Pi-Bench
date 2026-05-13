@@ -1,0 +1,7 @@
+["UPDATE music_players SET record_hash=?, is_playing=? WHERE music_players.id = ?",["OeLjmt1IloI=",1,64],false]
+["UPDATE music_players SET record_hash=?, cursor_position=? WHERE music_players.id = ?",["7uL1+7RE89w=",2,64],false]
+["UPDATE music_players SET record_hash=?, cursor_position=? WHERE music_players.id = ?",["0PJifs9zGwY=",3,64],false]
+["UPDATE music_players SET record_hash=?, cursor_position=? WHERE music_players.id = ?",["ajFm+Ua2+f0=",4,64],false]
+["UPDATE music_players SET record_hash=?, cursor_position=? WHERE music_players.id = ?",["uVwTKEI4hPU=",5,64],false]
+["DELETE FROM song_likes WHERE song_likes.id = ?",[1477],false]
+["UPDATE songs SET record_hash=?, like_count=? WHERE songs.id = ?",["piFD7KtnKvA=",10,2],false]

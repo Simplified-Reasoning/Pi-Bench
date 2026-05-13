@@ -1,0 +1,22 @@
+schema_version: v2
+task_id: researcher_task_004
+user_id: researcher
+environment_id: env_researcher
+
+title: "Preliminary Multimodal Agent Survey: From Text-only to Think-with-Image"
+description: "The user has started exploring the multimodal agent field and wants to learn about early representative works that treat images as intermediate reasoning states (Think-with-Image), while also aligning on a preferred information presentation format."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: "I've recently become very interested in multimodal agents, especially work that does not treat images as mere inputs but can 'think while looking at images' (think-with-image) more like humans. Can you help me find 2-3 representative papers from 2024 or 2025?"
+  hidden_intent:
+    - content: "Provide an OpenReview link for each paper; if no OpenReview link is available, provide an arXiv link."
+    - content: "It would be best to recommend 3 to 5 papers at a time, since anything more would be hard to keep up with."
+    - content: "For each paper, provide a brief introduction and key technical points."
+
+metadata:
+  difficulty: easy

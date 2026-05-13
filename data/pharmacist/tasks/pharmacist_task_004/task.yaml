@@ -1,0 +1,27 @@
+schema_version: v2
+task_id: pharmacist_task_004
+user_id: pharmacist
+environment_id: env_pharmacist
+title: Pharmacy Paper Figure Interpretation and Reading-Order Guidance
+description: "The user often struggles to understand paper figures. The task directory now provides the original paper PDF, a paired figure, and a flawed interpretation draft. The task is intentionally harder: the agent must recover what the figure is trying to prove from the figure itself plus the surrounding paper context, correct the draft, and leave behind a cleaner reusable note."
+task_type: short_term_contextual
+trigger:
+  type: user
+intent:
+  initial_input: |
+    First read `targeted_liposomal_tnbc_paper.pdf`, `figure_5_in_vivo_efficacy.png`, and `figure_interpretation_note.md` in the current task directory; if anything is missing, say so first. Then revise the current figure note instead of starting from zero. Please update `figure_interpretation_note.md`, and in your final reply use exactly these blocks in this order: `What The Figure Is Proving`, `Most Decisive Panel`, `What The Visual Alone Shows`, `What Requires Paper Context`, `Retell Sentence`.
+  hidden_intent:
+  - content: Treat `figure_interpretation_note.md` as a flawed draft to be corrected rather than a trusted interpretation.
+  - content: Start with one sentence telling me what the figure is actually trying to prove.
+  - content: Recover the figure context from the local paper itself rather than relying on the draft, and make clear what information comes from the visual panel versus from the surrounding article context.
+  - content: If there are many panels, identify the most important comparison or the most worth-reading panel first instead of scanning everything evenly.
+  - content: Distinguish the panel that carries the main conclusion from panels that mainly support mechanism, corroboration, or presentation detail.
+  - content: If the panel meaning, groups, controls, or endpoints are still unclear after reading the local PDF and figure, say exactly which missing context matters most instead of guessing.
+  - content: Also give a reusable reading order for similar figures and correct at least one common misreading preserved in the draft.
+  - content: End with one sentence that can be directly retold to someone else.
+  - content: If the draft pushes a left-to-right reading order or treats every panel as equally important, override that and promote the biologically decisive panel first.
+
+
+
+metadata:
+  difficulty: hard

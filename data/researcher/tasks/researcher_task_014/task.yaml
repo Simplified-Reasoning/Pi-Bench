@@ -1,0 +1,56 @@
+schema_version: v2
+task_id: researcher_task_014
+user_id: researcher
+environment_id: env_researcher
+title: Todoist Conflict Detection Task (15 Items)
+description: "Test whether the agent can identify and handle conflicting tasks in Todoist based on timestamps in the description"
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    Assume today is Wednesday, April 1, 2026. 
+    My Todoist login info:
+      Email: la-mcco@gmail.com
+      Password: Eu(M@!7
+    Please help me organize this Friday's (April 3) items in my todoist app.
+    
+    My Todoist usage habits are:
+    1. The task title should only contain the name of the task, and should not include the time;
+    2. The specific timestamp should be written in the description, in a format like: Time: Friday 10:30-11:30;
+
+    1.  Morning stretching, Friday 07:30-08:00
+    2.  Make breakfast, Friday 08:30-09:00
+    3.  Receive a package, Friday 08:45-09:15
+    4.  Organize this week's weekly report, Friday 09:30-10:15
+    5.  Project sync meeting, Friday 10:30-11:30
+    6.  Client requirements call, Friday 11:00-12:00
+    7.  Lunch, Friday 12:15-13:00
+    8.  Submit reimbursement materials, Friday 13:00-13:30
+    9.  Read a related paper, Friday 13:45-14:30
+    10.  Reply to important emails, Friday 14:30-14:50
+    11.  Code review, Friday 15:00-16:00
+    12.  Team meeting rehearsal, Friday 15:30-16:30
+    13.  Record expenses, Friday 16:40-17:00
+    14.  Buy daily necessities, Friday 17:00-17:40
+    15.  Organize the desk and files, Friday 17:45-18:15
+
+  hidden_intent:
+    - content: "Task 2 [Make breakfast] and Task 3 [Receive a package] form a pairwise conflict. Changing the time for task3, Change the time of Task 3 [Receive a package] to Friday 09:00-09:30"
+    - content: "Task 5 [Project sync meeting] and Task 6 [Client requirements call] form a pairwise conflict. Changing the time for task6,Change the time of Task 6 [Client requirements call] to Friday 11:30-12:15"
+    - content: "Task 11 [Code review] and Task 12 [Team meeting rehearsal] form a pairwise conflict. Changing the time for task12, Change the time of Task 12 [Team meeting rehearsal] to Friday 16:00-16:40"
+objectives:
+  tools:
+    - mcp_appworld_todoist__create_task:
+        call: [title, description, due_date]
+        result: [response.task_id]
+    - mcp_appworld_todoist__update_task:
+        call: [task_id, description]
+        result: [response.message]
+  checklist:
+  tools_evaluation_path: "data/researcher/scripts/researcher_task_014_todoist.py"
+
+metadata:
+  difficulty: medium

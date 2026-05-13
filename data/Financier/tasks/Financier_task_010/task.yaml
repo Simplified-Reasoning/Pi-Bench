@@ -1,0 +1,112 @@
+schema_version: v2
+task_id: Financier_task_010
+user_id: Financier
+environment_id: env_Financier
+title: Independent Validation Conclusion for a Logistic-Regression PD Scorecard
+description: "The user now wants a system-level validation conclusion for a logistic-regression\
+  \ PD scorecard developed on German Credit Data-like inputs. The task depends on\
+  \ the previous validation-priority setup and tests whether the agent applies a risk-first,\
+  \ decision-oriented SR 11-7 validation lens to package-specific evidence instead\
+  \ of merely summarizing model metrics."
+task_type: short_term_contextual
+trigger:
+  type: user
+intent:
+  initial_input: |
+    First read `german.data`, `german_credit_schema.md`, `german_credit_split.csv`, `pd_scorecard_model_spec.yaml`, and `pd_validation_report_draft.md` in the current task directory; if anything is missing, say so first. Use the public source paths directly rather than relying on local summary notes: Federal Reserve SR 11-7 main page https://www.federalreserve.gov/supervisionreg/srletters/sr1107.htm, SR 11-7 PDF https://www.federalreserve.gov/supervisionreg/srletters/sr1107a1.pdf, and UCI Statlog German Credit Data page https://archive.ics.uci.edu/dataset/144/statlog+german+credit+data. The local data and model specification are intentionally raw: you need to compute the :validation metrics from the fixed raw data, split file, and scorecard formula yourself. Then revise `pd_validation_report_draft.md` instead of starting from zero. In the final reply, use exactly these blocks in this order: `Validation Decision`, `Findings`, `Limitations`, `Recommendations`, `Monitoring And Use Conditions`. Now apply the previous risk-first validation lens to the fixed logistic-regression PD scorecard. Produce a structured independent-validation conclusion with Findings, Limitations, and Recommendations, clearly marking High / Medium / Low priority issues. Cover data representativeness, variable and binning reasonableness, model assumptions and explainability, discriminatory power and stability, threshold setting, intended use, and monitoring. Anchor the main judgment to SR 11-7 principles.
+  hidden_intent:
+    - content: Inherit the previous preference for conclusion-first, high-risk-first,
+        decision-oriented validation writing.
+    - content: Do not redevelop the model or write a generic scorecard tutorial; evaluate
+        whether the model package supports use.
+    - content: "Use SR 11-7 as the validation lens: effective challenge, conceptual\
+        \ soundness, outcomes analysis, ongoing monitoring, limitations, and fit-for-use."
+    - content: Treat German Credit Data as benchmark context only and flag representativeness
+        as a high-priority limitation.
+    - content: Convert package facts into use restrictions and remediation actions.
+    - content: Explicitly separate High, Medium, and Low priority issues instead of
+        presenting a flat checklist.
+    - content: If the metrics are directionally useful but evidence is incomplete,
+        choose conditional use rather than unrestricted approval.
+objectives:
+  checklist:
+    - criterion: "The `Validation Decision` block must make a clear model-use decision.\
+        \ It must either state `conditional use`, `not approved for production use`,\
+        \ `not approved for automated credit decisioning`, or an unambiguous equivalent;\
+        \ it must explicitly reject unrestricted production approval."
+    - criterion: "The `Validation Decision` block must justify the restricted / non-production\
+        \ decision using at least three of these incomplete evidence areas: production\
+        \ representativeness, calibration evidence, threshold justification, out-of-time\
+        \ validation, or approved monitoring evidence."
+    - criterion: "The final reply must contain exactly five top-level blocks in this\
+        \ order: `Validation Decision`, `Findings`, `Limitations`, `Recommendations`,\
+        \ and `Monitoring And Use Conditions`."
+    - criterion: "The `Findings` block must use visible High / Medium / Low priority\
+        \ labels and must include at least three High-priority findings tied to computed\
+        \ facts."
+    - criterion: "A High-priority data finding must state that the fixed German Credit\
+        \ raw data has `1,000` rows and `20` input attributes plus target."
+    - criterion: "A High-priority data finding must state that the fixed split is\
+        \ an explicit `700/300` train-test split."
+    - criterion: "A High-priority data finding must state that the dataset does not\
+        \ prove representativeness for a current production portfolio, underwriting\
+        \ policy, geography, or macro-cycle."
+    - criterion: "A High-priority performance finding must state the computed AUC\
+        \ generalization gap with absolute numeric tolerance up to `0.05`: train AUC\
+        \ about `0.8069` versus test AUC about `0.7106`."
+    - criterion: "A High-priority performance finding must state the computed KS generalization\
+        \ gap with absolute numeric tolerance up to `0.05`: train KS about `0.5001`\
+        \ versus test KS about `0.3630`."
+    - criterion: "The response must interpret the AUC/KS gap as weaker out-of-sample\
+        \ discrimination, potential overfitting, or instability rather than as clean\
+        \ approval evidence."
+    - criterion: "A High-priority threshold finding must state that the proposed PD\
+        \ `0.35` manual-review cutoff is not adequately justified."
+    - criterion: "The threshold finding must include the computed test confusion-matrix\
+        \ facts: `TP 64`, `FP 74`, `TN 132`, and `FN 30`."
+    - criterion: "The threshold finding must state that a model-use decision still\
+        \ needs business cost, approval-rate, loss-rate, or manual-review-capacity\
+        \ support."
+    - criterion: "The response must include the computed split bad-rate facts, allowing\
+        \ absolute numeric tolerance up to `0.05`: train bad rate about `29.43%` and\
+        \ test bad rate about `31.33%`; it must use them as sample-context evidence\
+        \ rather than as proof of production representativeness."
+    - criterion: "The response must discuss computed stability using the PSI facts,\
+        \ allowing absolute numeric tolerance up to `0.05`: score PSI about `0.0486`,\
+        \ checking_status PSI about `0.0075`, and credit_amount-band PSI about `0.0252`."
+    - criterion: "The PSI discussion must not falsely describe these train-test PSI\
+        \ values as severe drift, but must still require out-of-time and production\
+        \ monitoring."
+    - criterion: "The response must discuss rank ordering using the computed full-sample\
+        \ quintile bad rates, allowing absolute numeric tolerance up to `0.05`: highest-risk\
+        \ quintile about `62.0%` bad rate and lowest-risk quintile about `7.0%` bad\
+        \ rate."
+    - criterion: "The rank-ordering discussion must treat the quintile separation\
+        \ as useful evidence but not sufficient for unrestricted use."
+    - criterion: "The response must discuss binning reasonableness using the high-balance\
+        \ bin counts: `credit_amount > 10000` has `40` records overall, with `28`\
+        \ train and `12` test."
+    - criterion: "The response must discuss binning reasonableness using age-bin bad-rate\
+        \ evidence with absolute numeric tolerance up to `0.05`: `<25` about `40.94%`,\
+        \ `25-34` about `32.83%`, `35-49` about `22.63%`, and `50+` about `27.20%`;\
+        \ alternatively, it may state that the age `50+` reversal creates a monotonicity\
+        \ or granularity issue."
+    - criterion: "The response must explicitly connect the conclusion to SR 11-7-style\
+        \ principles, including at least three of: conceptual soundness, outcomes\
+        \ analysis, ongoing monitoring, effective challenge, limitations, fit-for-use,\
+        \ or use restrictions."
+    - criterion: "The `Limitations` block must state that German Credit Data is benchmark\
+        \ or educational context and does not by itself prove production representativeness\
+        \ or current-policy fit."
+    - criterion: "The `Limitations` block must state that the available evidence does\
+        \ not by itself prove fair-lending acceptability or through-the-cycle performance."
+    - criterion: "The `Recommendations` block must include concrete remediation actions\
+        \ before broader use: out-of-time or recent validation, calibration analysis,\
+        \ threshold/cutoff justification tied to business costs or capacity, binning\
+        \ sensitivity review, and approved monitoring thresholds."
+    - criterion: "The `Monitoring And Use Conditions` block must define at least four\
+        \ monitoring items, including discrimination tracking such as AUC or KS, calibration\
+        \ or score-band bad rates, PSI or population drift, cutoff performance / manual-review\
+        \ volume, and override or exception tracking."
+metadata:
+  difficulty: hard

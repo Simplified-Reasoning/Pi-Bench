@@ -1,0 +1,36 @@
+{
+  "exp_id": "23",
+  "benchmark": "v_star bench",
+  "base_model": "qwen2.5-7b-vl",
+  "training_method": "grpo",
+  "settings": {
+    "init_checkpoint": "exp_08 (sft_full)",
+    "reward": {
+      "type": "rule_based+light_rm",
+      "components": [
+        "answer_exactness",
+        "visual_grounding",
+        "format_compliance"
+      ]
+    },
+    "grpo": {
+      "rollouts_per_prompt": 6,
+      "max_new_tokens": 512,
+      "temperature": 0.9,
+      "top_p": 0.9,
+      "kl_beta": 0.05,
+      "policy_lr": 9e-6,
+      "epochs": 1,
+      "batch_size": 48,
+      "clip_range": 0.2,
+      "notes": "Aggressive exploration + higher KL; stable but not SOTA."
+    }
+  },
+  "metrics": {
+    "acc": 83.9
+  },
+  "environment": {
+    "hardware": "8xA100-80GB",
+    "precision": "bf16"
+  }
+}

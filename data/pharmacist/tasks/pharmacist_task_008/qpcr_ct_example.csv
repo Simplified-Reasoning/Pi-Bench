@@ -1,0 +1,8 @@
+sample,group,target_ct,housekeeping_ct
+Ctrl_1,control,24.8,18.1
+Ctrl_2,control,25.0,18.0
+Ctrl_3,control,24.7,18.2
+Treat_1,treatment,22.9,18.1
+Treat_2,treatment,23.1,18.0
+Treat_3,treatment,22.8,18.2
+

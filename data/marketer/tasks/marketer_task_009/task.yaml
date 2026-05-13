@@ -1,0 +1,30 @@
+schema_version: v2
+task_id: marketer_task_009
+user_id: marketer
+environment_id: env_marketer
+title: SOP
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: "Regarding the 'Enterprise AI Agent Commercial Operator Bootcamp' project, please search our workspace to find the previously created project content strategy and the internal community launch rulebook to gather all necessary information. Based on the strategic pillars and execution norms found in these files, generate the complete 5-Day Private Community Launch Script SOP. This script should detail the Lead Instructor's daily insight topics, and the specific daily execution actions for the TA and the Community Manager. Please write this directly into a file named 5_Day_Launch_SOP.md (maximum 5 paragraphs) in our workspace."
+  hidden_intent:
+    - content: "The script explicitly includes concepts defining the 'Target Audience', 'Ideal Customer Profile', or 'Who this is for'."
+    - content: "The script explicitly integrates the prospects' 'Core Needs', 'Pain Points', 'Challenges', or 'Anxiety'."
+    - content: "The Lead Instructor is scheduled to teach/appear exactly once per day across the 5-day cycle."
+    - content: "The script explicitly shows the TA prompting/answering member questions."
+    - content: "The script assigns the Community Manager the task of daily promotion for the main course purchase."
+
+objectives:
+  files_read:
+    - 5_Day_Launch_SOP.md
+  checklist:
+    - criterion: "The SOP addresses commercial or career anxieties related to AI, such as the fear of being replaced, the pressure to improve ROI, or business bottlenecks."
+    - criterion: "Role Firewall (Church and State): The SOP strictly enforces that the Lead Instructor's content remains 100% educational and value-driven across all 5 days. It explicitly forbids the Instructor from using promotional language, pitching, or mentioning enrollment/pricing, mandating that all sales and conversion activities be exclusively delegated to the Community Manager."
+    - criterion: "Actionable TA Execution: The SOP assigns the TA concrete, quoted examples of engagement prompts, polls, or mini-challenges for the community (e.g., 'What is one task...', 'How many AI tools...'), strictly avoiding vague and un-executable directives like 'nurture participants' or 'provide examples' without demonstrating what those examples are."
+    - criterion: "Progressive Sales Arc: The Community Manager's daily promotional strategy explicitly shifts in psychological tone and tactical purpose each day (e.g., moving precisely from an 'Informational' welcome, to 'Aspirational' social proof, to 'Consultative' objection handling/FAQs, and finally a 'Direct Conversion' CTA), rather than repeatedly issuing generic instructions to 'schedule promotional content'."
+    - criterion: "Strict Paragraph Constraint: The response strictly adheres to the 'maximum 5 paragraphs' constraint by packing the daily instructions (Instructor, TA, and CM actions) into single, highly dense continuous text blocks (one paragraph per day), strictly avoiding the use of sub-bullets, excessive line breaks, or sub-headings within a single day's plan."
+metadata:
+  difficulty: hard

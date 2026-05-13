@@ -1,0 +1,23 @@
+schema_version: v2
+task_id: researcher_task_007
+user_id: researcher
+environment_id: env_researcher
+
+title: "Experiment Review and Paper-Writing Deliverable Format Rules"
+description: "Evaluation task: rules for deliverable formats when reviewing experiment data and writing papers."
+
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: "The SOTA metrics you organized on the V-star bench were very useful. I plan to reuse them directly when writing papers and group-meeting slides later—please organize this for me."
+  hidden_intent:
+    - content: "Routine experiment summaries, core-conclusion overviews, and everyday readable analysis tables must be saved as `.md` files in the experiment results folders so I can copy-paste into Notion for group-meeting reviews."
+
+    - content: "Whenever there is a direct numerical comparison with existing SOTA methods, provide a separate LaTeX table in standard academic style and save it as a `.tex` file in the experiment results folders for seamless insertion into Overleaf."
+
+
+metadata:
+  difficulty: easy

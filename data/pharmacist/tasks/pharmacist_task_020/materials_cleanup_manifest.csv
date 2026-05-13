@@ -1,0 +1,9 @@
+role,path
+source_directory,pharmacy_materials/source
+source_file,pharmacy_materials/source/reading_notes.txt
+destination_directory,pharmacy_materials/organized
+archive_directory,pharmacy_materials/archive
+file_copy_destination,pharmacy_materials/organized/reading_notes_copy.txt
+file_move_destination,pharmacy_materials/organized/reading_notes_moved.txt
+directory_copy_destination,pharmacy_materials/source_backup
+directory_move_destination,pharmacy_materials/archive/source_moved

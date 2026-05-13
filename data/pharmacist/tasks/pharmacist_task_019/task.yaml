@@ -1,0 +1,43 @@
+schema_version: v2
+task_id: pharmacist_task_019
+user_id: pharmacist
+environment_id: env_pharmacist
+title: Cross-Project Procurement Triage
+description: "The user has already sorted two procurement strands: eczema topical gel pilot materials and qPCR / cell-experiment blockers. The task tests whether the agent can merge those two inherited procurement artifacts into one slot-limited triage plan, correct a flawed draft that tries to buy everything at once, separate immediate purchases from confirmation-only decisions, avoid duplicate or route-tied buys, and keep progress viable if no reply arrives. The task is intentionally independent of the runtime date."
+task_type: short_term_contextual
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    First read `gel_procurement_reference.csv`, `qpcr_procurement_reference.csv`, `triage_rules.md`, `triage_constraints.json`, `confirmation_note.md`, and `merged_procurement_plan.json` in the current task directory; if anything is missing, say so first. Then revise `merged_procurement_plan.json` rather than starting from zero, and keep it valid JSON. The revised JSON should use separated fields for `primary_procurement_move`, `immediate_slots`, `next_wave_gel_basics`, `conditional_backup_lab_support`, `deferred_route_tied_confirmation`, `confirmation_action`, `fallback_if_no_reply`, and `draft_corrections`. In your final reply, use exactly these blocks in this order: `Primary Procurement Move`, `Immediate Slot Allocation`, `Merged Decision Table`, `Confirmation Needed`, `Deferred On Purpose`, `Fallback If No Reply`, `Draft Corrections`. The `Immediate Slot Allocation` block must be a markdown table with columns `Slot | Item | Strand | Why It Earns Immediate Slot`, and the `Merged Decision Table` must be a markdown table with columns `Bucket | Items | Reason`.
+
+  hidden_intent:
+    - content: Carry forward both upstream procurement artifacts instead of writing a fresh generic shopping list.
+    - content: Put qPCR / cell blockers first because they can break the next experiment.
+    - content: Apply the eight-slot immediate-order cap instead of expanding the immediate bucket until every useful item is included.
+    - content: Keep carbomer-baseline gel pilot items available, but do not let final packaging, preservative, alternative-route items, backup cell-culture items, or ambiguous duplicate filter needs enter the immediate purchase bucket.
+    - content: Treat `merged_procurement_plan.json` as a flawed draft to repair, not as a trusted plan and not as a file to ignore.
+    - content: Correct the draft's packaging-first, universal-cart, duplicated-filter, backup-as-immediate, and route-tied-buy-now tendencies.
+    - content: Use one concise confirmation action to resolve the few decisions that change purchasing, instead of asking every open question.
+    - content: Keep packaging, preservative, alternative gel-base choices, and capacity-limited next-wave basics intentionally deferred unless confirmation changes the plan.
+    - content: Preserve progress if no reply arrives by ordering the exact eight-slot plan instead of waiting for confirmation before ordering everything.
+
+objectives:
+  checklist:
+    - criterion: "The final reply must contain the seven required top-level blocks in this exact order: `Primary Procurement Move`, `Immediate Slot Allocation`, `Merged Decision Table`, `Confirmation Needed`, `Deferred On Purpose`, `Fallback If No Reply`, and `Draft Corrections`. A trailing completion marker such as `Complete` is acceptable, but extra analytical sections are not."
+    - criterion: "The `Primary Procurement Move` block must state that the first move is a capped eight-slot order led by qPCR / cell blockers, explain that the next qPCR run or CCK-8 / 96-well viability screen would be blocked if those items are delayed, and explicitly reject the draft's packaging-first or buy-everything-first approach."
+    - criterion: "The `Immediate Slot Allocation` block must be a markdown table with exactly these columns in this order: `Slot | Item | Strand | Why It Earns Immediate Slot`. It must contain exactly 8 item rows, not 7 or 9+, and the slots must be numbered 1 through 8."
+    - criterion: "The exact five qPCR / cell immediate-slot items must be `Target-gene primers`, `Sealing film`, `RNase-free filter tips`, `CCK-8 reagent`, and `96-well cell plates`. These five must all appear in `Immediate Slot Allocation`, and `FBS`, `Trypsin`, and `0.22 um sterile filter` must not appear there as immediate-slot items."
+    - criterion: "The exact three gel immediate-slot items must be `Carbomer 940`, `Triethanolamine`, and `Propylene Glycol`. These three must appear in `Immediate Slot Allocation`, and `Glycerin`, `Disodium EDTA / Citric Acid` or `EDTA / Citric Acid`, `0.22 um filter`, and `Spatula and Ointment Jar` must not appear there as immediate-slot items."
+    - criterion: "The `Merged Decision Table` block must be a markdown table with exactly these columns in this order: `Bucket | Items | Reason`. It must include at least four distinct buckets: `Immediate 8-slot order`, `Next-wave gel basics`, `Conditional / backup lab support`, and `Deferred route-tied confirmation` or wording with the same four meanings."
+    - criterion: "The `Merged Decision Table` or `Deferred On Purpose` block must keep `Aluminum Tube`, `Airless Pump Bottle`, `Phenoxyethanol` or `preservative system`, and `Hydroxyethyl Cellulose` out of immediate buy-now status, and must place them in deferred or confirmation-only logic."
+    - criterion: "The `Confirmation Needed` block must give exactly one concise confirmation action that covers all three decisions: whether the top qPCR / cell blockers are the five immediate-slot blockers or should be reprioritized, whether carbomer baseline remains the default gel route, and whether next-wave gel basics plus packaging / preservative decisions should stay postponed. It must not ask every open question or ask for a full procurement meeting."
+    - criterion: "The `Deferred On Purpose` block must explain both types of deferral: at least two route-tied deferrals from `Aluminum Tube`, `Airless Pump Bottle`, `Phenoxyethanol`, `preservative system`, `Hydroxyethyl Cellulose`, or `alternative gel base`, and at least one capacity-limited non-route deferral from `Glycerin`, `Disodium EDTA / Citric Acid`, `EDTA / Citric Acid`, `0.22 um filter`, `0.22 um sterile filter`, `Spatula and Ointment Jar`, `FBS`, or `Trypsin`."
+    - criterion: "The reply must explicitly resolve the duplicate-filter trap: it must state that `0.22 um filter` / `0.22 um sterile filter` should not be counted as two separate immediate buys, and it must place the filter need in next-wave, conditional, or confirmation logic rather than in `Immediate Slot Allocation`."
+    - criterion: "The `Fallback If No Reply` block must say not to freeze the plan: proceed with the exact eight immediate slots (`Target-gene primers`, `Sealing film`, `RNase-free filter tips`, `CCK-8 reagent`, `96-well cell plates`, `Carbomer 940`, `Triethanolamine`, and `Propylene Glycol`) while keeping backup culture items, next-wave gel basics, packaging, preservative, and alternative-route choices deferred."
+    - criterion: "The `Draft Corrections` block must identify at least four repaired mistakes from the flawed JSON draft, including `packaging first`, `universal purchase bucket` or `buy everything at once`, `preservative treated as buy-now`, and either `FBS / Trypsin / filter treated as immediate despite the slot cap`, `empty deferred or confirmation bucket`, or `wait for reply before ordering everything`."
+
+metadata:
+  difficulty: hard

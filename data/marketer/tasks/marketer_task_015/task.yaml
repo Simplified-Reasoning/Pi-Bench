@@ -1,0 +1,22 @@
+schema_version: v2
+task_id: marketer_task_015
+user_id: marketer
+environment_id: env_marketer
+title: brief
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: "We are conducting background research on two brands: the hardcore e-sports brand 'ROG (Republic of Gamers)' and the centuries-old traditional medicine brand 'Beijing Tong Ren Tang (BTRT)'. Please research them independently via the internet. Please write this directly into a file named Brand_Research.md (maximum 4 paragraphs) in our workspace."
+  hidden_intent:
+    - content: "The official brand slogan for ROG is explicitly identified as 'For Those Who Dare'."
+    - content: "The research delves into specific ROG product lines, mentioning core models like 'Zephyrus' or 'Strix', or its iconic 'Fearless Eye' logo."
+    - content: "The research captures the core meaning of BTRT's traditional quality principle, specifically the commitment to never compromise on labor/effort and never compromise on materials/cost."
+objectives:
+  files_read:
+    - Brand_Research.md
+
+metadata:
+  difficulty: medium

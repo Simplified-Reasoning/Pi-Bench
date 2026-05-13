@@ -1,0 +1,7 @@
+["INSERT INTO files (compressed_data, created_at, updated_at, record_hash, path, tilde_path, user_id, content) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",["[]","2022-04-03 11:21:34.000000","2022-04-03 11:21:34.000000","nh1BcC56VCc=","/home/claudia/documents/work/headshot.jpeg","~/documents/work/headshot.jpeg",23,"binary:19e578af6a..."],false]
+["DELETE FROM files WHERE files.id = ?",[2574],false]
+["UPDATE directories SET updated_at=?, record_hash=? WHERE directories.id = ?",["2023-05-18 12:00:00.000000","RNQApwYTDeE=",724],false]
+["UPDATE directories SET updated_at=?, record_hash=? WHERE directories.id = ?",["2023-05-18 12:00:00.000000","bT4IU4hWGf8=",713],false]
+["UPDATE directories SET updated_at=?, record_hash=? WHERE directories.id = ?",["2023-05-18 12:00:00.000000","2a5v+GlJTW0=",714],false]
+["UPDATE directories SET updated_at=?, record_hash=? WHERE directories.id = ?",["2023-05-18 12:00:00.000000","izEWTQwnnqk=",715],false]
+["UPDATE directories SET updated_at=?, record_hash=? WHERE directories.id = ?",["2023-05-18 12:00:00.000000","0XqYQ9/4xyo=",716],false]

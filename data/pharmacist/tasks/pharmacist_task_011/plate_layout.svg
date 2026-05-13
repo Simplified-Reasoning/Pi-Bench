@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="520" viewBox="0 0 1180 520">
+  <rect width="1180" height="520" fill="#f7f5ef"/>
+  <text x="40" y="44" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#1f2a1f">96 孔板布局示意</text>
+  <text x="40" y="72" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#4b5a4b">Rows A-H, Columns 1-12. Use this layout together with raw OD values to interpret controls, repeats, and possible edge effects.</text>
+
+  <g font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#2a2a2a">
+    <text x="110" y="120">1</text><text x="190" y="120">2</text><text x="270" y="120">3</text><text x="350" y="120">4</text>
+    <text x="430" y="120">5</text><text x="510" y="120">6</text><text x="590" y="120">7</text><text x="670" y="120">8</text>
+    <text x="750" y="120">9</text><text x="825" y="120">10</text><text x="905" y="120">11</text><text x="985" y="120">12</text>
+    <text x="48" y="165">A</text><text x="48" y="225">B</text><text x="48" y="285">C</text><text x="48" y="345">D</text>
+    <text x="48" y="405">E</text><text x="48" y="465">F</text>
+  </g>
+
+  <g font-family="Helvetica, Arial, sans-serif" font-size="13">
+    <rect x="80" y="130" width="70" height="48" fill="#d6e7ff" stroke="#6b7c93"/><text x="93" y="158" fill="#20354d">Blank</text>
+    <rect x="160" y="130" width="70" height="48" fill="#d6e7ff" stroke="#6b7c93"/><text x="173" y="158" fill="#20354d">Blank</text>
+    <rect x="240" y="130" width="70" height="48" fill="#dcf2dc" stroke="#6b8a6b"/><text x="252" y="158" fill="#234423">UT</text>
+    <rect x="320" y="130" width="70" height="48" fill="#dcf2dc" stroke="#6b8a6b"/><text x="332" y="158" fill="#234423">UT</text>
+    <rect x="400" y="130" width="70" height="48" fill="#fbe4c9" stroke="#9b7750"/><text x="409" y="158" fill="#5a3c1f">DMSO</text>
+    <rect x="480" y="130" width="70" height="48" fill="#fbe4c9" stroke="#9b7750"/><text x="489" y="158" fill="#5a3c1f">DMSO</text>
+    <rect x="560" y="130" width="70" height="48" fill="#f4d2d2" stroke="#9a6565"/><text x="569" y="158" fill="#5a2020">Pos</text>
+    <rect x="640" y="130" width="70" height="48" fill="#f4d2d2" stroke="#9a6565"/><text x="649" y="158" fill="#5a2020">Pos</text>
+    <rect x="720" y="130" width="70" height="48" fill="#e4dbf7" stroke="#77638f"/><text x="736" y="158" fill="#34204d">0.1</text>
+    <rect x="800" y="130" width="70" height="48" fill="#e4dbf7" stroke="#77638f"/><text x="816" y="158" fill="#34204d">0.1</text>
+    <rect x="880" y="130" width="70" height="48" fill="#e4dbf7" stroke="#77638f"/><text x="896" y="158" fill="#34204d">0.3</text>
+    <rect x="960" y="130" width="70" height="48" fill="#e4dbf7" stroke="#77638f"/><text x="976" y="158" fill="#34204d">0.3</text>
+
+    <rect x="80" y="190" width="70" height="48" fill="#d6e7ff" stroke="#6b7c93"/><text x="93" y="218" fill="#20354d">Blank</text>
+    <rect x="160" y="190" width="70" height="48" fill="#d6e7ff" stroke="#6b7c93"/><text x="173" y="218" fill="#20354d">Blank</text>
+    <rect x="240" y="190" width="70" height="48" fill="#dcf2dc" stroke="#6b8a6b"/><text x="252" y="218" fill="#234423">UT</text>
+    <rect x="320" y="190" width="70" height="48" fill="#dcf2dc" stroke="#6b8a6b"/><text x="332" y="218" fill="#234423">UT</text>
+    <rect x="400" y="190" width="70" height="48" fill="#fbe4c9" stroke="#9b7750"/><text x="409" y="218" fill="#5a3c1f">DMSO</text>
+    <rect x="480" y="190" width="70" height="48" fill="#fbe4c9" stroke="#9b7750"/><text x="489" y="218" fill="#5a3c1f">DMSO</text>
+    <rect x="560" y="190" width="70" height="48" fill="#f4d2d2" stroke="#9a6565"/><text x="569" y="218" fill="#5a2020">Pos</text>
+    <rect x="640" y="190" width="70" height="48" fill="#f4d2d2" stroke="#9a6565"/><text x="649" y="218" fill="#5a2020">Pos</text>
+    <rect x="720" y="190" width="70" height="48" fill="#e4dbf7" stroke="#77638f"/><text x="739" y="218" fill="#34204d">1</text>
+    <rect x="800" y="190" width="70" height="48" fill="#e4dbf7" stroke="#77638f"/><text x="819" y="218" fill="#34204d">1</text>
+    <rect x="880" y="190" width="70" height="48" fill="#e4dbf7" stroke="#77638f"/><text x="899" y="218" fill="#34204d">3</text>
+    <rect x="960" y="190" width="70" height="48" fill="#e4dbf7" stroke="#77638f"/><text x="975" y="218" fill="#34204d">10</text>
+  </g>
+
+  <text x="42" y="480" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#465246">UT = untreated control; Pos = positive control; numeric labels are candidate formulation A concentrations in μM.</text>
+  <text x="42" y="502" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#465246">Pilot-layout note: the highest concentrations are placed at B11 and B12 rather than mirrored as a clean duplicate pair.</text>
+</svg>

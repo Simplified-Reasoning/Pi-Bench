@@ -1,0 +1,38 @@
+schema_version: v2
+task_id: marketer_task_019
+user_id: marketer
+environment_id: env_marketer
+title: crisis pr
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: '|
+    [INCOMING SYSTEM WEBHOOK: CRISIS_MANAGEMENT_PLATFORM]
+    {
+      "event_id": "EVT-2026-05-04-001",
+      "trigger_source": "client_approval_matrix",
+      "client": "MeowConnect",
+      "status": "PHASE_1_ALIGNMENT_COMPLETE",
+      "next_action_required": "GENERATE_AND_PUBLISH_FINAL_APOLOGY_LETTER",
+      "target_platform": "X_Twitter",
+      "context_dependency": "PRIOR_CLIENT_ALIGNMENT_SESSION",
+      "output_directive": "STDOUT_RAW_TEXT_ONLY"
+    }'
+
+  hidden_intent:
+    - content: "The letter explicitly integrates the exact incident scale data: the specific duration of downtime and the specific number of affected active nodes."
+    - content: "The letter explicitly states the official engineering explanation."
+    - content: "The letter explicitly announces the compensation." 
+
+objectives:
+  checklist:
+    - criterion: "The letter explicitly attributes the outage to 'unforeseen extreme fluctuations' in cloud infrastructure or cloud services, accurately recalling the engineering cause."
+    - criterion: "The letter accurately conveys the temporal scope of the outage by explicitly mentioning the dates 'May 1 to May 3' AND/OR specifying a '48-hour' duration."    
+    - criterion: "The letter explicitly integrates the exact numerical scale of '150,000' affected entities (accepting natural PR terminology such as '150,000 devices', 'households', 'feeders', or 'nodes')."
+    - criterion: "The letter explicitly announces the '$1 Million Fur Baby Medical Reimbursement Fund'."
+    - criterion: "The letter strictly avoids fabricating highly specific, unapproved operational commitments or contact methods that were not in the context (e.g., explicitly penalized for inventing phone numbers or specific firmware update timelines). General statements of continuous improvement are acceptable."
+metadata:
+  difficulty: medium

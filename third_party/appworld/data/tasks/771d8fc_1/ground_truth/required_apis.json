@@ -1,0 +1,10 @@
+[
+    "supervisor.complete_task",
+    "supervisor.show_account_passwords",
+    "supervisor.show_profile",
+    "phone.delete_text_message",
+    "phone.delete_voice_message",
+    "phone.login",
+    "phone.search_text_messages",
+    "phone.search_voice_messages"
+]

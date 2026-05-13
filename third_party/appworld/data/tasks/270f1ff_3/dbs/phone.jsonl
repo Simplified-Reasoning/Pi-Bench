@@ -1,0 +1,1 @@
+["UPDATE contacts SET record_hash=?, birthday=? WHERE contacts.id = ?",["8VZtYUFku9I=","1982-05-18",1824],false]

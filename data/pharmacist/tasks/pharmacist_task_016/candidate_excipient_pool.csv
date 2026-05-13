@@ -1,0 +1,13 @@
+category,item_name,example_spec,status_note,main_use
+gel_base,Carbomer 940,500 g,available,Build the gel backbone
+gel_base,Hydroxyethyl Cellulose,500 g,available,Serve as an alternative gel base or tune thixotropy
+neutralizer,Triethanolamine,500 mL,available,Neutralize carbomer and support gel formation
+cosolvent,Propylene Glycol,500 mL,available,Cosolubilize the API and improve skin feel
+cosolvent,Glycerin,500 mL,available,Moisturize and improve appearance
+preservative,Phenoxyethanol,100 mL,check_compatibility,Candidate preservative-system component
+chelating_agent,Disodium EDTA,100 g,available,Support stabilization
+pH_adjuster,Citric Acid,500 g,available,Fine-tune pH
+packaging,Aluminum Tube,30 g,check_fill_weight,Candidate first-round filling package
+packaging,Airless Pump Bottle,50 mL,defer_if_route_unclear,Consider later if the gel system proves more stable
+consumable,Disposable Syringe Filter,0.22 um,available,Prefilter samples
+consumable,Spatula and Ointment Jar,lab_pack,available,Prepare pilot batches and retain samples

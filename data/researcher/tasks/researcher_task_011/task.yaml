@@ -1,0 +1,67 @@
+schema_version: v2
+task_id: researcher_task_011
+user_id: researcher
+environment_id: env_researcher
+
+title: "Multimodal Ablation Results: Synthesis and Analysis"
+description: "Evaluation task: synthesize and analyze multimodal ablation experiment results."
+
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: "I just finished several think-with-image experiments. The results are in JSON files under the result/think-with-image directory. Please analyze this round of runs and summarize.If you find it necessary to create a .md document, name it exp_result_nanobot.md; if you find it necessary to create a .tex document, name it sota_compare.tex."
+  hidden_intent:
+    - content: "Start with a one- to two-sentence direct summary of the experimental outcomes."
+
+    - content: "Organize results in a readable table."
+
+    - content: "The results table must include these column names: base_model, training_method, training_setting, training_steps, accuracy."
+
+    - content: "Call out the top-three settings by accuracy separately, with a short analysis of why they perform well."
+
+    - content: "Save the organized table and analysis as a Markdown file named exp_result_nanobot.md in the result/think-with-image directory."
+
+    - content: "Compare experiment results with prior think-with-image SOTA methods such as Pixel-Reasoner(84.3), DeepEyes(85.6), and Thyme(82.2), DeepEyesV2(81.8)."
+
+    - content: "If any run beats prior think-with-image SOTA methods such as Pixel-Reasoner(84.3), DeepEyes(85.6), and Thyme(82.2), DeepEyesV2(81.8), state that explicitly."
+
+    - content: "If any run beats prior SOTA methods such as Pixel-Reasoner(84.3), DeepEyes(85.6), and Thyme(82.2), DeepEyesV2(81.8), provide a LaTeX-formatted table comparing those results with current SOTA numbers, and save it as sota_compare.tex in the result/think-with-image directory."
+
+objectives:
+  files_read:
+    - result/think-with-image/exp_result_nanobot.md
+    - result/think-with-image/sota_compare.tex
+  checklist:
+    - criterion: "Begins with a one- to two-sentence summary of experiment results."
+
+    - criterion: "Presents results in a plainly readable table."
+
+    - criterion: "The results table includes columns: base_model, training_method, training_setting, training_steps, accuracy."
+
+    - criterion: "Lists exp_24, exp_21, and exp_17 separately as the three best-performing runs."
+
+    - criterion: "States explicitly that exp_24 has accuracy 87.0."
+
+    - criterion: "States explicitly that exp_21 has accuracy 86.5."
+
+    - criterion: "States explicitly that exp_17 has accuracy 85.0."
+
+    - criterion: "Analyzes why exp_24, exp_21, and exp_17 perform well."
+
+    - criterion: "Saves the organized table and analysis as exp_result_nanobot.md under result/think-with-image."
+
+    - criterion: "States that exp_24 (86.7) and exp_21 (86.5) beat the current SOTA method DeepEyes (85.6)."
+
+    - criterion: "Writes a separate LaTeX table for this run's exp_24 and exp_21 versus current SOTA methods at result/think-with-image/sota_compare.tex."
+
+    - criterion: "LaTeX table numbers are accurate: exp_24 accuracy 87.0, exp_21 accuracy 86.5, Pixel-Reasoner 84.3, DeepEyes 85.6, Thyme 82.2, DeepEyesV2 81.8."
+
+    - criterion: "LaTeX table states exp_24's training method is sft_full+DAPO."
+
+    - criterion: "LaTeX table states exp_21's training method is sft_lora+DAPO."
+
+metadata:
+  difficulty: easy

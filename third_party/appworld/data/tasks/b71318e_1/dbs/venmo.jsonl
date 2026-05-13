@@ -1,0 +1,1 @@
+["UPDATE users SET record_hash=?, venmo_balance=? WHERE users.id = ?",["U3UfViN8zlM=",800.0,47],false]

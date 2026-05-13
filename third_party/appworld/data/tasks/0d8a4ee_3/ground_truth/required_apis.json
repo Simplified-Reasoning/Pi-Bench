@@ -1,0 +1,10 @@
+[
+    "supervisor.complete_task",
+    "supervisor.show_account_passwords",
+    "supervisor.show_profile",
+    "phone.login",
+    "phone.search_contacts",
+    "phone.send_text_message",
+    "venmo.login",
+    "venmo.show_profile"
+]

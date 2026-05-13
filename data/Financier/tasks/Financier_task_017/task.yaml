@@ -1,0 +1,58 @@
+schema_version: v2
+task_id: Financier_task_017
+user_id: Financier
+environment_id: env_Financier
+title: ''
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: "For the final component of our Enterprise Macro-Risk Data Platform,\
+    \ we need to build a distributed PySpark pipeline to analyze the correlation between\
+    \ market volatility and regulatory operational risk. Please write a PySpark script\
+    \ that ingests BOTH the raw Kenneth French daily CSV archive and the raw CFPB\
+    \ complaints CSV archive. The script must clean both datasets, aggregate them\
+    \ to a monthly frequency, and join them. Calculate the monthly rolling volatility\
+    \ of the core market factor, the average operational response lag, and the adjusted\
+    \ monthly complaint volume. Provide the executable script directly saved as 'risk_correlation_pipeline.py'\
+    \ in the workspace."
+  hidden_intent:
+    - content: "FF5 Memory: The script explicitly implements logic to skip/filter\
+        \ the metadata headers and copyright footers of the Kenneth French file, and\
+        \ accurately selects the standard factors (Mkt-RF, SMB, HML, RMW, CMA, RF)."
+    - content: "CFPB Schema  and  Temporal Memory: The script ensures 'Complaint ID' uniqueness\
+        \ and explicitly calculates the response time lag between 'Date received'\
+        \ and 'Date sent to company' handling edge cases."
+    - content: "Domain Context Memory: The script explicitly normalizes or adjusts\
+        \ the aggregated absolute monthly complaint volumes by a proxy (e.g., regional\
+        \ population or company market share), remembering that raw volume is statistically\
+        \ biased."
+    - content: "Distributed Engineering Limit: The script strictly utilizes pure PySpark\
+        \ DataFrame/Window APIs for the joining and rolling calculations, completely\
+        \ avoiding collecting data to the driver node (e.g., no `.toPandas()`)."
+
+objectives:
+  files_read:
+    - risk_correlation_pipeline.py
+  tools_evaluation_path: "data/Financier/scripts/Financier_task_017.py"
+  checklist:
+    - criterion: "The script correctly implements mathematical normalization by explicitly\
+        \ calculating a trailing moving average (e.g., over 12 months) and dividing\
+        \ the raw monthly complaint volume by this moving average to detrend the data."
+    - criterion: "The script calculates the monthly realized volatility correctly\
+        \ by computing the standard deviation of *daily* market returns within the\
+        \ month."
+    - criterion: "The script explicitly defines trailing/backward-looking window boundaries\
+        \ (e.g., looking back 11 or 12 months, ending at the current month/row 0)\
+        \ for the moving average and rolling volatility calculations. It strictly\
+        \ avoids centered windows or incorporating future data (e.g., avoiding `unboundedFollowing`),\
+        \ ensuring strict time-series causality."
+    - criterion: "The script explicitly demonstrates how it converts daily dates into\
+        \ a unified monthly key (e.g., extracting Year-Month, or truncating to the\
+        \ first/last day of the month) for BOTH datasets BEFORE executing the join,\
+        \ ensuring the market and regulatory data align correctly on the same temporal\
+        \ granularity."
+metadata:
+  difficulty: medium

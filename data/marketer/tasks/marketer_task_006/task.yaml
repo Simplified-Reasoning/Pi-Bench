@@ -1,0 +1,26 @@
+schema_version: v2
+task_id: marketer_task_006
+user_id: marketer
+environment_id: env_marketer
+title: ""
+description: ''
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: "Now please generate the deep-dive analysis report for the 'Apple × ISSEY MIYAKE iPhone Pocket' campaign (maximum 5 paragraphs). You must explicitly structure the report applying these three specific frameworks: the Fogg Behavior Model (B=MAP), Moments of Truth (MOT) Analysis, and a Red Team / Blue Team Critique. Output strictly the report itself without any introductory or concluding conversational filler. Direct output instead of creating a document."
+  hidden_intent:
+    - content: "The report explicitly integrates the product design philosophy."
+    - content: "The report explicitly analyzes negative feedback or risk points."
+    - content: "The entire report remains strictly focused on the co-branding campaign, containing no irrelevant information or deviations from the core topic."
+objectives:
+  checklist:
+    - criterion: "The report explicitly includes the content of Fogg Behavior Model (B=MAP), Moments of Truth (MOT) and 'Red Team / Blue Team Critique'."
+    - criterion: "The Fogg Behavior Model analysis must explain how the product's functional design or physical attributes reduce consumer friction to address the 'Ability' element."
+    - criterion: "The response explicitly identifies the core philosophy or official design concept specifically as 'A-POC' or 'a piece of cloth'."
+    - criterion: "The report must strictly avoid presenting the Blue and Red teams as disconnected, independent lists of pros and cons."
+    - criterion: "The report must explicitly demonstrate interconnected strategic thinking by connecting the mechanics of one framework directly into another, rather than treating the three frameworks as completely isolated, siloed analyses. The final synthesis explicitly unifies the frameworks to conclude with a definitive strategic question or paradox."
+metadata:
+  difficulty: hard

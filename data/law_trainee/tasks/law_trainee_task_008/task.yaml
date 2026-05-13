@@ -1,0 +1,56 @@
+schema_version: v2
+user_id: law_trainee
+environment_id: env_law_trainee
+task_type: short_term_independent
+trigger:
+  type: user
+task_id: law_trainee_task_008
+title: "Internal DD Deficiency Log to External Supplement Request"
+description: "Prepare one short internal deficiency log in Simple Note for the related-party loan review, then send one practical supplementation email in Gmail. Evaluation focuses on whether the note and email capture the three missing items, the matter context, and a clear deadline/fallback."
+intent:
+  initial_input: |-
+    My Simple Note email is stmcco@gmail.com and password is 'i#vhWEQ'. My Gmail email is stmcco@gmail.com and password is 'n3v=I[w'.
+
+    I still need to get the related-party loan review notes into circulation tonight, but a few DD gaps are holding this up. Please pull the outstanding points into one Simple Note entry for internal circulation and then turn that into a supplementation email to la-mcco@gmail.com.
+
+    I need something clean enough to use internally and clear enough to send out. If there is already a supplementation thread in Gmail, keep this with that thread. Please send the actual email in this pass rather than leaving me with a draft or asking me to approve wording first.
+
+  hidden_intent:
+    - content: "Use the Simple Note title \"Internal DD Deficiency Log — Related-Party Loan Review\" and identify these three missing items: the board resolution for the related-party borrowing, the latest shareholder register / cap table, and the signed funds-flow explanation."
+    - content: "In the Simple Note, briefly explain why each of those three items matters for the related-party loan review."
+    - content: "In the Gmail subject and body, make clear that this is a supplementation request for the related-party loan review, present the three missing items as a numbered list, ask for the materials by 5:00 p.m. tomorrow, ask the recipient to flag any delay immediately, and give a practical fallback if a final document is not ready."
+    - content: "If there is already a supplementation thread in Gmail, keep this request in that existing thread instead of starting a separate unrelated thread."
+    - content: "Send the actual supplementation email in this pass rather than leaving only a draft or asking for wording approval first."
+objectives:
+  tools:
+    - mcp_appworld_simple_note__create_note:
+        call: [title, content]
+        result: [response.note_id]
+    - mcp_appworld_simple_note__update_note:
+        call: [note_id, content]
+        result: [response.message]
+    - mcp_appworld_gmail__send_email:
+        call: [email_addresses, subject, body]
+        result: [response.sent_email_thread_id, response.sent_email_id]
+    - mcp_appworld_gmail__create_draft:
+        call: [recipient_email_addresses, body, belongs_to_email_thread_id, response_to_email_id]
+        result: [response.draft_id]
+    - mcp_appworld_gmail__send_email_from_draft:
+        call: [draft_id]
+        result: [response.sent_email_thread_id, response.sent_email_id]
+  checklist:
+    - criterion: "In the internal Simple Note, use the title \"Internal DD Deficiency Log — Related-Party Loan Review.\""
+    - criterion: "In the internal Simple Note, identify all three missing items: the board resolution for the related-party borrowing, the latest shareholder register / cap table, and the signed funds-flow explanation."
+    - criterion: "In the internal Simple Note, briefly explain why the board resolution, shareholder register / cap table, and signed funds-flow explanation matter for the review. Substantially similar wording is acceptable."
+    - criterion: "In the Gmail subject line, identify the matter as the related-party loan review and make clear that the email is a supplementation request. Substantially similar wording is acceptable."
+    - criterion: "In the Gmail body, present all three missing items as a numbered list."
+    - criterion: "In the Gmail body, ask that the materials be provided by 5:00 p.m. tomorrow and ask the recipient to flag immediately if any requested item may be delayed. Substantially similar wording is acceptable."
+    - criterion: "In the Gmail body, give a practical fallback if a final document is not ready, such as sending the latest draft, interim version, or a download link first. Substantially similar wording is acceptable."
+  tools_evaluation_path: "data/law_trainee/scripts/law_trainee_task_008_5.py"
+metadata:
+  difficulty: medium
+  benchmark_role: test
+  preference_threads:
+    - formal_traceable_legal_comms
+    - deadline_and_followup_discipline
+    - cross_app_preparation_workflow

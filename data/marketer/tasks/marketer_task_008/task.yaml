@@ -1,0 +1,22 @@
+schema_version: v2
+task_id: marketer_task_008
+user_id: marketer 
+environment_id: env_marketer
+title: "rulebook"
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: "Regarding the 'Enterprise AI Agent Commercial Operator Bootcamp' project we are launching for the North American market, we now need to establish operational rules for the community execution team. The main course launch cycle will run for exactly 5 days. These 5 days serve as a pre-purchase experience cycle where the Lead Instructor delivers daily high-value insights, TAs support the teaching content, and the Community Manager handles course promotion. Please draft a concise 'Internal Community Launch Rulebook' (maximum 6 guidelines in total). Define the specific behavioral guidelines for three distinct roles: the Lead Instructor, the TA, and the Community Manager. Please write this directly into a file named 'Community_Launch_Rulebook.md' in our workspace."
+  hidden_intent:
+    - content: "The Lead Instructor should teach only once per day to control frequency."
+    - content: "The TA should assist with teaching, for example by introducing new applications, answering practical follow-up questions, or clarifying the Lead Instructor’s teaching."
+    - content: "The Community Manager should handle the daily promotion of the main course purchase."
+objectives:
+  files_read:
+    - Community_Launch_Rulebook.md
+
+metadata:
+  difficulty: medium

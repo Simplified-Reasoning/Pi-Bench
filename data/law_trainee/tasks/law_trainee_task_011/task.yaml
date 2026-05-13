@@ -1,0 +1,68 @@
+schema_version: v2
+task_id: law_trainee_task_011
+user_id: law_trainee
+environment_id: env_law_trainee
+
+title: "Private Lending: Draft a Loan Agreement from a Case Summary"
+description: "Based on the oral terms and identity details in Loans.md, the intern drafts a well-structured private-lending loan agreement under mainland Chinese drafting practice. Evaluation focuses on party details, consolidated principal, term and interest wording, purpose and late-payment terms, dispute resolution, acceleration, effectiveness, marital joint debt language, and alignment with the fact pattern."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    I am interning at a firm. My supervising attorney asked me to turn a client’s oral account and notes into a first draft private-lending loan agreement. The facts are in Loans.md in this directory. Please draft it using a typical mainland Chinese private-lending agreement layout.Output the drafted contract directly; no need to create a file.
+  hidden_intent:
+    - content: "State clearly the lender’s and borrower’s identifying information."
+    - content: "State clearly the loan principal."
+    - content: "State clearly the loan term."
+    - content: "State clearly the interest rate."
+    - content: "State clearly the purpose of the loan."
+    - content: "State clearly the repayment method."
+    - content: "State clearly terms for prepayment."
+    - content: "State clearly a dispute-resolution clause."
+    - content: "Include a marital joint debt confirmation clause."
+    - content: "Include an acceleration-of-maturity clause."
+    - content: "Please generate an analysis of the borrower’s repayment capacity."   
+    - content: "Please calculate at the end how much legal service fee should be charged if the attorney’s fee is computed at 0.1% of the loan amount."
+objectives:
+  checklist:
+    - criterion: "The agreement identifies Party A (lender) as Zhang Hua, with ID number 110101199001018888 and a contact address including № 8 Yard Yangguang Avenue, Chaoyang District, Beijing. Substantially similar wording is acceptable."
+
+    - criterion: "The agreement identifies Party B (borrower) as Li Qiang, with ID number 310101199202026666 and a contact address including № 100 Qiancheng Road, Pudong New Area, Shanghai. Substantially similar wording is acceptable."
+
+    - criterion: "The principal is consolidated as RMB 150,000 (one hundred fifty thousand yuan). Substantially similar wording is acceptable."
+
+    - criterion: "The term runs from April 10, 2026 through October 9, 2027, reflecting eighteen months in total. Substantially similar wording is acceptable."
+
+    - criterion: "The rate is stated as 1% per month and 12% per year; interest accrues from actual disbursement and is settled monthly. Substantially similar wording is acceptable."
+
+    - criterion: "If interest is not paid on time, overdue amounts are subject to the penalty or liquidated-damages rule set out in the agreement’s late-payment clause, consistent with Article 5–style sequencing. Substantially similar wording is acceptable."
+
+    - criterion: "The purpose covers café equipment purchase and green-bean or other raw-material procurement, tied to the shop name “Time Imprint” or equivalent; funds may not be diverted or used for unlawful activity. Substantially similar wording is acceptable."
+
+    - criterion: "Repayment is a lump-sum payment of principal and remaining interest at maturity, or an equivalent structure. Substantially similar wording is acceptable."
+
+    - criterion: "Late repayment carries, in addition to contractual interest, liquidated damages at 0.05% per day on the overdue amount (equivalent to five renminbi per RMB ten thousand per day). Substantially similar wording is acceptable."
+
+    - criterion: "Party B may prepay; interest is calculated on actual days outstanding without extra prepayment penalties or fees. Substantially similar wording is acceptable."
+
+    - criterion: "Dispute resolution provides that if negotiation fails, suit may be brought in the People’s Court of Chaoyang District, Beijing (or an equivalent reference to that court). Substantially similar wording is acceptable."
+
+    - criterion: "The agreement includes an acceleration clause: if Party B’s business deteriorates, transfers assets, or maliciously evades debt (or similar material adverse events), Party A may demand immediate repayment of the full principal and accrued interest and may demand liquidated damages under the contract. Substantially similar wording is acceptable."
+
+    - criterion: "The agreement includes a marital joint debt confirmation: the borrower’s spouse confirms knowledge and consent to this loan and signs as co-borrower at the end; Wang Mei bears joint repayment obligations with the borrower; both parties agree without dispute that the debt is marital joint debt under applicable law. Substantially similar wording is acceptable."
+
+    - criterion: "The agreement is made in duplicate with one copy for each party, each equally authentic. Substantially similar wording is acceptable."
+
+    - criterion: "The agreement becomes effective when the lender pays the loan into the borrower’s designated account (or equivalent). Substantially similar wording is acceptable."
+
+    - criterion: "Signature blocks are left for both parties and for an execution date of April 10, 2026, consistent with same-day disbursement in the facts. Substantially similar wording is acceptable."
+
+    - criterion: "State that the legal service fee is RMB 150."
+  
+    - criterion: "Li Qiang has strong performance capability and debt repayment capacity."
+metadata:
+  difficulty: medium

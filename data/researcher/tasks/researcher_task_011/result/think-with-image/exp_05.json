@@ -1,0 +1,33 @@
+{
+  "exp_id": "05",
+  "benchmark": "v_star bench",
+  "base_model": "qwen2.5-7b-vl",
+  "training_method": "sft_lora",
+  "settings": {
+    "dataset": "MEbench-SFT-internal-v1",
+    "epochs": 2,
+    "learning_rate": 1.2e-4,
+    "warmup_ratio": 0.03,
+    "max_seq_len": 2048,
+    "gradient_accumulation": 8,
+    "lora": {
+      "r": 16,
+      "alpha": 32,
+      "dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj"
+      ]
+    }
+  },
+  "metrics": {
+    "acc": 82.4
+  },
+  "environment": {
+    "hardware": "A100-80GB",
+    "precision": "bf16",
+    "train_global_batch": 128
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "immediate_slot_limit": 8,
+  "slot_policy": "Use exactly 8 immediate purchase slots. Fill non-substitutable qPCR / cell blockers first, then use the remaining slots for the smallest carbomer-baseline gel pilot core. Do not duplicate equivalent filter needs across strands in the immediate order.",
+  "required_immediate_slots": [
+    {
+      "item": "Target-gene primers",
+      "strand": "qPCR",
+      "why": "Missing; the next qPCR run cannot start without them."
+    },
+    {
+      "item": "Sealing film",
+      "strand": "qPCR",
+      "why": "Almost used up; needed for qPCR plate consistency."
+    },
+    {
+      "item": "RNase-free filter tips",
+      "strand": "RNA/qPCR",
+      "why": "Tight inventory; protects RNA/qPCR work from contamination risk."
+    },
+    {
+      "item": "CCK-8 reagent",
+      "strand": "Cell assay",
+      "why": "Low stock; the planned viability screen depends on it."
+    },
+    {
+      "item": "96-well cell plates",
+      "strand": "Cell assay",
+      "why": "Low stock; the CCK-8 plate-format screen depends on them."
+    },
+    {
+      "item": "Carbomer 940",
+      "strand": "Gel baseline",
+      "why": "Core polymer for the first carbomer-baseline gel pilot."
+    },
+    {
+      "item": "Triethanolamine",
+      "strand": "Gel baseline",
+      "why": "Needed for carbomer neutralization and gel formation."
+    },
+    {
+      "item": "Propylene Glycol",
+      "strand": "Gel baseline",
+      "why": "Core cosolvent and humectant for the first pilot."
+    }
+  ],
+  "next_wave_gel_basics_not_immediate_under_cap": [
+    {
+      "item": "Glycerin",
+      "why": "Useful humectant, but lower priority than the three-item carbomer-baseline core under the 8-slot cap."
+    },
+    {
+      "item": "Disodium EDTA / Citric Acid",
+      "why": "Stabilization and pH fine-tuning support; useful after the baseline core is secured."
+    },
+    {
+      "item": "0.22 um filter",
+      "why": "Helpful for pilot prefiltration, but avoid duplicating it with the qPCR/general sterile-filter backup in the immediate order."
+    },
+    {
+      "item": "Spatula and Ointment Jar",
+      "why": "Preparation and retain-sample support; not a schedule blocker under the cap."
+    }
+  ],
+  "conditional_backup_lab_support_not_immediate": [
+    {
+      "item": "FBS",
+      "condition": "Move forward only if confirmation says culture-continuity risk is higher than recorded."
+    },
+    {
+      "item": "Trypsin",
+      "condition": "Move forward only if passaging support becomes the bottleneck."
+    },
+    {
+      "item": "0.22 um sterile filter",
+      "condition": "Move forward only if the filtration need is confirmed as non-duplicative and urgent."
+    }
+  ],
+  "route_tied_confirmation_only": [
+    {
+      "item": "Aluminum Tube",
+      "why": "Final package and fill weight remain unclear."
+    },
+    {
+      "item": "Airless Pump Bottle",
+      "why": "Route and stability should be clearer before final packaging."
+    },
+    {
+      "item": "Phenoxyethanol / preservative system",
+      "why": "Preservative choice is compatibility-sensitive and not fully fixed."
+    },
+    {
+      "item": "Hydroxyethyl Cellulose",
+      "why": "Alternative gel-base route should not displace the carbomer baseline before confirmation."
+    }
+  ]
+}

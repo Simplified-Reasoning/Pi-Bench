@@ -1,0 +1,24 @@
+schema_version: v2
+task_id: researcher_task_005
+user_id: researcher
+environment_id: env_researcher
+
+title: "Tracking the Frontier: DeepEyesV2 and V-star Bench Core Metrics Survey"
+description: "Evaluation task: track frontier progress—survey core metrics for DeepEyesV2 and the V-star benchmark."
+
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: "I just noticed DeepEyes recently released a follow-up called DeepEyesV2. Take a look and let's discuss it."
+  hidden_intent:
+    - content: "What benchmarks are commonly evaluated for think-with-image? Which benchmarks does DeepEyesV2 report?"
+
+    - content: "For commonly compared think-with-image methods such as Pixel-Reasoner, Thyme, DeepEyes, and DeepEyesV2, what scores does the DeepEyesV2 paper report on V* / V-star?"
+
+    - content: "Record leading-method performance on V* / V-star for later comparison: Pixel-Reasoner (84.3), Thyme (82.2), DeepEyes (85.6), DeepEyesV2 (81.8)."
+
+metadata:
+  difficulty: easy

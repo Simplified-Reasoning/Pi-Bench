@@ -1,0 +1,61 @@
+User(Name Redacted for Privacy)
+Location: Jiangwan Campus, Fudan University, Shanghai, China
+
+EDUCATION
+--------------------------------------------------
+Fudan University | Shanghai, China
+Ph.D. in Artificial Intelligence | Expected Graduation: June 2027
+- Research Focus: Multimodal Large Language Models (MLLMs), Visual Chain-of-Thought (CoT), Tool-Use Agents.
+- Advisor: Prof. [Redacted]
+
+Fudan University | Shanghai, China
+M.S. in Computer Science | Sept 2020 - June 2023
+- Thesis: Efficient Alignment for Vision-Language Models in Low-Resource Scenarios
+- Honors: Outstanding Graduate of Shanghai (2023)
+
+[Top Tier University] | China
+B.S. in Computer Science | Sept 2016 - June 2020
+
+RESEARCH INTERESTS
+--------------------------------------------------
+- Think-with-Image Paradigm: Developing agents capable of iterative visual reasoning, utilizing intermediate visual representations and step-by-step tool invocation (Captioning, OCR, Detection, Grounding) to solve complex visual queries.
+- Multimodal Tool-Use Agents: Designing planner-executor architectures for MLLMs in restricted and highly controlled environments to guarantee reproducibility and reduce hallucination.
+- Visual Grounded Reasoning: Aligning LLM reasoning traces with fine-grained visual features.
+
+PUBLICATIONS & PREPRINTS
+--------------------------------------------------
+1. [Under Review] Bridging the Gap in Visual CoT: A "Think-with-Image" Framework via Iterative Tool Calling
+   First Author | Submitted to ICLR 2026 (Currently in Rebuttal)
+   - Proposed a novel ReAct-style agent paradigm that strictly grounds reasoning steps on visual evidence using registered vision tools (OCR, Bounding Box Detection).
+   - Achieved state-of-the-art accuracy on complex visual QA benchmarks without relying on black-box proprietary APIs.
+   - Code & Checkpoints will be fully open-sourced upon acceptance.
+
+2. Efficient Multi-modal Alignment with Lightweight Adapters
+   First Author | CVPR 2024
+   - Designed a parameter-efficient fine-tuning (PEFT) method for vision-language models, reducing training compute requirements by 40% while maintaining 98% of full-finetuning performance.
+   - Experiments conducted on 8xH800 cluster; framework integrated into HuggingFace PEFT library.
+
+3. Enhancing Zero-shot Image Retrieval via Contrastive Semantic Guidance
+   Co-Author (2nd) | NeurIPS 2023
+   - Assisted in developing a semantic-guided contrastive loss for cross-modal retrieval.
+
+CORE PROJECTS
+--------------------------------------------------
+Think-with-Image Agent System (Ph.D. Core Thesis Project) | Ongoing
+- Objective: Building a highly reproducible, robust multimodal agent from scratch.
+- Implementation: Developed a modular framework abstracting 10+ visual APIs (GroundingDINO, easyOCR, BLIP-2) into standard Python functions for LLM function calling.
+- Infrastructure: Containerized the entire evaluation pipeline using Docker to ensure environment consistency across different Linux servers. Optimized local deployment using vLLM for fast inference.
+
+Open-Source Multimodal Benchmark Toolkit | Maintainer
+- Developed a lightweight Python toolkit to standardize the evaluation of visual tool-use agents, supporting automated metric calculation and failure case visualization.
+
+TECHNICAL SKILLS
+--------------------------------------------------
+- Languages: Python (Advanced), C++ / CUDA (Intermediate), Bash, LaTeX.
+- Deep Learning: PyTorch, Hugging Face (Transformers, PEFT, Accelerate), vLLM.
+- Agent Frameworks: LangChain, AutoGen, custom ReAct/Planner-Executor implementations.
+- Tools & MLOps: Git, Docker, Weights & Biases (WandB), Linux/SSH, TensorBoard.
+
+AWARDS & HONORS
+--------------------------------------------------
+- First-Class Academic Scholarship, Fudan University (2023, 2024)

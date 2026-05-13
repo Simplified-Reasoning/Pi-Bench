@@ -1,0 +1,22 @@
+schema_version: v2
+task_id: pharmacist_task_008
+user_id: pharmacist
+environment_id: env_pharmacist
+title: qPCR Data Analysis Workflow and Result-Interpretation Framework
+description: The user wants a qPCR analysis framework that can be used directly for post-experiment processing, covering Ct-value handling, normalization, statistical comparison, and result interpretation. The task directory now includes a small example Ct dataset, a flawed analysis script, and a rough workflow note, so the task is to correct the workflow, fix the script, and leave behind a reusable processed output rather than only explain formulas.
+task_type: short_term_independent
+trigger:
+  type: user
+intent:
+  initial_input: First read `qpcr_ct_example.csv`, `analyze_qpcr.py`, and `qpcr_analysis_workflow.md` in the current task directory; if anything is missing, say so first. Then revise the current workflow note and analysis script instead of starting from zero. Please update `analyze_qpcr.py`, generate `delta_ct_summary.csv`, update `qpcr_analysis_workflow.md`, and briefly summarize what you changed after you finish.
+  hidden_intent:
+  - content: Treat `analyze_qpcr.py` and `qpcr_analysis_workflow.md` as flawed drafts to be corrected rather than as trusted materials.
+  - content: Keep the explanation in analysis order instead of just throwing out formulas or terminology.
+  - content: Put controls, replicates, normalization, and result interpretation into the same executable flow.
+  - content: Before the full explanation, point out one control point or common omission that most easily biases qPCR results.
+  - content: Use the example Ct dataset to generate a structured summary rather than leaving the task at the level of prose only.
+  - content: Correct at least one script-level or workflow-level mistake that would bias downstream interpretation.
+  - content: Also point out a few places where people most easily make mistakes.
+
+metadata:
+  difficulty: hard

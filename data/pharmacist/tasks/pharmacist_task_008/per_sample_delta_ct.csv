@@ -1,0 +1,7 @@
+sample,group,target_ct,housekeeping_ct,delta_ct
+Ctrl_1,control,24.8,18.1,6.700000
+Ctrl_2,control,25.0,18.0,7.000000
+Ctrl_3,control,24.7,18.2,6.500000
+Treat_1,treatment,22.9,18.1,4.800000
+Treat_2,treatment,23.1,18.0,5.100000
+Treat_3,treatment,22.8,18.2,4.600000

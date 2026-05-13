@@ -1,0 +1,69 @@
+schema_version: v2
+task_id: law_trainee_task_007
+user_id: law_trainee
+environment_id: env_law_trainee
+
+title: "Divorce-Custody Similar-Case Statistics Table → Internal Memorandum for Lead Counsel"
+description: "Based on the team's curated sample table of custody holdings in divorce disputes, produce an internal similar-cases brief. Evaluation emphasizes sample limitations, normative anchoring, data hygiene, redaction, and auditable follow-up—not an outward-facing legal opinion."
+
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    I have a 2021-2025 statistics table of custody judgments in divorce disputes. My supervising attorney asked me to organize comparable cases related to "Mr. A's divorce dispute" from this table. The case summary is in Case_Summary.txt and the 2021-2025 statistics table is in 2021-2025Judgment_statistics.md.
+
+  hidden_intent:
+    - content: "At the very beginning, present a Party Profiles in Contrast section in tabular form, stating both parties' occupation, salary, and living arrangements."
+    - content: "List the case factors most similar to Mr. A's situation."
+    - content: "List the serial numbers of cases related to the factor 'long-term stable living environment.'"
+    - content: "List the serial numbers of cases related to the factor 'genuine wishes of a child over the age of eight.'"
+    - content: "List the serial numbers of cases related to the factor 'caregiving support from grandparents.'"
+    - content: "List the serial numbers of cases related to the factor 'child's illness requiring a stable treatment environment.'"
+    - content: "List the serial numbers of cases related to the factor 'strong sibling bonds / opposition to splitting custody.'"
+    - content: "List the serial numbers of cases related to the factor 'one parent working away from home, long commutes, or frequent travel.'"
+    - content: "List what related materials Mr. A should prepare in advance to improve his position on custody."
+objectives:
+  checklist:
+    - criterion: "In the Party Profiles in Contrast section, state that Mr. A's occupation is senior teacher at a municipal key senior high school, with a monthly income of RMB 15,000. Substantially similar wording is acceptable."
+
+    - criterion: "In the Party Profiles in Contrast section, state that Mr. A resides in the marital home within the original school district. Substantially similar wording is acceptable."
+
+    - criterion: "In the Party Profiles in Contrast section, state that Ms. B's occupation is Sales Director at a well-known foreign-invested enterprise, with a monthly income of RMB 27,000, long commutes, and frequent business travel. Substantially similar wording is acceptable."
+
+    - criterion: "In the Party Profiles in Contrast section, state that Ms. B's living situation is that she has moved out of the former home and rents in the capital of a neighboring province. Substantially similar wording is acceptable."
+
+    - criterion: "Identify that among the case factors most similar to Mr. A's situation is 'long-term stable living environment.'"
+
+    - criterion: "Identify that among the case factors most similar to Mr. A's situation is 'genuine wishes of a child over the age of eight.'"
+
+    - criterion: "Identify that among the case factors most similar to Mr. A's situation is 'caregiving support from grandparents.'"
+
+    - criterion: "Identify that among the case factors most similar to Mr. A's situation is 'child's illness requiring a stable treatment environment.'"
+
+    - criterion: "Identify that among the case factors most similar to Mr. A's situation is 'one parent working away from home, long commutes, or frequent travel.'"
+
+    - criterion: "Identify that among the case factors most similar to Mr. A's situation is 'strong sibling bonds / opposition to splitting custody.'"
+
+    - criterion: "List at least five case serial numbers related to the 'long-term stable living environment' factor."
+
+    - criterion: "List at least five case serial numbers related to the 'genuine wishes of a child over the age of eight' factor."
+
+    - criterion: "List at least five case serial numbers related to the 'caregiving support from grandparents' factor."
+
+    - criterion: "List at least three case serial numbers related to the 'child's illness requiring a stable treatment environment' factor."
+
+    - criterion: "List at least three case serial numbers related to the 'one parent working away from home, long commutes, or frequent travel' factor."
+
+    - criterion: "List at least five case serial numbers related to the 'strong sibling bonds / opposition to splitting custody' factor."
+
+    - criterion: "State that among the evidence Mr. A should prepare in advance is a certificate of working hours issued by Mr. A's school. Substantially similar wording is acceptable."
+
+    - criterion: "List among the evidence Mr. A should prepare in advance the younger son's medical visit records. Substantially similar wording is acceptable."
+
+    - criterion: "List among the evidence Mr. A should prepare in advance video records of grandparents' day-to-day school runs and care of the children. Substantially similar wording is acceptable."
+
+metadata:
+  difficulty: medium

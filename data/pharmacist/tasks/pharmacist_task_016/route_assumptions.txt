@@ -1,0 +1,7 @@
+Current route assumptions:
+
+1. The highest-priority route is still a carbomer gel system.
+2. If the API later proves not stable enough in an aqueous system, then stronger cosolubilization or an alternative gel-base route can be considered.
+3. It is still too early to fully decide whether the final package should be a tube or a pump bottle, so packaging materials should not be heavily purchased too early.
+4. The current procurement list should be organized around completing the first pilot batch and the baseline evaluation, rather than buying everything needed for later scale-up and presentation in one step.
+5. Some excipients may still be useful, but if their role is tightly bound to an uncertain route, they should be marked as to be confirmed or postponed.

@@ -1,0 +1,9 @@
+[
+    "supervisor.complete_task",
+    "supervisor.show_account_passwords",
+    "supervisor.show_profile",
+    "simple_note.login",
+    "simple_note.search_notes",
+    "simple_note.show_note",
+    "simple_note.update_note"
+]

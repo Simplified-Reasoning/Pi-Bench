@@ -1,0 +1,20 @@
+schema_version: v2
+task_id: marketer_task_002
+user_id: marketer 
+environment_id: env_marketer
+title: rule
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: 'Please tell me the content and formatting preferences for TikTok spoken-word video scripts, X (Twitter) interactive threads, and Quora in-depth answers. Keep it brief; just summarize the core preferences for each platform into exactly three bullet points.'
+  
+  hidden_intent:
+    - content: "The TikTok scripts should use hook (or counter-intuitive fact) in the begining."
+    - content: "Each post of the X (Twitter) scripts should be compact (or concise)."
+    - content: "The Quora scripts should start by directly answering the question (or state the conclusion/core thesis in the first paragraph)."
+
+metadata:
+  difficulty: easy

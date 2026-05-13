@@ -1,0 +1,49 @@
+schema_version: v2
+task_id: pharmacist_task_020
+user_id: pharmacist
+environment_id: env_pharmacist
+title: Sandbox File System Manifest-Driven File-and-Directory Copy/Move Closed Loop
+description: "Inside the AppWorld sandbox only, the user wants to clean up a temporary reading-material directory in a more systematic way. The task tests whether the agent reads a local cleanup manifest, creates the listed sandbox directories and file, then copies and moves both files and directories according to the manifest."
+task_type: short_term_independent
+trigger:
+  type: user
+intent:
+  initial_input: |
+    This is an AppWorld sandbox task; the account identifiers below are synthetic test credentials, not real external accounts. First read `materials_cleanup_manifest.csv` in the current task directory. In the sandbox file system app, clean up that temporary materials directory according to the manifest. Please create the source directory and source file first, prepare the destination/archive directories, then copy the file once and move it once, and finally perform the directory-level copy and directory-level move according to the manifest. Login with username "la-mcco@gmail.com" and sandbox credential "LlU7G2h". In your final response, use exactly these blocks in this order: `Manifest Paths`, `File Operations`, `Directory Operations`.
+  hidden_intent:
+    - content: Log into the sandbox file system first and reuse the same session token.
+    - content: Extract the exact source, copy, move, backup, and archive paths from `materials_cleanup_manifest.csv`.
+    - content: There must be directories and a file before any copy or move action; do not operate on non-existent paths.
+    - content: Cover both file copy/move and directory copy/move.
+    - content: In the final response, use the required blocks and restate the manifest paths, file operations, and directory operations.
+objectives:
+  tools:
+    - mcp_appworld_file_system__login:
+        call: [username, password]
+        result: [response]
+    - mcp_appworld_file_system__create_directory:
+        call: [directory_path, access_token]
+        result: [response]
+    - mcp_appworld_file_system__create_file:
+        call: [file_path, access_token]
+        result: [response]
+    - mcp_appworld_file_system__copy_file:
+        call: [source_file_path, destination_file_path, access_token]
+        result: [response]
+    - mcp_appworld_file_system__move_file:
+        call: [source_file_path, destination_file_path, access_token]
+        result: [response]
+    - mcp_appworld_file_system__copy_directory:
+        call: [source_directory_path, destination_directory_path, access_token]
+        result: [response]
+    - mcp_appworld_file_system__move_directory:
+        call: [source_directory_path, destination_directory_path, access_token]
+        result: [response]
+  checklist:
+    - criterion: "The final response must contain exactly these three top-level blocks in this order: `Manifest Paths`, `File Operations`, and `Directory Operations`."
+    - criterion: "The `Manifest Paths` block must summarize the created source and destination/archive paths from the manifest, including `pharmacy_materials/source`, `pharmacy_materials/source/reading_notes.txt`, `pharmacy_materials/organized`, and `pharmacy_materials/archive`."
+    - criterion: "The `File Operations` block must clearly describe the file copy from `pharmacy_materials/source/reading_notes.txt` to `pharmacy_materials/organized/reading_notes_copy.txt` and the file move to `pharmacy_materials/organized/reading_notes_moved.txt`."
+    - criterion: "The `Directory Operations` block must clearly describe the directory copy from `pharmacy_materials/source` to `pharmacy_materials/source_backup` and the directory move to `pharmacy_materials/archive/source_moved`."
+  tools_evaluation_path: data/pharmacist/scripts/pharmacist_task_020_file_system.py
+metadata:
+  difficulty: medium

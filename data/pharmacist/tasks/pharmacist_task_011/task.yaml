@@ -1,0 +1,37 @@
+schema_version: v2
+task_id: pharmacist_task_011
+user_id: pharmacist
+environment_id: env_pharmacist
+title: CCK-8 Cytotoxicity Assay Workflow and Key Notes
+description: "The user is preparing to run a CCK-8 cytotoxicity assay. The task directory contains an experimental brief, a plate layout, raw plate-reader values, and an intentionally flawed QC note draft. The task tests whether the agent can infer which conditions are better supported, which are more exploratory, and expose the corrected assay judgment directly in the final reply."
+task_type: short_term_contextual
+trigger:
+  type: user
+intent:
+  initial_input: |
+    First read `experiment_brief.md`, `plate_layout.svg`, `raw_reader_values.csv`, and `assay_qc_note.md` in the current task directory; if anything is missing, say so first. Then, in English, revise the current assay QC note instead of starting from zero. Please update `assay_qc_note.md`, keep any useful structure if possible, and in your final reply output exactly these blocks in this order: `Main Risk`, `Dose Interpretation Table`, `Refine Range`, `Rerun Trigger`, `First Optimization Variable`. The `Dose Interpretation Table` must be a markdown table with columns `Dose | Evidence Weight | Observed Signal | Action | Source`, and `Source` must use only `[Brief]`, `[Layout]`, `[CSV]`, `[Brief+Layout]`, `[Brief+CSV]`, `[Layout+CSV]`, or `[Brief+Layout+CSV]`.
+  hidden_intent:
+  - content: Use the experiment brief, plate layout, and readout values first, and treat `assay_qc_note.md` as a flawed draft to be corrected rather than a trusted interpretation.
+  - content: Very early in the output, point out one control issue, omission, or replicate risk that is most likely to bias this round.
+  - content: Give a directly executable CCK-8 workflow rather than only abstract concepts, and cover controls, replicates, and result comparison together.
+  - content: Do not give a generic assay template that is disconnected from the current plate layout and readout pattern.
+  - content: Recover the unequal evidentiary weight of the current concentration points from the brief, layout, and readout values together rather than relying on one explicit reminder line.
+  - content: Correct any draft tendency to treat all concentrations as equally informative or to let the high-end exploratory points dominate the interpretation.
+  - content: Use both numeric readout comparisons and layout structure to justify what can be treated as reasonably supported versus only exploratory.
+  - content: Use at least one concrete readout implication to justify what should be optimized or refined next, and make the final reply follow the exact output schema so the assay judgment is visible without opening the file.
+  - content: Proactively warn that singleton high-dose points can look impressively effective while still being weaker evidence than duplicated low- or mid-dose points.
+  - content: Volunteer one concrete control comparison that helps stabilize or limit interpretation before recommending the next concentration range.
+  - content: If the untreated and solvent controls are close, proactively say that solvent effect is not the main story instead of leaving the control interpretation vague.
+objectives:
+  checklist:
+  - criterion: "The final reply must follow the exact output schema: exactly five top-level blocks in this order, `Main Risk`, `Dose Interpretation Table`, `Refine Range`, `Rerun Trigger`, and `First Optimization Variable`; the `Dose Interpretation Table` must be a markdown table with exactly these columns in this order: `Dose | Evidence Weight | Observed Signal | Action | Source`."
+  - criterion: "The table must contain rows for `0.1 uM`, `0.3 uM`, `1 uM`, `3 uM`, and `10 uM`, and every row must contain one visible source anchor chosen only from `[Brief]`, `[Layout]`, `[CSV]`, `[Brief+Layout]`, `[Brief+CSV]`, `[Layout+CSV]`, or `[Brief+Layout+CSV]`."
+  - criterion: "The `Main Risk` block must identify one single biggest interpretation risk, and that risk must explicitly be the unequal evidence weight caused by the pilot layout in which `3 uM` and `10 uM` are high-end singleton or otherwise weaker-evidence points; it must also explicitly state that this threatens over-interpreting the strongest-looking dose effect."
+  - criterion: "The `3 uM` and `10 uM` rows must explicitly be described as `exploratory`, `lower-weight`, `singleton`, or equivalent wording, and at least one of the `0.1 uM`, `0.3 uM`, or `1 uM` rows must explicitly be presented as more decision-relevant because it comes from the lower or mid-dose duplicated portion of the plate."
+  - criterion: "At least one dose row must use a source anchor that visibly combines layout and readout information, such as `[Layout+CSV]` or `[Brief+Layout+CSV]`, and at least one block in the reply must use `[Brief+Layout+CSV]`."
+  - criterion: "The reply must include at least two quantitative comparisons from `raw_reader_values.csv`, including one control-related comparison and one dose-related comparison; acceptable control comparisons include `UT about 0.91 versus DMSO about 0.89`, `blank about 0.08 versus positive control about 0.29`, or equivalent numerically close paraphrases, and acceptable dose comparisons include a descending pattern such as `0.1 uM about 0.86`, `0.3 uM about 0.81`, `1 uM about 0.74`, `3 uM about 0.57`, or `10 uM about 0.32`."
+  - criterion: "If the untreated and DMSO controls are described as close relative to the positive-control or dose-effect separation, the reply must explicitly state that solvent effect is not the main story in this round."
+  - criterion: "The `Refine Range` block must name either `0.3-1 uM` or `0.1-1 uM with denser spacing around 0.3-1 uM` as the next bounded range, and it must explicitly justify that choice by saying the lower or mid-dose duplicated points are more informative than the `3 uM` and `10 uM` singleton exploratory points."
+  - criterion: "The `Rerun Trigger` block must give one concrete trigger such as `blank or control instability`, `abnormal blank drift`, or `trying to treat 3 uM and 10 uM as equal-confidence evidence despite singleton layout`, and the `First Optimization Variable` block must explicitly prioritize `concentration-grid refinement` or equivalent wording around the supported low- or mid-dose range rather than simply pushing the high-dose end."
+metadata:
+  difficulty: hard

@@ -1,0 +1,20 @@
+schema_version: v2
+task_id: marketer_task_001
+user_id: marketer 
+environment_id: env_marketer
+title: content
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: 'We have just received a brief from a top-tier film and television production company to assist them in planning a content matrix for their "Micro Short Drama Global Expansion" strategy. Please conduct an internet search on the "2026 Micro Short Drama Global Expansion Market Deep Observation" and tell me the key factual information (maximum 3 paragraphs).'
+  
+  hidden_intent:
+    - content: "The response explicitly includes market growth metrics, such as total market volume/size or year-over-year growth rates."
+    - content: "The response explicitly includes a regional or country-level analysis, such as identifying the largest market or the fastest-growing region."
+    - content: "The response explicitly identifies key industry challenges or monetization bottlenecks, such as high traffic acquisition costs or tightening regulatory compliance."
+
+metadata:
+  difficulty: easy

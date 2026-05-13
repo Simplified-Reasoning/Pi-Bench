@@ -1,0 +1,52 @@
+schema_version: v2
+task_id: Financier_task_019
+user_id: Financier
+environment_id: env_Financier
+title: ''
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: "For the final component of our Fixed Income Analytics Platform yield\
+    \ curve project, please provide an executable Python implementation. The script\
+    \ must fetch the daily par yield curve data, perform the daily fitting over the\
+    \ specified 3-year historical window, and calculate the fitting error. The script\
+    \ must output three items: a daily parameter DataFrame, a fitted yields DataFrame,\
+    \ and the daily error metric. Provide a brief text explanation at the end detailing\
+    \ the economic intuition of the parameters and the limitation of this method under\
+    \ extreme curve shapes. CRITICAL CONSTRAINT: Keep the script highly concise by\
+    \ omitting excessive console logging, massive docstrings, or overly verbose comments.\
+    \ Save the script directly as 'yield_curve_fitter.py' in the workspace."
+  hidden_intent:
+    - content: "Model Memory: The script explicitly implements the Nelson-Siegel mathematical\
+        \ formula rather than the Svensson model or generic cubic splines."
+    - content: "Source Memory: The script explicitly fetches data from the U.S. Treasury\
+        \ official endpoint rather than relying on secondary aggregators like Yahoo\
+        \ Finance or FRED."
+    - content: "Time Window Memory: The script explicitly filters the fetched dataset\
+        \ to retain exactly the last 3 years of historical daily data."
+    - content: "Economic Intuition: The text explanation explicitly links the model\
+        \ parameters to 'Level', 'Slope', and 'Curvature' components of the yield\
+        \ curve."
+
+objectives:
+  files_read:
+    - yield_curve_fitter.py
+  tools_evaluation_path: "data/Financier/scripts/Financier_task_019.py"
+  checklist:
+    - criterion: "The Python code correctly translates the Nelson-Siegel model into\
+        \ algorithmic logic, explicitly computing both the 'slope' and 'curvature'\
+        \ factor loadings using the exponential decay parameter (e.g., calculations\
+        \ involving `np.exp`)."
+    - criterion: "The printed text explanation explicitly maps the Nelson-Siegel parameters\
+        \ to their geometric meanings: 'Level' (beta0/long-term), 'Slope' (beta1/short-term),\
+        \ and 'Curvature/Hump' (beta2/medium-term)."
+    - criterion: "The printed text explanation explicitly states that the primary\
+        \ limitation of the model under extreme curves is its mathematical inability\
+        \ to fit 'double-hump', 'multi-hump', or severely inverted shapes with multiple\
+        \ inflection points."
+
+metadata:
+  difficulty: medium

@@ -1,0 +1,30 @@
+schema_version: v2
+task_id: marketer_task_004
+user_id: marketer 
+environment_id: env_marketer
+title: Spotify-tool-use
+description: ''
+task_type: val
+
+trigger:
+  type: user
+  
+intent:
+  initial_input: "My Spotify email is les_ball@gmail.com and password is '(dgokRb'. I need help falling asleep late tonight. Please select the most suitable playlist from my currently created ones, and then add 3 appropriate songs to it. I only want to listen to songs I already like. Please remember: all the songs for my late-night sleep aid scenario must strictly be 'classical' music."  
+  hidden_intent:
+    - content: "The selected playlist should explicitly be 'Starry Night Serenades'."
+    - content: "The newly added songs must all come exclusively from the user's liked songs."
+    - content: "Call the appropriate tools to complete the song addition and explicitly report the added results back to me."
+   
+objectives:
+  tools_evaluation_path: "data/marketer/scripts/marketer_task_004.py"
+  tools:
+    - mcp_appworld_spotify__show_playlist:
+        call: [playlist_id, song_id]
+        result: []
+  checklist:
+    - criterion: "The newly added songs should be 'classical'."
+    - criterion: "The newly added songs should be from the liked songs."
+      
+metadata:
+  difficulty: easy

@@ -1,0 +1,43 @@
+schema_version: v2
+task_id: researcher_task_017
+user_id: researcher
+environment_id: env_researcher
+title: splitwise
+description: "splitwise-phone"
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    I've recently been enjoying listening to "Heartstrings Symphony" while working, 
+    My Spotify login info:
+    Email: la-mcco@gmail.com
+    Password: wjhPa4l
+    Please help me write a review for this song and post it on Spotify and give more advices to share this songs .
+
+  hidden_intent:
+    - content: "Click to like this song"
+    - content: "Post a positive review for this song in Spotify, and show what review was posted."
+    - content: "Follow the artists about the song in Spotify."
+    - content: "Write out a way to recommend this song to friends."
+
+objectives:
+  tools:
+    - mcp_appworld_spotify__review_song:
+        call: [song_id, rating]
+        result: [response]
+    - mcp_appworld_spotify__follow_artist:
+        call: [artist_id]
+        result: [response]
+    - mcp_appworld_spotify__like_song:
+        call: [song_id]
+        result: [response]
+  checklist:
+    - criterion: "The review should write about the beautiful melody of 'Heartstrings Symphony,' which I've been listening to a lot while working."
+    - criterion: "State that the song’s shareable_link is https://spotify.com/songs/54, and that it can be shared with friends to help expand the song’s reach."
+  tools_evaluation_path: "data/researcher/scripts/researcher_task_017_spotify.py"
+
+metadata:
+  difficulty: medium

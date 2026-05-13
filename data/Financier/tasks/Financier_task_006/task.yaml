@@ -1,0 +1,67 @@
+schema_version: v2
+task_id: Financier_task_006
+user_id: Financier
+environment_id: env_Financier
+
+title: "Identify the Core Modeling Method from the Development Report and Compare Alternative Models"
+description: "Based on the local model development report, identify the core modeling method used by the current model and its principles, and systematically compare common alternative models to produce structured analysis suitable for investment research and risk-control review."
+
+task_type: short_term_contextual
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    Please use the model development report Model_Development_Report.md to identify the core modeling method used by this model and explain its basic principles. At the same time, list several common alternative models, briefly introduce each method, and compare them in terms of modeling logic, strengths and weaknesses, and applicable scenarios.
+  hidden_intent:
+    - content: "Give the conclusion first, then the evidence. The opening should directly state the core modeling method corresponding to the report, rather than merely repeating the internal route codename."
+
+    - content: "Map internal route codenames such as A1-A5 to standard algorithm names, instead of only using the internal abbreviations."
+
+    - content: "Use tables as much as possible in the model comparison section. Comparison dimensions should at least cover: modeling logic, interpretability, nonlinear representation capability, training efficiency, hyperparameter tuning complexity, and online maintenance/governance cost."
+
+    - content: "In addition to model performance, separately discuss governance implementability, including monitoring, replayability, auditability, and per-case explanation cost."
+
+    - content: "The conclusion should preferably include a baseline plan for regular industries and a conservative plan for high-volatility industries, and explain the Champion/Challenger setup logic."
+
+    - content: "Output a fixed Meta Review module at the end, containing at least key assumptions, potential biases, information gaps, and next-step due diligence recommendations."
+
+objectives:
+  checklist:
+    - criterion: "Clearly state that the current core modeling method in the report is A5, corresponding to XGBoost (or a classic XGBoost-style GBDT binary-classification approach), rather than only vaguely calling it a 'tree model' or 'boosted tree.'"
+
+    - criterion: "Clearly provide the current implementation recommendation: keep A5 as the Champion; use S2 as the preferred setup for regular industries; raise the threshold to S3 for high-volatility industries; and retain A3 as the primary Challenger."
+
+    - criterion: "Use the D1 first unified rerun results as performance evidence, and state that A5 leads the other routes with AUC=0.818, KS=0.435, and Brier=0.049."
+
+    - criterion: "Use the D2 OOT lookback results as stability evidence, and state that A5 has OOT AUC=0.802, OOT KS=0.408, and PSI=0.18, performing slightly better than A3 while drift is already close to the warning threshold."
+
+    - criterion: "Use governance and resource constraints as part of the decision basis, mentioning at least the two requirements 'monthly full rerun window under 2 hours' and 'quarterly auditable replay.'"
+
+    - criterion: "When explaining XGBoost's basic principle, cover both iterative additive tree building (boosting) and the idea that each round fits the previous round's residuals/negative gradients."
+
+    - criterion: "State that the core model ultimately outputs default probability/probability of default through binary-classification loss and logistic mapping."
+
+    - criterion: "Explain that XGBoost improves nonlinear fitting and interaction modeling by ensembling multiple weak learners, and point out at least one limitation such as hyperparameter-tuning complexity, overfitting risk, or high per-case explanation cost."
+
+    - criterion: "Identify A1 as the 'binning + generalized linear binary classification / logistic regression' route, and state that it has strong interpretability but limited nonlinear representation capability."
+
+    - criterion: "Identify A2 as the bagging-tree / random-forest route, and state that it is robust and noise-resistant, but its probability calibration or ranking performance is usually weaker than mainstream boosted-tree methods."
+
+    - criterion: "Identify A3 as a LightGBM-like route, and state that it is based on histogram splitting and leaf-wise growth, has high training efficiency, but requires attention to coupling with data distribution and drift monitoring."
+
+    - criterion: "Identify A4 as a CatBoost-like route, and state that it uses ordered boosting and a categorical-variable-friendly mechanism, while also noting that in the current environment its training time or resource usage is not advantageous."
+
+    - criterion: "Explicitly explain the modeling-logic differences between linear models and tree-based models in the comparison, rather than only listing pros and cons."
+
+    - criterion: "The comparison analysis should cover at least these dimensions: modeling logic, interpretability, nonlinear representation capability, training efficiency, hyperparameter tuning complexity, and online maintenance/governance cost."
+
+    - criterion: "The applicability analysis should cover at least both of these scenario types: high-interpretability / strong-regulation / small-sample scenarios, and large-sample / strong-nonlinearity / discrimination-oriented scenarios."
+
+    - criterion: "When explaining why the report leans toward A5, mention both its better performance, finer segmentation, and stronger return profile, and the fact that governance still requires supplementary parameter-behavior mapping explanations and per-case explanation mechanisms."
+
+    - criterion: "Output a Meta Review module that contains key assumptions, potential biases, information gaps, and next-step due diligence or monitoring recommendations, and points out at least one risk directly related to this report, such as PSI nearing warning level, field-definition drift, inconsistent freshness of relationship-network features, or historical label-leakage cleanup."
+
+metadata:
+  difficulty: medium

@@ -1,0 +1,30 @@
+{
+  "exp_id": "17",
+  "benchmark": "v_star bench",
+  "base_model": "qwen2.5-7b-vl",
+  "training_method": "gspo",
+  "settings": {
+    "init_checkpoint": "exp_05 (sft_lora)",
+    "gspo": {
+      "algorithm": "group_sft_policy_optimization",
+      "group_size": 8,
+      "temperature": 0.75,
+      "top_p": 0.95,
+      "policy_lr": 5.5e-6,
+      "kl_beta": 0.03,
+      "epochs": 1,
+      "advantage_normalization": "group_mean_std"
+    },
+    "reward": {
+      "type": "rule_based+light_rm",
+      "components": [
+        "answer_exactness",
+        "visual_grounding",
+        "format_compliance"
+      ]
+    }
+  },
+  "metrics": {
+    "acc": 85.0
+  }
+}

@@ -1,0 +1,8 @@
+Current risk flags:
+
+1. The API has extremely low water solubility, so precipitation risk is the core first-round problem.
+2. If the ethanol ratio is pushed higher, solubility may improve, but irritation risk will also increase.
+3. Because the pKa is weakly basic, pH adjustment needs to account for both gel-formation conditions and API stability.
+4. Long-term stability, target release rate, and the need for film formation are all still undecided.
+5. The current priority is to decide what must be judged first and what can be judged later.
+6. If too many route changes are introduced at once, it will become hard to tell whether the first-round problem came from solvent choice, gel base, or pH handling.

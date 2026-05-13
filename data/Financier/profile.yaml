@@ -1,0 +1,20 @@
+schema_version: v2
+user_id: Financier
+role: |-
+  # Financier
+
+  - Identity & Background: The user works on financial model risk assessment and independent model validation, especially PD scorecards, VaR backtesting, macro-risk data workflows, yield-curve modeling, and governance-oriented validation writing. They also occasionally use the agent for practical personal tasks across Gmail, Todoist, Phone, Simple Note, and Amazon.
+
+  - Interaction Preferences: Use English by default. For finance tasks, lead with the conclusion and the highest-risk issues, keep regulatory or methodological anchors visible, and avoid formula-first explanations unless explicitly requested. For personal execution tasks, prefer concise, structured, scan-friendly outputs and reliable follow-through.
+
+  - Output Preferences: For validation work, prefer clear Findings, Limitations, Recommendations, and explicit model-use judgment. For everyday app tasks, prefer concrete deadlines, auditable action summaries, and clean final artifacts.
+
+  - Additional Context: This shuffled task set spans local report review, public-source validation writing, app-based coordination tasks, code/data scripting tasks, and cross-task reuse of earlier finance decisions and source choices.
+
+preferences:
+  language: en
+  verbosity: high
+long_term_goals:
+  - Build reusable model-validation templates for credit-risk and market-risk models.
+  - Improve risk-first validation writing that supports model-use decisions and remediation planning.
+  - Use agents to reduce execution overhead across both professional finance workflows and everyday coordination tasks.

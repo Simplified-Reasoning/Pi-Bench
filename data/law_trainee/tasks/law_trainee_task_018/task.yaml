@@ -1,0 +1,64 @@
+schema_version: v2
+user_id: law_trainee
+environment_id: env_law_trainee
+task_type: short_term_independent
+trigger:
+  type: user
+task_id: law_trainee_task_018
+title: Supplemental Filing Escalation Rehearsal with Cleanup Confirmation
+description: "Run one short Todoist rehearsal for missing supplemental filing items in the Yuehai guarantee dispute, clean the temporary board in the same pass, and send one completion email to internal coordination. Evaluation focuses on whether the blocker, escalation trigger, cleanup, and next checkpoint are explicit and easy to verify."
+intent:
+  initial_input: |-
+    My Todoist email is stmcco@gmail.com and password is 'Ozz21Q4'.
+    My Gmail email is stmcco@gmail.com and password is 'n3v=I[w'.
+
+    I'm tied up before tomorrow's internal Yuehai check-in, so I need a quick filing-chase rehearsal I can hand off cleanly.
+
+    Please run it in Todoist using the temporary board "Temporary Filing Follow-up Board - Yuehai", then clear the rehearsal artifacts in this same pass and send la-mcco@gmail.com an internal completion note with subject "Yuehai Guarantee Dispute - Filing Rehearsal Cleanup Complete".
+    Keep this tidy: use one temporary Todoist tracking item for the chase, and make the completion email itself carry the cleanup confirmation plus the live-risk / next-checkpoint handoff, instead of relying on multiple follow-up emails if you can avoid it.
+
+    This pass should cover the live supplemental-filing chase items. Create one temporary Todoist tracking item that covers the full chase, then clean everything up and send the completion note.
+
+  hidden_intent:
+    - content: "In the temporary Todoist tracking item, cover these three chase items: the unsigned shareholder list, the signed guaranty annex comparison copy, and the courier receipt for the supplemental filing package."
+    - content: "In the temporary Todoist tracking item, say that the unsigned shareholder list is the main blocker and that if it is still missing before tomorrow's internal check-in, it must be escalated to partner immediately."
+    - content: "In the completion email, confirm that the temporary board was cleared, say that the unsigned shareholder list remains the live risk, give the next checkpoint for tomorrow morning, and ask the recipient to flag any delay immediately."
+    - content: "Use one temporary Todoist tracking item that covers the full chase, rather than spreading the rehearsal across several temporary tracking items."
+    - content: "Send the completion email in this same pass after clearing the rehearsal artifacts, instead of leaving the cleanup or handoff unfinished."
+objectives:
+  tools:
+    - mcp_appworld_todoist__create_project:
+        call: [name]
+        result: [response.project_id]
+    - mcp_appworld_todoist__create_task:
+        call: [title, project_id, description]
+        result: [response.task_id]
+    - mcp_appworld_todoist__delete_project:
+        call: [project_id]
+        result: [response.message]
+    - mcp_appworld_gmail__send_email:
+        call: [email_addresses, subject, body]
+        result: [response.sent_email_thread_id, response.sent_email_id]
+    - mcp_appworld_gmail__create_draft:
+        call: [recipient_email_addresses, body, belongs_to_email_thread_id, response_to_email_id]
+        result: [response.draft_id]
+    - mcp_appworld_gmail__send_email_from_draft:
+        call: [draft_id]
+        result: [response.sent_email_thread_id, response.sent_email_id]
+  checklist:
+    - criterion: "The Todoist tracking item or same-thread completion follow-up clearly identifies the Yuehai guarantee dispute supplemental filing chase and covers all three chase items: unsigned shareholder list, signed guaranty annex comparison copy, and courier receipt for the supplemental filing package."
+    - criterion: "The Todoist tracking item or same-thread completion follow-up states that the unsigned shareholder list is the main blocker and that if it is still missing before tomorrow's internal check-in, it must be escalated to partner immediately. Substantially similar wording is acceptable."
+    - criterion: "The temporary Todoist board is removed by the end of the task."
+    - criterion: "The sent Gmail subject is exactly 'Yuehai Guarantee Dispute - Filing Rehearsal Cleanup Complete'."
+    - criterion: "The Gmail body explicitly confirms that the temporary Todoist board was cleared or removed."
+    - criterion: "The completion email or same-thread completion follow-up states that the unsigned shareholder list remains the live risk. Substantially similar wording is acceptable."
+    - criterion: "The completion email or same-thread completion follow-up gives a concrete next checkpoint for tomorrow morning. Substantially similar wording is acceptable."
+    - criterion: "The completion email or same-thread completion follow-up asks the recipient to flag delay immediately. Substantially similar wording is acceptable."
+  tools_evaluation_path: "data/law_trainee/scripts/law_trainee_task_018_5.py"
+metadata:
+  difficulty: medium
+  benchmark_role: test
+  preference_threads:
+    - audit_ready_work_tracking
+    - deadline_and_followup_discipline
+    - cross_app_preparation_workflow

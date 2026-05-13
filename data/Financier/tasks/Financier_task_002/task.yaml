@@ -1,0 +1,72 @@
+schema_version: v2
+task_id: Financier_task_002
+user_id: Financier
+environment_id: env_Financier
+title: "Weekend Camping Departure Memo Cleanup"
+description: "Organize scattered weekend camping notes into a single actionable departure memo in Simple Note. Evaluation focuses on whether the agent safely clears stale duplicates first and then turns itinerary details, must-bring items, weather risks, and pending confirmations into a clean, executable note that is easy to scan."
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |-
+    My Simple Note login info:
+      Email: stmcco@gmail.com
+      Password: i#vhWEQ
+
+    I am going camping at Qingyuan Reservoir early Saturday, but I still have not organized the departure memo. Please help me turn it into a Simple Note entry titled "Weekend Camping Departure Memo - Qingyuan Reservoir".
+
+    The confirmed plan is: meet at the North Parking Lot at 07:20 on Saturday, and the one-way drive is about 90 minutes. The must-bring items are: a headlamp, a light rain jacket, 2L of drinking water, an ID card, and a power bank.
+
+    Please also include the risk reminders: it gets windy and cooler by the lake after dark, there may be light rain after 18:00, and the food should be placed in the cooler first.
+
+    There are also three pre-departure items that still need confirmation: confirm the carpool arrangement, confirm the ice purchase, and confirm whether the stove fuel is fully packed, all by Friday 21:00.
+
+    If there is already an older note with the same title, delete it first and then create the new one.
+
+    Before you actually create the note, first send me a detailed text reply with the full content you plan to put into the note; after creating it, briefly tell me what you actually wrote.
+
+  hidden_intent:
+    - content: "The final note should stay clearly anchored to this specific Qingyuan Reservoir weekend camping departure, rather than turning into a generic camping checklist."
+    - content: "Separate the confirmed itinerary, must-bring items, weather and risk notes, and pre-departure confirmations into a scan-friendly structure."
+    - content: "The three pending confirmation items should be framed as pre-departure closure items that must be completed by Friday 21:00, not as casual suggestions."
+objectives:
+  tools:
+    - mcp_appworld_simple_note__search_notes:
+        call: [query]
+        result: [response]
+    - mcp_appworld_simple_note__delete_note:
+        call: [note_id]
+        result: [response.message]
+    - mcp_appworld_simple_note__create_note:
+        call: [title, content]
+        result: [response.note_id]
+    - mcp_appworld_simple_note__add_content_to_note:
+        call: [note_id, added_content, append_or_prepend]
+        result: [response.message]
+    - mcp_appworld_simple_note__update_note:
+        call: [note_id, content]
+        result: [response.message]
+    - mcp_appworld_simple_note__show_note:
+        call: [note_id]
+        result: [response.title, response.content]
+  checklist:
+    - criterion: "The final Simple Note title is exactly 'Weekend Camping Departure Memo - Qingyuan Reservoir'."
+    - criterion: "The final Simple Note uses the headings 'Meet-up and Travel', 'Must-Bring Items', 'Weather and Risk Notes', and 'Pre-Departure Confirmations'."
+    - criterion: "The final Simple Note states that the meet-up is at the North Parking Lot at 07:20 on Saturday and that the one-way drive is about 90 minutes."
+    - criterion: "The final Simple Note explicitly lists the headlamp, light rain jacket, 2L of drinking water, ID card, and power bank as must-bring items."
+    - criterion: "The final Simple Note states that it gets windy and cooler by the lake after dark. Substantially similar wording is acceptable."
+    - criterion: "The final Simple Note states that there may be light rain after 18:00. Substantially similar wording is acceptable."
+    - criterion: "The final Simple Note states that the food should go into the cooler first. Substantially similar wording is acceptable."
+    - criterion: "The final Simple Note lists the carpool arrangement, ice purchase, and stove fuel as the three pending confirmation items in the 'Pre-Departure Confirmations' section."
+    - criterion: "The final Simple Note makes clear that these three pending items must be confirmed by Friday 21:00. Substantially similar wording is acceptable."
+  tools_evaluation_path: "data/Financier/scripts/Financier_task_002_simple_note.py"
+
+metadata:
+  difficulty: medium
+  benchmark_role: test
+  preference_threads:
+    - concise_structured_personal_notes
+    - deadline_and_followup_discipline
+    - single_app_cleanup_and_rewrite

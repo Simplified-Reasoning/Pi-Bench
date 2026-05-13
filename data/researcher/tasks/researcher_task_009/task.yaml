@@ -1,0 +1,60 @@
+schema_version: v2
+task_id: researcher_task_009
+user_id: researcher
+environment_id: env_researcher
+
+title: "Top AI Lab Internship Search and Matching"
+description: "Based on the resume and implicit constraints, recommend research-oriented internships in multimodal / think-with-image directions, presented as a table with required columns, covering Shanghai on-site placement, compensation, commute, and other filters."
+
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: "I'm looking for an internship. I'm sharing my internship CV—please help me see which roles are a good fit. My resume is in cv.txt."
+  hidden_intent:
+    - content: "Recommend roles centered on multimodal and think-with-image directions."
+
+    - content: "Internship roles must be research roles, not business-oriented engineering roles."
+
+    - content: "Internship pay must be at least 500 RMB per day."
+
+    - content: "Recommendations must be in a readable table format (Organization/Team, Team lead, Job title, Research direction, Core responsibilities, Role requirements, Internship compensation, Application link)."
+
+    - content: "On-site internship location must be in Shanghai; remote/online internships are not accepted."
+
+    - content: "The laboratory should provide sufficient computing resources."
+
+    - content: "Filter to companies within one hours metro commute from Fudan Jiangwan Campus."
+
+objectives:
+  checklist:
+    - criterion: "All listed internships are research roles, not business-facing roles."
+
+    - criterion: "The table includes a column named 'Organization/Team' with substantive content."
+
+    - criterion: "The table includes a column named 'Team lead' with substantive content."
+
+    - criterion: "The table includes a column named 'Job title' with substantive content."
+
+    - criterion: "The table includes a column named 'Research direction' with substantive content."
+
+    - criterion: "The table includes a column named 'Core responsibilities' with substantive content."
+
+    - criterion: "The table includes a column named 'Role requirements' with substantive content."
+
+    - criterion: "The table includes a column named 'Internship compensation' with substantive content."
+
+    - criterion: "The table includes a column named 'Role requirements' with substantive content."
+    
+    - criterion: "The lab must provide at least 16 A100 GPUs per person on average."
+
+    - criterion: "The table includes a column named 'Fudan Jiangwan Campus - Company (commute)' with specific commute times."
+
+    - criterion: "Final recommended internships are based in Shanghai, not other cities."
+
+    - criterion: "Final recommended internships offer daily pay of at least 500 RMB."
+
+metadata:
+  difficulty: easy

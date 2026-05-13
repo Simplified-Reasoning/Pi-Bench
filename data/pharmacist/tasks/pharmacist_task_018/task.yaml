@@ -1,0 +1,24 @@
+schema_version: v2
+task_id: pharmacist_task_018
+user_id: pharmacist
+environment_id: env_pharmacist
+title: Procurement To-Do List for Next Week's qPCR and Cell Experiments
+description: The user wants to sort out which reagents and lab consumables still need to be added for next week's qPCR and cell-related experiments. The point of the task is to test whether the agent can transfer experimental-process awareness and common omission points into a procurement or execution list that is suitable for later shopping-flow use. The task directory already contains an inventory memo, a missing-reagents table, next week's experiment plan, and a flawed procurement draft. The task now tests whether the agent can infer the procurement gaps, correct the flawed draft, and keep the result blocker-oriented."
+task_type: short_term_contextual
+trigger:
+  type: user
+intent:
+  initial_input: First read `inventory_checklist.md`, `missing_reagents.csv`, `next_week_experiment_plan.txt`, and `qpcr_procurement_draft.csv` in the current task directory; if anything is missing, say so first. Then revise the current procurement draft instead of starting from zero. Please update `qpcr_procurement_draft.csv` and briefly summarize what you changed after you finish.
+  hidden_intent:
+  - content: Treat `qpcr_procurement_draft.csv` as a flawed draft to be corrected rather than as a trusted procurement sheet.
+  - content: First infer the procurement gaps from the inventory, missing-item table, and next week's schedule, and do not generate a generic list of common consumables detached from the current inputs.
+  - content: Organize the items by experiment step or function instead of piling together supplies from unrelated stages.
+  - content: Rank first by what will block next week's schedule most seriously, and only then give the complete grouping; do not rank only by product category.
+  - content: Distinguish must-buy items from backup items.
+  - content: Directly flag omissions that could affect controls, replicates, or result interpretation.
+  - content: Separate things that are substitutable from things that should not be substituted casually.
+  - content: Correct any draft tendency to rank by category instead of by blocker severity.
+  - content: Give a more convenient default procurement order.
+
+metadata:
+  difficulty: medium

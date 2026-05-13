@@ -1,0 +1,8 @@
+["DELETE FROM song_likes WHERE song_likes.id = ?",[1411],false]
+["UPDATE songs SET record_hash=?, like_count=? WHERE songs.id = ?",["o/tQ0tBNOys=",14,31],false]
+["DELETE FROM song_likes WHERE song_likes.id = ?",[1408],false]
+["UPDATE songs SET record_hash=?, like_count=? WHERE songs.id = ?",["lIIccQJmIy0=",12,100],false]
+["DELETE FROM song_likes WHERE song_likes.id = ?",[1416],false]
+["UPDATE songs SET record_hash=?, like_count=? WHERE songs.id = ?",["xXddgSxY5Cc=",9,163],false]
+["DELETE FROM song_likes WHERE song_likes.id = ?",[1412],false]
+["UPDATE songs SET record_hash=?, like_count=? WHERE songs.id = ?",["QLU/3xIJ/zw=",7,216],false]

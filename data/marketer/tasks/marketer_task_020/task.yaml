@@ -1,0 +1,35 @@
+schema_version: v2
+task_id: marketer_task_020
+user_id: marketer
+environment_id: env_marketer
+title: crisis pr
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: "After a crazy week of handling PR crises and the AI course launch, my lower back is aching from sitting too much, and my sleep has been terrible. I need a strict 3-hour Sunday evening wind-down routine to recover my nervous system. Please break this 3-hour period into 6 or more consecutive time blocks (each 30 mins or shorter). The routine must include: a reading session, a physical recovery session, a low-stakes journaling session, hair prep for tomorrow morning using the new tool I just wrote a vlog about, and a final music session. For the music, I want to use the portable speaker I just bought to play the playlist we updated late that night. My Todoist password is VK^N(lj . Please create a task in Todoist using my primary email for this entire routine, with these blocks as sub-tasks."
+  hidden_intent:
+    - content: "The physical recovery session must specifically target lower back pain relief."
+    - content: "The reading materials must explicitly exclude tactical, work-related, or self-improvement books to ensure genuine mental recovery from insomnia."
+    - content: "The journaling session must include at least 3 specific, recovery-oriented writing prompts without focusing on productivity."
+    - content: "Call the appropriate tools to create the Todoist main task and sub-tasks and explicitly report the final schedule and Todoist task structure to me."
+objectives:
+  tools_evaluation_path: "data/marketer/scripts/marketer_task_020.py"
+  tools:
+    - todoist__create_task:
+        call: [name]
+        result: []
+    - todoist__create_sub_task:
+        call: [title]
+        result: []
+  checklist:
+    - criterion: "The schedule displayed in the response is exactly 3 hours long, and exactly divided into at least 6 consecutive time blocks of 30 minutes or shorter"
+    - criterion: "Within the 'Physical Recovery Session' sub-task, the Agent explicitly targets lower back pain with mentions of lower back stretches, spine relief, or posture correction."
+    - criterion: "Within the 'Journaling Session' sub-task, the Agent explicitly provides at least 3 distinct recovery-oriented writing prompts."
+    - criterion: "The 'Hair Prep' sub-task must explicitly utilize the 'Dyson Airstrait'."
+    - criterion: "The 'Music Session' sub-task explicitly use the 'JBL Charge 4' speaker."
+    - criterion: "The 'Music Session' sub-task explicitly use the playlist 'Starry Night Serenades'."
+metadata:
+  difficulty: medium

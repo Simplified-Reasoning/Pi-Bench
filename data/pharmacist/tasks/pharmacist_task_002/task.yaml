@@ -1,0 +1,28 @@
+schema_version: v2
+task_id: pharmacist_task_002
+user_id: pharmacist
+environment_id: env_pharmacist
+title: Triple-Negative Breast Cancer Literature Search and Review Outline
+description: The user is preparing a pharmacy-related presentation and needs a structured overview of representative literature and the current research landscape of triple-negative breast cancer. The task directory now also contains a flawed draft outline that should be revised after literature search, so the task is not just to say something sensible but to correct a weak structure, reprioritize the field, and leave behind reusable artifacts.
+task_type: long_term
+trigger:
+  type: user
+intent:
+  initial_input: |
+    First read `tnbc_review_outline.md` in the current task directory; if it is missing, say so first. Then search the literature and revise the outline instead of starting from zero. Please update `tnbc_review_outline.md`, create `priority_paper_table.csv`, and in your final reply use exactly these blocks in this order: `Revised Storylines`, `Most Presentable Angle`, `Deprioritized Or Split-Off Area`, `Presentation Sentence`.
+  hidden_intent:
+  - content: Treat `tnbc_review_outline.md` as a flawed draft to be corrected rather than as a trusted starting point.
+  - content: If the field is too broad, compress it into 3-4 main storylines worth presenting instead of spreading attention evenly across many themes.
+  - content: Re-rank the field so that the strongest or most presentable angles come first, and push weaker or less mature angles down instead of keeping everything at equal weight.
+  - content: If one storyline captures a sharper design rule or mechanism than a broad category label, elevate that sharper storyline instead of hiding it inside a generic bucket.
+  - content: Preserve traceable source information such as title, journal, year, DOI, PMID, or source link in the revised artifacts.
+  - content: Do not stop at saying that progress exists; also explain what has truly been achieved and what still has not been solved.
+  - content: Create a paper-priority table that makes it easier to drill down into representative papers later.
+  - content: Also point out 1-2 open questions, controversies, or follow-up directions that are still worth tracking.
+  - content: End with one sentence that could be pasted directly into a short presentation.
+  - content: Make at least one deprioritized or split-off area explicit rather than letting everything remain "important."
+
+metadata:
+  difficulty: hard
+  
+

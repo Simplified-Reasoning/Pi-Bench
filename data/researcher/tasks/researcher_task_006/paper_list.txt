@@ -1,0 +1,299 @@
+Deep Think with Confidence
+
+ImageDoctor: Diagnosing Text-to-Image Generation via Grounded Image Reasoning
+
+Think-While-Generating: On-the-Fly Reasoning for Personalized Long-Form Generation
+
+StreamingThinker: Large Language Models Can Think While Reading
+
+Think Then Embed: Generative Context Improves Multimodal Embedding
+
+Interleaving Reasoning for Better Text-to-Image Generation
+
+Sample More to Think Less: Group Filtered Policy Optimization for Concise Reasoning
+
+The CoT Encyclopedia: Analyzing, Predicting, and Controlling how a Reasoning Model will Think
+
+VTool-R1: VLMs Learn to Think with Images via Reinforcement Learning on Multimodal Tool Use
+
+Empowering Small VLMs to Think with Dynamic Memorization and Exploration
+
+Text-Aware Image Restoration with Diffusion Models
+
+InSight-o3: Empowering Multimodal Foundation Models with Generalized Visual Search
+
+Provably Accelerated Imaging with Restarted Inertia and Score-based Image Priors
+
+DeepEyes: Incentivizing "Thinking with Images" via Reinforcement Learning
+
+Dragging with Geometry: From Pixels to Geometry-Guided Image Editing
+
+Interleave-VLA: Enhancing Robot Manipulation with Image-Text Interleaved Instructions
+
+Condition Errors Refinement in Autoregressive Image Generation with Diffusion Loss
+
+Energy-oriented Diffusion Bridge for Image Restoration with Foundational Diffusion Models
+
+TIPO: Text to Image with Text Pre-sampling for Prompt Optimization
+
+Beyond Text-to-Image: Liberating Generation with a Unified Discrete Diffusion Model
+
+ImageRAG: Dynamic Image Retrieval for Reference-Guided Image Generation
+
+Divergence-Free Neural Networks with Application to Image Denoising
+
+PICS: Pairwise Image Compositing with Spatial Interactions
+
+VGR: Visual Grounded Reasoning
+
+Autoregressive Image Generation with Randomized Parallel Decoding
+
+Synergizing Understanding and Generation with Interleaved Analyzing-Drafting Thinking
+
+WorldEdit: Towards Open-World Image Editing with a Knowledge-Informed Benchmark
+
+BideDPO: Conditional Image Generation with Simultaneous Text and Condition Alignment
+
+Thyme: Think Beyond Images
+
+Soft-Di[M]O: Improving One-Step Discrete Image Generation with Soft Embeddings
+
+Constructive Distortion: Improving MLLMs with Attention-Guided Image Warping
+
+Can Speech LLMs Think while Listening?
+
+FrameThinker: Learning to Think with Long Videos via Multi-Turn Frame Spotlighting
+
+Learning an Image Editing Model without Image Editing Pairs
+
+SCoT: Teaching 3D-LLMs to Think Spatially with Million-scale CoT Annotations
+
+FaSTA: Fast-Slow Toolpath Agent with Subroutine Mining for Efficient Multi-turn Image Editing*
+
+One-Step Flow for Image Super-Resolution with Tunable Fidelity-Realism Trade-offs
+
+PQGAN: Product-Quantised Image Representation for High-Quality Image Synthesis
+
+ImagenWorld: Stress-Testing Image Generation Models with Explainable Human Evaluation on Open-ended Real-World Tasks
+
+Unbiased Object Detection Beyond Frequency with Visually Prompted Image Synthesis
+
+Compositional Generalization from Learned Skills via CoT Training: A Theoretical and Structural Analysis for Reasoning
+
+VisualPrompter: Semantic-Aware Prompt Optimization with Visual Feedback for Text-to-Image Synthesis
+
+Geometric Image Editing via Effects-Sensitive In-Context Inpainting with Diffusion Transformers
+
+RefAny3D: 3D Asset-Referenced Diffusion Models for Image Generation
+
+Let's Think in Two Steps: Mitigating Agreement Bias in MLLMs with Self-Grounded Verification
+
+Image Quality Assessment for Embodied AI
+
+Group Critical-token Policy Optimization for Autoregressive Image Generation
+
+SimpleFold: Folding Proteins is Simpler than You Think
+
+Pushing Test-Time Scaling Limits of Deep Search with Asymmetric Verification
+
+ScaleCap: Scalable Image Captioning via Dual-Modality Debiasing
+
+FlowAlign: Trajectory-Regularized, Inversion-Free Flow-based Image Editing
+
+UniRestorer: Universal Image Restoration via Adaptively Estimating Image Degradation at Proper Granularity
+
+Visual Autoregressive Modeling for Instruction-Guided Image Editing
+
+PreferThinker: Reasoning-based Personalized Image Preference Assessment
+
+Enhancing Multi-Image Understanding through Delimiter Token Scaling
+
+Arbitrary-Shaped Image Generation via Spherical Neural Field Diffusion
+
+Training-Free Reward-Guided Image Editing via Trajectory Optimal Control
+
+Brain-IT: Image Reconstruction from fMRI via Brain-Interaction Transformer
+
+VINCIE: Unlocking In-context Image Editing from Video
+
+VIRTUE: Visual-Interactive Text-Image Universal Embedder
+
+RayI2P: Learning Rays for Image-to-Point Cloud Registration
+
+TAMMs: Change Understanding and Forecasting in Satellite Image Time Series with Temporal-Aware Multimodal Models
+
+EditReward: A Human-Aligned Reward Model for Instruction-Guided Image Editing
+
+Constantly Improving Image Models Need Constantly Improving Benchmarks
+
+CapRL: Stimulating Dense Image Caption Capabilities via Reinforcement Learning
+
+RegionE: Adaptive Region-Aware Generation for Efficient Image Editing
+
+Random Anchors with Low-rank Decorrelated Learning: A Minimalist Pipeline for Class-Incremental Medical Image Classification
+
+IC-Custom: Diverse Image Customization via In-Context Learning
+
+Detective SAM: Adaptive AI-Image Forgery Localization
+
+Content-Aware Mamba for Learned Image Compression
+
+Turbo-DDCM: Fast and Flexible Zero-Shot Diffusion-Based Image Compression
+
+From Prediction to Perfection: Introducing Refinement to Autoregressive Image Generation
+
+FideDiff: Efficient Diffusion Model for High-Fidelity Image Motion Deblurring
+
+VARestorer: One-Step VAR Distillation for Real-World Image Super-Resolution
+
+A High Quality Dataset and Reliable Evaluation for Interleaved Image-Text Generation
+
+Autoregressive-based Progressive Coding for Ultra-Low Bitrate Image Compression
+
+MMSI-Bench: A Benchmark for Multi-Image Spatial Intelligence
+
+Purrception: Variational Flow Matching for Vector-Quantized Image Generation
+
+MILR: Improving Multimodal Image Generation via Test-Time Latent Reasoning
+
+SuperF: Neural Implicit Fields for Multi-Image Super-Resolution
+
+PI-Light: Physics-Inspired Diffusion for Full-Image Relighting
+
+Culture in Action: Evaluating Text-to-Image Models through Social Activities
+
+Taming Hierarchical Image Coding Optimization: A Spectral Regularization Perspective
+
+ChainMPQ: Interleaved Text-Image Reasoning Chains for Mitigating Relation Hallucinations
+
+Entropy Regularizing Activation: Boosting Continuous Control, Large Language Models, and Image Classification with Activation as Entropy Constraints
+
+Enhancing Image-Conditional Coverage in Segmentation: Adaptive Thresholding via Differentiable Miscoverage Loss
+
+SenseFlow: Scaling Distribution Matching for Flow-based Text-to-Image Distillation
+
+LogiStory: A Logic-Aware Framework for Multi-Image Story Visualization
+
+Image Can Bring Your Memory Back: A Novel Multi-Modal Guided Attack against Image Generation Model Unlearning
+
+Spatial Structure and Selective Text Jointly Facilitate Image Clustering
+
+W-EDIT: A Wavelet-Based Frequency-Aware Framework for Text-Driven Image Editing
+
+Latent Wavelet Diffusion For Ultra High-Resolution Image Synthesis
+
+LearnIR: Learnable Posterior Sampling for Real-World Image Restoration
+
+Sat3DGen: Comprehensive Street-Level 3D Scene Generation from Single Satellite Image
+
+Thinking-Free Policy Initialization Makes Distilled Reasoning Models More Effective and Efficient Reasoners
+
+HSIC Bottleneck for Cross-Generator and Domain-Incremental Synthetic Image Detection
+
+Learning Domain-Aware Task Prompt Representations for Multi-Domain All-in-One Image Restoration
+
+DiffVax: Optimization-Free Image Immunization Against Diffusion-Based Editing
+
+From Broad Exploration to Stable Synthesis: Entropy-Guided Optimization for Autoregressive Image Generation
+
+ChronoEdit: Towards Temporal Reasoning for In-Context Image Editing and World Simulation
+
+Draw-In-Mind: Rebalancing Designer-Painter Roles in Unified Multimodal Models Benefits Image Editing
+
+MotionWeaver: Holistic 4D-Anchored Framework for Multi-Humanoid Image Animation
+
+A Scene is Worth a Thousand Features: Feed-Forward Camera Localization from a Collection of Image Features
+
+FreeAdapt: Unleashing Diffusion Priors for Ultra-High-Definition Image Restoration
+
+Grounding-IQA: Grounding Multimodal Language Model for Image Quality Assessment
+
+Asynchronous Denoising Diffusion Models for Aligning Text-to-Image Generation
+
+PoSh: Using Scene Graphs to Guide LLMs-as-a-Judge for Detailed Image Descriptions
+
+Data Provenance for Image Auto-Regressive Generation
+
+EditScore: Unlocking Online RL for Image Editing via High-Fidelity Reward Modeling
+
+RobustSpring: Benchmarking Robustness to Image Corruptions for Optical Flow, Scene Flow and Stereo
+
+MIDAS: Multi-Image Dispersion and Semantic Reconstruction for Jailbreaking MLLMs
+
+Medical thinking with multiple images
+
+FLUX-Reason-6M & PRISM-Bench: A Million-Scale Text-to-Image Reasoning Dataset and Comprehensive Benchmark
+
+Continual Unlearning for Text-to-Image Diffusion Models: A Regularization Perspective
+
+AMLRIS: Alignment-aware Masked Learning for Referring Image Segmentation
+
+CoEmoGen: Towards Semantically-Coherent and Scalable Emotional Image Content Generation
+
+PICABench: How Far are We from Physical Realistic Image Editing?
+
+Evaluating and Improving Cultural Awareness of Reward Models for LLM Alignment
+
+GHOST: Hallucination-Inducing Image Generation for Multimodal LLMs
+
+SIGMA-Gen: Structure and Identity Guided Multi-Subject Assembly for Image Generation
+
+OCR-Reasoning Benchmark: Unveiling the True Capabilities of MLLMs in Complex Text-Rich Image Reasoning
+
+SemHiTok: A Unified Image Tokenizer via Semantic-Guided Hierarchical Codebook for Multimodal Understanding and Generation
+
+SERUM: Simple, Efficient, Robust, and Unifying Marking for Diffusion-based Image Generation
+
+iLLaVA: An Image is Worth Fewer Than 1/3 Input Tokens in Large Multimodal Models
+
+SAM 3: Segment Anything with Concepts
+
+Think in Parallel, Answer as One: Logit Averaging for Open-Ended Reasoning
+
+Aligned Novel View Image and Geometry Synthesis via Cross-modal Attention Instillation
+
+Everything in Its Place: Benchmarking Spatial Intelligence of Text-to-Image Models
+
+ACCORD: Alleviating Concept Coupling through Dependence Regularization for Text-to-Image Diffusion Personalization
+
+RestoreVAR: Visual Autoregressive Generation for All-in-One Image Restoration
+
+CoDi: Subject-Consistent and Pose-Diverse Text-to-Image Generation
+
+Adaptive Thinking: Large Language Models Know When to Think in Latent Space
+
+Does FLUX Already Know How to Perform Physically Plausible Image Composition?
+
+Moving Beyond Diffusion: Hierarchy-to-Hierarchy Autoregression for fMRI-to-Image Reconstruction
+
+DiVE-k: DIFFERENTIAL VISUAL REASONING FOR FINE-GRAINED IMAGE RECOGNITION
+
+CIAR: Interval-based Collaborative Decoding for Image Generation Acceleration
+
+PCPO: Proportionate Credit Policy Optimization for Preference Alignment of Image Generation Models
+
+Omni-IML: Towards Unified Interpretable Image Manipulation Localization
+
+M3CoTBench: Benchmark Chain-of-Thought of MLLMs in Medical Image Understanding
+
+Analyzing the Training Dynamics of Image Restoration Transformers: A Revisit to Layer Normalization
+
+IV-Bench: A Benchmark for Image-Grounded Video Perception and Reasoning in Multimodal LLMs
+
+DistillKac: Few-Step Image Generation via Damped Wave Equations
+
+Durian: Dual Reference Image-Guided Portrait Animation with Attribute Transfer
+
+Cross-ControlNet: Training-Free Fusion of Multiple Conditions for Text-to-Image Generation
+
+One2Scene: Geometric Consistent Explorable 3D Scene Generation from a Single Image
+
+Test-time Domain Generalization for Image Super-resolution
+
+CARL: Camera-Agnostic Representation Learning for Spectral Image Analysis
+
+Follow-Your-Preference: Towards Preference-Aligned Image Inpainting
+
+J1: Incentivizing Thinking in LLM-as-a-Judge via Reinforcement Learning
+
+Do We Need All the Synthetic Data? Targeted Image Augmentation via Diffusion Models

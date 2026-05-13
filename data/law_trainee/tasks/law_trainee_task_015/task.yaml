@@ -1,0 +1,22 @@
+schema_version: v2
+task_id: law_trainee_task_015
+user_id: law_trainee
+environment_id: env_law_trainee
+
+title: "Priming: Discussing Briefcase Purchase Priorities"
+description: "A lightweight pre-purchase discussion: the user chats with the agent about choosing a work briefcase before any product feed or rankings appear. The interaction should surface two concrete carry preferences—flat A4 storage and a ~14\" slim laptop—that stay consistent with the later recommendation task."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    I am planning to buy a briefcase for my commute. In a typical law-firm setting, what do lawyers usually care about most when they pick a briefcase?
+
+  hidden_intent:
+    - content: "Want a briefcase that carries A4 documents flat, without bent corners or crushed edges."
+    - content: "Want a briefcase that fits a slim laptop of roughly 14 inches."
+metadata:
+  difficulty: easy

@@ -1,0 +1,35 @@
+schema_version: v2
+task_id: marketer_task_010
+user_id: marketer
+environment_id: env_marketer
+title: Draft a Core Product Asset Brief
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: "My Spotify account is les_ball@gmail.com with the password: (dgokRb , and my Gmail uses the password: %@g}L&b . Our company's monthly music event has just started, and each person is allowed to recommend exactly one album. As you know, I've been suffering from terrible insomnia lately. Can you recommend the most suitable, highest-quality album on Spotify to help me sleep based on my established preferences? Once you decide, please draft an email to Denise Maldonado to officially submit my recommendations."
+  hidden_intent:
+    - content: "The Agent must automatically restrict the album recommendation to the 'classical' genre."
+    - content: "The 'high-quality' constraint means the Agent must select or mention that the chosen album has high ratings/scores on Spotify."
+    - content: "The drafted email should clearly state the full and sufficient reasons for the recommendation (at least two reasons)."
+    - content: "Call the appropriate tools to send the email and explicitly report the full content of the sent email to me."
+objectives:
+  tools_evaluation_path: "data/marketer/scripts/marketer_task_010.py"
+  tools:
+    - gmail__send_email:
+        call: [name]
+        result: []
+    - gmail__send_email_from_draft:
+        call: [name]
+        result: []
+    - gmail__search_users:
+        call: [query]
+        result: []
+  checklist:
+    - criterion: "The recommended album should be 'Echoes of Eternity'."
+    - criterion: "The email explicitly mentions that the recommended items are high-quality or high rate."
+    - criterion: "The email explicitly mentions that the recommended items are helpful for sleep or relaxation."
+metadata:
+  difficulty: medium

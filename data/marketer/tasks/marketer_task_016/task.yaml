@@ -1,0 +1,24 @@
+schema_version: v2
+task_id: marketer_task_016
+user_id: marketer
+environment_id: env_marketer
+title: "ROG × medicine"
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: "Regarding the 'ROG x Beijing Tong Ren Tang (BTRT)' crossover campaign, please read the 'Meeting_Minutes_0409.md' file from our workspace. This file contains the raw transcript of our initial client alignment meeting. Extract the core constraints and client demands. Draft a concise rulebook based strictly on these extracted points, filtering out all the conversational noise. Please write this directly into a file named 'Kickoff_Rulebook.md' in the workspace."
+  hidden_intent:
+    - content: "The rulebook explicitly locks in the Slogan Rule based on Marcus's requirement: English only, exactly 6 words or fewer."
+    - content: "The rulebook explicitly locks in the Product Form constraints agreed upon by both parties: no traditional PC chassis and no standard herbal medicine pills."
+    - content: "The rulebook explicitly locks in the Visual Rule proposed by Marcus: Cyberpunk Neon Green as the primary tone."
+    - content: "The rulebook explicitly adopts Dr. Chen's veto regarding the launch strategy, establishing a Mechanism Rule that prohibits hunger marketing and ensures stable supply."
+objectives:
+  files_read:
+    - Meeting_Minutes_0409.md
+    - Kickoff_Rulebook.md
+
+metadata:
+  difficulty: medium

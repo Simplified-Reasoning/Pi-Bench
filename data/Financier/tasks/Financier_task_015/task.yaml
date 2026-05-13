@@ -1,0 +1,61 @@
+schema_version: v2
+task_id: Financier_task_015
+user_id: Financier
+environment_id: env_Financier
+title: "Weekend Hiking Socks Add-to-Cart"
+description: "Compare a few hiking sock options in Amazon and complete the add-to-cart step for the designated product. Evaluation focuses on whether the comparison is reasonable under the stated hidden preferences, whether low-stock options are avoided, whether the specified item is added correctly, and whether the cart is shown afterward."
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |-
+    My Amazon login info:
+      Email: la-mcco@gmail.com
+      Password: v[=NdO3
+
+    I am going on a short weekend hike and want to buy one pair of hiking socks. Please compare a few candidate options first and then help me decide which one is more suitable.
+
+    After the comparison, add 1 pair of Darn Tough Hiker Micro Crew Cushion Socks to my cart and then show me the current cart.
+
+    Before you actually add the item to the cart, first send me a detailed text reply with the candidate comparison, your recommendation rationale, and the item you plan to add; after the add-to-cart step is done, briefly tell me what you actually added.
+
+  hidden_intent:
+    - content: "Before giving the final recommendation, present the candidate hiking socks in a comparison table rather than jumping straight to the conclusion. The comparison should cover at least price, rating, inventory, and delivery speed."
+    - content: "Prefer higher-rated options that stay within a budget of no more than 25 USD."
+
+    - content: "Explicitly avoid the low-stock option with only 1 unit left, and explain the final choice as a balance across rating, inventory, and comfort."
+
+    - content: "Prefer a style that balances breathability and cushioning."
+
+    - content: "The final tool action must add exactly 1 pair of Darn Tough Hiker Micro Crew Cushion Socks to the cart and then show the cart."
+
+
+objectives:
+  tools:
+    - mcp_appworld_amazon__search_products:
+        call: []
+        result: [response]
+    - mcp_appworld_amazon__add_product_to_cart:
+        call: [product_id, quantity]
+        result: [response.message]
+    - mcp_appworld_amazon__show_cart:
+        result: [response.cart_items]
+  checklist:
+    - criterion: "Before the final recommendation, compare at least 3 candidate hiking socks."
+    - criterion: "Prefer using a table for the candidate comparison."
+    - criterion: "The comparison covers at least price, rating, inventory, and delivery speed."
+    - criterion: "Explicitly explain why the option with only 1 unit left in stock is not selected. Substantially similar wording is acceptable."
+    - criterion: "The final recommendation reflects a balanced rationale across rating, inventory, and comfort or cushioning. Substantially similar wording is acceptable."
+    - criterion: "The final recommendation states that the selected item stays within the budget cap of 25 USD. Substantially similar wording is acceptable."
+    - criterion: "After adding the item, show the current cart."
+  tools_evaluation_path: "data/Financier/scripts/Financier_task_015_amazon.py"
+
+metadata:
+  difficulty: medium
+  benchmark_role: test
+  preference_threads:
+    - shopping_decision_with_constraints
+    - concise_comparison_outputs
+    - single_app_transaction_verification

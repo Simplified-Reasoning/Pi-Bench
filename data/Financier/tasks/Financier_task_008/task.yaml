@@ -1,0 +1,99 @@
+schema_version: v2
+task_id: Financier_task_008
+user_id: Financier
+environment_id: env_Financier
+title: "Temporary Rehearsal Board for Beacon Beta Share"
+description: "Build a temporary rehearsal board in Todoist for the Beacon beta share, leave an auditable trail of tasks, label usage, and comment history, and then fully clean it up. Evaluation focuses on whether the tasks are specific, whether the blocker and checkpoints are explicit, and whether the temporary workspace is completely removed afterward."
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |-
+    My Todoist login info:
+      Email: stmcco@gmail.com
+      Password: Ozz21Q4
+
+    I need to do a quick rehearsal pass tonight for the Beacon beta share setup. Please create a temporary project called "Temporary Launch Rehearsal Board - Beacon" and add a section called "Tonight Rehearsal".
+
+    The rehearsal needs to cover at least these three items:
+    1. Walk through the share slides.
+    2. Check demo device charging and whether screen recording works normally.
+    3. Confirm guest badge pickup and sign-in sheet preparation.
+
+    The slides walkthrough is the main blocker: if it is still not finished by 2026-04-29 18:30, it needs to be escalated to the organizer immediately. There is also a fixed checkpoint at 2026-04-29 17:45, and that needs to appear in the tasking.
+
+    Please assign the priority task to me, add a temporary label called launch-blocker, and leave one comment that clearly states the escalation trigger. After the rehearsal pass is done, delete the temporary project, section, tasks, label, and comment.
+
+    Before you actually create these Todoist items, first send me a detailed text reply listing the project name, section name, task titles and descriptions, label name, and comment content you plan to create; after the actions are done, briefly tell me what you actually did.
+
+  hidden_intent:
+    - content: "The temporary task board should stay tightly scoped to the Beacon beta share rehearsal, rather than turning into a generic collection of todos."
+    - content: "Each task or comment should let a handoff recipient quickly understand the current item, the next checkpoint, and the possible blocker."
+    - content: "The slides walkthrough must be clearly treated as the primary blocker, with both the 2026-04-29 17:45 checkpoint and the 2026-04-29 18:30 escalation trigger stated explicitly."
+
+objectives:
+  tools:
+    - mcp_appworld_todoist__create_project:
+        call: [name]
+        result: [response.project_id]
+    - mcp_appworld_todoist__create_section:
+        call: [name, project_id]
+        result: [response.section_id]
+    - mcp_appworld_todoist__create_task:
+        call: [title, project_id, section_id, description]
+        result: [response.task_id]
+    - mcp_appworld_todoist__assign_or_unassign_task:
+        call: [task_id, assignee_email]
+        result: [response.message]
+    - mcp_appworld_todoist__update_task:
+        call: [task_id, description]
+        result: [response.message]
+    - mcp_appworld_todoist__create_label:
+        call: [name]
+        result: [response.label_id]
+    - mcp_appworld_todoist__add_label_to_task:
+        call: [label_id, task_id]
+        result: [response.message]
+    - mcp_appworld_todoist__post_task_comment:
+        call: [content, task_id]
+        result: [response.task_comment_id]
+    - mcp_appworld_todoist__show_task_comments:
+        call: [task_id]
+        result: [response]
+    - mcp_appworld_todoist__remove_label_from_task:
+        call: [task_id, label_id]
+        result: [response.message]
+    - mcp_appworld_todoist__delete_task_comment:
+        call: [task_comment_id]
+        result: [response.message]
+    - mcp_appworld_todoist__delete_task:
+        call: [task_id]
+        result: [response.message]
+    - mcp_appworld_todoist__delete_label:
+        call: [label_id]
+        result: [response.message]
+    - mcp_appworld_todoist__delete_section:
+        call: [section_id]
+        result: [response.message]
+    - mcp_appworld_todoist__delete_project:
+        call: [project_id]
+        result: [response.message]
+  checklist:
+    - criterion: "The temporary Todoist project is named exactly 'Temporary Launch Rehearsal Board - Beacon'."
+    - criterion: "The temporary Todoist section is named exactly 'Tonight Rehearsal'."
+    - criterion: "The temporary Todoist tasks cover the slides walkthrough, demo device charging and screen recording check, and guest badge pickup plus sign-in sheet preparation. Substantially similar wording is acceptable."
+    - criterion: "The priority task clearly identifies the slides walkthrough as the main blocker. Substantially similar wording is acceptable."
+    - criterion: "The priority task description or comment explicitly includes the fixed checkpoint at 2026-04-29 17:45."
+    - criterion: "The priority task description or comment explicitly states that if the work is still unfinished by 2026-04-29 18:30, it must be escalated to the organizer immediately. Substantially similar wording is acceptable."
+    - criterion: "The temporary label name is exactly launch-blocker."
+  tools_evaluation_path: "data/Financier/scripts/Financier_task_008_todoist.py"
+
+metadata:
+  difficulty: medium
+  benchmark_role: test
+  preference_threads:
+    - audit_ready_work_tracking
+    - deadline_and_followup_discipline
+    - single_app_cleanup_workflow

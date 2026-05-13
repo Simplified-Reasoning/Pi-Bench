@@ -1,0 +1,21 @@
+schema_version: v2
+task_id: marketer_task_007
+user_id: marketer
+environment_id: env_marketer
+title: "course_strategy"
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: 'We just won a full-service launch pitch for a top-tier premium EdTech platform. Next month, we will assist them in launching a high-ticket new course targeted strictly at the North American market: "Enterprise AI Agent Commercial Operator Bootcamp". The client’s core marketing premise is: "You do not need to write a single line of code to survive the AI disruption; you just need to know how to deploy the right Agents to slash costs and drive business ROI." To prepare the content arsenal for the upcoming private community launch, please draft a high-level project content strategy. Outline the core strategic pillars we need to address to successfully position and sell this bootcamp. Please write this into a file named Enterprise_AI_Bootcamp_Strategy.md (maximum 3 paragraphs).'
+  hidden_intent:
+    - content: "The written file explicitly includes a section or concept defining the 'Target Audience', 'Ideal Customer Profile', or 'Who this is for'."
+    - content: "The written file explicitly includes a section or concept analyzing the 'Core Needs', 'Pain Points', 'Challenges', or 'Anxiety' of the prospects."
+    - content: "The written file explicitly includes a section or concept outlining the 'Curriculum Direction', 'Course Structure', 'What will be taught', or 'Course Framework'."
+objectives:
+  files_read:
+    - Enterprise_AI_Bootcamp_Strategy.md
+metadata:
+  difficulty: medium

@@ -1,0 +1,2 @@
+["UPDATE users SET record_hash=?, venmo_balance=? WHERE users.id = ?",["YTyDotWuUA8=",0.0,16],false]
+["DELETE FROM payment_cards WHERE payment_cards.id = ?",[67],false]

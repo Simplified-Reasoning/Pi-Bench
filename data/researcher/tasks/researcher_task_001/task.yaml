@@ -1,0 +1,24 @@
+schema_version: v2
+task_id: researcher_task_001
+user_id: researcher
+environment_id: env_researcher
+
+title: "Practical Follow-Up Value Assessment of Multimodal Tool-Use Papers"
+description: "Around recent multimodal tool-use work, select representative papers that are widely followed and reproducible, and provide research-oriented evaluation from the perspectives of onboarding difficulty and concrete follow-up paths."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: "I've been struggling with paper reading lately, and many multimodal tool-use works feel hard to follow. Could you help me find papers that people have commonly followed recently?"
+  hidden_intent:
+    - content: "Provide a brief introduction and key technical points for each paper."
+
+    - content: "Indicate whether it is open-source and provide the GitHub link (if not open-source, explicitly state that)."
+
+    - content: "From a research perspective, evaluate whether it is suitable to follow and provide a concrete follow-up path."
+
+metadata:
+  difficulty: easy

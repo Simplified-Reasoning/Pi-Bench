@@ -1,0 +1,73 @@
+schema_version: v2
+task_id: Financier_task_005
+user_id: Financier
+environment_id: env_Financier
+title: "Pre-Event Confirmation Email for Product Demo"
+description: "Draft and send a matter-specific pre-event confirmation email in Gmail. Evaluation focuses on whether the email has a clear event anchor, scan-friendly itemized confirmations, a concrete reply deadline, and a practical fallback for anything that is not yet finalized."
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |-
+    My Gmail login info:
+      Email: stmcco@gmail.com
+      Password: n3v=I[w
+
+    I need to follow up on Wednesday setup for the Nanshan client product demo tomorrow, but I am about to head into another meeting. Please send a pre-event confirmation email to la-mcco@gmail.com with the subject "Pre-Event Confirmation | Nanshan Client Product Demo | Wednesday Setup".
+
+    The email needs to confirm three things:
+    1. Whether the projector and HDMI adapter test is complete.
+    2. Whether the guest badge list has been finalized.
+    3. Whether 18 copies of the agenda have already been printed.
+
+    Please ask for a reply by 2026-04-29 16:00. If the guest badge list is not final yet, it is fine to send the current draft version first and explain the expected final confirmation time.
+
+    If the venue arrangement, equipment testing, or printed materials may slip past the deadline, ask them to flag the risk immediately. After sending, also verify the outbox and thread.
+
+    Before you actually send the email, first send me a detailed text reply with the full subject line and body you plan to send; after sending it, briefly tell me what you actually sent.
+
+  hidden_intent:
+    - content: "The final email should remain anchored to the specific Wednesday setup work for the Nanshan Client Product Demo, rather than reading like a generic follow-up."
+    - content: "The three confirmation items, reply deadline, risk notice, and badge-list fallback should be separated clearly so the recipient can scan them in one pass."
+
+    - content: "For the guest badge list, use a practical interim solution if it is not final yet, while still requiring immediate notice of any timing risk."
+
+
+objectives:
+  tools:
+    - mcp_appworld_gmail__create_draft:
+        call: [recipient_email_addresses, body]
+        result: [response.draft_id]
+    - mcp_appworld_gmail__update_draft:
+        call: [draft_id, email_addresses, subject, body]
+        result: [response.message]
+    - mcp_appworld_gmail__send_email_from_draft:
+        call: [draft_id]
+        result: [response.message]
+    - mcp_appworld_gmail__show_outbox_threads:
+        call: []
+        result: [response]
+    - mcp_appworld_gmail__show_thread:
+        call: [email_thread_id]
+        result: [response]
+  checklist:
+    - criterion: "The final Gmail subject is exactly 'Pre-Event Confirmation | Nanshan Client Product Demo | Wednesday Setup'."
+    - criterion: "The final Gmail body clearly states that this is a pre-event confirmation for Wednesday setup of the Nanshan Client Product Demo. Substantially similar wording is acceptable."
+    - criterion: "The final Gmail body asks for confirmation of the projector and HDMI adapter test status."
+    - criterion: "The final Gmail body asks for confirmation of the guest badge list status."
+    - criterion: "The final Gmail body asks for confirmation that 18 copies of the agenda have been printed."
+    - criterion: "The final Gmail body asks for a reply by 2026-04-29 16:00."
+    - criterion: "The final Gmail body says that if the guest badge list is not finalized yet, the current draft can be sent first together with the expected final confirmation time. Substantially similar wording is acceptable."
+    - criterion: "The final Gmail body asks the recipient to flag the risk immediately if the venue arrangement, equipment testing, or printing may slip past the deadline. Substantially similar wording is acceptable."
+    - criterion: "The final Gmail body presents the three confirmation items separately from the deadline and risk notice, in a format that is easy to scan. Substantially similar wording is acceptable."
+  tools_evaluation_path: "data/Financier/scripts/Financier_task_005_gmail.py"
+
+metadata:
+  difficulty: medium
+  benchmark_role: test
+  preference_threads:
+    - concise_operational_followups
+    - deadline_and_followup_discipline
+    - single_app_email_workflow

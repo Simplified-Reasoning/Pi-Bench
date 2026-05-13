@@ -1,0 +1,64 @@
+schema_version: v2
+task_id: law_trainee_task_016
+user_id: law_trainee
+environment_id: env_law_trainee
+
+title: "Compliance Review: “Nearby Trending Map” Feature for the International Short-Video App"
+description: "Based on project_online.md, produce a legal compliance review report for the planned U.S. launch of the “Nearby trending map” feature. Evaluation checks whether the report covers the specified core blocks: COPPA; CCPA/CPRA, precise geolocation, and default toggles; consistency of retention periods; DMCA and content moderation; California AADC; sensitive locations, anti-stalking, and home-location risk; and remedial conclusions with risk ratings."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    My supervising attorney assigned me a pre-launch compliance review. Please help me complete it. The product specification is in project_online.md, and the compliance review topics to check against are in checklist_project.md. Focus the analysis on the compliance review points that are most likely to be violated.
+
+  hidden_intent:
+    - content: "Since I am still a legal intern and not yet very familiar with some compliance provisions, please explain each compliance clause in plain and understandable language before proceeding with the analysis."
+    
+    - content: "Analyze only the five compliance review points that are most likely to be violated."
+    - content: "Identify which core compliance review points in the specification are or may be violated."
+    - content: "For each issue, explain how the design in the specification conflicts with or falls short of the relevant core compliance review point."
+    - content: "Provide remediation recommendations for each compliance issue."
+    - content: "State an overall compliance risk rating for the entire project development effort."
+    - content: "The final project compliance review opinion must be stated in binary form: pass or fail."
+objectives:
+  checklist:
+    - criterion: "States that the specification implicates or violates the core review point “Children’s privacy and parental controls.” Substantially similar wording is acceptable."
+
+    - criterion: "States that the specification implicates or violates the core review point “Sensitive personal information—notice and response.” Substantially similar wording is acceptable."
+
+    - criterion: "States that the specification implicates or violates the core review point “Automated copyright filtering.” Substantially similar wording is acceptable."
+
+    - criterion: "States that the specification implicates or violates the core review point “Default privacy settings for teens.” Substantially similar wording is acceptable."
+
+    - criterion: "States that the specification implicates or violates the core review point “Sensitive-location blocking and anti-harassment.” Substantially similar wording is acceptable."
+
+    - criterion: "Explains that although the document blocks the trending map for registered users under 18, COPPA applies to children under 13 and requires verifiable parental consent; the document does not specially address under-13 users or provide a consent mechanism for children under 13. Substantially similar wording is acceptable."
+
+    - criterion: "Explains that precise geolocation is sensitive personal information under the CCPA; businesses must offer a right to limit use of sensitive personal information for certain purposes, but the document only uses a pop-up notice and does not clearly provide a link or mechanism for that right; also, requests to delete location data must be responded to within 45 days—the document says “immediate deletion” but implementation delays must still meet the statutory deadline. Substantially similar wording is acceptable."
+
+    - criterion: "Explains that map videos may contain unlicensed music or copyright-protected segments; the document only says “no copyright music” but does not describe technical filtering, which raises DMCA and technological-measures issues. Substantially similar wording is acceptable."
+
+    - criterion: "Explains that even though users under 18 cannot browse the map, under the March 2026 California AADC line of authority, products likely accessed by children or teens must default to the strictest privacy settings. Substantially similar wording is acceptable."
+
+    - criterion: "Explains that in 2026 the FTC closely scrutinizes location data exposing sensitive venues; if the map clusters videos near reproductive-health clinics, places of worship, or domestic-violence shelters, that may be an unfair act under FTC law. Substantially similar wording is acceptable."
+
+    - criterion: "States that the overall compliance risk rating for the entire project development effort is high risk. Substantially similar wording is acceptable."
+
+    - criterion: "Provides remediation recommendations addressing COPPA. Substantially similar wording is acceptable."
+
+    - criterion: "Provides remediation recommendations addressing the CCPA. Substantially similar wording is acceptable."
+
+    - criterion: "Provides remediation recommendations addressing the DMCA. Substantially similar wording is acceptable."
+
+    - criterion: "Provides remediation recommendations addressing the California AADC. Substantially similar wording is acceptable."
+
+    - criterion: "Provides remediation recommendations addressing FTC expectations. Substantially similar wording is acceptable."
+
+    - criterion: "States that the overall project compliance review conclusion is that the project does not pass, is rejected, or fails review. Substantially similar wording is acceptable."
+
+metadata:
+  difficulty: medium

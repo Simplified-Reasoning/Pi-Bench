@@ -1,0 +1,56 @@
+schema_version: v2
+task_id: law_trainee_task_019
+user_id: law_trainee
+environment_id: env_law_trainee
+
+title: "Traffic-Accident Offense: Draft a Criminal Defense Brief or Statement of Defense"
+description: "Based on the prosecution theory and record excerpts in Defense_Case_Summary.md, draft a first-pass defense opinion or statement of defense for Defendant A on the charge of causing a traffic accident or related negligence offenses for filing with the court. Evaluation focuses on pleading format, legal diction, the evidentiary gap from the absence of a Traffic Accident Liability Determination, an elements-based argument structure, and synthesis of facts favorable to the accused."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    Our firm is handling a criminal matter: Defendant A is prosecuted for allegedly causing a traffic accident. The case facts and summary of investigative and interview materials are in Defense_Case_Summary.md. Please draft a statement of defense.
+
+  hidden_intent:
+    - content: "The document conforms to the standard structure of a criminal defense brief or statement of defense: forms of address, introduction, subdivided body, conclusion, and signature block."
+    - content: "The defense addresses both subjective and objective elements of the offense."
+    - content: "The argument shows that traffic-accident-related charges are weak on liability allocation and proof."
+    - content: "Reasoning is organized around the elements of the crime, with systematic analysis of negligence, objective imputation, and causation, not a bare chronology of facts."
+    - content: "Favorable facts in the record are distilled for acquittal or mitigation and tied to the accused’s capacity for care and post-incident assistance."
+    - content: "The brief challenges criminal-law causation between the traffic-related conduct and the victim’s death, noting elapsed time and possible intervening factors that weaken or break imputation."
+    - content: "The brief appropriately cites criminal law, road-traffic safety law, and judicial interpretations to support its points, even if the user prompt does not quote specific articles."
+    - content: "Include at the end an objective case analysis report for the client’s family and relatives, assessing the likelihood of our client prevailing in the case."
+
+objectives:
+  checklist:
+    - criterion: "The pleading has a complete format: at the outset it includes a standard title such as \"Defense Opinion\" or \"Defense Brief\" and proper forms of address such as \"Respectful Presiding Judge and Judges.\" Substantially similar wording is acceptable."
+
+    - criterion: "The introduction accurately states counsel’s authority and retention: assigned by Hengping Law Firm, Jiangzhou City, and retained by Defendant A’s family to serve as defense counsel. Substantially similar wording is acceptable."
+
+    - criterion: "The brief clearly states the core defense: the prosecution’s charge that A committed the offense of causing a traffic accident or negligent homicide is unclear on the facts, insufficient in evidence, and wrong in law. Substantially similar wording is acceptable."
+
+    - criterion: "In the facts-and-evidence section, it clearly states that the location of the scrape and collision is a road within the scope of public traffic administration and should be assessed under traffic-accident law. Substantially similar wording is acceptable."
+
+    - criterion: "It states that this was a two-party incident involving A’s electric motorcycle and an illegally parked small truck and that the traffic police did not issue a Traffic Accident Liability Determination. Substantially similar wording is acceptable."
+
+    - criterion: "It argues that the Traffic Accident Liability Determination is essential proof for whether the defendant bears main or full liability; without it, the prosecution’s case is insufficient in evidence. Substantially similar wording is acceptable."
+
+    - criterion: "In the subjective-element analysis, it clearly states A did not act with overconfident negligence, because A did not foresee B’s death and took positive, reasonable care of B before medical care, including placing B at the inn, covering him with a blanket, and applying a towel. Substantially similar wording is acceptable."
+
+    - criterion: "In the subjective-element analysis, it clearly states A did not act with negligent oversight, because the illegally parked small truck was the direct external factor causing the crash and A, riding normally, could not have foreseen the collision. Substantially similar wording is acceptable."
+
+    - criterion: "It further argues A lacked capacity to foresee B’s death: A had no emergency medical training; at the time B showed no obvious external injury and was snoring, appearing stable; C and D also saw nothing abnormal. Substantially similar wording is acceptable."
+
+    - criterion: "In the objective-element analysis, it questions direct causation between the traffic-related conduct and the death, noting a long interval before B died and that intoxication or underlying health conditions cannot be ruled out as intervening factors. Substantially similar wording is acceptable."
+
+    - criterion: "It clearly states A did not commit a harmful act by culpable omission: after the incident A acted within an ordinary person’s knowledge and ability to provide maximum assistance and reasonable care. Substantially similar wording is acceptable."
+
+    - criterion: "The closing complies with form: it states \"To: Shuigong District People's Court, Jiangzhou City.\" Substantially similar wording is acceptable."
+
+    - criterion: "Include at the end an objective case analysis report for the client’s family and relatives."
+metadata:
+  difficulty: hard

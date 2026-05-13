@@ -1,0 +1,121 @@
+{
+  "paper_metadata": {
+    "title": "GIME: Adaptive Tool Composition for Sequential Visual Inference"
+  },
+  "reviews": [
+    {
+      "reviewer_id": "Reviewer_1",
+      "rating": {
+        "score": 4,
+        "label": "marginally below the acceptance threshold. But would not mind if paper is accepted"
+      },
+      "confidence": {
+        "score": 3,
+        "label": "You are fairly confident in your assessment. It is possible that you did not understand some parts of the submission or that you are unfamiliar with some pieces of related work. Math/other details were not carefully checked."
+      },
+      "scores": {
+        "soundness": 3,
+        "presentation": 3,
+        "contribution": 2
+      },
+      "summary": "This paper presents GIME, a framework designed to enhance the reasoning capabilities of Multimodal Large Language Models (MLLMs) through dynamic tool orchestration. The method combines two stages: a Tool Cold Start phase that generates and trains on high-quality, multi-turn trajectories, and a Tool-GRPO reinforcement learning phase that refines tool-calling strategies using adaptive rewards. The system enables MLLMs to autonomously plan, select, and modulate tool usage across perception, manipulation, and planning tools, thereby improving performance on complex visual reasoning tasks.\n\nEmpirical results are striking—on benchmarks such as Visual Spatial Planning (VSP), Jigsaw, and GUI Question Answering (GUIQA), GIME achieves significant improvements over strong baselines. The 7B model, for example, reaches 97.6% accuracy on VSP, surpassing proprietary systems like GPT-5 and Claude Sonnet 4. The work advances the notion that smaller open-source models, when augmented with dynamic tool-use capabilities, can achieve reasoning performance comparable to far larger models.\n\nThe paper makes a valuable empirical contribution and is well executed. The results convincingly demonstrate that structured trajectory learning and tool orchestration can significantly enhance reasoning performance in MLLMs. The writing is clear, the motivation is sound, and the overall system engineering is strong.\n\nHowever, the core methodology does not introduce substantial novelty, and the dependence on handcrafted trajectories and domain-specific tools limits generality. The framework, while powerful, feels more like a carefully engineered pipeline than a broadly applicable reasoning paradigm. The claims about emergent behavior and scale independence would benefit from more controlled evidence and broader validation.\n\nWith a reframed emphasis on the strength of the trajectory-based supervision and a deeper analysis of generalization and statistical robustness, this work could evolve into an impactful contribution. In its current form, it falls slightly short of the threshold for acceptance due to limited methodological originality and questions about scalability and generality.",
+      "strengths": "The paper addresses an important and timely challenge in multimodal AI, how to move beyond single-tool usage toward adaptive, multi-step tool coordination. The problem is clearly defined, the motivation is well grounded, and the proposed framework is logically structured. The design combining curated multi-turn trajectories with reinforcement learning represents a meaningful step toward more adaptive and interpretable reasoning systems.\n\nThe writing is exceptionally clear and the presentation is of high quality. The figures effectively convey both the framework's architecture and the emergent behaviors observed during training. The methodology section provides sufficient detail for replication, and the promise to release code and datasets demonstrates a commendable commitment to reproducibility.\n\nExperimentally, the paper is strong. The benchmarks cover a variety of structured reasoning settings, and the comparisons include both open-source and proprietary systems. The improvements obtained on complex multimodal tasks are substantial and consistent. Analyses showing how the model learns to adopt or discard tools based on task context add credibility to the claim of adaptive reasoning. The data curation process is also thoughtfully designed: by deliberately including reflection, backtracking, and tool-failure cases, the authors teach the model robust error recovery and self-correction behaviors that go beyond standard supervised fine-tuning.",
+      "weaknesses": "While the empirical results are impressive, the methodological contribution is incremental. The proposed Tool-GRPO is effectively an application of existing GRPO with customized reward shaping and formatting constraints. The novelty lies primarily in system integration and data engineering rather than in algorithmic or theoretical innovation.\n\nA second limitation is the heavy reliance on manual, task-specific design. The \"abstract problem-solving blueprints\" that underpin the Cold Start data are crafted by hand for each task, and the tool suite itself includes several domain-specific utilities such as DETECTBLACKAREA or ASTAR. This reliance raises concerns about scalability and whether the framework could generalize to new or less structured domains without similar levels of manual effort.\n\nThe claim of \"emergent\" or \"self-adaptive\" behavior is also somewhat overstated. Much of the observed adaptivity appears to stem from the explicit supervision provided during the Cold Start stage rather than from genuine spontaneous generalization. Moreover, the paper lacks key elements of experimental rigor such as no variance estimates, error bars, or significance testing are reported, which limits confidence in the stability of the reported gains. Finally, the \"tools-over-scale\" conclusion, though intriguing, is demonstrated primarily on highly structured tasks where specialized tools contribute most of the lift, leaving questions about its broader applicability.",
+      "questions": [
+        "How scalable is the manual trajectory design process? What level of effort is required to produce the abstract blueprints for a new task?",
+        "Have experiments been conducted using only general purpose tools, removing highly task specific ones, to test the limits of generalization?",
+        "Can the framework extend to less structured or open ended reasoning tasks beyond spatial or puzzle-based problems?",
+        "In the adaptive behavior analysis, how much of the improvement stems from the Cold Start initialization versus the RL fine-tuning?",
+        "Would training runs with identical data but without the RL phase help isolate the true contribution of Tool-GRPO?"
+      ],
+      "ethics_concerns": {
+        "flagged": false,
+        "details": "None",
+        "code_of_conduct": "Yes"
+      }
+    },
+    {
+      "reviewer_id": "Reviewer_2",
+      "rating": {
+        "score": 6,
+        "label": "marginally above the acceptance threshold. But would not mind if paper is rejected"
+      },
+      "confidence": {
+        "score": 4,
+        "label": "You are confident in your assessment, but not absolutely certain. It is unlikely, but not impossible, that you did not understand some parts of the submission or that you are unfamiliar with some pieces of related work."
+      },
+      "scores": {
+        "soundness": 3,
+        "presentation": 4,
+        "contribution": 3
+      },
+      "summary": "This paper proposes the GIME framework, a two-stage paradigm (Cold Start: high-quality multi-turn tool trajectory curation; Tool GRPO: multi-turn tool reinforcement learning optimization) that teaches MLLMs to dynamically combine 7 core visual tools (perception, manipulation, calculation) for iterative visual reasoning. It boosts performance on VSP, Jigsaw, GUIQA (e.g., 7B model: +38.7% avg, 97.6% VSP accuracy), outperforming GPT-5. The model adapts to new tools (e.g., ASTAR) during inference, adopting beneficial tools and discarding irrelevant ones, but has limitations.",
+      "strengths": "A key limitation of the \"rule-based reward structure\" in R1-style methods is that it primarily optimizes the reasoning process and fails to directly improve the model's underlying perceptual capabilities. GIME directly addresses this shortcoming: by leveraging the precise perceptual capabilities of external expert models and specialized tools, it ensures high-fidelity understanding of visual inputs, thereby enhancing the reliability of the entire reasoning pipeline.\nUnlike previous methods that typically focus on single-step actions, GIME explores more complex challenges such as \"multi-turn planning\" and \"dynamic tool composition\"..",
+      "weaknesses": "The most notable weakness of this paper lies in the limitations of evaluating tool generalization ability, specifically the \"oversimplified verification of new tools during inference\" and \"lack of adaptation to tool complexity\". These limitations cast doubt on the generalizability of the research conclusions in more complex and diverse tool scenarios.\n\nSee other Weaknesses in Questions.",
+      "questions": [
+        "The paper only verifies the adaptability of \"calculation new tools (e.g., ASTAR for pathfinding)\" during inference, without involving \"perceptual tools (e.g., a newly added high-precision segmentation tool)\" or \"manipulation tools (e.g., a newly added image rotation tool ROTATE)\". If such new tools with different functions are introduced during inference, can the model still maintain its zero-shot adaptation ability? Are there differences in the adaptation difficulty among new tools of different functions (e.g., lower adaptation rates for perceptual tools due to more complex parameters)?",
+        "The current toolset in the paper only includes 7 core tools. If two or more new tools are introduced simultaneously during inference, can the model autonomously distinguish the relevance between tools and tasks (e.g., using ASTAR only for navigation tasks and the new tool for 3D localization tasks), or will it experience tool selection confusion?",
+        "After training the model to master the combination strategy of \"POINT + ASTAR + DRAW2DPATH\" on the \"grid VSP task\", the paper does not directly test the model's tool combination performance on \"similar indoor maze navigation tasks\" (which require obstacle localization, path planning, and use the same toolset). The absence of this experiment makes it impossible to determine whether the tool combination strategy learned by the model is \"task-specific\" (usable only in the trained task) or \"generally transferable\" (adaptable to similar tasks)."
+      ],
+      "ethics_concerns": {
+        "flagged": false,
+        "details": "No ethics review needed.",
+        "code_of_conduct": "Yes"
+      }
+    },
+    {
+      "reviewer_id": "Reviewer_3",
+      "rating": {
+        "score": 8,
+        "label": "accept, good paper (poster)"
+      },
+      "confidence": {
+        "score": 4,
+        "label": "You are confident in your assessment, but not absolutely certain. It is unlikely, but not impossible, that you did not understand some parts of the submission or that you are unfamiliar with some pieces of related work."
+      },
+      "scores": {
+        "soundness": 3,
+        "presentation": 4,
+        "contribution": 3
+      },
+      "summary": "This paper introduces GIME, a framework for dynamic tool orchestration in MLLMs. Unlike prior approaches that rely on fixed, single-step tools, GIME allows models to plan, select, and compose tools adaptively across multiple reasoning turns. The framework combines: 1. a data curation pipeline that produces multi-turn tool-use trajectories with reflection and backtracking, and 2. a Tool-GRPO reinforcement learning algorithm designed to optimize these multi-turn trajectories with adaptive rewards. Empirically, GIME significantly boosts reasoning accuracy of open-source vision–language models (e.g., Qwen2.5-VL-7B) across tasks like Visual Spatial Planning, Jigsaw, and GUI-QA, achieving up to +38.7% average improvement and even outperforming large proprietary models such as GPT-5 and Claude Sonnet 4. The authors also report emergent adaptive behaviors, where the model autonomously learns to adopt or discard tools depending on task context.",
+      "strengths": "The authors demonstrate on their method improves over a variety of baselines across several visual reasoning benchmarks, with sufficient ablation experiments as well. A common limitation about training-based approaches for tool integrated reasoning is that they may not generalize to introduced tools. The authors address this by showing that at inference time, adding an unseen tool (A*) improves performance.",
+      "weaknesses": "The authors show that RL training allows the model to learn how much to use different tools (\"adopt\", \"discard\", \"modulate\") and call this an emergent behavior at multiple points throughout the paper. However, the way the authors use the term \"emergent behavior\" could benefit from some clarification / definition. Generally, emergent behaviors refer to nonobvious / surprising capabilities not explicitly optimized in the object and generally only \"emerge\" at scale. In this case, the method is deliberately training the model to perform tool calls (with cold start and GRPO). Maybe learning adaptive tool selection, tool use optimization, etc are more precise terms to be used in this setting.",
+      "questions": [
+        "For proprietary model baselines, could the authors give more specific details on they were run? Were they prompted to answer in one turn? If the proprietary models were evaluated using frameworks that involve explicit multistep planning and reasoning, e.g. ReAct (https://arxiv.org/abs/2210.03629) or OctoTools (https://arxiv.org/abs/2502.11271), how would their performance compare to TC and TG methods? Could the authors clarify on how they are using the term \"emergent\" behavior, strategies, etc (see Weaknesses)? Are there ablation experiments varying the amount of compute / date used in cold-start affect downstream performance (with and without RL)? Could the authors include more details on training, e.g. hyperparameters? Will the cold-start trajectory dataset be released upon acceptance? Minor: figure 2 bottom panel is labeled (c) instead of (b)"
+      ],
+      "ethics_concerns": {
+        "flagged": false,
+        "details": "No ethics review needed.",
+        "code_of_conduct": "Yes"
+      }
+    },
+    {
+      "reviewer_id": "Reviewer_4",
+      "rating": {
+        "score": 8,
+        "label": "accept, good paper (poster)"
+      },
+      "confidence": {
+        "score": 3,
+        "label": "You are fairly confident in your assessment. It is possible that you did not understand some parts of the submission or that you are unfamiliar with some pieces of related work. Math/other details were not carefully checked."
+      },
+      "scores": {
+        "soundness": 4,
+        "presentation": 3,
+        "contribution": 3
+      },
+      "summary": "The paper “GIME: Adaptive Tool Composition for Sequential Visual Inference” presents a new framework for enhancing multimodal large language models (MLLMs) with adaptive, multi-turn tool-use capabilities. Existing methods generally employ fixed, single-tool reasoning or scripted tool invocation, limiting their capacity for dynamic, multi-step planning. To address this, the authors introduce GIME, a system that integrates a diverse suite of visual tools and introduces a specialized Tool GRPO reinforcement learning algorithm alongside a Tool Cold Start phase for data-driven initialization. The system uses a curated dataset of reasoning trajectories that include reflection, backtracking, and tool failure cases—teaching models to plan adaptively and recover from errors. Extensive experiments demonstrate that GIME significantly improves reasoning performance, achieving +38.7% average accuracy gains on 7B models and near-perfect accuracy (97.6%) on Visual Spatial Planning tasks—outperforming both open and proprietary systems like GPT-5 and Claude Sonnet 4. The framework also exhibits emergent behaviors, such as autonomously adopting or discarding tools depending on their utility.",
+      "strengths": "The paper is well-motivated and grounded in both conceptual and empirical depth. It identifies a clear and timely gap in MLLM research—static or single-tool reasoning—and develops a complete system that addresses it with a mix of structured methodology and adaptive reinforcement learning. The data curation pipeline (with reflection and failure handling) is a major strength, as it systematically teaches models resilience and iterative self-correction. The Tool GRPO formulation introduces a carefully designed reward structure that balances correctness, formatting, and tool-usage efficiency, enabling stable optimization of multi-turn trajectories. The ablation studies and visualization of tool-call frequency provide valuable insight into the model’s learning dynamics, confirming the emergence of adaptive behaviors such as adopting useful tools (A*) or discarding irrelevant ones. Furthermore, the analysis connecting perception tools (“see”), manipulation tools (“verify”), and planning tools (“calculate”) adds interpretability and conceptual clarity. Overall, the work is good, empirically convincing, and establishes GIME as a strong contribution to multimodal tool-use research.",
+      "weaknesses": "the paper leaves several conceptual and methodological aspects underexplored that could make the study more complete. Although the reward function and reflection-based trajectories are described, their quantitative sensitivity (e.g., how different reward weights or reflection ratios affect learning) is not studied, limiting reproducibility insights. While performance improvements are substantial, the evaluation scope is confined to visual reasoning tasks, and cross-modal generalization (e.g., audio or temporal modalities) is not examined, despite the framework’s claimed generality.",
+      "questions": [
+        "please check above"
+      ],
+      "ethics_concerns": {
+        "flagged": false,
+        "details": "na",
+        "code_of_conduct": "Yes"
+      }
+    }
+  ]
+}

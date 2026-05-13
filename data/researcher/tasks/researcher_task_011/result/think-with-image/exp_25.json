@@ -1,0 +1,33 @@
+{
+  "exp_id": "25",
+  "benchmark": "v_star bench",
+  "base_model": "qwen2.5-3b-vl",
+  "training_method": "sft_lora",
+  "settings": {
+    "dataset": "MEbench-SFT-internal-v1",
+    "epochs": 1,
+    "learning_rate": 2.5e-4,
+    "warmup_ratio": 0.03,
+    "max_seq_len": 2048,
+    "gradient_accumulation": 8,
+    "lora": {
+      "r": 8,
+      "alpha": 16,
+      "dropout": 0.1,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj"
+      ],
+      "notes": "Smaller LoRA rank for speed/efficiency."
+    }
+  },
+  "metrics": {
+    "acc": 59.5
+  },
+  "environment": {
+    "hardware": "A100-80GB",
+    "precision": "bf16"
+  }
+}

@@ -1,0 +1,4 @@
+["DELETE FROM user_artist_followings WHERE user_artist_followings.id = ?",[399],false]
+["DELETE FROM user_artist_followings WHERE user_artist_followings.id = ?",[396],false]
+["DELETE FROM user_artist_followings WHERE user_artist_followings.id = ?",[394],false]
+["DELETE FROM user_artist_followings WHERE user_artist_followings.id = ?",[401],false]

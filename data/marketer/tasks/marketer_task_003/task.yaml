@@ -1,0 +1,36 @@
+schema_version: v2
+task_id: marketer_task_003
+user_id: marketer
+environment_id: env_marketer
+title: scripts
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: "Using our previous research methodology for micro short drama and based on the different platform formatting preferences we aligned on, please first conduct an internet search on the '2026 Global Live Stream E-commerce Market Deep Observation'. Then, generate a content matrix for our new client. You must generate exactly: one TikTok spoken-word video script (30-second duration, using English), one X (Twitter) interactive thread (maximum 6 posts, using English), and one Quora in-depth answer (maximum 4 paragraphs, using English). You must output EXACTLY and ONLY these three pieces of content. Direct output instead of creating a document."
+  hidden_intent:
+    - content: "The overall response explicitly includes market growth metrics."
+    - content: "The overall response explicitly includes a regional or country-level analysis."
+    - content: "The overall response explicitly identifies key industry challenges or monetization bottlenecks."
+    - content: "The TikTok script uses a hook or counter-intuitive fact in the first sentence."
+    - content: "The Quora script starts by directly answering the question (or states the conclusion or core thesis in the first paragraph)."
+
+objectives:
+  checklist:
+    - criterion: "The TikTok scripts explicitly states that the 2026 global live commerce market size."
+    - criterion: "The X/Twitter scripts explicitly states that the 2026 global live commerce market size."
+    - criterion: "The Quora scripts explicitly states that the 2026 global live commerce market size."
+    - criterion: "The TikTok scripts text explicitly identifies the Asia-Pacific (APAC) region/China/East Asia as holding the largest overall market share in live commerce."
+    - criterion: "The X/Twitter scripts text explicitly identifies the Asia-Pacific (APAC) region/China/East Asia as holding the largest overall market share in live commerce."
+    - criterion: "The Quora scripts text explicitly identifies the Asia-Pacific (APAC) region/China/East Asia as holding the largest overall market share in live commerce."
+    - criterion: "The TikTok scripts text explicitly identifies a core monetization bottleneck or key industry challenge."
+    - criterion: "The X/Twitter scripts text explicitly identifies a core monetization bottleneck or key industry challenge."
+    - criterion: "The Quora scripts text explicitly identifies a core monetization bottleneck or key industry challenge."
+    - criterion: "TikTok Form: The script begins with a strong hook or counter-intuitive statement."
+    - criterion: "X/Twitter Form: Each individual tweet maintains focus on a single core topic."
+    - criterion: "Quora Form: The core conclusion or thesis is presented directly in the opening paragraph."
+
+metadata:
+  difficulty: easy

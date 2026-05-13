@@ -1,0 +1,47 @@
+schema_version: v2
+task_id: pharmacist_task_015
+user_id: pharmacist
+environment_id: env_pharmacist
+title: API Topical Formulation Design Framework
+description: "The user is developing a topical formulation around an API. The task directory already contains an API property summary, a limited draft of possible formulation routes, benchmark product notes, risk flags, and an intentionally imperfect planning draft. The goal is no longer just to write a good plan from scratch: the agent must revise the existing draft, remove or downgrade weak decisions, and expose the corrected keep/defer logic directly in the final reply."
+task_type: long_term
+trigger:
+  type: user
+intent:
+  initial_input: |
+    First read `api_profile.md`, `candidate_formulation_routes.md`, `benchmark_product_notes.md`, `risk_flags.txt`, `formulation_design_plan.md`, and `route_screening_matrix.csv` in the current task directory; if anything is missing, say so first. Then revise the current draft rather than starting from zero. Please update both `formulation_design_plan.md` and `route_screening_matrix.csv`, keep the useful structure if possible, and in your final reply output exactly these blocks in this order: `Key Risk Or Gap`, `Route Decision Table`, `Removed Or Downgraded Draft Item`, `Screening Matrix`, `Fallback If Baseline And Backup Fail`. The `Route Decision Table` must be a markdown table with columns `Role | Route | Keep Or Defer Reason | Source` and exactly three rows for `baseline`, `backup`, and `deferred`. The `Screening Matrix` block must be a fenced CSV block with columns `Version,KeyVariable,EvaluationFocus,RouteRole`. Use only these source anchors: `[API]`, `[Routes]`, `[Benchmark]`, `[Risk]`, `[API+Routes]`, `[API+Risk]`, `[Benchmark+Risk]`, `[Routes+Risk]`, `[API+Benchmark]`, or `[API+Routes+Benchmark+Risk]`. Treat this as the formulation-design continuation of the earlier property-sheet and benchmark-screening tasks: keep directly sourced API facts separate from inference, and do not keep a benchmark-inspired borrowing point alive unless it is worth imitating in round one.
+  hidden_intent:
+  - content: Screen the candidate routes using the local API information and risk flags first, and do not invent a framework detached from the current inputs.
+  - content: Use `formulation_design_plan.md` as the canonical output file, and separate known facts, open information gaps, and provisional assumptions.
+  - content: At the top of the file, explicitly state one key risk or information gap that means the route should not be locked too early.
+  - content: Keep a route-comparison and screening structure with one baseline route, one backup route, and one deferred route, plus a first-round screening matrix and evaluation logic.
+  - content: Keep one conservative baseline route visible even if a more ambitious route sounds more interesting.
+  - content: Treat the existing `formulation_design_plan.md` and `route_screening_matrix.csv` as drafts to be corrected, not as files to be ignored or rewritten blindly from scratch.
+  - content: Map major API risks into route-selection or screening decisions instead of leaving them as an isolated risk list.
+  - content: Use all local source materials plus the two draft artifacts together, and explicitly repair at least one draft inconsistency that only becomes obvious when those materials are compared side by side.
+  - content: If a benchmark-style borrowing point conflicts with the local API risk picture, keep the borrowing visible but explicitly reject or defer it for round one.
+  - content: Use the local benchmark notes to change at least one keep-versus-defer decision instead of treating them as decorative background context.
+  - content: At least one currently over-prioritized or premature draft choice should be explicitly downgraded, removed, or moved to the deferred layer.
+  - content: If the current API information is still not enough, say so directly, and make the final reply follow the exact output schema so every keep, defer, and fallback decision is visible without opening the files.
+  - content: When local materials are in tension, proactively choose diagnostic clarity over showing too many routes at once.
+  - content: If a route sounds attractive but weakens first-round interpretability, proactively demote it even if the draft keeps it visually prominent.
+  - content: Volunteer one explicit statement of what should not be tested in round one, not only what remains in the plan.
+  - content: Inherit the earlier property-sheet preference for keeping directly sourced API facts separate from downstream inference, instead of letting one vague hydrophobicity story drive every route decision.
+  - content: Inherit the earlier benchmark-screening preference for keeping one route genuinely worth imitating first while explicitly dropping at least one superficially attractive borrowing point that is not worth round-one investment.
+objectives:
+  checklist:
+  - criterion: "The final reply must follow the exact output schema: exactly five top-level blocks in this order, `Key Risk Or Gap`, `Route Decision Table`, `Removed Or Downgraded Draft Item`, `Screening Matrix`, and `Fallback If Baseline And Backup Fail`."
+  - criterion: "The `Route Decision Table` block must be a markdown table with exactly these columns in this order: `Role | Route | Keep Or Defer Reason | Source`, and it must contain exactly three rows, one each for `baseline`, `backup`, and `deferred`."
+  - criterion: "Every row in the `Route Decision Table` must contain one visible source anchor chosen only from `[API]`, `[Routes]`, `[Benchmark]`, `[Risk]`, `[API+Routes]`, `[API+Risk]`, `[Benchmark+Risk]`, `[Routes+Risk]`, `[API+Benchmark]`, or `[API+Routes+Benchmark+Risk]`."
+  - criterion: "The `Key Risk Or Gap` block must explicitly state that the route cannot be locked yet because at least one of these remains unresolved: `very low water solubility / precipitation after standing`, `ethanol improves dissolution but can worsen irritation`, `weakly basic pKa creates pH / neutralization uncertainty`, or `whether film-forming is needed at all`."
+  - criterion: "The `Route Decision Table` must keep `baseline` as a carbomer baseline / comparator route, `backup` as a lower-irritation carbomer or co-solvent route, and `deferred` as an alternative gel-base route; `baseline` must not be replaced by the mildness-first route, and `deferred` must not be a film-forming route."
+  - criterion: "The `Route Decision Table` must make the API-fact versus inference split visible: at least one keep/defer reason must explicitly cite a directly sourced API fact such as `water solubility < 0.05 mg/mL`, `relatively good solubility in propylene glycol`, `moderate ethanol solubility`, or `weakly basic pKa about 8.4`, and at least one separate keep/defer reason must explicitly label an uncertainty or inference such as unresolved irritation window, unresolved pH window, or unresolved need for film formation."
+  - criterion: "The `Removed Or Downgraded Draft Item` block must explicitly demote at least one draft choice and say whether it was `removed`, `downgraded`, or `moved to deferred`; one accepted correction target is the early `film-forming route / layer`, and another accepted correction target is over-prioritizing the mildest route ahead of the baseline comparator."
+  - criterion: "Somewhere across `Route Decision Table` or `Removed Or Downgraded Draft Item`, the reply must explicitly state one attractive-but-not-worth-it round-one borrowing point, such as `keeping film-forming visible early` or `starting from the mildest route first`, and it must say that this borrowing point is not worth round-one investment because it weakens diagnostic clarity or worsens a local risk."
+  - criterion: "The reply must explicitly name at least one thing that should not be tested in round one, and that item must be either `film-forming route / film-forming layer` or `too many route changes at once`."
+  - criterion: "The `Screening Matrix` block must be a fenced CSV block with exactly this header line: `Version,KeyVariable,EvaluationFocus,RouteRole`, and it must contain at least three data rows."
+  - criterion: "The route names and route roles in the `Screening Matrix` rows must match the `baseline`, `backup`, and `deferred` identities used in the `Route Decision Table`, and each matrix row must contain a concrete evaluation focus such as `appearance`, `viscosity`, `precipitation`, `uniformity`, `pH handling`, `irritation / feel`, `release`, or `stability` rather than a generic placeholder."
+  - criterion: "At least two concrete tradeoffs must be mapped into keep / defer / matrix decisions, and they must include both `solvent push versus irritation` and one additional tradeoff chosen from `pH / neutralization handling`, `precipitation after standing`, or `too many route changes blur diagnosis`."
+  - criterion: "The `Fallback If Baseline And Backup Fail` block must explicitly say that if both leading routes fail by early precipitation or comparable uniformity failure, the plan should contract rather than expand: it must defer film-forming or other extra-complexity ideas and narrow the next round to the simplest comparator logic plus solvent / pH refinement."
+metadata:
+  difficulty: hard

@@ -1,0 +1,17 @@
+schema_version: v2
+task_id: marketer_task_005
+user_id: marketer 
+environment_id: env_marketer
+title: "information_extraction"
+description: ''
+task_type: long_term
+
+trigger:
+  type: user
+intent:
+  initial_input: 'We are preparing a post-mortem on the viral "Apple × ISSEY MIYAKE iPhone Pocket Limited Accessory" co-branding campaign from November 2025. Please search the internet for core news about this event and summarize the key information (maximum 4 paragraphs). I need you to precisely extract the specific strategic data points and insights that defined this launch.'
+  hidden_intent:
+    - content: "The response explicitly identifies the product design philosophy as 'A-POC' or 'a piece of cloth'."
+    - content: "The response explicitly analyzes negative feedback or risk points."
+metadata:
+  difficulty: medium

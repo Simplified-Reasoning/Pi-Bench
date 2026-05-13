@@ -1,0 +1,8 @@
+[
+    "supervisor.complete_task",
+    "supervisor.show_account_passwords",
+    "supervisor.show_profile",
+    "phone.get_current_date_and_time",
+    "venmo.login",
+    "venmo.show_transactions"
+]

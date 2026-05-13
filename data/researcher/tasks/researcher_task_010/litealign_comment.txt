@@ -1,0 +1,13 @@
+# Comments from senior labmate on LiteAlign Draft_v1
+
+Hey—I finished reading the first LiteAlign draft. The efficient fine-tuning idea is solid: 40% fewer parameters while matching full fine-tuning; CVPR has a real shot. The deadline is coming up fast, so I nitpicked a bit—triage these ASAP:
+
+1. **Title**: "Lightweight Adapters" is misspelled as "Lightwieght" (also appears twice in the abstract). Global search-and-replace.
+2. **Section 2.2**: For the Cross-Attention Adapter design you only give Equation (2). The dimension changes read very abrupt—how exactly do you compress image patches and project back? Add a paragraph clarifying the concrete tensor shape flow.
+3. **Section 3.1**: In experimental setup you never specify how much VRAM training the LiteAlign module takes. This is a parameter-efficiency paper—you must report memory usage. Add a peak-memory comparison table across baselines.
+4. **Section 3.2**: In Figure 3 the legend covers the curves—move the legend outside the plot.
+5. **Section 3.3**: In ablations you only tried adapter bottleneck size $d=64$ and $d=128$. Add $d=16$ and $d=32$ to show behavior in an extremely low-rank regime; this should be quick—half a day of runs.
+6. **Section 4**: All experiments are on ~7B models (e.g., LLaVA-1.5-7B). Reviewers will absolutely ask whether the trick scales. I suggest re-mounting LiteAlign on a 70B/72B model (e.g., LLaVA-Next-72B or Qwen-VL-72B) and re-running full downstream eval. If you can still claim ~40% VRAM savings at 72B, the paper is rock solid.
+7. **Section 4**: Modality alignment is image-text only right now. Can you lightly adapt the adapter to plug in an audio encoder or a point-cloud encoder and run a cross-modal 3D/audio-to-text alignment experiment to show the architecture is general?
+8. **Conclusion**: First sentence—"In this paper, we proposes..." is ungrammatical (subject-verb agreement).
+9. **Appendix**: Please document the learning-rate schedule and warmup steps used in fine-tuning; otherwise the setup is not reproducible.

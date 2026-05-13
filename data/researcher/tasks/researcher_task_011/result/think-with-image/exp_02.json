@@ -1,0 +1,18 @@
+{
+  "exp_id": "02",
+  "benchmark": "v_star bench",
+  "base_model": "qwen2.5-7b-vl",
+  "training_method": "baseline",
+  "settings": {
+    "notes": "No finetuning. Prompt-only baseline."
+  },
+  "metrics": {
+    "acc": 78.5
+  },
+  "environment": {
+    "hardware": "A100-80GB",
+    "precision": "bf16",
+    "max_new_tokens": 512,
+    "batch_size_infer": 1
+  }
+}

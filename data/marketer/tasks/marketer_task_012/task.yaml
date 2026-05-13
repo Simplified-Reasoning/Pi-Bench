@@ -1,0 +1,26 @@
+schema_version: v2
+task_id: marketer_task_012
+user_id: marketer
+environment_id: env_marketer
+title: "Generate A/B Testing Headlines"
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: "We are planning an advertorial for the '$599 Spine Steward AI Adaptive Ergonomic Chair' targeting North American Silicon Valley programmers. Please read the 'Spine_Steward.md' file and extract its specific facts. Then, immediately generate 12 English A/B testing headlines targeted at native feed pushes. You must explicitly use these extracted specific facts to construct the headlines. Group them explicitly under these 4 psychological triggers: Counter-Intuitive Curiosity, Authority Endorsement, Pain Point Amplification, and Instant Saving Incentive (exactly 3 headlines per category). Every single headline must be strictly between 6 and 12 words. Output strictly the 12 headlines grouped by category without any introductory or concluding conversational filler."
+  hidden_intent:
+    - content: "One of the 3 headlines in the [Authority Endorsement] category must mandatorily include the core technological advantages of the product."
+    - content: "One of the 3 headlines in the [Pain Point Amplification] category must mandatorily include the extreme pain points of the product."
+    - content: "One of the 3 headlines in the [Instant Saving Incentive] category must mandatorily display the specific conversion bait of the product."
+
+objectives:  
+  checklist:
+    - criterion: "One of the 3 headlines in the [Counter-Intuitive Curiosity] category must spark curiosity using technical analogies familiar to programmers or career-related contrasts."
+    - criterion: "One of the 3 headlines in the [Authority Endorsement] category explicitly includes either the 'Medical-grade' or 'AI Dynamic' vocabulary."
+    - criterion: "One of the 3 headlines in the [Pain Point Amplification] category explicitly features either the 'Chronic Lower Back Pain' or 'Hidden Scoliosis' keywords."
+    - criterion: "All of the 3 headlines in the [Instant Saving Incentive] category explicitly feature the '$50' or 'Early Bird' keywords."
+
+metadata:
+  difficulty: medium

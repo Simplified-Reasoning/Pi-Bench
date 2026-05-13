@@ -1,0 +1,31 @@
+{
+  "exp_id": "24",
+  "benchmark": "v_star bench",
+  "base_model": "qwen2.5-7b-vl",
+  "training_method": "dapo",
+  "settings": {
+    "init_checkpoint": "exp_08 (sft_full)",
+    "dapo": {
+      "algorithm": "DAPO",
+      "data_mixing": {
+        "on_policy_ratio": 0.7,
+        "off_policy_replay_ratio": 0.3,
+        "replay_buffer_size": 60000
+      },
+      "sampling": {
+        "rollouts_per_prompt": 12,
+        "temperature": 0.7,
+        "top_p": 0.95
+      },
+      "optimization": {
+        "policy_lr": 4.5e-6,
+        "kl_beta": 0.03,
+        "clip_range": 0.2,
+        "epochs": 1
+      }
+    }
+  },
+  "metrics": {
+    "acc": 87.0
+  }
+}

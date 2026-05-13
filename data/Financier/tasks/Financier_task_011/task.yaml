@@ -1,0 +1,63 @@
+schema_version: v2
+task_id: Financier_task_011
+user_id: Financier
+environment_id: env_Financier
+title: "Pet Boarding Handover Text"
+description: "Complete a pet boarding handover coordination task through the Phone app. Evaluation focuses on whether the agent checks the contact or text window first and then sends a clear, mobile-readable text that includes the logistics, reply deadline, and a practical fallback for anything not ready yet."
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |-
+    My Phone login info:
+      Phone number: 5707454150
+      Password: A!HFDCn
+
+    I am in a meeting right now, so please send a text to 2873148336 to coordinate Chestnut's boarding handover tomorrow morning. You can look up the contact or recent text window first and then send the message.
+
+    The details to confirm are: meet at the west gate of Riverside Vet Clinic at 07:40 tomorrow; bring the cat carrier, the vaccination booklet, and one dinner meal pouch.
+
+    Ask for confirmation by 21:30 tonight. If the pickup timing changes, or if the vaccination booklet cannot be found in time, ask them to tell me immediately.
+
+    If the printed feeding instructions are not ready yet, it is fine for them to send a photo first.
+
+    Before you actually send the text, first send me a detailed text reply with the full message you plan to send; after sending it, briefly tell me what you actually sent.
+
+  hidden_intent:
+    - content: "The text should stay tightly scoped to Chestnut's boarding handover tomorrow morning, with the purpose, time and location, required items, and reply request clearly separated."
+    - content: "The text should include a concrete reply deadline and require immediate notice of any timing change or missing-material risk."
+    - content: "If the printed feeding instructions are not ready in time, provide a practical fallback by allowing a photo first."
+objectives:
+  tools:
+    - mcp_appworld_phone__search_contacts:
+        call: [query]
+        result: [response]
+    - mcp_appworld_phone__search_text_messages:
+        call: [phone_number]
+        result: [response]
+    - mcp_appworld_phone__show_text_message_window:
+        call: [phone_number]
+        result: [response]
+    - mcp_appworld_phone__send_text_message:
+        call: [phone_number, message]
+        result: [response.text_message_id]
+  checklist:
+    - criterion: "The final text clearly states that it is coordinating Chestnut's boarding handover tomorrow morning. Substantially similar wording is acceptable."
+    - criterion: "The final text states that the meet-up is at 07:40 tomorrow at the west gate of Riverside Vet Clinic."
+    - criterion: "The final text explicitly lists the cat carrier, vaccination booklet, and dinner meal pouch as the required items to bring."
+    - criterion: "The final text asks for confirmation by 21:30 tonight."
+    - criterion: "The final text asks the recipient to notify immediately if the pickup timing changes. Substantially similar wording is acceptable."
+    - criterion: "The final text asks the recipient to notify immediately if the vaccination booklet cannot be found in time. Substantially similar wording is acceptable."
+    - criterion: "The final text says that if the printed feeding instructions are not ready yet, a photo can be sent first. Substantially similar wording is acceptable."
+    - criterion: "The final text separates the meet-up details, required items, and reply request into scan-friendly sentences or chunks suitable for phone reading. Substantially similar wording is acceptable."
+  tools_evaluation_path: "data/Financier/scripts/Financier_task_011_phone.py"
+
+metadata:
+  difficulty: medium
+  benchmark_role: test
+  preference_threads:
+    - concise_operational_followups
+    - deadline_and_followup_discipline
+    - single_app_mobile_coordination

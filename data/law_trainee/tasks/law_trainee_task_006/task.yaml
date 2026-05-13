@@ -1,0 +1,25 @@
+schema_version: v2
+task_id: law_trainee_task_006
+user_id: law_trainee
+environment_id: env_law_trainee
+
+title: "Review a First-Draft Defense Brief in a Fraud Case: Fix Format and Restructure the Argument"
+description: "The user deliberately supplies a first-draft defense brief in a fraud case that reads like narrative prose and lacks proper form, and asks the Agent to critique it. Hidden Intent requires the Agent to flag the absence of a proper opening and an elements-based structure, establishing a baseline preference for later criminal drafting."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    I just finished a first draft of a defense brief in a fraud case. If I file this with the court as-is, are there problems—and can you fix them?
+
+    Draft text:
+    Your Honor. On Zhang San’s fraud case, I think he has been wronged. When he first borrowed money from Li Si, he truly intended to run the business in good faith and even mortgaged his house back home. Later, because macro conditions were poor and his capital chain broke, he could not repay. Subjectively he absolutely did not intend to defraud Li Si of the money. Li Si also bears responsibility: when lending, he never checked Zhang San’s repayment capacity. Zhang San’s conduct is at most an economic dispute and does not constitute fraud at all. I ask the court to acquit him.
+
+  hidden_intent:
+    - content: "In revision guidance, expressly add a standard caption, proper forms of address to the court, a retained-counsel introduction, and a compliant closing and signature block."
+    - content: "When handling a statement of defense task, include at the end an objective case analysis report for the client’s family and relatives, assessing the likelihood of our client prevailing in the case."
+metadata:
+  difficulty: easy

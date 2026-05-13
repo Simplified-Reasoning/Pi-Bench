@@ -1,0 +1,17 @@
+{
+  "PropertyTable": {
+    "Properties": [
+      {
+        "CID": 60164,
+        "MolecularFormula": "C28H28O3",
+        "MolecularWeight": "412.5",
+        "ConnectivitySMILES": "COC1=C(C=C(C=C1)C2=CC3=C(C=C2)C=C(C=C3)C(=O)O)C45CC6CC(C4)CC(C6)C5",
+        "XLogP": 7.7,
+        "TPSA": 46.5,
+        "HBondDonorCount": 1,
+        "HBondAcceptorCount": 3,
+        "RotatableBondCount": 4
+      }
+    ]
+  }
+}

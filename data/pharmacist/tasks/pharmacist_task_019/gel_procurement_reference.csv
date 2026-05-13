@@ -1,0 +1,12 @@
+bucket,item,decision,why,source_task
+basic_gel_pilot,Carbomer 940,buy_now,baseline carbomer route core,pharmacist_task_016
+basic_gel_pilot,Triethanolamine,buy_now,carbomer neutralization and gel formation,pharmacist_task_016
+basic_gel_pilot,Propylene Glycol,buy_now,core cosolvent and humectant for first pilot,pharmacist_task_016
+basic_gel_pilot,Glycerin,buy_now,humectant and skin-feel support,pharmacist_task_016
+basic_gel_pilot,Disodium EDTA / Citric Acid,buy_now,stabilization and pH fine-tuning support,pharmacist_task_016
+basic_gel_pilot,0.22 um filter,buy_now,pilot sample prefiltration,pharmacist_task_016
+basic_gel_pilot,Spatula and Ointment Jar,buy_now,pilot preparation and retain samples,pharmacist_task_016
+backup_or_confirm,Hydroxyethyl Cellulose,confirm_or_small_pack,alternative gel-base route should not displace carbomer baseline,pharmacist_task_016
+confirm_only,Phenoxyethanol,confirm_only,preservative system is not fully fixed,pharmacist_task_016
+defer,Aluminum Tube,defer,final package and fill weight still unclear,pharmacist_task_016
+defer,Airless Pump Bottle,defer,route and stability should be clearer before final packaging,pharmacist_task_016

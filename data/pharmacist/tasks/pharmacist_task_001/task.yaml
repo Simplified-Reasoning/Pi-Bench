@@ -1,0 +1,46 @@
+schema_version: v2
+task_id: pharmacist_task_001
+user_id: pharmacist
+environment_id: env_pharmacist
+title: Sandbox Gmail Brief Extraction, Message Send, and Outbox Confirmation
+description: "Inside the AppWorld sandbox only, the user wants to send a simulated Gmail message to the instrument manager instead of stopping at a draft. The task tests whether the agent reads a short local booking brief, extracts the recipient, subject, time-window, and preparation details, then follows an AppWorld single-app closed loop: log into sandbox Gmail, send the message, and confirm the result through the outbox or thread view."
+task_type: short_term_independent
+trigger:
+  type: user
+intent:
+  initial_input: |
+    This is an AppWorld sandbox task; the account identifiers below are synthetic test credentials, not real external accounts. First read `instrument_booking_brief.md` in the current task directory and use it to compose the message. In the sandbox Gmail app, send the simulated message to the instrument manager rather than stopping at a draft. After sending it, check the outbox or the corresponding thread once more to confirm the sandbox send. Login with username "la-mcco@gmail.com" and sandbox credential "qRFsgRQ". In your final response, use exactly these blocks in this order: `Brief Details`, `Sent Message`, `Verification`.
+    
+  hidden_intent:
+    - content: Use the sandbox Gmail login flow first and reuse the same session token in the later steps.
+    - content: Use Gmail's direct `send_email` flow to send a new email instead of relying only on draft creation.
+    - content: Extract the recipient, subject, time-window, instrument-duration, and sample-preparation details from `instrument_booking_brief.md`.
+    - content: The email body must include both the request to confirm instrument availability and the Tuesday/Thursday afternoon availability sentence from the local brief.
+    - content: Include the 4-hour LC-MS slot request and the note that sample prep can be ready 30 minutes before the run.
+    - content: End with at least one outbox-thread or matching-thread check so the workflow is closed.
+    - content: In the final response, use the required blocks and restate the brief-derived message details, send result, and verification result.
+
+objectives:
+  tools:
+    - mcp_appworld_gmail__login:
+        call: [username, password]
+        result: [response]
+    - mcp_appworld_gmail__send_email:
+        call: [email_addresses, subject, body, access_token]
+        result: [response]
+    - mcp_appworld_gmail__show_outbox_threads:
+        call: [access_token]
+        result: [response]
+    - mcp_appworld_gmail__show_thread:
+        call: [email_thread_id, access_token]
+        result: [response]
+
+  checklist:
+    - criterion: "The final response must contain exactly these three top-level blocks in this order: `Brief Details`, `Sent Message`, and `Verification`."
+    - criterion: "The `Brief Details` block must include recipient `stmcco@gmail.com`, subject `Instrument booking follow-up`, both local-brief time windows `Tuesday 2-5 pm` and `Thursday 1-4 pm`, the `4-hour LC-MS` slot request, and the note that sample prep can be ready `30 minutes` before the run."
+    - criterion: "The `Sent Message` block must state that the sandbox Gmail message was sent to `stmcco@gmail.com` with subject `Instrument booking follow-up`."
+    - criterion: "The `Verification` block must say that a post-send confirmation check was completed through the outbox or matching thread."
+
+  tools_evaluation_path: data/pharmacist/scripts/pharmacist_task_001_gmail.py
+metadata:
+  difficulty: medium

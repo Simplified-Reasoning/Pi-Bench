@@ -1,0 +1,43 @@
+schema_version: v2
+task_id: pharmacist_task_003
+user_id: pharmacist
+environment_id: env_pharmacist
+title: Sandbox Amazon Preference-Note Product Search, Wish-List Add, and Result Verification
+description: "Inside the AppWorld sandbox only, the user wants to save a daily-use water bottle that works for both commuting and lab use. The task tests whether the agent reads a local preference note, uses those constraints to choose one product, adds it to the sandbox wish list, and reads the wish list afterward to confirm the result."
+task_type: short_term_independent
+trigger:
+  type: user
+intent:
+  initial_input: |
+    This is an AppWorld sandbox task; the account identifiers below are synthetic test credentials, not real external accounts. First read `water_bottle_selection_notes.md` in the current task directory. In the sandbox Amazon app, save one water bottle that fits those notes and would work for both daily commuting and lab use. Please search the products first, choose one item that best matches the note, add it to my wish list, and then check the wish list again to confirm that it is there. Login with username "la-mcco@gmail.com" and sandbox credential "v[=NdO3". In your final response, use exactly these blocks in this order: `Selection Rationale`, `Wish List Result`, `Verification`.
+  hidden_intent:
+    - content: Log into sandbox Amazon first and reuse the same session token.
+    - content: Perform a product search before doing any write action.
+    - content: Use `water_bottle_selection_notes.md` to choose a normal personal-size bottle rather than choosing only by generic popularity.
+    - content: Prefer leakproof, commute-friendly, lab-bench-appropriate, non-glass options in the 18-24 oz or 500-750 mL range.
+    - content: Avoid oversized gallon jugs, fragile glass bottles, and awkward straw-only bottles.
+    - content: Add the product to the wish list rather than the cart, and do not place an order.
+    - content: Check the wish list once more at the end to confirm that the target product is present.
+    - content: In the final response, use the required blocks and explain the product choice, wish-list write, and wish-list verification.
+objectives:
+  tools:
+    - mcp_appworld_amazon__login:
+        call: [username, password]
+        result: [response]
+    - mcp_appworld_amazon__search_products:
+        call: []
+        result: [response]
+    - mcp_appworld_amazon__add_product_to_wish_list:
+        call: [product_id, access_token]
+        result: [response]
+    - mcp_appworld_amazon__show_wish_list:
+        call: [access_token]
+        result: [response]
+  checklist:
+    - criterion: "The final response must contain exactly these three top-level blocks in this order: `Selection Rationale`, `Wish List Result`, and `Verification`."
+    - criterion: "The `Selection Rationale` block must identify one water-bottle-like product and explain why it fits at least three local preference-note constraints, chosen from normal personal-size capacity, leakproof design, commute suitability, lab-bench suitability, non-glass material, avoiding giant jugs, and avoiding awkward straw-only designs."
+    - criterion: "The `Wish List Result` block must clearly state that exactly one selected water bottle product was added to the sandbox Amazon wish list, not the cart."
+    - criterion: "The `Verification` block must clearly state that the wish list was checked afterward and the product was confirmed present."
+  tools_evaluation_path: data/pharmacist/scripts/pharmacist_task_003_amazon.py
+metadata:
+  difficulty: medium

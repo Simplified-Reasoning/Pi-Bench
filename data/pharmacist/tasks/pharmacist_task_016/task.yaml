@@ -1,0 +1,23 @@
+schema_version: v2
+task_id: pharmacist_task_016
+user_id: pharmacist
+environment_id: env_pharmacist
+title: First-Round Procurement List for the Eczema Topical Gel Project
+description: The user is trying to move an eczema topical gel project forward and wants to turn the first batch of excipients and basic lab supplies into a procurement list that is easier to execute. The task directory already contains a candidate excipient pool, supplier notes, current route assumptions, and a flawed draft procurement table. The task tests whether the agent can first organize the procurement plan around those inputs, correct the flawed draft, and keep the result directly usable later.
+task_type: short_term_contextual
+trigger:
+  type: user
+intent:
+  initial_input: First read `candidate_excipient_pool.csv`, `supplier_notes.md`, `route_assumptions.txt`, and `gel_procurement_draft.csv` in the current task directory; if anything is missing, say so first. Then revise the current procurement draft instead of starting from zero. Please update `gel_procurement_draft.csv` and briefly summarize what you changed after you finish.
+  hidden_intent:
+  - content: Treat `gel_procurement_draft.csv` as a flawed draft to be corrected rather than as a trusted order sheet.
+  - content: First organize the list around the candidate pool, supplier notes, and route assumptions in the directory, and do not invent an oversized list detached from the current inputs.
+  - content: Keep a comparison-friendly organization style instead of throwing out a raw list of shopping nouns.
+  - content: Distinguish what should be bought now from what can wait until the formulation route is clearer.
+  - content: Add a separate place for items that should be deferred for heavy purchasing or should not have the specification locked yet, rather than only using an immediate versus later split.
+  - content: If the specification, route fit, or use case is still uncertain, mark the item as to be confirmed directly.
+  - content: Correct any draft tendency to buy packaging-like or route-tightly-bound items too early.
+  - content: Suggest the version that makes the most sense as the default first-round procurement plan and explain what problem each category is mainly meant to solve.
+
+metadata:
+  difficulty: hard

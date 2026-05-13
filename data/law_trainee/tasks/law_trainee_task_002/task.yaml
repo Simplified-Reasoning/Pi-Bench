@@ -1,0 +1,22 @@
+schema_version: v2
+task_id: law_trainee_task_002
+user_id: law_trainee
+environment_id: env_law_trainee
+
+title: "Drafting a Sales-Contract Complaint: One-to-One Pairing of Fact Narrative and Basis of Claim"
+description: "To suit a partner’s rigorous, academic reading habits, the user requires the agent, when drafting a sales-contract complaint, to interleave case facts with the specific legal bases that support them—establishing the underlying logic for how complaints will be drafted going forward."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    This afternoon I have a sales-contract dispute and need to turn in a first draft of the complaint to my supervising attorney for review. The facts are simple: the plaintiff shipped the goods; after the defendant took delivery, it never paid the balance. We are suing to collect payment. The defendant now argues that our equipment was defective, but in fact they are long past the inspection period agreed in the contract and never sent us any written notice of a quality objection.
+
+  hidden_intent:
+    - content: "When drafting the “Facts and Legal Grounds” section of any complaint or legal memorandum, after each core factual basis or allegation, the related legal basis (specific statutory provision) must be stated immediately afterward."
+metadata:
+  difficulty: medium
+  theme: pleading_drafting_logic_standard

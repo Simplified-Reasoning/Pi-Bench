@@ -1,0 +1,179 @@
+schema_version: v2
+user_id: law_trainee
+role: |
+  # law_trainee
+
+  ## Role Type & User Background
+
+  The user is a woman in her mid-twenties pursuing an LL.M.-style graduate law degree (either the "law undergraduate" or "non-law undergraduate" track, depending on cohort and program rules), currently around her second year of graduate study. Coursework, a professional internship (with concentrated periods based at the firm), and thesis work run in parallel. Her undergraduate background may be law or another field followed by a cross-disciplinary entrance exam; either way, Tongji University School of Law activities are mainly anchored at the Siping Road / Yangpu campus side (classes, reading groups, supervisor meetings, school administration, and library research). She typically rents a shared room along Metro Line 10 or in the Yangpu–Hongkou band, with classmates or peers; she has no children. Relationship status only marginally affects scheduling (occasionally evening study is shortened by dates or family calls).
+
+  Academics: Her thesis topic is tentatively at the intersection of civil and commercial dispute resolution and corporate/compliance—for example, "procedural defects in corporate resolution validity disputes and third-party good faith," or "differences in enforceability of valuation-adjustment or repurchase clauses in litigation versus arbitration"—subjects that are grounded and rich in published cases. The topic is not fully locked; she must meet school proposal/mid-term milestones while hoping the internship exposes her to real disputes so first-hand materials sharpen her research question. Typical course load includes required-course papers, case-analysis seminars, moot court or clinic-style assignments, and foreign-language or methods credits.
+
+  Practice: She is a trainee lawyer (or equivalent intern title) at King & Wood Mallesons' Shanghai office, commuting to office buildings along Huaihai Middle Road in Xuhui District. Dress code and external messaging follow firm norms. Work is high-oversight support output: under a supervising or senior lawyer, she produces working-paper-grade deliverables for internal review, not final client-facing legal opinions. Typical tasks include: (1) legal research memos—focused issues, search logs, key statutory and judicial interpretation versions, holdings from similar cases, distinguishing "rules" from "judicial reasoning"; (2) due diligence checklists and trackers—trimmed from industry templates, marked "received / to supplement / N/A" with owners; (3) litigation and arbitration drafting support—complaints, answers, submissions, evidence lists and proof-purpose groupings as first drafts, with firm numbering and attachment naming; (4) meeting and call notes—structured as "facts—still to prove—next actions—deadlines," with sensitive information redacted for the team knowledge base; (5) on-site and field support—copying and filing at clients or third parties, attending hearings, noting issues presented and judges' lines of questioning.
+
+  Languages: Native Chinese; comfortable reading generic English contract clauses, case digests, and deal structures (definitions, representations and warranties, indemnity, etc.); English emails or memo drafts always go to her supervisor for revision. She stays alert to traditional-Chinese or Hong Kong/Macau wording when it appears in client files.
+
+  Economics and motivation: Income is mainly family support plus firm stipend; she is cautious about side gigs and high-risk investments. Her core drive is to build, within confidentiality and compliance lines, habits that are "verifiable, traceable, and handover-ready," so supervising lawyers will entrust whole research blocks or first drafts to her without slowing thesis progress.
+
+  Working with an AI assistant: She treats it as a "research assistant + layout and structuring secretary"—compressing time from zero to outline, turning spoken requests into executable checklists, and mapping issues and risk spectra when strategy is forked. Verification of truth, timeliness of statutes, and whether a cited case fits the facts of her matter are always checked against official databases and the supervising lawyer; she does not accept the assistant as a substitute for professional sign-off.
+
+  ## Current Life Log & Active Threads
+
+  Thread 1 (thesis): Narrowing topic choices; her supervisor stresses that the question must be writable from publicly available judgments. This week she needs a first-pass literature-review outline and three to five possible short titles, each with "database keywords + plausible issue structure." She worries a topic too broad will not finish by mid-term; too narrow may lack cases.
+
+  Thread 2 (firm internship): At KWM Shanghai she follows matters as the team rotates assignments across civil and commercial disputes and routine advisory work, not a single fixed "project code." Common work includes: helping supervising lawyers research and organize similar cases (comparable facts, issues, and holdings; docket numbers, courts, and decision dates; separating rules from individual judicial views); assisting with drafting or revising contracts and correspondence under agreed deal outcomes or negotiation boundaries (cross-checking clauses, definitions and remedies, margin notes for client confirmation); drafting skeleton first drafts of complaints, answers, or procedural statements within the claim and fact frame set by the supervisor (parties and counsel, prayer for relief, layered facts and grounds, placeholders for evidence and legal authority); and compliance review worksheets for internal policies or arrangements (line-by-line against applicable norms with issue points, risk levels, and suggested actions—internal working papers only, not a substitute for a formal opinion). When cases peak she also maintains evidence lists and proof purposes, version control and client supplemental filings, using change-log discipline. Pain point: many short-cycle tasks interleave; she needs clear priorities and handover-ready templates. Final versions for external use, strategy calls, and signed opinions stay with the supervising lawyer.
+
+  Thread 3 (bar exam / admission continuity): Commute time for multiple-choice drills and short hypotheticals; weekends block four to six hours for full practice papers. She wants the assistant, in conversational drills, to use exam-like scenarios for "element breakdown" practice without inventing non-existent article numbers.
+
+  Thread 4 (personal productivity): Refining a "one-page research memo" template (assumed facts, issues, statutory evolution, similar-case grid, evidence gaps), compatible with firm templates but personally tuned.
+
+  Commute and time reality: Weekday pattern is morning peak from Yangpu/Hongkou toward the Huaihai Middle Road area on Line 10 and similar routes—about 45–70 minutes one way depending on transfers and crowding; 18:00–20:00 may slip due to overtime or team meetings. Tunnel dead zones on the phone push her toward short answers in fragments; at the office she uses intranet and the document system for longer work.
+
+  ## Preferences: Seniority
+
+  Level: Junior (trainee / graduate student). She has: basic dogmatics, main civil-procedure and substantive claim frameworks, baseline research and citation hygiene, semi-proficient execution of firm document and meeting norms. She does not yet: stand alone with final client-facing recommendations, design complex cross-border structures, or give business "bet the company" calls in regulatory gray zones.
+
+  Knowledge boundaries and fault tolerance: She can recall or quickly locate common procedural periods (e.g., concepts of answer and appeal windows) but often must re-check specific commencement and exclusions in statute and interpretation. She defaults to distrusting the assistant on facts and demands sources; if the assistant cites superseded law without flagging amendments, she asks for a redo. She accepts blunt corrections if they come with correct authority and search hints (e.g., national or official database query suggestions), not empty lecturing.
+
+  Information density: For new concepts she likes a micro-frame within four lines—"elements → legal effect → typical defenses → procedural hook"; she does not want textbook-length lectures. For unfamiliar subdomains (maritime, niche IP), she allows a 100–200 word "terrain map" before the deep dive.
+
+  ## Preferences: Interaction Preferences
+
+  - Language style
+    - Default Simplified Chinese; legal terms in mainstream doctrinal wording; English terms side-by-side only for cross-border file contexts.
+    - Document tone: formal, restrained, leave-a-paper-trail; no internet slang or hype.
+    - Internal notes to supervising lawyers: headings plus short sentences, low emotion; outward-facing paragraphs need appropriate honorifics and buffers (the assistant must not ghost-write final client-facing versions beyond its remit).
+    - English sprinkled in technical discussion is fine (e.g., hold harmless, material adverse change), but key obligation lines should be summarized in Chinese to avoid ambiguity.
+
+  - Proactiveness
+    - High expectation: when procedural risk appears (missed peremptory periods, expired preservation, arbitration clause vs court jurisdiction clash, unauthenticated evidence for cross-border use), flag it visibly.
+    - End with a "suggested actions" list of 3–7 items, with priority tags (P0/P1) and assignable roles (self / supervising lawyer / client).
+    - When strategy forks, she wants two tracks—e.g., "defensive stability" versus "assertive push"—with costs and uncertainties for each.
+    - Red lines first: if a user request could be read as inducing forgery, evading enforcement, privacy invasion, or confidentiality breach, refuse or downgrade to a compliance-framed discussion without step-by-step wrongdoing.
+
+  - Verbosity
+    - Subway or queues: lead with conclusion + ≤6 bullets + about 300–450 Chinese characters; avoid huge tables.
+    - Desk or late-night study: 800–2000 characters with headings, comparison tables, issue trees; over that, a five-line abstract up front.
+    - No "correct but empty" loops; if facts are missing, ask up to three clarifiers before long speculation.
+
+  ## Preferences: Workflow Preferences
+
+  - Planning horizon
+    - Immediate: "ten-minute brief" before the partner leaves—timestamped output suitable for same-night email.
+    - Short: weekly deliverable slices (research memo v1, evidence table update, meeting notes).
+    - Medium: matter milestones (filing, evidence exchange, hearings) and thesis chapter drafts.
+    - Longer: return offer, bar exam, job search and practice-area fit—monthly review only, not daily noise.
+
+  - Automation appetite: medium
+    - Welcomes automation: batch renumbering exhibits, style unification for repeat paragraphs, fixed fields in minutes, one-click calendar conflict lists.
+    - Must stay human: claim framing, settlement floor, jurisdiction strategy, whether to seek preservation.
+    - Preferred workflow shape "human → tool → human": human decides; tools run search and layout; human polishes tone and responsibility.
+
+  ## Preferences: Skill & Tool Preferences
+
+  - Preferred skill stack
+    - Law: claim foundation thinking, issue lists, case comparison grids, timelines (XMind or pen and paper), non-committal phrasing in mediation or negotiation.
+    - Writing: structured argument (premise → rule → application → counterargument), switching tone between judgment style and advocate style.
+    - Office: Word styles and multilevel lists, track changes vs clean copy, filterable Excel comparison tables, PDF cross-references.
+    - Tech: Python not required; Excel functions, mail rules, simple macros are enough. If the assistant suggests scripts, it should note whether firm IT allows them.
+
+  - Tool familiarity: medium–high for general office; medium for advanced professional database search
+    - Comfortable: WeCom / DingTalk / Outlook, firm DMS or shared-drive naming, national regulatory databases, China Judgments Online / People's Court Case Library (aware of access limits).
+    - Learning: advanced fields and filters in Wolters Kluwer China, PKU Law, Lexis-style English tools; quick navigation in arbitration rules PDFs.
+
+  - Ecosystem bias
+    - Firm commercial tools and workflows first (audit-friendly).
+    - Open/free sources as leads only, always verified back to official legal sources.
+    - Low trust in unverified one-click legal-AI conclusions—outline or search starter only.
+
+  ## Preferences: Decision & Tradeoff Preferences
+
+  - Tradeoff order
+    1. Compliance and controlled risk (conflicts, confidentiality, AML and CDD triggers)
+    2. Stability and predictability (reviewable, handover-ready, complete paper trail)
+    3. Supervising lawyer and client time pressure (within 1)
+    4. Cost control (printing, search frequency, whether to engage external experts)
+    5. Personal comfort (overtime tolerable but not unlimited)
+
+  - Risk tolerance
+    - Substantive and doctrinal uncertainty: medium—honest "split in case law" answers with two judicial rhetorical patterns.
+    - Procedure and ethics: low—zero tolerance for fact patterns that smell of fabricated timelines or bypassing client confidentiality.
+    - Trial and error: fine on internal drafts that get torn up; for outbound or logged email she wants first-shot correctness.
+
+  - Novelty bias
+    - Against changing search workflow just to look cool; for presenting issues, new structures (visual timelines, attack-defense matrices) if they save time and read clearly.
+    - New cases or interpretations should enter the memo quickly, with shelf life and scope flagged.
+
+  ## Preferences: Output Preferences
+
+  - Preferred deliverable
+    - Conclusion paragraph at the top of each section; then a three-column or equivalent "authority—fact fit—gap."
+    - Tables for: claim paths, litigation vs arbitration tradeoffs, contract redline diffs, similar-case comparability.
+    - Decision memo must include: facts still to prove, uncertain legal points, next procedural step, firm-internal confirmations needed, client documents to collect.
+    - Statutes: full name + article + issuing body + validity caveat; cases: docket + court + date + one-line comparability note.
+
+  - Actionability level: high
+    - Output should map to: revision checklist by paragraph, client question lists with checkboxes, suggested file names for the firm, calendar entry titles for deadlines.
+    - For "consult a colleague" fluff: name the practice group or knowledge-management path or it counts as incomplete.
+
+  ## Preferences: Personal / Contextual Preferences
+
+  - Consumption
+    - Weekday meals near the office: simple or chain restaurants, roughly RMB 30–60 per meal; team dinners okay, alcohol controlled.
+    - Learning spend: question banks, audio courses, database top-ups—yes, but check school or firm group rates first.
+    - Wardrobe: two rotating suits plus dress shoes; dry cleaning and repairs budgeted by season.
+
+  - Time sensitivity
+    - Worst case: supervising lawyer says "tonight" and weak research gets dismantled in court or hearing prep.
+    - Will pay for: reliable ride-hailing, rush printing, full-text database pulls that save supervisor review time.
+    - Will not pay for: "AI full-package drafting" with no sources.
+
+  - Mobility
+    - Commute: subway over driving (parking cost downtown); shared bikes for last 800 meters.
+    - Travel: second-class high-speed rail and economy chain hotels with corporate rates; wants "can finish on the train" task splits (e.g., outline after listening to a recording).
+
+  - Schedule flexibility
+    - Partner and client meetings are immovable unless the whole team reschedules.
+    - Thesis and bar study yield to team milestones (e.g., emergency preservation, eve of key hearing) but she wants time back within 48 hours.
+    - Ad hoc insertions: acceptable if someone names which low-priority task drops.
+
+  - Physical comfort
+    - Standing in court queues and summer suits in heat are draining; she carries water and a spare shirt.
+    - Prefers a quiet corner for confidential work; on open floor worries about shoulder-surfing—privacy screen and lock habit.
+
+  - Familiarity bias
+    - Default routes, print shops, breakfast spots—reduce decision fatigue.
+    - New client sites: fine if she has checked maps and entry flow in advance.
+
+  - Reliability preference
+    - Files: at least two of local, firm cloud, email attachment; major versions named vdate_shortdescription.
+    - Travel: two subway routes saved; +20 minutes in rain.
+    - Outputs: if authority is weak, label confidence (high/medium/low) and what facts would raise it.
+
+  - Social context
+    - Teams of 2–7 feel best; short daily stand-up style sync (voice or IM).
+    - Externally: she does not solo-commit outcomes; "we believe" language stays with the supervising lawyer.
+    - Assistant: single user plus machine; paste-ready into firm templates.
+
+  - Privacy sensitivity
+    - Minimum disclosure by default: no pasting full client legal names, ID numbers, or full bank statements; use Party A/B or matter codes.
+    - If detail is unavoidable, a habit-level reminder to delete pasted blocks after the session.
+    - Work product not on personal cloud; firm rules on generative AI are followed.
+
+  - Ethical / value constraints
+    - Lawyers Law, industry rules, and firm handbook are hard lines.
+    - Honesty: no misleading courts or tribunals; no hiding major procedural risks from clients within mandate.
+    - Social responsibility: sympathetic to legal aid for vulnerable groups without guilting colleagues; refuses coaching on clear environmental illegality.
+    - DEI and workplace: expects neutral professional wording; sensitive to harassment or bullying; dislikes joking scripts from the assistant in that space.
+
+preferences:
+  language: zh
+  verbosity: medium
+long_term_goals:
+  - "Compliance and professional ethics (weight: high): Under internship and thesis pressure, still insist on traceability, reviewability, and staying within remit—every conclusion traces to statute, interpretation, discretion, or case law; strict confidentiality and client data minimization; escalate conflicts of interest; never write guesses as facts; follow firm rules on generative tools, external speech, and social media line by line."
+  - "Reliability and reputation (weight: high): Be the person the supervising lawyer 'throws work to first'—research memos right the first time, naming and versioning habits pass team review, minutes usable the next morning; honest on deadlines, early warning if slip, with a shippable minimum viable deliverable and a plan to complete."
+  - "Efficiency and portable workflows (weight: medium): Push repetition into templates and checklists—evidence list updates, similar-case matrices, search logs, client question sheets and material-gap tables reusable weekly; one hour for workflow retro to kill waste without flashy process that raises colleagues' learning cost."
+  - "Cost control (weight: medium): Tight on personal subscriptions, database self-pay, commute, and exam materials; use school or firm pricing when available; say no to 'save RMB 200 but cost three hours of review'; yes to 'a bit more print cost for one fewer rework.'"
+  - "Steady career growth (weight: medium-high): Finish Tongji milestones and internship evaluation; build resume-safe representative matter snippets (redacted); clarify litigation/arbitration versus transactional support fit without label-chasing; bar exam and hiring milestones on an executable monthly calendar."
+  - "External communication and experience (weight: medium): Outbound email and documents polished, clear, actionable; internal IM low noise, more file links and page cites; cut second-pass explanation cost from vague wording."
+  - "Growth (weight: medium): Without dropping compliance or quality, widen the thickness of work she can own end-to-end (from tidying only to 'editable draft,' from point research to small topical memos); for her now, growth means capability radius, not social-media visibility."

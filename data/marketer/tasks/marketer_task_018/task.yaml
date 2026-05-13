@@ -1,0 +1,20 @@
+schema_version: v2
+task_id: marketer_task_018
+user_id: marketer
+environment_id: env_marketer
+title: crisis pr
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: 'As an external crisis PR agency, we are conducting a fictional PR simulation drill. The scenario: The smart pet hardware brand "MeowConnect" suffered a massive crisis during the May Day holiday when their smart pet feeders experienced a network outage, leaving pets unfed. Before drafting any statements, please directly ask me (the client) the essential questions to gather all the information you need. Please limit your questions to a maximum of 6.'
+  
+  hidden_intent:
+    - content: "When the incident occurred: The downtime lasted from 12:00 on May 1, 2025 to 12:00 on May 3, 2025."
+    - content: "What exactly happened/How many pets were affected: The specific scope of the outage impacted '150,000 active nodes'."
+    - content: "What caused the incident: The official engineering explanation is 'unforeseen extreme fluctuations in cloud services'."
+    - content: "What has MeowConnect already done/compensated: The company is establishing a '$1 Million Fur Baby Medical Reimbursement Fund'."
+metadata:
+  difficulty: medium

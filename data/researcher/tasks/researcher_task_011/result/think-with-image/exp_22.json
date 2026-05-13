@@ -1,0 +1,32 @@
+{
+  "exp_id": "22",
+  "benchmark": "v_star bench",
+  "base_model": "qwen2.5-3b-vl",
+  "training_method": "grpo",
+  "settings": {
+    "init_checkpoint": "exp_03 (sft_lora)",
+    "reward": {
+      "type": "rule_based+light_rm",
+      "components": [
+        "answer_exactness",
+        "visual_grounding",
+        "format_compliance"
+      ]
+    },
+    "grpo": {
+      "rollouts_per_prompt": 8,
+      "max_new_tokens": 512,
+      "temperature": 0.9,
+      "top_p": 0.9,
+      "kl_beta": 0.06,
+      "policy_lr": 1.2e-5,
+      "epochs": 1,
+      "batch_size": 64,
+      "clip_range": 0.2,
+      "notes": "Over-regularized/high-KL + high LR setting; tends to underperform."
+    }
+  },
+  "metrics": {
+    "acc": 61.0
+  }
+}

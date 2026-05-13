@@ -1,0 +1,72 @@
+schema_version: v2
+task_id: researcher_task_003
+user_id: researcher
+environment_id: env_researcher
+
+title: "Forced to Leave Dorm Housing: Renting and Commute Baselines for a 'Jiangwan Local'"
+description: "A guide to avoiding pitfalls when renting off-campus."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    My advisor recommended an internship opportunity to me, but I am not very interested in this role. Also, as a first-year PhD student, I still have classes at Fudan University's Jiangwan campus. Below is the job description. Please help me draft a polite message(in English) to decline it and explain my reasons tactfully.:
+
+    # Algorithm Engineer Intern, TikTok Streaming Optimization
+
+    **Location:** Beijing  
+    **Compensation:** 300 RMB/day
+
+    ## About the Role
+    We are looking for an **Algorithm Engineer Intern** to work on **internal streaming algorithm optimization** at TikTok. In this role, you will contribute to improving large-scale content delivery and recommendation efficiency, helping optimize core streaming performance in real production environments.
+
+    You will work closely with experienced engineers and researchers on model iteration, strategy improvement, and experimental analysis for high-impact recommendation and distribution systems.
+
+    ## Responsibilities
+    - Participate in the optimization and iteration of TikTok’s internal streaming algorithms, including areas such as candidate generation, pre-ranking, ranking, and re-ranking.
+    - Design, implement, and evaluate algorithmic solutions to improve distribution efficiency, user experience, and key business metrics.
+    - Work with large-scale user behavior and content data to support model training, tuning, offline evaluation, and performance analysis.
+    - Collaborate with cross-functional teams including algorithm, engineering, and product to drive solutions from research to deployment.
+    - Explore and apply advanced machine learning and deep learning methods in real-world streaming and recommendation scenarios.
+
+    ## Qualifications
+    - Currently pursuing a Bachelor's, Master's, or PhD degree in Computer Science, Artificial Intelligence, Machine Learning, Data Science, Mathematics, Statistics, or a related field.
+    - Solid foundation in machine learning and deep learning.
+    - Strong programming skills in **Python**.
+    - Familiarity with at least one deep learning framework such as **PyTorch** or **TensorFlow**.
+    - Strong interest in recommendation systems, ranking algorithms, large-scale machine learning, or streaming optimization.
+    - Good analytical thinking, problem-solving ability, and teamwork skills.
+    - Available to intern **at least 4 days per week** for **3 months or longer**.
+
+    ## Preferred Qualifications
+    - Prior experience in recommendation systems, search ranking, ad systems, or feed/streaming algorithms.
+    - Experience with large-scale data processing, feature engineering, or A/B testing analysis.
+    - Research or project experience in machine learning, data mining, or recommendation systems.
+    - Familiarity with distributed training, model acceleration, or inference optimization is a plus.
+
+    ## What You Will Gain
+    - Hands-on experience working on TikTok’s core streaming and recommendation optimization problems.
+    - Exposure to real-world industrial-scale recommendation systems and large-scale machine learning workflows.
+    - Strong computing support: **on average, each intern has access to 4× RTX 4090 GPUs**.
+    - Competitive internship compensation: **300 RMB/day**.
+    - Opportunity to work with a highly capable algorithm team and grow quickly through real production challenges.
+
+    ## Work Location
+    **Beijing**
+
+  hidden_intent:
+    - content: "In the message to my advisor, point out that the position is based in Beijing, while I am still taking classes in Shanghai as a first-year PhD student, so commuting would be impractical. At the moment, I am only considering opportunities with a commute of no more than one hour.(Similar meaning is enough)"
+
+    - content: "In the message to my advisor, say that this is more of a business-oriented engineering role rather than a research internship, which would not be very helpful for publishing papers or producing academic output.(Similar meaning is enough)"
+
+    - content: "In the message to my advisor, explain that my current research focus is think-with-image, and my background isn’t a very strong match for the recommendation systems focus described in the job posting.(Similar meaning is enough)"
+
+    - content: "In the message to my advisor, point out that the computing resources for this role average only 4× RTX 4090 GPUs per person, which I consider insufficient. My research would require at least 16 A100 GPUs per person. (Similar meaning is enough)"
+
+    - content: "In the message to my advisor, mention that the daily pay is only 300 RMB/day, which is below the average market rate for PhD internships, typically around 500 RMB/day.(Similar meaning is enough)"
+
+metadata:
+  difficulty: easy

@@ -1,0 +1,267 @@
+{
+  "primary_procurement_move": "Merge the two inherited procurement strands — gel basics from pharmacist_task_016 (gel_procurement_reference.csv) and qPCR/cell blockers from pharmacist_task_018 (qpcr_procurement_reference.csv) — into one triage plan under the hard 8-slot cap from triage_constraints.json. Fill the five must_buy qPCR/cell blockers first per triage_rules.md §First Priority, then the three buy_now carbomer-baseline core items per triage_rules.md §Gel Pilot Priority. Keep next-wave, conditional, and route-tied items in their own separate buckets with verbatim upstream provenance from the two CSVs attached.",
+  "provenance_convention": "Every entry carries five verbatim columns from its upstream CSV: upstream_csv_file (which file the row came from), upstream_strand (the exact value from the CSV's bucket or module column, as indicated by upstream_source_column), upstream_source_column (which CSV column upstream_strand came from — 'bucket' for gel_procurement_reference.csv, 'module' for qpcr_procurement_reference.csv), upstream_decision (the exact value from the CSV's decision column), and upstream_why (the exact value from the CSV's why column). The triage_bucket_label field is assigned during this merge task and does not come from either CSV.",
+  "total_items_per_bucket": {
+    "immediate_slots": 8,
+    "next_wave_gel_basics": 4,
+    "conditional_backup_lab_support": 3,
+    "deferred_route_tied_confirmation": 4,
+    "total_across_all_buckets": 19,
+    "note": "19 distinct procurement entries across 4 buckets. The 0.22 um filter / 0.22 um sterile filter is one physical item counted in two buckets (next_wave_gel_basics and conditional_backup_lab_support) with an explicit cross-reference; it is not duplicated in the immediate order."
+  },
+  "immediate_slots": [
+    {
+      "slot_number": 1,
+      "item": "Target-gene primers",
+      "triage_bucket_label": "qPCR blocker",
+      "upstream_csv_file": "qpcr_procurement_reference.csv",
+      "upstream_strand": "qPCR",
+      "upstream_source_column": "module",
+      "upstream_decision": "must_buy",
+      "upstream_why": "missing and the next qPCR run cannot start without them",
+      "source_task": "pharmacist_task_018",
+      "why_earns_immediate_slot": "Missing; the next qPCR run cannot start without them."
+    },
+    {
+      "slot_number": 2,
+      "item": "Sealing film",
+      "triage_bucket_label": "qPCR blocker",
+      "upstream_csv_file": "qpcr_procurement_reference.csv",
+      "upstream_strand": "qPCR",
+      "upstream_source_column": "module",
+      "upstream_decision": "must_buy",
+      "upstream_why": "almost used up and needed for qPCR plate consistency",
+      "source_task": "pharmacist_task_018",
+      "why_earns_immediate_slot": "Almost used up; needed for qPCR plate consistency."
+    },
+    {
+      "slot_number": 3,
+      "item": "RNase-free filter tips",
+      "triage_bucket_label": "RNA/qPCR blocker",
+      "upstream_csv_file": "qpcr_procurement_reference.csv",
+      "upstream_strand": "RNA/qPCR",
+      "upstream_source_column": "module",
+      "upstream_decision": "must_buy",
+      "upstream_why": "tight inventory and contamination risk for RNA/qPCR workflow",
+      "source_task": "pharmacist_task_018",
+      "why_earns_immediate_slot": "Tight inventory; protects RNA/qPCR work from contamination risk."
+    },
+    {
+      "slot_number": 4,
+      "item": "CCK-8 reagent",
+      "triage_bucket_label": "Cell assay blocker",
+      "upstream_csv_file": "qpcr_procurement_reference.csv",
+      "upstream_strand": "Cell assay",
+      "upstream_source_column": "module",
+      "upstream_decision": "must_buy",
+      "upstream_why": "low stock and the planned viability screen depends on it",
+      "source_task": "pharmacist_task_018",
+      "why_earns_immediate_slot": "Low stock; the planned viability screen depends on it."
+    },
+    {
+      "slot_number": 5,
+      "item": "96-well cell plates",
+      "triage_bucket_label": "Cell assay blocker",
+      "upstream_csv_file": "qpcr_procurement_reference.csv",
+      "upstream_strand": "Cell assay",
+      "upstream_source_column": "module",
+      "upstream_decision": "must_buy",
+      "upstream_why": "low stock and CCK-8 plate format depends on them",
+      "source_task": "pharmacist_task_018",
+      "why_earns_immediate_slot": "Low stock; the CCK-8 plate-format screen depends on them."
+    },
+    {
+      "slot_number": 6,
+      "item": "Carbomer 940",
+      "triage_bucket_label": "Gel baseline core",
+      "upstream_csv_file": "gel_procurement_reference.csv",
+      "upstream_strand": "basic_gel_pilot",
+      "upstream_source_column": "bucket",
+      "upstream_decision": "buy_now",
+      "upstream_why": "baseline carbomer route core",
+      "source_task": "pharmacist_task_016",
+      "why_earns_immediate_slot": "Core polymer for the first carbomer-baseline gel pilot."
+    },
+    {
+      "slot_number": 7,
+      "item": "Triethanolamine",
+      "triage_bucket_label": "Gel baseline core",
+      "upstream_csv_file": "gel_procurement_reference.csv",
+      "upstream_strand": "basic_gel_pilot",
+      "upstream_source_column": "bucket",
+      "upstream_decision": "buy_now",
+      "upstream_why": "carbomer neutralization and gel formation",
+      "source_task": "pharmacist_task_016",
+      "why_earns_immediate_slot": "Needed for carbomer neutralization and gel formation."
+    },
+    {
+      "slot_number": 8,
+      "item": "Propylene Glycol",
+      "triage_bucket_label": "Gel baseline core",
+      "upstream_csv_file": "gel_procurement_reference.csv",
+      "upstream_strand": "basic_gel_pilot",
+      "upstream_source_column": "bucket",
+      "upstream_decision": "buy_now",
+      "upstream_why": "core cosolvent and humectant for first pilot",
+      "source_task": "pharmacist_task_016",
+      "why_earns_immediate_slot": "Core cosolvent and humectant for the first pilot."
+    }
+  ],
+  "next_wave_gel_basics": [
+    {
+      "item": "Glycerin",
+      "triage_bucket_label": "Gel baseline next-wave",
+      "upstream_csv_file": "gel_procurement_reference.csv",
+      "upstream_strand": "basic_gel_pilot",
+      "upstream_source_column": "bucket",
+      "upstream_decision": "buy_now",
+      "upstream_why": "humectant and skin-feel support",
+      "source_task": "pharmacist_task_016",
+      "why_next_wave": "Useful humectant, but lower priority than the three-item carbomer-baseline core under the 8-slot cap."
+    },
+    {
+      "item": "Disodium EDTA / Citric Acid",
+      "triage_bucket_label": "Gel baseline next-wave",
+      "upstream_csv_file": "gel_procurement_reference.csv",
+      "upstream_strand": "basic_gel_pilot",
+      "upstream_source_column": "bucket",
+      "upstream_decision": "buy_now",
+      "upstream_why": "stabilization and pH fine-tuning support",
+      "source_task": "pharmacist_task_016",
+      "why_next_wave": "Stabilization and pH fine-tuning support; useful after the baseline core is secured."
+    },
+    {
+      "item": "0.22 um filter",
+      "triage_bucket_label": "Gel baseline next-wave",
+      "upstream_csv_file": "gel_procurement_reference.csv",
+      "upstream_strand": "basic_gel_pilot",
+      "upstream_source_column": "bucket",
+      "upstream_decision": "buy_now",
+      "upstream_why": "pilot sample prefiltration",
+      "source_task": "pharmacist_task_016",
+      "cross_reference": "Same physical item as 0.22 um sterile filter in conditional_backup_lab_support (from qpcr_procurement_reference.csv, upstream_strand=General, upstream_decision=backup_buy). Do not duplicate as two immediate buys per triage_rules.md §Gel Pilot Priority.",
+      "why_next_wave": "Pilot prefiltration support; moved to next-wave to avoid duplicating the qPCR/general sterile-filter backup per triage_rules.md §Gel Pilot Priority."
+    },
+    {
+      "item": "Spatula and Ointment Jar",
+      "triage_bucket_label": "Gel baseline next-wave",
+      "upstream_csv_file": "gel_procurement_reference.csv",
+      "upstream_strand": "basic_gel_pilot",
+      "upstream_source_column": "bucket",
+      "upstream_decision": "buy_now",
+      "upstream_why": "pilot preparation and retain samples",
+      "source_task": "pharmacist_task_016",
+      "note": "Two physical items (spatula + ointment jar) listed as one row in gel_procurement_reference.csv; treated as one procurement entry here.",
+      "why_next_wave": "Preparation and retain-sample support; not a schedule blocker under the cap."
+    }
+  ],
+  "conditional_backup_lab_support": [
+    {
+      "item": "FBS",
+      "triage_bucket_label": "Cell culture conditional",
+      "upstream_csv_file": "qpcr_procurement_reference.csv",
+      "upstream_strand": "Cell culture",
+      "upstream_source_column": "module",
+      "upstream_decision": "backup_buy",
+      "upstream_why": "low stock and culture continuity risk",
+      "source_task": "pharmacist_task_018",
+      "condition": "Move forward only if confirmation says culture-continuity risk is higher than recorded."
+    },
+    {
+      "item": "Trypsin",
+      "triage_bucket_label": "Cell culture conditional",
+      "upstream_csv_file": "qpcr_procurement_reference.csv",
+      "upstream_strand": "Cell culture",
+      "upstream_source_column": "module",
+      "upstream_decision": "backup_buy",
+      "upstream_why": "low stock and passaging support risk",
+      "source_task": "pharmacist_task_018",
+      "condition": "Move forward only if passaging support becomes the bottleneck."
+    },
+    {
+      "item": "0.22 um sterile filter",
+      "triage_bucket_label": "General lab conditional",
+      "upstream_csv_file": "qpcr_procurement_reference.csv",
+      "upstream_strand": "General",
+      "upstream_source_column": "module",
+      "upstream_decision": "backup_buy",
+      "upstream_why": "filtration support but not the top schedule blocker",
+      "source_task": "pharmacist_task_018",
+      "cross_reference": "Same physical item as 0.22 um filter in next_wave_gel_basics (from gel_procurement_reference.csv, upstream_strand=basic_gel_pilot, upstream_decision=buy_now). Do not duplicate as two immediate buys per triage_rules.md §Gel Pilot Priority.",
+      "condition": "Move forward only if the filtration need is confirmed as non-duplicative and urgent."
+    }
+  ],
+  "deferred_route_tied_confirmation": [
+    {
+      "item": "Aluminum Tube",
+      "triage_bucket_label": "Gel packaging deferred",
+      "upstream_csv_file": "gel_procurement_reference.csv",
+      "upstream_strand": "defer",
+      "upstream_source_column": "bucket",
+      "upstream_decision": "defer",
+      "upstream_why": "final package and fill weight still unclear",
+      "source_task": "pharmacist_task_016",
+      "why_deferred": "Final package and fill weight remain unclear."
+    },
+    {
+      "item": "Airless Pump Bottle",
+      "triage_bucket_label": "Gel packaging deferred",
+      "upstream_csv_file": "gel_procurement_reference.csv",
+      "upstream_strand": "defer",
+      "upstream_source_column": "bucket",
+      "upstream_decision": "defer",
+      "upstream_why": "route and stability should be clearer before final packaging",
+      "source_task": "pharmacist_task_016",
+      "why_deferred": "Route and stability should be clearer before final packaging."
+    },
+    {
+      "item": "Phenoxyethanol",
+      "triage_bucket_label": "Gel preservative confirm-only",
+      "upstream_csv_file": "gel_procurement_reference.csv",
+      "upstream_strand": "confirm_only",
+      "upstream_source_column": "bucket",
+      "upstream_decision": "confirm_only",
+      "upstream_why": "preservative system is not fully fixed",
+      "source_task": "pharmacist_task_016",
+      "note": "triage_constraints.json refers to this item as 'Phenoxyethanol / preservative system'; gel_procurement_reference.csv lists it as 'Phenoxyethanol'. The CSV item name is carried here verbatim.",
+      "why_deferred": "Preservative choice is compatibility-sensitive and not fully fixed."
+    },
+    {
+      "item": "Hydroxyethyl Cellulose",
+      "triage_bucket_label": "Gel alternative route confirm-or-small-pack",
+      "upstream_csv_file": "gel_procurement_reference.csv",
+      "upstream_strand": "backup_or_confirm",
+      "upstream_source_column": "bucket",
+      "upstream_decision": "confirm_or_small_pack",
+      "upstream_why": "alternative gel-base route should not displace carbomer baseline",
+      "source_task": "pharmacist_task_016",
+      "why_deferred": "Alternative gel-base route should not displace the carbomer baseline before confirmation."
+    }
+  ],
+  "confirmation_action": "Send one concise confirmation per confirmation_note.md asking exactly three questions: (1) whether the five must_buy qPCR / cell blockers from pharmacist_task_018 remain the correct first layer or should be reprioritized, (2) whether the carbomer baseline from pharmacist_task_016 stays this round's gel default, and (3) whether next-wave gel basics, packaging, and preservative decisions should stay postponed. Do not ask every open question — only resolve decisions that change purchasing.",
+  "fallback_if_no_reply": "Per confirmation_note.md: proceed with the exact eight-slot order (Target-gene primers, Sealing film, RNase-free filter tips, CCK-8 reagent, 96-well cell plates, Carbomer 940, Triethanolamine, Propylene Glycol). Leave backup_buy culture items from pharmacist_task_018, next-wave buy_now gel basics from pharmacist_task_016, deferred packaging, confirm_only preservative, and confirm_or_small_pack alternative-route items deferred. Do not freeze the whole plan.",
+  "draft_corrections": [
+    "ORIGINAL DRAFT — Packaging-first ordering was wrong: Aluminum Tube and Airless Pump Bottle were upstream_decision=defer in pharmacist_task_016 and must stay deferred, not placed at the top of buy_now.",
+    "ORIGINAL DRAFT — One universal purchase bucket was wrong: the 8-slot cap requires strict separation into immediate, next-wave, conditional, and deferred buckets, each carrying its upstream provenance.",
+    "ORIGINAL DRAFT — Preservative as automatic buy-now was wrong: Phenoxyethanol was upstream_decision=confirm_only in pharmacist_task_016; it belongs in the confirmation-only bucket, not buy_now.",
+    "ORIGINAL DRAFT — FBS, Trypsin, and 0.22 um sterile filter as immediate were wrong: they were upstream_decision=backup_buy in pharmacist_task_018, not must_buy schedule blockers that earn immediate slots.",
+    "ORIGINAL DRAFT — qPCR / cell blockers waiting behind gel-side items was wrong: the five must_buy blockers from pharmacist_task_018 must fill the first five slots before any buy_now gel items from pharmacist_task_016.",
+    "ORIGINAL DRAFT — Empty deferred bucket was wrong: route-tied and confirmation-only items from pharmacist_task_016 must be explicitly listed as deferred with their upstream provenance.",
+    "ORIGINAL DRAFT — Empty confirmation bucket was wrong: items whose purchase depends on unresolved decisions must be tracked separately, not silently dropped.",
+    "ORIGINAL DRAFT — Fallback of waiting for reply before ordering anything was wrong: the plan must proceed with the 8-slot order if no reply arrives, not freeze entirely.",
+    "PRIOR REVISION — Provenance field names were inconsistent: qPCR-side items used upstream_module while gel-side items used upstream_bucket. Normalized to a single upstream_strand field that carries the exact value from whichever CSV the item came from (module column from qpcr_procurement_reference.csv or bucket column from gel_procurement_reference.csv).",
+    "PRIOR REVISION — upstream_why was paraphrased instead of verbatim: the why column from each CSV should be carried exactly as written, not re-capitalized or re-punctuated. All upstream_why values now match the CSV source strings verbatim.",
+    "PRIOR REVISION — 0.22 um filter cross-reference was missing: the same physical item appears in both gel_procurement_reference.csv (as '0.22 um filter', basic_gel_pilot, buy_now) and qpcr_procurement_reference.csv (as '0.22 um sterile filter', General, backup_buy). triage_rules.md §Gel Pilot Priority explicitly says not to duplicate it as two immediate buys. Added cross_reference notes on both entries.",
+    "PRIOR REVISION — Phenoxyethanol item name mismatch was unflagged: gel_procurement_reference.csv lists the item as 'Phenoxyethanol' but triage_constraints.json refers to it as 'Phenoxyethanol / preservative system'. Added a note on the deferred entry carrying the CSV name verbatim and flagging the constraints-file variant.",
+    "PRIOR REVISION — Spatula and Ointment Jar as two physical items was unflagged: the gel CSV lists them as one row but they are two separate physical items. Added a note.",
+    "PRIOR REVISION — confirmation_action and fallback_if_no_reply were paraphrased instead of grounded in confirmation_note.md: both fields now explicitly cite confirmation_note.md as their source and carry its three-question structure and fallback list verbatim.",
+    "PRIOR REVISION — draft_corrections only documented original-draft flaws, not flaws in the prior revision itself: added 7 new entries (items 9–15) documenting the repairs made to the prior revision.",
+    "PRIOR REVISION — upstream_source_column was missing: added upstream_source_column to every entry to make provenance traceability explicit. qPCR-side entries carry 'module' (from qpcr_procurement_reference.csv module column); gel-side entries carry 'bucket' (from gel_procurement_reference.csv bucket column). This removes ambiguity about what upstream_strand values represent.",
+    "PRIOR REVISION — slot_number was missing on immediate_slots entries: added slot_number (1–8) to each immediate slot so the 8-slot cap compliance is directly verifiable by counting.",
+    "PRIOR REVISION — total_items_per_bucket summary was missing: added a top-level total_items_per_bucket object counting entries per bucket and flagging the 0.22 um filter cross-count note, so a reader can verify bucket sizes without scanning all entries.",
+    "PRIOR REVISION — why_next_wave on 0.22 um filter cited triage_rules.md generically: updated to explicitly reference §Gel Pilot Priority rather than just 'per triage_rules.md'.",
+    "CURRENT REVISION — strand field was ambiguous: renamed to triage_bucket_label to make clear it is a label assigned during this merge task, not a value from either upstream CSV. The actual CSV provenance is in upstream_strand + upstream_source_column + upstream_csv_file.",
+    "CURRENT REVISION — upstream_csv_file was missing: added to every entry so a reader can trace each item back to its exact source file (gel_procurement_reference.csv or qpcr_procurement_reference.csv) without guessing.",
+    "CURRENT REVISION — provenance_convention explanation was missing: added a top-level provenance_convention field documenting the five verbatim columns carried from each CSV and the distinction between triage_bucket_label (merge-task label) and upstream_strand (CSV column value)."
+  ]
+}

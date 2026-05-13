@@ -1,0 +1,12 @@
+{
+    "mode": "minimal",
+    "difficulty": 0,
+    "num_apps": 0,
+    "num_apis": 0,
+    "num_api_calls": 0,
+    "num_solution_code_lines": 0,
+    "seconds_to_solve": 0.0,
+    "seconds_to_evaluate": 0.0,
+    "seconds_to_validate": 0.0,
+    "seconds_to_generate": 0.0
+}

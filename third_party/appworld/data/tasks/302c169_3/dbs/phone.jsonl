@@ -1,0 +1,2 @@
+["UPDATE alarms SET record_hash=?, enabled=? WHERE alarms.id = ?",["cJX4gXGhtxM=",0,408],false]
+["UPDATE alarms SET record_hash=?, enabled=? WHERE alarms.id = ?",["C/RLwYCm6Sc=",0,412],false]

@@ -1,0 +1,38 @@
+schema_version: v2
+task_id: researcher_task_015
+user_id: researcher
+environment_id: env_researcher
+title: gmail
+description: "gmail-to-coauther"
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    I am currently in charge of a large project. At the last meeting, I had already assigned each team member the tasks they need to complete this week. The total tasks and the completion status recorded by the collaborators themselves are in the file "co-auther-task.md".  
+    My gmail login info:
+    Email: la-mcco@gmail.com
+    Password: qRFsgRQ
+    
+    Suppose it is Saturday morning now. Please help me summarize the completion status at the end of Friday and then email a reminder to my collaborator who did not complete all the tasks.
+
+  hidden_intent:
+    - content: "List the total number of collaborators who did not complete all the tasks."
+    - content: "List which collaborators do not have completed all of their tasks."
+    - content: "send Gmail reminder emails to every co-author who has not completed the required tasks."
+objectives:
+  tools:
+    - mcp_appworld_gmail__send_email:
+        call: [email_addresses, subject, body]
+  checklist:
+    - criterion: "Indicate that 17 co-authors have not completed all tasks."
+    - criterion: "The opening of the formal email content should positively thank the collaborators for their contributions so far."
+    - criterion: "This email emphasizes the significance of completing this unfinished task for the entire project."
+    - criterion: "The email tone should be gentle and polite"
+    - criterion: "The closing of the formal email content should politely remind the collaborators to complete the remaining tasks."
+  tools_evaluation_path: "data/researcher/scripts/researcher_task_015_gmail.py"
+
+metadata:
+  difficulty: medium

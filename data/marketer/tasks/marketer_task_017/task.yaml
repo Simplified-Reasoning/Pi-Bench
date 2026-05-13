@@ -1,0 +1,31 @@
+schema_version: v2
+task_id: marketer_task_017
+user_id: marketer
+environment_id: env_marketer
+title:  (Co-branding Proposal Generation)
+description: ''
+task_type: test
+trigger:
+  type: user
+
+intent:
+  initial_input: "Regarding the 'ROG x BTRT' crossover campaign, please search our workspace to locate the documents containing our recent independent brand research and the finalized kickoff rules. Based strictly on the facts and established rules found in these specific files, generate the complete 'ROG x Tong Ren Tang Crossover Campaign Outline' (maximum 4 paragraphs). The outline must be highly concrete and actionable, proposing a specific physical product and a definitive slogan, rather than merely repeating the rules. Structure the outline into exactly four core modules: 'Co-branded Product', 'Target Audience Persona', 'Slogan', and 'Promotion Strategy'. Please write this directly into a file named 'Campaign_Outline.md' in our workspace without any conversational filler."
+  hidden_intent:
+    - content: "The outline contains a specific introduction and description of the 'Co-branded Product'."
+    - content: "The outline explicitly explains the specific reasoning behind the 'Co-branded Product' choice."
+    - content: "The outline contains a specific introduction of the 'Target Audience Persona'."
+    - content: "The outline introduces a definitive slogan specifically within the dedicated 'Slogan' module."
+    - content: "The outline incorporates the specific visual color constraint specifically within the 'Promotion Strategy' module."
+    - content: "The outline incorporates the specific product supply and sales mechanism constraints specifically within the 'Promotion Strategy' module."
+objectives:
+  files_read:
+    - Campaign_Outline.md
+  checklist:
+    - criterion: "The outline explicitly references the established rules or brand doctrines or traditional quality motto."
+    - criterion: "The 'Co-branded Product' section explicitly identifies a specific flagship product/series AND clearly explains how the new co-branded design inherits and utilizes its specific core advantages or functional strengths."
+    - criterion: "The 'Slogan' section provides a definitive, actionable slogan that is exactly 6 words or fewer."
+    - criterion: "The 'Promotion Strategy' explicitly outlines multiple distinct, named marketing activation tactics with specific execution details, strictly avoiding generic, lazy strategies like simply stating 'use influencers' or 'release a trailer'."
+    - criterion: "The outline explicitly mandates the use of 'Cyberpunk Neon Green', and explicitly states that hunger marketing is prohibited and guarantees stable or adequate product supply."
+    - criterion: "The response strictly respects the 'maximum 4 paragraphs' constraint by formatting the entire outline as exactly four continuous text blocks (one for each module)."
+metadata:
+  difficulty: medium

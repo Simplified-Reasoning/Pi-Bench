@@ -1,0 +1,73 @@
+schema_version: v2
+task_id: researcher_task_020
+user_id: researcher
+environment_id: env_researcher
+
+title: "Filter Papers the User Cares About Most from Simulated Hugging Face Daily Papers"
+description: "Simulate a Hugging Face Daily Papers feed: from the batch, pick OpenClaw-related papers, write recommendations per conventions (summary bullets, arXiv/GitHub links), and report document updates."
+
+task_type: short_term_independent
+
+trigger:
+  type: env
+
+intent:
+  initial_input: |
+    {"source":"huggingface_hub","event":"paper_recommendation_trigger","target":"agent","payload":{"papers":[{"id":"paper_01","title":"Common Corpus: The Largest Collection of Ethical Data for LLM Pre-Training"},{"id":"paper_02","title":"Q-RAG: Long Context Multi‑Step Retrieval via Value‑Based Embedder Training"},{"id":"paper_03","title":"From movement to cognitive maps: recurrent neural networks reveal how locomotor development shapes hippocampal spatial coding"},{"id":"paper_04","title":"FIRE: Frobenius-Isometry Reinitialization for Balancing the Stability–Plasticity Tradeoff"},{"id":"paper_05","title":"Exchangeability of GNN Representations with Applications to Graph Retrieval"},{"id":"paper_06","title":"A Trajectory-Based Safety Audit of Clawdbot (OpenClaw)"},{"id":"paper_07","title":"Enhancing Generative Auto-bidding with Offline Reward Evaluation and Policy Search"},{"id":"paper_08","title":"Why DPO is a Misspecified Estimator and How to Fix It"},{"id":"paper_09","title":"WebDevJudge: Evaluating (M)LLMs as Critiques for Web Development Quality"},{"id":"paper_10","title":"SafeDPO: A Simple Approach to Direct Preference Optimization with Enhanced Safety"},{"id":"paper_11","title":"MedAgentGym: A Scalable Agentic Training Environment for Code-Centric Reasoning in Biomedical Data Science"},{"id":"paper_12","title":"Optimistic Task Inference for Behavior Foundation Models"},{"id":"paper_13","title":"CounselBench: A Large-Scale Expert Evaluation and Adversarial Benchmarking of Large Language Models in Mental Health Question Answering"},{"id":"paper_14","title":"AstaBench: Rigorous Benchmarking of AI Agents with a Scientific Research Suite"},{"id":"paper_15","title":"MetaClaw: Just Talk An Agent That Meta-Learns and Evolves in the Wild"},{"id":"paper_16","title":"Neon: Negative Extrapolation From Self-Training Improves Image Generation"},{"id":"paper_17","title":"Compositional Diffusion with Guided search for Long-Horizon Planning"},{"id":"paper_18","title":"Visual symbolic mechanisms: Emergent symbol processing in Vision Language Models"},{"id":"paper_19","title":"Addressing divergent representations from causal interventions on neural networks"},{"id":"paper_20","title":"Cross-Domain Lossy Compression via Rate- and Classification-Constrained Optimal Transport"},{"id":"paper_21","title":"Latent Fourier Transform"},{"id":"paper_22","title":"GLASS Flows: Efficient Inference for Reward Alignment of Flow and Diffusion Models"},{"id":"paper_23","title":"Latent Speech-Text Transformer"},{"id":"paper_24","title":"LoongRL: Reinforcement Learning for Advanced Reasoning over Long Contexts"},{"id":"paper_25","title":"Improving Developer Emotion Classification via LLM-Based Augmentation"},{"id":"paper_26","title":"Revisiting Multilingual Data Mixtures in Language Model Pretraining"},{"id":"paper_27","title":"One-Shot Style Personalization for RL Agents via Latent Discriminator"},{"id":"paper_28","title":"OpenClaw-RL: Train Any Agent Simply by Talking"},{"id":"paper_29","title":"Compositional HyperModules for Few-Shot Code Adaptation in Meta-Reinforcement Learning"},{"id":"paper_30","title":"All-in-One: Boosting Basic Capabilities in one Omni-MLLM to Enhance Movie Understanding"},{"id":"paper_31","title":"Contrastive Code Graph Embeddings for Reinforcement Learning-Based Automated Code Refactoring"},{"id":"paper_32","title":"Soft Non-Diagonality Penalty Enables Latent Space-Level Interpretability of pLM at No Performance Cost"},{"id":"paper_33","title":"Adaptive Mixing of Non-Invariant Information for Generalized Diffusion Policy"},{"id":"paper_34","title":"Style2Shape: Image Style Guided 3D Shape Material Generation"},{"id":"paper_35","title":"Contrastive-Aligned Knowledge Distillation for Collaborative Code Completion via Multi-Agent Reinforcement Learning"},{"id":"paper_36","title":"Scaling Laws for Generative Reward Models"},{"id":"paper_37","title":"Contrastive-Online-Meta (COM): A Dynamic Adaptation Mechanism for Instruction-Tuned CodeLLMs"},{"id":"paper_38","title":"FedPAC: Consistent Representation Learning for Federated Unsupervised Learning under Data Heterogeneity"},{"id":"paper_39","title":"Training as Computation: A Resource-Bounded Theory of Continual Self-Play Learning"},{"id":"paper_40","title":"Cross-Modal Syntax-NL Attention for Multi-Agent Reinforcement Learning in Collaborative Coding"},{"id":"paper_41","title":"Less is More: Improving Molecular Force Fields with Minimal Temporal Information"},{"id":"paper_42","title":"Curricular Adversarial Training for Robust Code Generation via Hierarchical Reinforcement Learning"},{"id":"paper_43","title":"\"Humans welcome to observe\": A First Look at the Agent Social Network Moltbook"},{"id":"paper_44","title":"Triple-S: A Sticker Semantic Similarity Benchmark with General Sticker Encoder"},{"id":"paper_45","title":"Unsupervised Dynamic Graph Multi-Model Representation Learning for Temporal Patterns Discovery: Uncovering Parkinson’s Disease Stages Using Cerebrospinal Fluid Longitudinal Profiles"},{"id":"paper_46","title":"Causal Reasoning Favors Encoders: Limits of Decoder-Only Models"},{"id":"paper_47","title":"Hierarchies over Pixels: A Benchmark for Cognitive Geospatial Reasoning for Agents"},{"id":"paper_48","title":"But what is your honest answer? Aiding LLM-judges with honest alternatives using steering vectors"},{"id":"paper_49","title":"LaMbDA: Local Latent Embedding Alignment for Cross-modal Time-Series Diffusion"}]}}
+
+  hidden_intent:
+    - content: "Give list OpenClaw-related papers from this recommendation trigger."
+
+    - content: "Give add a short introduction and key technical points for each OpenClaw-related paper."
+
+    - content: "Give include arXiv links for the OpenClaw-related papers."
+
+    - content: "Give GitHub links for the OpenClaw-related papers."
+
+    - content: "Give the research institution and author for each OpenClaw-related paper."
+
+objectives:
+
+  checklist:
+    - criterion: "Recommends the paper A Trajectory-Based Safety Audit of Clawdbot."
+
+    - criterion: "Recommends the paper Humans welcome to observe: A First Look at Moltbook."
+
+    - criterion: "Recommends the paper MetaClaw: Just Talk - An Agent That Meta-Learns and Evolves in the Wild."
+
+    - criterion: "Recommends the paper OpenClaw-RL: Train Any Agent Simply by Talking."
+
+    - criterion: "States that the core idea of A Trajectory-Based Safety Audit of Clawdbot is a trajectory-based, six-dimensional safety-audit framework revealing structural security risks for tool agents like Clawdbot under ambiguous intent and adversarial instructions, stemming from permission sprawl/amplification (paraphrase acceptable)."
+
+    - criterion: "States that Humans welcome to observe: presents a large-scale empirical study of the first agent-native social network Moltbook, using topic categorization and toxicity metrics to analyze agent behavior evolution, group dynamics, and systemic risks in a native social setting (paraphrase acceptable)."
+
+    - criterion: "States that MetaClaw: Just Talk - An Agent That Meta-Learns and Evolves in the Wild proposes MetaClaw, a dual-loop framework combining fast skill evolution from failure trajectories with asynchronous policy optimization using users' idle time, enabling non-stop continual learning under real deployment (paraphrase acceptable)."
+
+    - criterion: "States that OpenClaw-RL: Train Any Agent Simply by Talking develops a general asynchronous RL framework turning next-state signals from agent interaction into an online learning source, combining process reward (PRM) and hindsight-guided distillation (OPD) to improve policy performance (paraphrase acceptable)."
+
+    - criterion: "Gives the GitHub link for A Trajectory-Based Safety Audit of Clawdbot as https://github.com/tychenn/clawdbot_report."
+
+    - criterion: "Gives the GitHub link for Humans welcome to observe: A First Look at Moltbook as https://moltbookobserve.github.io/."
+
+    - criterion: "Gives the GitHub link for MetaClaw: Just Talk - An Agent That Meta-Learns and Evolves in the Wild as https://github.com/aiming-lab/MetaClaw."
+
+    - criterion: "Gives the GitHub link for OpenClaw-RL: Train Any Agent Simply by Talking as https://github.com/Gen-Verse/OpenClaw-RL."
+
+    - criterion: "Gives the arXiv link for Humans welcome to observe: A First Look at the Agent Social Network Moltbook as https://arxiv.org/abs/2602.10127."
+
+    - criterion: "Gives the arXiv link for A Trajectory-Based Safety Audit of Clawdbot as https://arxiv.org/abs/2602.14364."
+
+    - criterion: "Gives the arXiv link for MetaClaw: Just Talk - An Agent That Meta-Learns and Evolves in the Wild as https://arxiv.org/abs/2603.17187."
+
+    - criterion: "Gives the arXiv link for OpenClaw-RL: Train Any Agent Simply by Talking as https://arxiv.org/abs/2603.10165."
+
+    - criterion: "OpenClaw-RL: Train Any Agent Simply by Talking is authored by Yinjie Wang, Xuyang Chen, Xiaolong Jin, Mengdi Wang, and Ling Yang. The affiliation is Princeton University."
+
+    - criterion: "Humans Welcome to Observe: A First Look at the Agent Social Network Moltbook is authored by Yukun Jiang, Yage Zhang, Xinyue Shen, Michael Backes, and Yang Zhang. The affiliation is CISPA Helmholtz Center for Information Security."
+
+    - criterion: "A Trajectory-Based Safety Audit of Clawdbot is authored by Tianyu Chen, Dongrui Liu, Xia Hu, Jingyi Yu, Wenjie Wang. The affiliations are ShanghaiTech University, Shanghai, China, and Shanghai Artificial Intelligence Laboratory, Shanghai, China."
+
+    - criterion: "MetaClaw: Just Talk - An Agent That Meta-Learns and Evolves in the Wild is authored by Peng Xia1, Jianwen Chen1, Xinyu Yang2, Haoqin Tu3, Jiaqi Liu1, Kaiwen Xiong1, Siwei Han, Shi Qiu, Haonian Ji, Yuyin Zhou, Zeyu Zheng, Cihang Xie, and Huaxiu Yao. The affiliations are UNC-Chapel Hill, Carnegie Mellon University, UC Santa Cruz, and UC Berkeley."
+
+metadata:
+  difficulty: easy

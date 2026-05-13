@@ -1,0 +1,3 @@
+group,mean_delta_ct,sd_delta_ct,sem_delta_ct,n,delta_delta_ct_vs_ref,se_delta_delta_ct,ci_method,fold_change_vs_ref,fold_change_ci_lower,fold_change_ci_upper,significant_at_05,small_effect_warning,t_stat_vs_ref,p_value_vs_ref,welch_df,interpretation
+control,6.7333,0.2517,0.1453,3,0.0,0.0,reference,1.0,1.0,1.0,reference,no,,,,reference group (ΔΔCt=0 by definition)
+treatment,4.8333,0.2517,0.1453,3,-1.9,0.2055,t-distribution (E_target == E_ref),3.7321,2.5133,5.542,significant,no,9.2466,,4.0,"upregulated; FC=3.73x (CI [2.51,5.54]); significant"

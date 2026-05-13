@@ -1,0 +1,24 @@
+schema_version: v2
+task_id: researcher_task_002
+user_id: researcher
+environment_id: env_researcher
+
+title: "Starting Lean Bulk: Cost-Effective Gym Gear Selection"
+description: "The user is preparing to begin a structured muscle-gain plan and needs to choose a set of quick-dry workout clothing and protective gear suitable for use in the campus gym, based on his body metrics and limited budget."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: "I'm planning to start a structured muscle-gain program. Could you help me pick a few cost-effective workout clothing items?"
+  hidden_intent:
+  - content: "Current body metrics: height 175 cm, weight 68 kg, body fat around 17%. Recommend clothing sizes that would fit my build."
+
+  - content: "Provide a substitute option (Plan B) to handle unexpected situations (for example, if a particular item is unavailable in my size)."
+
+  - content: "The output should be presented in a clear, readable table format for quick one-pass comparison."
+
+metadata:
+  difficulty: easy

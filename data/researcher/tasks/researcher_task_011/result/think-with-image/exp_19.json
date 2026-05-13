@@ -1,0 +1,28 @@
+{
+  "exp_id": "19",
+  "benchmark": "v_star bench",
+  "base_model": "qwen2.5-7b-vl",
+  "training_method": "luffy_rl",
+  "settings": {
+    "init_checkpoint": "exp_08 (sft_full)",
+    "luffy": {
+      "algorithm": "luffy-rl",
+      "exploration": {
+        "temperature": 0.85,
+        "top_p": 0.92
+      },
+      "policy_lr": 6.5e-6,
+      "kl_beta": 0.02,
+      "rollouts_per_prompt": 6,
+      "epochs": 1,
+      "entropy_bonus": 0.001,
+      "reward_shaping": {
+        "grounding_bonus": 0.1,
+        "format_penalty": 0.05
+      }
+    }
+  },
+  "metrics": {
+    "acc": 83.5
+  }
+}

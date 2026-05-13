@@ -1,0 +1,49 @@
+schema_version: v2
+task_id: pharmacist_task_009
+user_id: pharmacist
+environment_id: env_pharmacist
+title: Sandbox Todoist Blueprint Extraction and Sub-Task Closed-Loop Management
+description: "Inside the AppWorld sandbox only, the user wants to put a small administrative follow-up process into Todoist in a structured way rather than creating a single isolated task. The task tests whether the agent reads a local Todoist blueprint, creates the requested project, section, parent task, and sub-task, and then verifies the structure."
+task_type: short_term_independent
+trigger:
+  type: user
+intent:
+  initial_input: |
+    This is an AppWorld sandbox task; the account identifiers below are synthetic test credentials, not real external accounts. First read `todoist_followup_blueprint.md` in the current task directory. In the sandbox Todoist app, organize that small administrative follow-up process. Please create the project, section, parent task, and sub-task described there. After that, check the sections and the sub-tasks so that the structure is confirmed. Login with username "la-mcco@gmail.com" and sandbox credential "Eu(M@!7". In your final response, use exactly these blocks in this order: `Blueprint Used`, `Created Structure`, `Verification`.
+  hidden_intent:
+    - content: Log into sandbox Todoist first and reuse the same session token.
+    - content: Extract the project, section, parent task, and sub-task names from `todoist_followup_blueprint.md`.
+    - content: Create the project first, then the section, then the parent task, and then the sub-task.
+    - content: Execute at least one section query and one sub-task query at the end.
+    - content: In the final response, use the required blocks and restate the local blueprint, created structure, and verification result.
+objectives:
+  tools:
+    - mcp_appworld_todoist__login:
+        call: [username, password]
+        result: [response]
+    - mcp_appworld_todoist__create_project:
+        call: [name, access_token]
+        result: [response]
+    - mcp_appworld_todoist__create_section:
+        call: [name, project_id, access_token]
+        result: [response]
+    - mcp_appworld_todoist__create_task:
+        call: [title, project_id, access_token]
+        result: [response]
+    - mcp_appworld_todoist__create_sub_task:
+        call: [title, task_id, access_token]
+        result: [response]
+    - mcp_appworld_todoist__show_sections:
+        call: [project_id, access_token]
+        result: [response]
+    - mcp_appworld_todoist__show_sub_tasks:
+        call: [task_id, access_token]
+        result: [response]
+  checklist:
+    - criterion: "The final response must contain exactly these three top-level blocks in this order: `Blueprint Used`, `Created Structure`, and `Verification`."
+    - criterion: "The `Blueprint Used` block must state that the structure came from `todoist_followup_blueprint.md` and that no unrelated extra tasks were added."
+    - criterion: "The `Created Structure` block must identify the created Todoist project name as `Instrument Admin Follow-up` or a clearly suffixed fresh-project variant of that name, section `Follow-up`, parent task `Email instrument manager`, and child or sub-task `Wait for reply` in a clear parent/child relationship."
+    - criterion: "The `Verification` block must clearly state that the section structure and sub-task structure were checked or confirmed after creation."
+  tools_evaluation_path: data/pharmacist/scripts/pharmacist_task_009_todoist.py
+metadata:
+  difficulty: medium

@@ -1,0 +1,24 @@
+schema_version: v2
+task_id: law_trainee_task_004
+user_id: law_trainee
+environment_id: env_law_trainee
+
+title: "Drafting a Labor-Dispute Intake Outline: Proactively Deriving and Organizing an Evidence Checklist"
+description: "The user is preparing an initial client meeting in an unlawful-termination dispute and asks the Agent, while analyzing legal claims, to work backward and list the evidence the client urgently needs to gather—thereby habituating a practical rule that future case analyses always include an \"evidence materials\" section."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    Tomorrow morning I am meeting a new client, Mr. Zhang, on a labor dispute. Please help me prepare a preliminary intake outline and analysis.
+
+    The facts in outline are as follows. Mr. Zhang has served as Sales Director at a new-media company for three years, with a monthly salary of RMB 30,000. Last Friday HR orally notified him that he was dismissed for \"serious failure to perform the job and refusal to cooperate with a lawful reassignment.\" The employer issued no written termination notice and, that same day after work, unilaterally disabled his corporate email, enterprise WeChat (WeCom), and building-access credentials. Mr. Zhang currently has only WeChat chat history on his personal phone. He intends to file for labor arbitration and seek damages for unlawful termination (2N).
+
+  hidden_intent:
+    - content: "List the case factors most comparable to our party's situation, and provide comparable cases."
+    - content: "After list the case factors most comparable to our party's situation, Analyze what evidence our party should collect to guide next steps."
+metadata:
+  difficulty: easy

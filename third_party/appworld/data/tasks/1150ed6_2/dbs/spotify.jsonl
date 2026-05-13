@@ -1,0 +1,1 @@
+["UPDATE music_players SET queue_song_ids=?, record_hash=? WHERE music_players.id = ?",["[139, 252, 189, 23, 201, 318, 86, 35]","vNSIHO1yVB0=",20],false]

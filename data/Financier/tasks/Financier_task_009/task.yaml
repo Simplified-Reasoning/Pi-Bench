@@ -1,0 +1,34 @@
+schema_version: v2
+task_id: Financier_task_009
+user_id: Financier
+environment_id: env_Financier
+title: ''
+description: ''
+task_type: val
+trigger:
+  type: user
+
+intent:
+  initial_input: "For our Fixed Income Analytics Platform, I want to build a US Treasury\
+    \ yield curve modeling prototype. I prioritize high interpretability, ease of\
+    \ implementation, and fast Python deployment over complex theoretical perfection.\
+    \ I have uploaded two foundational papers: 'w1594.pdf' (Nelson-Siegel) and 'w4871.pdf'\
+    \ (Svensson). Please provide a concise comparison of these two models and conclude\
+    \ by explicitly recommending the better model for my specific prototype requirements.\
+    \ Keep it conclusion-first without heavy math."
+  hidden_intent:
+    - content: "Model Recommendation: The response must explicitly recommend the Nelson-Siegel\
+        \ (NS) model over Svensson for the initial prototype due to the user's preference\
+        \ for simplicity."
+    - content: "Parameter Awareness: The comparison must correctly state that the\
+        \ Nelson-Siegel model uses 4 parameters while the Svensson extension uses\
+        \ 6."
+    - content: "The response must strictly obey the 'without heavy math' constraint\
+        \ by completely avoiding the explicit writing of algebraic yield curve equations/formulas\
+        \ (e.g., exponential functions), explaining the parameters conceptually instead."
+    - content: "The response must explicitly identify that the Svensson model's increased\
+        \ flexibility introduces severe calibration difficulties (such as high sensitivity\
+        \ to starting values or constraints), which directly violates the user's 'ease\
+        \ of implementation' requirement."
+metadata:
+  difficulty: medium

@@ -1,0 +1,25 @@
+schema_version: v2
+task_id: law_trainee_task_010
+user_id: law_trainee
+environment_id: env_law_trainee
+
+title: "Establish the Legal-Analysis Baseline: Preference for Subjective–Objective Decomposition"
+description: "By walking through a concrete mistaken-taking-of-a-cellphone scenario, the user signals to the Agent a preference for subjective–objective separation in analysis, embedding a standing requirement to hard-split objective conduct and subjective intent in any later case analysis."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    I have a case where someone mistakenly took another person’s phone. I need a full analytical report that unpacks it cleanly. My own draft is messy: sometimes I only describe him taking the phone, sometimes only that he misidentified it.
+
+    The facts in outline are as follows: Late at night, Zhang San ate with friends at a busy hot-pot restaurant; he drank two beers but remained clear-headed. Before leaving he went to the shared power-bank pickup counter near the door to get his phone—the counter is narrow, the light is dim, several phones sit side by side on charging docks, and some use the same dark silicone case. Zhang San’s own phone is a flagship of a certain brand, and he also used a dark case that day; neighboring diner Li Si’s phone is the same brand, colorway, and storage tier, and the two looked almost identical. When Zhang San took a phone, staff had just tidied the counter and had pushed his phone and Li Si’s inward; the two sat flush side by side. Zhang San glanced at the backs and cases without lighting the screens, picked up one phone, put it in his pocket, and left. Li Si was at the condiment station; the phone was left unattended on the counter.
+
+    About forty minutes after leaving, in a taxi, Zhang San tried to reply to messages: face unlock failed twice, a third try with the passcode still failed, and he realized the lock-screen wallpaper was not his. He opened the WeChat login page, confirmed it was not his account, had the driver turn back, and called the restaurant en route to explain. The restaurant said Li Si had noticed the missing phone, reviewed CCTV, and had already reported to the police. Zhang San returned about one hour and fifty minutes later and handed the phone back in person; the exterior was undamaged, but Li Si claimed several unread client messages on a business WeChat account and questioned whether the phone had been accessed in the meantime; Zhang San denied ever unlocking it successfully. CCTV shows Zhang San’s motion when taking the phone was natural, without looking around furtively, and he did not run out the door; when he came back he voluntarily gave the phone to the store manager.
+
+  hidden_intent:
+    - content: "When analyzing legal cases, the argument must be hard-split into two independent dimensions, the objective aspect and the subjective aspect, for analysis."
+metadata:
+  difficulty: easy

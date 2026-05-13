@@ -1,0 +1,22 @@
+schema_version: v2
+task_id: law_trainee_task_009
+user_id: law_trainee
+environment_id: env_law_trainee
+
+title: "Polishing a Loan-Dispute Complaint: Granular Prayers for Relief and Standard Closing"
+description: "Before lining up at the docketing office, the user asks the agent to lay out the complaint format for a private-lending case: spell out separate, independent prayers for relief (especially as against the guarantor) and adopt a standard closing at the end of the pleading."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    I have a private-lending dispute and am about to queue at the filing window of the Chaoyang District People’s Court in Beijing. Borrower Zhang San owes RMB 1 million in principal and will not repay; Li Si is the joint-and-several liability guarantor on this loan. Please quickly produce the complaint for this case.
+
+  hidden_intent:
+    - content: "After the body of the complaint, include the standard court-address closing: “Respectfully submitted to the Chaoyang District People’s Court of Beijing Municipality.”"
+metadata:
+  difficulty: easy
+  theme: pleading_formatting_standard

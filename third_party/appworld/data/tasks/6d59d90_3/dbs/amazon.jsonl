@@ -1,0 +1,1 @@
+["UPDATE products SET record_hash=?, delivery_days=? WHERE products.id = ?",["c+KfKA0/QHc=",6,319],false]

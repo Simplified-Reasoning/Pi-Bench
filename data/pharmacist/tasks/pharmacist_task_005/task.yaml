@@ -1,0 +1,41 @@
+schema_version: v2
+task_id: pharmacist_task_005
+user_id: pharmacist
+environment_id: env_pharmacist
+title: "Paper Dissection: Peptide-Density Targeting, Validation Logic, and Metastasis-Suppression Evidence"
+description: The user wants to break down a specific paper on targeting and metastasis suppression in triple-negative breast cancer. The task directory keeps the original paper PDF, two figure extracts, and an intentionally flawed dissection draft. The task is no longer just to answer well; it is to recover the real point from the paper materials, correct the flawed draft, and expose the corrected evidence hierarchy directly in the final reply.
+task_type: short_term_contextual
+trigger:
+  type: user
+intent:
+  initial_input: |
+    First read `s41467-018-05035-5.pdf`, `figure_1_study_design.svg`, `figure_3_in_vivo_results.svg`, and `paper_dissection.md` in the current task directory; if anything is missing, say so first. Then revise the current dissection note instead of starting from zero. Please update `paper_dissection.md`, keep any useful structure if possible, and in your final reply use exactly these section headers in this order: `Core Question`, `Primary Evidence`, `Supporting Evidence`, `Rejected Interpretation`, `First Figure To Inspect`, `Boundary And Follow-up`, `One-Line Takeaway`. In every section except `One-Line Takeaway`, include a source anchor chosen only from `[PDF]`, `[Fig1]`, `[Fig3]`, `[PDF+Fig1]`, `[PDF+Fig3]`, `[Fig1+Fig3]`, or `[PDF+Fig1+Fig3]`. Treat this as the paper-level continuation of the earlier TNBC-outline and figure-reading tasks: do not turn it into a broad TNBC nanomedicine overview, and do not default to a left-to-right or Figure-1-first explanation.
+  hidden_intent:
+  - content: Use the original paper PDF and the local figure extracts first, and treat `paper_dissection.md` as a flawed draft to be corrected rather than as a trusted summary.
+  - content: Inherit the earlier literature-outline preference for compressing a broad field into one sharper storyline, and position this paper as a density-optimization / surface-architecture storyline rather than as a generic targeted-liposome overview.
+  - content: Start very early with the paper's actual research question or main point instead of a long background preamble.
+  - content: Prioritize the in vivo metastasis-suppression evidence as the primary evidence line if it is the strongest support for the paper's claim.
+  - content: Distinguish the primary evidence from supporting evidence instead of presenting every result as equally important.
+  - content: Correct any draft tendency to treat uptake or higher-density signal as the main proof of the paper.
+  - content: Recover at least one major inference by combining the original paper text with the local figure extracts, not by reading either source in isolation.
+  - content: Inherit the earlier figure-reading preference for identifying the decisive panel before scanning introductory or left-to-right panels, and explicitly separate what Figure 3 can show visually from what still needs PDF context.
+  - content: Tell me which single figure, comparison, or entry point I should look at first if I want to explain the paper to someone else.
+  - content: Explicitly state what the paper supports, what remains uncertain, and what kind of follow-up experiment would tighten that gap.
+  - content: Keep useful note structure if possible, but make the final reply follow the exact output schema so the corrected hierarchy is visible without opening the file.
+  - content: If the draft overweights Figure 1 or uptake, proactively demote that line before the reader has a chance to confuse concept validation with decisive biological proof.
+  - content: Volunteer one interpretation trap a reader could fall into when moving from targeting or uptake data to the metastasis claim, and correct it rather than waiting for a follow-up question.
+  - content: Use the `First Figure To Inspect` section to steer attention toward the biologically decisive comparison rather than the easiest or most introductory-looking figure.
+
+objectives:
+ 
+  checklist:
+  - criterion: "The final reply must follow the exact output schema: exactly seven top-level sections in this order, `Core Question`, `Primary Evidence`, `Supporting Evidence`, `Rejected Interpretation`, `First Figure To Inspect`, `Boundary And Follow-up`, and `One-Line Takeaway`; every section except `One-Line Takeaway` must contain at least one visible source anchor chosen only from `[PDF]`, `[Fig1]`, `[Fig3]`, `[PDF+Fig1]`, `[PDF+Fig3]`, `[Fig1+Fig3]`, or `[PDF+Fig1+Fig3]`."
+  - criterion: "The `Core Question` section must explicitly frame the paper as a `DV1` or peptide-surface-density optimization / density-dependent targeting-signaling question tied to migration or metastasis outcome, and it must explicitly avoid positioning the paper as just another broad `TNBC targeted-liposome` overview or a generic `CXCR4 targeting` / uptake paper."
+  - criterion: "The `Primary Evidence` section must explicitly treat the decisive evidence as an in vivo or metastasis-grounded result, and it must name at least one concrete comparison chosen from `24k versus 39k`, `24k versus 74k`, `24k versus L-DBCO`, or the `27-day primary-tumor metastatic model`; it must also explicitly state that this evidence is more decisive than uptake or binding evidence."
+  - criterion: "The `Supporting Evidence` section must name one distinct secondary line chosen from `binding / uptake optimization`, `migration inhibition`, or an equivalent intermediate phenotype, and it must explicitly call that line `supporting`, `secondary`, `intermediate`, or otherwise clearly not the main proof; this section must not flatten the supporting line into the same rank as the metastasis-grounded primary evidence."
+  - criterion: "The `Rejected Interpretation` section must explicitly reject at least one of these flawed readings: `this is mainly an uptake paper`, `the highest-density group is simply the best`, or `Figure 1 alone is enough to explain why the paper matters`; the corrected reading must explicitly state that a specific optimal-density condition such as `24k` outperforms higher-density groups for the biologically important outcome."
+  - criterion: "Somewhere across `Primary Evidence`, `Supporting Evidence`, or `Rejected Interpretation`, the reply must explicitly warn that `Figure 1` or uptake-style evidence can mislead a reader because concept validation is not the same as decisive proof of metastasis suppression."
+  - criterion: "The `First Figure To Inspect` section must name exactly one entry point, and that entry point must be either `Figure 3`, `Figure 3 Panel C`, or an explicitly metastasis-grounded comparison centered on `24k` versus higher-density or control groups; this section must also explicitly say that `Figure 1` is setup / concept-validation context rather than the biologically decisive first figure, and it must distinguish what is directly visible in the chosen figure from what still requires paper-text context."
+  - criterion: "The `Boundary And Follow-up` section must name one unresolved boundary chosen from `whether the same optimal density generalizes to another TNBC model` or `whether uptake magnitude can be separated from downstream signaling consequence`, and it must pair that boundary with one follow-up experiment that directly tests the same issue; the `One-Line Takeaway` must remain consistent with an `optimal density` / `surface-architecture design rule` message rather than a `highest density`, `broad TNBC nanomedicine`, or `uptake-only` message."
+metadata:
+  difficulty: hard

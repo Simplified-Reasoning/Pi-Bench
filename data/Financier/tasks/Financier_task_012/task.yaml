@@ -1,0 +1,36 @@
+schema_version: v2
+task_id: Financier_task_012
+user_id: Financier
+environment_id: env_Financier
+title: ''
+description: ''
+task_type: val
+trigger:
+  type: user
+
+intent:
+  initial_input: "Continuing with our Enterprise Macro-Risk Data Platform, we are\
+    \ integrating alternative regulatory data. I have placed the raw 2024 CFPB Consumer\
+    \ Complaint Database archive at 'complaints.csv.zip' in the current workspace.\
+    \ Please write a Python script to physically process this dataset and perform\
+    \ a comprehensive evaluation. You must execute the script to collect the necessary\
+    \ insights and export a structured Markdown report directly saved as 'CFPB_DQ_Report.md'\
+    \ in the workspace. The report should summarize the operational processing metrics,\
+    \ distributional anomalies, and potential analytical biases."
+  hidden_intent:
+    - content: "Operational Metric: The report must explicitly calculate the time\
+        \ lag between 'Date received' and 'Date sent to company' as a key measure\
+        \ of business processing efficiency, cleanly separating this business metric\
+        \ from basic CSV structural checks."
+    - content: "Distributional Anomalies: The report must explicitly analyze the concentration\
+        \ risk or long-tail distribution of complaints across specific companies or\
+        \ products."
+    - content: "Analytical Biases: The report must explicitly advise that absolute\
+        \ complaint volumes must be normalized by market share or population baselines\
+        \ to avoid statistical bias."
+objectives:
+  files_read:
+    - CFPB_DQ_Report.md
+
+metadata:
+  difficulty: medium

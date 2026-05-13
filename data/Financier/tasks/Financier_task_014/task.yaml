@@ -1,0 +1,95 @@
+schema_version: v2
+task_id: Financier_task_014
+user_id: Financier
+environment_id: env_Financier
+title: Independent Validation Conclusion for a 1-Day 99% Historical Simulation VaR
+  Model
+description: "The user now wants a system-level validation conclusion for a U.S. equity\
+  \ 1-day 99% Historical Simulation VaR model. The task depends on the previous VaR\
+  \ backtesting-priority setup and tests whether the agent converts package-specific\
+  \ backtesting evidence into a Basel-style model-use decision with concrete remediation\
+  \ and monitoring conditions."
+task_type: short_term_contextual
+trigger:
+  type: user
+intent:
+  initial_input: |
+    First read `SP500.csv`, `var_backtest_spec.yaml`, and `var_validation_report_draft.md` in the current task directory; if anything is missing, say so first. Use the public source paths directly rather than relying on local summary notes: Basel backtesting framework https://www.bis.org/publ/bcbs22.htm, Basel backtesting PDF https://www.bis.org/publ/bcbs22.pdf, Basel market-risk standard https://www.bis.org/bcbs/publ/d457.htm, and FRED S and P 500 series https://fred.stlouisfed.org/series/SP500. The local CSV and backtest specification are intentionally raw: you need to compute the exception count, exception dates, traffic-light zone, Kupiec result, volatility-regime flags, and clustering yourself. Then revise `var_validation_report_draft.md` instead of starting from zero. In the final reply, use exactly these blocks in this order: `Use Decision`, `Findings`, `Limitations`, `Recommendations`, `Monitoring And Escalation Triggers`. Now apply the previous risk-first Basel backtesting lens to the fixed 1-day 99% Historical Simulation VaR backtest. Produce a structured independent-validation conclusion with Findings, Limitations, and Recommendations, clearly marking High / Medium / Low priority issues. Cover data and P and L proxy limitations, exception level and clustering, Basel traffic-light meaning, volatility-regime robustness, model scope, and follow-up monitoring. State whether the model should be continue use, conditional use, or escalate for remediation.
+  hidden_intent:
+    - content: Inherit the previous preference for model-use red flags before formula-heavy
+        VaR explanation.
+    - content: Use Basel traffic-light thresholds and the package-specific exception
+        facts to support a clear use decision.
+    - content: Do not recompute VaR or write a generic market-risk textbook answer;
+        validate the provided backtesting package.
+    - content: Treat 7 exceptions as amber / yellow, not green and not red, but still
+        serious enough to block unconditional continue use.
+    - content: Treat missing hypothetical-P and L reconciliation and incomplete P and L definition
+        as high-priority validation limitations.
+    - content: Convert exception clustering and volatility-regime underperformance
+        into concrete remediation and monitoring conditions.
+objectives:
+  checklist:
+    - criterion: "The `Use Decision` block must make a clear model-use decision. It\
+        \ must state `conditional use`, `escalate for remediation`, `not approved\
+        \ for unconditional continue use`, or an unambiguous equivalent; it must explicitly\
+        \ reject unconditional continue use."
+    - criterion: "The `Use Decision` block must justify the restricted / escalated\
+        \ decision using at least three of these facts: `7` exceptions, amber / yellow\
+        \ traffic-light status, clustered exceptions, rejected Kupiec coverage, or\
+        \ proxy-data limitations from using S and P 500 index levels rather than full\
+        \ portfolio-specific P and L and position data."
+    - criterion: "The final reply must contain exactly five top-level blocks in this\
+        \ order: `Use Decision`, `Findings`, `Limitations`, `Recommendations`, and\
+        \ `Monitoring And Escalation Triggers`."
+    - criterion: "The `Findings` block must use visible High / Medium / Low priority\
+        \ labels and must include at least three High-priority findings tied to computed\
+        \ facts."
+    - criterion: "A High-priority backtesting finding must state the exact computed\
+        \ exception count `7` over a fixed `250`-observation 1-day 99% VaR backtest."
+    - criterion: "A High-priority backtesting finding must state the fixed backtest\
+        \ window from `2020-02-25` through `2021-02-19`."
+    - criterion: "A High-priority backtesting finding must state the Basel traffic-light\
+        \ interpretation: green `0-4`, amber / yellow `5-9`, red `10+`; it must classify\
+        \ the 7-exception result as amber / yellow."
+    - criterion: "One High-priority finding must list or summarize the exact computed\
+        \ exception dates: `2020-02-25`, `2020-02-27`, `2020-03-05`, `2020-03-09`,\
+        \ `2020-03-11`, `2020-03-12`, and `2020-03-16`."
+    - criterion: "One High-priority finding must use the computed Kupiec evidence,\
+        \ allowing absolute numeric tolerance up to `0.05`: LR statistic about `5.497`\
+        \ or `5.50`, p-value about `0.019` or `0.0190`, and rejection of correct 99%\
+        \ coverage at the 5% level."
+    - criterion: "One High-priority finding must state the computed volatility-regime\
+        \ evidence: `7 of 7` exceptions occurred under the volatility-rising flag."
+    - criterion: "One High-priority finding must state the computed clustering evidence:\
+        \ the maximum cluster was `5` exceptions within a rolling `10`-trading-day\
+        \ window."
+    - criterion: "The response must interpret the volatility-regime or clustering\
+        \ evidence as a volatility-adaptation, stress-regime, or model responsiveness\
+        \ weakness rather than a harmless count-only issue."
+    - criterion: "The response must state that using only the FRED S and P 500 index series\
+        \ is a proxy-data limitation and is not a substitute for portfolio-specific\
+        \ actual / hypothetical P and L and position coverage."
+    - criterion: "The response must state that proxy-index evidence is not a substitute\
+        \ for portfolio-specific valuation, corporate-action, dividend, fee, or intraday-trading\
+        \ reconciliation."
+    - criterion: "The response must mention that the model is 250-day equal-weighted\
+        \ Historical Simulation and must connect this design to slow adaptation when\
+        \ volatility rises or stress enters the sample."
+    - criterion: "The response must explicitly state that the S and P 500 / FRED context\
+        \ is only market-background context and is not a substitute for portfolio-specific\
+        \ valuation, position coverage, and P and L explain."
+    - criterion: "The `Recommendations` block must include concrete remediation actions\
+        \ to investigate all 7 exception dates and assess volatility scaling, stress\
+        \ overlay, or a shorter responsive window."
+    - criterion: "The `Recommendations` block must document how the proxy index backtest\
+        \ would be replaced or supplemented by portfolio-specific P and L and position\
+        \ data, define conditional-use or escalation governance, and rerun monitoring\
+        \ on a current window."
+    - criterion: "The `Monitoring And Escalation Triggers` block must include at least\
+        \ four triggers, including moving to red-zone exception count, additional\
+        \ clustered exceptions, persistent Kupiec rejection or coverage deterioration,\
+        \ inability to replace the proxy index analysis with portfolio-specific P and L\
+        \ / position evidence, and breach of volatility-regime monitoring thresholds."
+metadata:
+  difficulty: hard

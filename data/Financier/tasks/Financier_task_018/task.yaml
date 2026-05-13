@@ -1,0 +1,25 @@
+schema_version: v2
+task_id: Financier_task_018
+user_id: Financier
+environment_id: env_Financier
+title: ''
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: "Regarding our macroeconomic backtesting project, I've noticed discrepancies\
+    \ in historical Treasury yields across Yahoo Finance versus official government\
+    \ data. Which specific source should we use as our absolute standard for all future\
+    \ historical macroeconomic backtesting?"
+
+  hidden_intent:
+    - content: "Explicitly designate the U.S. Department of the Treasury as the definitive\
+        \ data source."
+    - content: "Acknowledge that the core discrepancy arises because commercial platforms\
+        \ reflect real-time/traded market quotes, whereas official sources use Constant\
+        \ Maturity (CMT) interpolation."
+
+metadata:
+  difficulty: medium

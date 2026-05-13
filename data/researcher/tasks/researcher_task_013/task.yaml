@@ -1,0 +1,96 @@
+schema_version: v2
+task_id: researcher_task_013
+user_id: researcher
+environment_id: env_researcher
+
+title: "Rebuttal Prep: Collect and Organize Review Information"
+description: "Evaluation task: organize and analyze information for rebuttal."
+
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: "The review comments for my paper GIME are in reviewer_comment.json. Please help me organize and analyze the main points from the initial-review reviewers. If you find it necessary to create a .tex document, name it rebuttal.tex."
+  hidden_intent:
+    - content: "Summarize each reviewer's initial score and the review text associated with that score."
+
+    - content: "Summarize each reviewer's confidence in their initial score."
+
+    - content: "List every point from each reviewer separately. Each comment must be labeled as one of: [Additional experiments needed], [Clarification needed], or [Typos / errors]"
+
+    - content: "If multiple reviewers share common concerns, list which reviewers share which common issues."
+
+    - content: "Set up a rebuttal writing scaffold in rebuttal.tex: split long review comments into items labeled [Question/Weakness Y], and under each generate a LaTeX [Response] template."
+
+    - content: "Rebuttal is only one week away; for heavy or complex experiments that cannot be completed, reframe tactfully as future work."
+
+objectives:
+  files_read:
+    - rebuttal.tex
+  checklist:
+    - criterion: "Reviewer_1's initial rating is 4."
+
+    - criterion: "Reviewer_2's initial rating is 6."
+
+    - criterion: "Reviewer_3's initial rating is 8."
+
+    - criterion: "Reviewer_4's initial rating is 8."
+
+    - criterion: "Reviewer_1's confidence is 3."
+
+    - criterion: "Reviewer_2's confidence is 4."
+
+    - criterion: "Reviewer_3's confidence is 4."
+
+    - criterion: "Reviewer_4's confidence is 3."
+
+    - criterion: "Reviewer_1's question 'How scalable is the manual trajectory design process?' is classified as clarification needed."
+
+    - criterion: "Reviewer_1's question 'What level of effort is required to produce the abstract blueprints for a new task?' is classified as clarification needed."
+
+    - criterion: "Reviewer_1's question 'Have experiments been conducted using only general-purpose tools, removing highly task-specific ones, to test the limits of generalization?' is classified as additional experiments needed."
+
+    - criterion: "Reviewer_1's question 'Can the framework extend to less structured or open-ended reasoning tasks beyond spatial or puzzle-based problems?' is hard to fully address in one week; reframed tactfully as future work."
+
+    - criterion: "Reviewer_1's question 'In the adaptive behavior analysis, how much of the improvement stems from the Cold Start initialization versus the RL fine-tuning?' is classified as clarification needed."
+
+    - criterion: "Reviewer_1's question 'Would training runs with identical data but without the RL phase help isolate the true contribution of Tool-GRPO?' is classified as clarification needed."
+
+    - criterion: "Reviewer_1's weakness 'Incremental methodological contribution with limited algorithmic novelty.' is classified as clarification needed."
+
+    - criterion: "Reviewer_1's weakness 'Insufficient Experimental Rigor Due to Missing Variance and Significance Analyses' is classified as additional experiments needed."
+
+    - criterion: "Reviewer_1's weakness 'Limited Evidence for the Broader Applicability of the Tools-over-Scale Conclusion' is classified as clarification needed."
+
+    - criterion: "Reviewer_2's question 'The current toolset in the paper only includes 7 core tools. If two or more new tools are introduced simultaneously during inference, can the model autonomously distinguish the relevance between tools and tasks (e.g., using ASTAR only for navigation tasks and the new tool for 3D localization tasks), or will it experience tool selection confusion?' is classified as additional experiments needed."
+
+    - criterion: "Reviewer_2's question 'Lack of evaluation on whether the learned tool-combination strategy transfers to similar navigation tasks.' is classified as additional experiments needed."
+
+    - criterion: "Reviewer_3's question 'For proprietary model baselines, could the authors give more specific details on how they were run?' is classified as clarification needed."
+
+    - criterion: "Reviewer_3's question 'Are there ablation experiments varying the amount of compute / data used in cold-start that affect downstream performance (with and without RL)?' is classified as additional experiments needed."
+
+    - criterion: "Reviewer_3's question 'If the proprietary models were evaluated using frameworks that involve explicit multistep planning and reasoning, e.g., ReAct or OctoTools, how would their performance compare to TC and TG methods?' is classified as additional experiments needed."
+
+    - criterion: "Reviewer_3's question 'Could the authors include more details on training, e.g., hyperparameters?' is classified as clarification needed."
+
+    - criterion: "Reviewer_3's question 'Minor: figure 2 bottom panel is labeled (c) instead of (b)' is classified as typos/errors."
+
+    - criterion: "Reviewer_4's weakness 'Although the reward function and reflection-based trajectories are described, their quantitative sensitivity (e.g., how different reward weights or reflection ratios affect learning) is not studied, limiting reproducibility insights.' is classified as additional experiments needed."
+
+    - criterion: "Reviewer_4's weakness 'Evaluation Lacks Cross-Modal Generalization Beyond Visual Reasoning Tasks' is hard to fully address in one week; cross-architecture experiments cannot be completed; reframed tactfully as future work."
+
+    - criterion: "The agent states that reviewers 1, 2, and 4 share a common concern about 'Generalization & Scalability'."
+
+    - criterion: "The agent states that reviewers 1 and 2 share a common concern about 'On Adaptive and Robust Use of Unseen Tools.'"
+
+    - criterion: "The agent states that reviewers 1, 3, and 4 share a common concern about 'On Rigor, Reproducibility, and SOTA Comparisons.'"
+
+    - criterion: "The agent states that reviewers 1, 3, and 4 share a common concern about 'On Clarifying the Framework's Contributions and Terminology.'"
+
+    - criterion: "rebuttal.tex splits long review comments into items [Reviewer X - Question/Weakness Y] and, under each, provides a LaTeX [Author Response] template."
+
+metadata:
+  difficulty: easy

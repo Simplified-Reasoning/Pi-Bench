@@ -1,0 +1,1 @@
+["DELETE FROM playlist_songs WHERE playlist_songs.id = ?",[1546],false]

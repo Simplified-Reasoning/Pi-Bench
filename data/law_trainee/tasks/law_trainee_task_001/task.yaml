@@ -1,0 +1,27 @@
+schema_version: v2
+task_id: law_trainee_task_001
+user_id: law_trainee
+environment_id: env_law_trainee
+
+title: "Drafting a Property Dispute Memorandum: Party Profiles in Contrast and Fact-Based Anchoring"
+description: "To prepare for an afternoon partners' case-review session, the user asks the Agent to help draft an internal memorandum in a concealed-marital-asset dispute. By stressing the partners' preference for facts over theory, the scenario naturally embeds layout conventions and argumentation standards for future case analyses."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    This afternoon I have a case discussion session and need to walk the partners through the Li–Wang divorce and property-division matter. Please help me draft a first-pass internal case memorandum.
+
+    The facts in outline are as follows. Our client, Ms. Wang, 45, has been married to Mr. Li for eighteen years, approximately fifteen of which she was a full-time homemaker caring solely for two minor children (the elder daughter attends private junior high; the younger son is in primary school). Day-to-day household spending runs through a supplementary card on a jointly named account, but she has only a spending limit—no online banking or investment authority—and holds no separate deposits, real property, or securities accounts in her own name. She has no clear picture of aggregate family assets, external receivables and payables, or the equity structures of multiple affiliated entities under Mr. Li; she has only fragmentary hearsay that Mr. Li years ago may have had his parents nominally hold an out-of-province retail property on his behalf.
+
+    Mr. Li, 48, is the de facto controller of an unlisted hard-tech operating company and three upstream/downstream shell companies. Group annual throughput exceeds RMB ten million; his personal tax-returned annual income is on the order of RMB three million—but major family financial decisions, chops, USB tokens, and finance counterparties are concentrated with him alone or with his cousin (deputy finance director). Over the past six months, Mr. Li first transferred roughly RMB five million in multiple tranches to his mother's personal account, citing repayment of principal and interest on an early business loan from her (some transfers were noted as "inter-account" / "current account" items). He then contractually transferred approximately twelve percent of the core company's equity to a limited partnership controlled by his cousin, at a price materially below contemporaneous capital-increase / financing valuations. During the same period, a Hong Kong shell company that Mr. Li actually runs—and of which Ms. Wang had never heard—surfaced on supplier payment advices. In addition, Mr. Li has repeatedly pressed Ms. Wang to sign multiple blank powers of attorney and "family asset statements," and has refused to provide complete bank statements and audited reports, citing "tax planning" and "employee equity platform adjustment." We have strong reason to suspect that Mr. Li is systematically diverting and concealing marital property, using nominee holdings, related-party dealings, and offshore entities to fragment the evidentiary trail; we anticipate material difficulty on proof and preservation going forward.
+
+  hidden_intent:
+    - content: "In the opening section, include a module titled along the lines of \"Party Profiles in Contrast,\" setting out both parties' occupation, income, control over assets, and information asymmetry."
+    - content: "In the analysis of any divorce case, the final step should be to identify the favorable evidence that our client ought to collect."
+
+metadata:
+  difficulty: easy

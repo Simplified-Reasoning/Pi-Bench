@@ -1,0 +1,25 @@
+schema_version: v2
+task_id: pharmacist_task_014
+user_id: pharmacist
+environment_id: env_pharmacist
+title: Survey of Existing Topical Gel Products for Eczema
+description: The user is developing an eczema-related topical gel and first needs to understand what products already exist on the market in order to build comparisons and gather formulation inspiration. The task directory now also contains a flawed benchmark shortlist draft, so the task tests whether the agent can search the market, correct a weak benchmark set, and leave behind a more useful comparison artifact.
+task_type: long_term
+trigger:
+  type: user
+intent:
+  initial_input: |
+    First read `benchmark_product_shortlist.csv` in the current task directory; if it is missing, say so first. Then search the market and revise the current shortlist instead of starting from zero. Please update `benchmark_product_shortlist.csv`, create `benchmark_takeaways.md`, and in your final reply use exactly these blocks in this order: `Revised Benchmark Table`, `Best Baseline Benchmark To Imitate First`, `Weak Or Misleading Benchmark To Drop`, `Downstream Borrowing Takeaways`.
+  hidden_intent:
+  - content: Treat `benchmark_product_shortlist.csv` as a flawed draft to be corrected rather than as a trusted shortlist.
+  - content: Focus on topical gel products for eczema, dermatitis, or highly related indications.
+  - content: Organize the results in a structure that supports side-by-side comparison.
+  - content: If there are many products, first select the ones most worth using as benchmarks or references instead of spreading attention evenly.
+  - content: Correct any draft tendency to include weakly related products, wrong dosage forms, or low-value benchmarks.
+  - content: Also add one layer of takeaways that will help downstream formulation design.
+  - content: Explicitly point out the baseline version most worth imitating first and one direction not worth heavy investment yet.
+  - content: End with a judgment about the baseline route most worth imitating first.
+  - content: Do not let `gel example` alone justify keeping a product; dosage-form similarity without indication or route relevance is not enough.
+  - content: Keep one benchmark that is genuinely worth borrowing from, and explicitly reject at least one superficially tempting but low-value benchmark instead of leaving all candidates half-alive.
+metadata:
+  difficulty: hard

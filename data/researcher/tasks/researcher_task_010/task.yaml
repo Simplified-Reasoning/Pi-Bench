@@ -1,0 +1,24 @@
+schema_version: v2
+task_id: researcher_task_010
+user_id: researcher
+environment_id: env_researcher
+
+title: "LiteAlign Pre-Submission: Triage of Senior Labmate Review and Response-Outline Setup"
+description: "Evaluation task: classify and triage the senior labmate's pre-submission comments on LiteAlign, and set up a response framework."
+
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: "I sent the LiteAlign draft (the VLM PEFT fine-tuning project) to my senior labmate for review. He left a ton of comments and it's overwhelming. The deadline is one week away—please organize his feedback. Comments are in litealign_comment.txt."
+  hidden_intent:
+    - content: "Each comment must be labeled as one of: [Additional experiments needed], [Clarification needed], or [Typos / errors].Please organize comments-type tasks in this way as well in the future."
+
+    - content: "After classification, generate a LaTeX response outline saved as a `.tex` file in the workspace. Split long review comments into items labeled [Question/Weakness Y], and under each generate a LaTeX [Response] template. So I can reply point by point."
+
+    - content: "With only one week before submission, for heavy or complex experiments that cannot be completed, reframe tactfully as future work."
+
+metadata:
+  difficulty: easy

@@ -1,0 +1,50 @@
+schema_version: v2
+task_id: researcher_task_008
+user_id: researcher
+environment_id: env_researcher
+
+title: "One-Week Light Diet Plan for Muscle-Gain Phase (Campus Cafeteria / Takeout)"
+description: "Based on the user's current height, weight, body-fat level, and muscle-gain goal, design a one-week plan of three daily meals plus snacks that is light in taste yet nutritionally balanced, under limited time and budget constraints and mainly relying on school cafeterias and common takeout platforms, while balancing protein, carbohydrates, dietary fiber, and healthy fats."
+
+task_type: short_term_contextual
+
+trigger:
+  type: user
+
+intent:
+  initial_input: "Help me design a one-week meal plan.Provide the price of each meal, controlled within RMB 20-30."
+  hidden_intent:
+    - content: "Height about 175 cm, weight about 68 kg, body-fat ratio about 17%; currently in a muscle-gain phase."
+
+    - content: "Based on the user's body weight, provide the required daily totals of the three macronutrients (protein/fat/carbohydrates) for each day of the week, in grams (g)."
+
+    - content: "Output format should be a readable table."
+
+    - content: "The table should list specific foods for each meal each day."
+
+    - content: "Meals should be easily obtainable from school cafeterias and nearby shops/common takeout platforms."
+
+    - content: "For each meal, indicate macronutrient amounts (protein/fat/carbohydrates), in grams (g)."
+
+    - content: "Provide a substitute option (Plan B) for each meal to handle unexpected situations."
+
+objectives:
+  checklist:
+    - criterion: "The agent outputs a daily total protein intake in the range of [102g, 136g]. An approximate range is acceptable, with fluctuations within +/-10g."
+
+    - criterion: "The agent outputs a daily total fat intake in the range of [68g, 70g]. An approximate range is acceptable, with fluctuations within +/-10g."
+
+    - criterion: "The agent outputs a daily total carbohydrate intake in the range of [204g, 340g]. An approximate range is acceptable, with fluctuations within +/-10g."
+
+    - criterion: "The agent output is in a readable table format."
+
+    - criterion: "The table lists the specific foods to eat for each meal each day."
+
+    - criterion: "Recommended meals are easily obtainable from school cafeterias and nearby shops."
+
+    - criterion: "The table marks the three macronutrient values (protein, fat, carbohydrates) for each meal, in grams (g)."
+
+    - criterion: "Each meal includes a substitute option to handle unexpected situations."
+
+metadata:
+  difficulty: medium

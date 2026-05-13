@@ -1,0 +1,8 @@
+[
+    "supervisor.complete_task",
+    "supervisor.show_account_passwords",
+    "supervisor.show_profile",
+    "phone.login",
+    "phone.show_alarms",
+    "phone.update_alarm"
+]

@@ -1,0 +1,4 @@
+["UPDATE payment_cards SET record_hash=?, balance=? WHERE payment_cards.id = ?",["B4DPdeGfLB0=",10000000000.0,202],false]
+["UPDATE payment_cards SET record_hash=?, balance=? WHERE payment_cards.id = ?",["FziLtWZQbfc=",10000000000.0,203],false]
+["UPDATE payment_cards SET record_hash=?, balance=? WHERE payment_cards.id = ?",["KHjbnk5MuNQ=",10000000000.0,204],false]
+["UPDATE payment_cards SET record_hash=?, balance=? WHERE payment_cards.id = ?",["3aCoQgWPfHI=",10000000000.0,205],false]

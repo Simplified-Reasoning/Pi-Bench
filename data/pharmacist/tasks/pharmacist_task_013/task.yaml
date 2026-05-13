@@ -1,0 +1,50 @@
+schema_version: v2
+task_id: pharmacist_task_013
+user_id: pharmacist
+environment_id: env_pharmacist
+title: Brainstorming Innovative Linker Directions for PROTAC
+description: "The user already understands the basic PROTAC concept and now wants innovative linker-design directions, together with an understanding of how those changes may influence degradation efficiency and developability. The task directory already contains precedent fragments, project constraints, a short note about the group-meeting goal, and an intentionally weak shortlist draft. The task now expects a revise/update workflow: the agent must correct the draft, reduce over-broad keeping behavior, and expose the corrected keep/defer logic directly in the final reply."
+task_type: short_term_contextual
+trigger:
+  type: user
+intent:
+  initial_input: |
+    First read `precedent_examples.md`, `linker_constraints.md`, `project_goal_note.txt`, and `linker_shortlist.csv` in the current task directory; if anything is missing, say so first. Then, in English, revise the current shortlist instead of starting from zero. Please update `linker_shortlist.csv`, keep the useful parts if possible, and in your final reply output exactly these blocks in this order: `Direction Decision Table`, `Removed Or Downgraded Draft Row`, `Start Order`. The `Direction Decision Table` must be a markdown table with columns `Direction | Decision | First-Round Role Or Later Learning Value | Main Cost | Source`, and it must contain exactly three rows. Use only these source anchors: `[Precedent]`, `[Constraints]`, `[Goal]`, `[Precedent+Constraints]`, `[Precedent+Goal]`, `[Constraints+Goal]`, or `[Precedent+Constraints+Goal]`. Treat this as a follow-up to the earlier PROTAC entry-framework task and preserve any useful planning discipline from that task while revising the draft.
+  hidden_intent:
+  - content: Narrow the space using the local precedents and constraints first, and expand outward only after that.
+  - content: Stay as close as possible to validated routes at the beginning instead of jumping immediately to high-divergence designs.
+  - content: Prefer mature or comparator-friendly starting directions before high-divergence innovation.
+  - content: Split the ideas into `most worth trying first` and `not the best place to start right away`, and go beyond simple linker-length changes into richer design dimensions.
+  - content: For each direction, include both the potential upside and the potential downside, and make the validation order and cost burden clear.
+  - content: If a direction looks attractive but is expensive to make or validate, keep it visible but delay it with a reason instead of dropping it without explanation.
+  - content: Use the local precedent file not only to justify what enters the shortlist, but also what stays out of the first round.
+  - content: Make at least one keep decision and one defer decision explicitly precedent- or constraint-backed rather than purely intuitive.
+  - content: Treat `linker_shortlist.csv` as an imperfect draft to be corrected, not as a file to ignore.
+  - content: Use the precedent fragments, the constraint file, the project-goal note, and the draft shortlist together so that at least one keep decision and one defer decision depend on cross-file comparison rather than one-file reading.
+  - content: If two starting directions are kept, they should play different roles in the first-round discussion, such as one comparator-like anchor and one more contrastive exploratory route, rather than two nearly redundant safe picks.
+  - content: When a scientifically interesting direction is deferred, keep visible what it would still teach later instead of describing it only as too hard or too expensive.
+  - content: End with only 1-2 concrete starting directions that are better suited for trying first, including one low-risk comparator-style starting option, and make the final reply follow the exact output schema so the keep/defer structure is visible without opening the file.
+  - content: Proactively resist over-populating the shortlist when several directions sound interesting; preserve scarce first-round slots instead of rewarding breadth.
+  - content: Volunteer one explicit reason why a scientifically attractive direction should wait, rather than allowing it to remain implicitly alive in the first-round pool.
+  - content: If two low-risk directions are too redundant, proactively collapse or downgrade one of them instead of keeping both for comfort.
+  - content: Inherit the earlier PROTAC-entry preference for choosing a default baseline route before chasing novelty, rather than reopening target, E3 ligase, linker, and validation choices all at once.
+  - content: "Inherit the earlier single-major-variable discipline: this task is about linker-direction triage, so changing target or E3 ligase should be treated as a comparability-breaking move rather than a valid linker option."
+  - content: Keep the decision scope at the linker-direction level; if the draft tries to add target/E3 rescreening or assay redesign, treat that as out of scope for this shortlist.
+  - content: "Protect synthesis and validation interpretability: novelty should not outrank a comparator-style anchor and a single contrastive but realistic exploratory direction."
+objectives:
+  checklist:
+  - criterion: "The final reply must follow the exact output schema: exactly three top-level blocks in this order, `Direction Decision Table`, `Removed Or Downgraded Draft Row`, and `Start Order`."
+  - criterion: "The `Direction Decision Table` block must be a markdown table with exactly these columns in this order: `Direction | Decision | First-Round Role Or Later Learning Value | Main Cost | Source`, and it must contain exactly three rows."
+  - criterion: "The table must contain exactly two `keep` rows and one `deferred` row, with no extra active or implicitly recommended directions; the visible decision values must be `keep`, `keep`, and `deferred` or unambiguous equivalents."
+  - criterion: "Every row in the table must contain one visible source anchor chosen only from `[Precedent]`, `[Constraints]`, `[Goal]`, `[Precedent+Constraints]`, `[Precedent+Goal]`, `[Constraints+Goal]`, or `[Precedent+Constraints+Goal]`."
+  - criterion: "One `keep` row must explicitly keep `PEG-like flexible linker` as the low-risk comparator-style anchor or baseline comparator; that row must mention a concrete cost such as added polarity or a less differentiated design."
+  - criterion: "One `keep` row must explicitly keep `alkyl / semi-rigid linker` as the contrastive exploratory first-round direction; that row must state that it is still synthesis-realistic or does not explode synthesis complexity, and it must mention geometry, conformation, exposure, or a similar contrastive learning role."
+  - criterion: "The single `deferred` row must name either `branched / constrained linker` or `cleavable linker concept`. If it names `branched / constrained linker`, the cost must include synthetic complexity, fragile first-round validation, or sensitive spatial geometry; if it names `cleavable linker concept`, the cost must include a longer validation chain, harder interpretation, or an added mechanistic layer. The deferred row must still state what later learning value it preserves."
+  - criterion: "At least one `keep` row and the `deferred` row must each use a combined source anchor rather than a single-source anchor; accepted combined anchors are `[Precedent+Constraints]`, `[Precedent+Goal]`, `[Constraints+Goal]`, or `[Precedent+Constraints+Goal]`."
+  - criterion: "The `Removed Or Downgraded Draft Row` block must explicitly demote `Longer PEG-like flexible linker` and clearly say it was `removed`, `downgraded`, or `merged away` because it is redundant with the kept `PEG-like flexible linker` comparator and adds higher molecular weight, added polarity, or no distinct first-round role."
+  - criterion: "The reply must not keep both `PEG-like flexible linker` and `Longer PEG-like flexible linker` as the two first-round keeps; if a PEG-like comparator is kept, a second nearly redundant safer PEG-like option must be collapsed, downgraded, or replaced."
+  - criterion: "The reply must not keep or recommend `Target/E3 pair rescreening` as a linker direction; if that draft row is mentioned, it must be described as out of scope, removed, or downgraded because it breaks the linker-only / single-major-variable discipline, changes the biological variable, or damages first-round comparability."
+  - criterion: "The final reply must not reopen global PROTAC setup choices by adding target selection, E3 ligase selection, warhead selection, or validation-assay redesign as extra recommended first-round directions."
+  - criterion: "The `Start Order` block must list only the two kept directions in this order: first `PEG-like flexible linker`, then `alkyl / semi-rigid linker`; it must not reintroduce the deferred direction, `Longer PEG-like flexible linker`, or `Target/E3 pair rescreening` as if any of them were first-round items."
+metadata:
+  difficulty: hard

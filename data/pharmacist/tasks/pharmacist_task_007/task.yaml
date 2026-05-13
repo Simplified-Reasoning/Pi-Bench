@@ -1,0 +1,39 @@
+schema_version: v2
+task_id: pharmacist_task_007
+user_id: pharmacist
+environment_id: env_pharmacist
+title: Mainstream Prostate Cancer Treatment Pathways and Drug-Therapy Overview
+description: "The user wants a quick overview of mainstream prostate cancer treatment pathways, especially the drug-therapy part. The task directory contains a staged treatment-pathway table, a guideline excerpt, a drug-class summary, and an intentionally flawed pathway draft. The task tests whether the agent can reconstruct the clinical hierarchy from the local materials, correct the flattened draft, and expose the corrected stage logic directly in the final reply."
+task_type: short_term_contextual
+trigger:
+  type: user
+intent:
+  initial_input: |
+    First read `guideline_excerpt.md`, `treatment_pathway_table.svg`, `drug_class_summary.md`, and `clinical_pathway_map.md` in the current task directory; if anything is missing, say so first. Then, in English, revise the current pathway map instead of starting from zero. Please update `clinical_pathway_map.md`, keep any useful structure if possible, and in your final reply output exactly these blocks in this order: `Stage Decision Table`, `Inappropriate Flattening To Avoid`, `Non-Default Intensification Situation`, `Boundary Note`. The `Stage Decision Table` must be a markdown table with columns `Stage | Backbone | Add-on If Applicable | Non-default Option And Why Not Default | Source`, and `Source` must use only `[Guideline]`, `[Pathway]`, `[DrugSummary]`, `[Guideline+Pathway]`, `[Guideline+DrugSummary]`, `[Pathway+DrugSummary]`, or `[Guideline+Pathway+DrugSummary]`.
+  hidden_intent:
+  - content: Use the local pathway materials first and treat `clinical_pathway_map.md` as a flawed stage map to be corrected rather than as a trusted answer.
+  - content: Organize the result by disease stage or clinical scenario rather than flattening all treatments into one list.
+  - content: Distinguish clearly between the treatment backbone, later intensification or combination, and later-line switching, and connect drug classes to the stages where they are used.
+  - content: When both backbone therapy and add-on therapy appear, make the backbone line visually or logically primary.
+  - content: Recover at least one default-versus-non-default judgment by combining multiple local materials, not by echoing one explicit warning line from a single file.
+  - content: Build at least one mHSPC judgment and one CRPC or later-stage judgment by cross-linking the pathway table, the guideline excerpt, and the drug-summary distinctions.
+  - content: Correct any draft tendency to present later-stage or molecularly selected options as stage-free defaults.
+  - content: Keep the output at the level of general medical information instead of individualized treatment advice, and make the final reply follow the exact output schema so the stage logic is visible without opening the file.
+  - content: If the same treatment class appears across more than one stage, proactively explain how its role changes by stage instead of letting one drug list drift across the whole pathway.
+  - content: Volunteer one explicit "do not flatten this into a default" warning for a selected-population or later-stage option even if the user only asked for a mainstream overview.
+  - content: Restore backbone-first hierarchy proactively before listing escalation or later-line options, rather than correcting the flattening only indirectly.
+objectives:
+
+  checklist:
+  - criterion: "The final reply must follow the exact output schema: exactly four top-level blocks in this order, `Stage Decision Table`, `Inappropriate Flattening To Avoid`, `Non-Default Intensification Situation`, and `Boundary Note`; the `Stage Decision Table` must be a markdown table with exactly these columns in this order: `Stage | Backbone | Add-on If Applicable | Non-default Option And Why Not Default | Source`."
+  - criterion: "The `Stage Decision Table` must contain at least three rows that clearly cover: `localized or locally advanced disease`, `metastatic hormone-sensitive disease`, and `CRPC` or `mCRPC`; every row must contain one visible source anchor chosen only from `[Guideline]`, `[Pathway]`, `[DrugSummary]`, `[Guideline+Pathway]`, `[Guideline+DrugSummary]`, `[Pathway+DrugSummary]`, or `[Guideline+Pathway+DrugSummary]`."
+  - criterion: "The localized or locally advanced row must present surgery or radiotherapy, with or without higher-risk ADT support, as the main pathway logic, and it must explicitly state that this stage is not mainly a broad advanced-stage systemic-treatment menu."
+  - criterion: "The metastatic hormone-sensitive row must keep `ADT` as the backbone rather than flattening it into one choice among many, and any `ARPI` or chemotherapy use must appear as an add-on or intensification layer rather than as a replacement backbone."
+  - criterion: "At least one metastatic hormone-sensitive disease judgment must use a combined local-material source anchor rather than a single-source anchor, and the same row must explicitly connect `ADT backbone` with `ARPI or chemotherapy may be added on top according to burden, symptoms, fitness, progression risk, or treatment goals`."
+  - criterion: "At least one CRPC or later-stage row must explicitly preserve the `continuous castration background` and must also include at least one later-stage nuance chosen from: `docetaxel versus cabazitaxel are not interchangeable`, `radioligand therapy is for selected situations rather than a broad default layer`, or `precision therapy depends on HRR / BRCA or related molecular selection`."
+  - criterion: "If the same treatment class appears across more than one stage, the reply must explicitly state how its role changes by stage, such as `ADT` supporting higher-risk local treatment but serving as the metastatic backbone, or `ARPI` serving as metastatic intensification in one setting and CRPC systemic therapy in another."
+  - criterion: "The `Inappropriate Flattening To Avoid` block must identify at least one overgeneralized draft claim and explicitly correct it by naming the treatment class or strategy involved and stating why it should not be presented as a default across all stages; acceptable correction targets include flattening `ADT / ARPI / chemotherapy / radioligand / precision therapy` into one same-level menu, treating `docetaxel` and `cabazitaxel` as equivalent, or presenting selected-population therapies as stage-free defaults."
+  - criterion: "The `Non-Default Intensification Situation` block must name one concrete metastatic hormone-sensitive situation in which up-front intensification should not be treated as automatic or default, and it must make clear that `ADT alone remains valid` when the burden, symptoms, progression risk, fitness, or treatment goals do not support immediate escalation."
+  - criterion: "The `Boundary Note` block must explicitly state that the response is general pathway information rather than individualized treatment advice, and across the full reply no treatment class or strategy may be described in conflicting ways such as both `default for all stages` and `selected-population only`."
+metadata:
+  difficulty: hard

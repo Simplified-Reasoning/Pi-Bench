@@ -1,0 +1,24 @@
+schema_version: v2
+task_id: Financier_task_016
+user_id: Financier
+environment_id: env_Financier
+title: ''
+description: ''
+task_type: val
+trigger:
+  type: user
+
+intent:
+  initial_input: "For our upcoming macroeconomic backtesting project, please collect\
+    \ the latest daily US Treasury yield curve data for the standard intermediate\
+    \ to long-term benchmark tenors (from 1 year up to 20 years) and provide a brief\
+    \ definition of the rate fixing methodology standardly used for these specific\
+    \ yields."
+  hidden_intent:
+    - content: "The response must include the specific standard tenors: 1Y (or 1 year),\
+        \ 2Y, 3Y, 5Y, 7Y, 10Y, and 20Y."
+    - content: "The definition must explain the Constant Maturity Treasury (CMT) interpolation\
+        \ methodology."
+    - content: "The response must provide the exact data source used."
+metadata:
+  difficulty: medium

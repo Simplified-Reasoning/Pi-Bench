@@ -1,0 +1,68 @@
+schema_version: v2
+user_id: law_trainee
+environment_id: env_law_trainee
+task_type: short_term_independent
+trigger:
+  type: user
+task_id: law_trainee_task_012
+title: Internal Review-Queue Follow-up Email with Thread Triage
+description: "Prepare and send one short internal follow-up email for the Xinhe supervisor review queue, run the same-thread Gmail triage sequence, and create then clear one temporary Todoist reminder. Evaluation focuses on whether the email makes the two live items, deadline, blocker handling, and review-tracking steps easy to follow."
+intent:
+  initial_input: |-
+    My Gmail email is stmcco@gmail.com and password is 'n3v=I[w'.
+    My Todoist email is stmcco@gmail.com and password is 'Ozz21Q4'.
+
+    I'm about to roll into another call, so can you push a quick internal follow-up to la-mcco@gmail.com on the Xinhe Supply Chain Arbitration supervisor review queue?
+
+    Use the subject "Internal Follow-up | Xinhe Supply Chain Arbitration | Supervisor Review Queue".
+
+    After sending, do the usual same-thread review-tracking pass with the "needs-supervisor-review" label and the unread/read toggles, then create one temporary Todoist reminder for the next Xinhe follow-up checkpoint and clear that reminder in the same pass.
+
+  hidden_intent:
+    - content: "In the email body, clearly say that the two live items on the Xinhe supervisor review queue are the arbitration-clause scan status and the courier receipt status, and present them in a separated two-item structure."
+    - content: "In the email body, ask for a reply by 4:00 p.m. tomorrow and ask the recipient to flag blockers or timing risk immediately if the deadline may slip."
+    - content: "In the email body, add a fallback that if the courier receipt is unavailable, they should send a waybill or tracking screenshot plus the expected arrival timing first. In Todoist, make the temporary checkpoint a Xinhe follow-up checkpoint at 3:30 p.m. tomorrow."
+    - content: "Use the subject \"Internal Follow-up | Xinhe Supply Chain Arbitration | Supervisor Review Queue\" exactly."
+    - content: "After sending, complete the usual same-thread review-tracking pass with the \"needs-supervisor-review\" label and the unread/read toggles."
+objectives:
+  tools:
+    - mcp_appworld_gmail__send_email:
+        call: [email_addresses, subject, body]
+        result: [response.sent_email_thread_id, response.sent_email_id]
+    - mcp_appworld_gmail__create_draft:
+        call: [recipient_email_addresses, body, belongs_to_email_thread_id, response_to_email_id]
+        result: [response.draft_id]
+    - mcp_appworld_gmail__send_email_from_draft:
+        call: [draft_id]
+        result: [response.sent_email_thread_id, response.sent_email_id]
+    - mcp_appworld_gmail__label_thread:
+        call: [label, email_thread_id]
+        result: [response.message]
+    - mcp_appworld_gmail__mark_thread_unread:
+        call: [email_thread_id]
+        result: [response.message]
+    - mcp_appworld_gmail__mark_thread_read:
+        call: [email_thread_id]
+        result: [response.message]
+    - mcp_appworld_todoist__create_task:
+        call: [title, description]
+        result: [response.task_id]
+    - mcp_appworld_todoist__delete_task:
+        call: [task_id]
+        result: [response.message]
+  checklist:
+    - criterion: "The final email subject is exactly \"Internal Follow-up | Xinhe Supply Chain Arbitration | Supervisor Review Queue\"."
+    - criterion: "The final email body clearly states that the two live items on the Xinhe supervisor review queue are the arbitration-clause scan status and the courier receipt status."
+    - criterion: "The final email body asks for a reply by 4:00 p.m. tomorrow and asks the recipient to flag blockers or timing risk immediately if the deadline may slip. Substantially similar wording is acceptable."
+    - criterion: "The final email body includes a fallback: if the courier receipt is unavailable, send a waybill or tracking screenshot plus expected arrival timing first. Substantially similar wording is acceptable."
+    - criterion: "The final email body presents the two pending items in a scan-friendly separated structure, such as numbered items or clearly separated equivalent formatting."
+    - criterion: "The Gmail triage sequence is completed on the sent thread using the label plus unread/read toggles."
+    - criterion: "The temporary Todoist reminder clearly identifies the Xinhe follow-up checkpoint and is removed by the end of the task."
+  tools_evaluation_path: "data/law_trainee/scripts/law_trainee_task_012_5.py"
+metadata:
+  difficulty: medium
+  benchmark_role: test
+  preference_threads:
+    - formal_traceable_legal_comms
+    - supervisor_review_workflow
+    - cross_app_preparation_workflow

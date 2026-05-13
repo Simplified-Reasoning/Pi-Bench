@@ -1,0 +1,20 @@
+schema_version: v2
+task_id: marketer_task_011
+user_id: marketer
+environment_id: env_marketer
+title: Draft a Core Product Asset Brief
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: 'We are analyzing successful premium DTC brands to extract a repeatable advertorial methodology. Please search the internet for the marketing strategy behind the "Eight Sleep Pod", and summarize the core reasons for its product marketing success. (maximum 4 paragraphs)'
+  
+  hidden_intent:
+    - content: "The response explicitly analyzes the target audience's specific pain points (e.g., poor sleep quality, sleeping hot, or partner temperature differences)."
+    - content: "The response explicitly identifies the product's technological advantages (e.g., active cooling, biometric tracking, or AI temperature adjustments)."
+    - content: "The response explicitly identifies the conversion bait or purchase incentives (e.g., 30-night risk-free trial, financing options, or guarantees)."
+
+metadata:
+  difficulty: medium

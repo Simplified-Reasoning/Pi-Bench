@@ -1,0 +1,27 @@
+schema_version: v2
+task_id: pharmacist_task_010
+user_id: pharmacist
+environment_id: env_pharmacist
+title: PROTAC Fundamentals and a Design Starting Path from Scratch
+description: The user wants a systematic understanding of PROTAC and a starting framework that runs from target selection to first-pass validation. The task directory now also contains a flawed beginner framework draft, so the task is to correct an over-broad entry map, prioritize precedent-backed learning, and leave behind a more realistic starting framework.
+task_type: long_term
+trigger:
+  type: user
+intent:
+  initial_input: |
+    First read `protac_entry_framework.md` in the current task directory; if it is missing, say so first. Then search the literature and revise the framework instead of starting from zero. Please update `protac_entry_framework.md`, create `precedent_priority_table.csv`, and in your final reply output exactly these blocks in this order: `Corrected Starting Path`, `Precedent Priority Table Summary`, `Deferred Beginner Traps`, `Default First Route`. Keep the result practical for a beginner and correct any draft advice that would make a first pass hard to interpret.
+  hidden_intent:
+  - content: Treat `protac_entry_framework.md` as a flawed draft to be corrected rather than as a trusted framework.
+  - content: Correct the draft's overly broad suggestion that many targets, many E3 ligases, novel linker ideas, and validation can all stay open at the same priority.
+  - content: Establish the principle that a first-pass PROTAC plan should avoid changing several major variables at once; target, E3 ligase, linker architecture, and validation readout should be staged so the first result is interpretable.
+  - content: Start from successful precedents and common validation paths instead of opening with an overly scattered brainstorm.
+  - content: In addition to the concepts, walk through how to start from target choice and move toward first-pass validation, with a visible order from biological rationale to construct choice to assay readout.
+  - content: Also remind me of beginner pitfalls such as chasing novelty before a comparator exists, changing the target and E3 ligase at the same time, or postponing degradation validation until after the chemistry feels interesting.
+  - content: If there is a lot that could be covered, prioritize the pieces most worth learning first rather than spreading attention evenly.
+  - content: Separate what is most worth learning or trying first from what should not be tackled right away.
+  - content: Convert some of that prioritization into a precedent-priority table rather than leaving it only in prose.
+  - content: The precedent-priority table should distinguish a default comparator-style route, a useful but secondary learning route, and at least one premature high-novelty route.
+  - content: End with a judgment about the direction that makes the best default starting point for a beginner, instead of saying only that more reading is needed.
+  - content: Proactively narrow the first pass to a validated-target / common-E3 / simple-linker / direct-degradation-readout logic, while explicitly deferring novel E3 hunting, several targets in parallel, and high-novelty linker architecture until a baseline works.
+metadata:
+  difficulty: hard

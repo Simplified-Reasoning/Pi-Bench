@@ -1,0 +1,24 @@
+{
+  "exp_id": "08",
+  "benchmark": "v_star bench",
+  "base_model": "qwen2.5-7b-vl",
+  "training_method": "sft_full",
+  "settings": {
+    "dataset": "MEbench-SFT-internal-v1",
+    "epochs": 2,
+    "learning_rate": 3e-6,
+    "weight_decay": 0.1,
+    "warmup_ratio": 0.03,
+    "max_seq_len": 2048,
+    "optimizer": "adamw",
+    "lr_scheduler": "cosine"
+  },
+  "metrics": {
+    "acc": 84.2
+  },
+  "environment": {
+    "hardware": "8xA100-80GB",
+    "precision": "bf16",
+    "activation_checkpointing": true
+  }
+}

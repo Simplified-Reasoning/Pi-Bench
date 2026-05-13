@@ -1,0 +1,32 @@
+{
+  "exp_id": "15",
+  "benchmark": "v_star bench",
+  "base_model": "qwen2.5-7b-vl",
+  "training_method": "grpo",
+  "settings": {
+    "init_checkpoint": "exp_06 (sft_lora)",
+    "reward": {
+      "type": "rule_based+light_rm",
+      "components": [
+        "answer_exactness",
+        "visual_grounding",
+        "format_compliance"
+      ]
+    },
+    "grpo": {
+      "rollouts_per_prompt": 12,
+      "max_new_tokens": 512,
+      "temperature": 0.7,
+      "top_p": 0.95,
+      "kl_beta": 0.04,
+      "policy_lr": 4.5e-6,
+      "epochs": 1,
+      "batch_size": 32,
+      "clip_range": 0.2,
+      "notes": "More rollouts with higher KL: stabler but slower."
+    }
+  },
+  "metrics": {
+    "acc": 84.4
+  }
+}

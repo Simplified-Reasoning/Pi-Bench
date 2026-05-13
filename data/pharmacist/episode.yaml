@@ -1,0 +1,44 @@
+schema_version: v2
+episode_id: ep_pharmacist
+user_id: pharmacist
+tasks:
+- task_id: pharmacist_task_001
+  depends_on: []
+- task_id: pharmacist_task_002
+  depends_on: []
+- task_id: pharmacist_task_003
+  depends_on: []
+- task_id: pharmacist_task_004
+  depends_on: []
+- task_id: pharmacist_task_005
+  depends_on: [pharmacist_task_002, pharmacist_task_004]
+- task_id: pharmacist_task_006
+  depends_on: []
+- task_id: pharmacist_task_007
+  depends_on: [pharmacist_task_006]
+- task_id: pharmacist_task_008
+  depends_on: []
+- task_id: pharmacist_task_009
+  depends_on: []
+- task_id: pharmacist_task_010
+  depends_on: []
+- task_id: pharmacist_task_011
+  depends_on: [pharmacist_task_008]
+- task_id: pharmacist_task_012
+  depends_on: []
+- task_id: pharmacist_task_013
+  depends_on: [pharmacist_task_010]
+- task_id: pharmacist_task_014
+  depends_on: []
+- task_id: pharmacist_task_015
+  depends_on: [pharmacist_task_012, pharmacist_task_014]
+- task_id: pharmacist_task_016
+  depends_on: []
+- task_id: pharmacist_task_017
+  depends_on: []
+- task_id: pharmacist_task_018
+  depends_on: []
+- task_id: pharmacist_task_019
+  depends_on: [pharmacist_task_016, pharmacist_task_018]
+- task_id: pharmacist_task_020
+  depends_on: []

@@ -1,0 +1,37 @@
+schema_version: v2
+task_id: marketer_task_014
+user_id: marketer
+environment_id: env_marketer
+title: "Shopping"
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: "My password is exactly 7 characters long and has no trailing space: VxoU[nz . That expensive office chair I bought a while back is already showing severe wear and tear. Can you check the reviews for that specific chair in my order history and see if anyone else has complained about it wearing out quickly? Also, my current audio setup isn't great. I think I need a high-quality portable bluetooth speaker for my sleep routine. Please find a suitable one in the store, add it to my cart along with whatever is already in there, and complete the purchase. Please ship this order to my new home media studio using my primary email account."
+  hidden_intent:
+      - content: "The 'expensive office chair' is the 'Steelcase Amia Ergonomic Office Chair'."
+      - content: "I expect the new speaker to be added to my cart without removing my existing items."
+      - content: "My intended shipping address for this order is specifically '7914 Carla Crossing Suite 507'."
+      - content: "I need you to report the price of the speaker."
+      - content: "The speaker to purchase is 'JBL Charge 4 Portable Bluetooth Speaker'."
+      - content: "I expect you to complete the actual purchase and explicitly report the final result back to me."
+objectives:
+  tools_evaluation_path: "data/marketer/scripts/marketer_task_014.py"
+  tools:
+    - amazon__show_product_reviews:
+        call: [product_id]
+        result: []
+    - amazon__show_product:
+        call: [product_id]
+        result: []
+  checklist:
+    - criterion: "The Agent successfully logs into Amazon using the implicitly recalled email 'les_ball@gmail.com'."
+    - criterion: "The 'expensive office chair' is the 'Steelcase Amia Ergonomic Office Chair'."
+    - criterion: "The speaker to purchase is 'JBL Charge 4 Portable Bluetooth Speaker'."
+    - criterion: "The final checkout includes BOTH the newly added JBL speaker AND the existing 'OXO Good Grips Convertible Foldaway Dish Rack'."
+    - criterion: "The order was placed using the specific '7914 Carla Crossing Suite 507' shipping address."
+         
+metadata:
+  difficulty: easy

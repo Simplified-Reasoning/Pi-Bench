@@ -1,0 +1,50 @@
+schema_version: v2
+task_id: pharmacist_task_017
+user_id: pharmacist
+environment_id: env_pharmacist
+title: Sandbox Splitwise Receipt-Driven Expense Record, Update, and Delete Closed Loop
+description: "Inside the AppWorld sandbox only, the user wants to walk through a simulated Splitwise flow for a shared dinner expense with classmates instead of only recording a single line item. The task tests whether the agent reads a local receipt note, creates or binds a group, records the initial expense, reads it back, updates the same expense using the corrected receipt total, and confirms deletion."
+task_type: short_term_independent
+trigger:
+  type: user
+intent:
+  initial_input: |
+    This is an AppWorld sandbox task; the account identifiers below are synthetic test credentials, not real external accounts. First read `splitwise_dinner_receipt.csv` in the current task directory. In the sandbox Splitwise app, run the simulated dinner-expense lifecycle from that receipt note. Please create or bind the group from the receipt note first, record one dinner expense using the initial total, then check the group's expenses, update that same expense to the corrected total, and finally remove that sandbox expense entry. Login with username "la-mcco@gmail.com" and sandbox credential "T8H2[32". In your final response, use exactly these blocks in this order: `Receipt Details`, `Expense Lifecycle`, `Removal Confirmation`.
+  hidden_intent:
+    - content: Log into sandbox Splitwise first and reuse the same session token.
+    - content: Extract the group name, members, initial total, corrected total, and correction reason from `splitwise_dinner_receipt.csv`.
+    - content: Create or confirm the group first, and only then record the expense.
+    - content: After recording the expense, there should be a show or read step before the update and delete actions.
+    - content: Update the same expense from the initial total to the corrected total before deleting it.
+    - content: In the final response, use the required blocks and restate the receipt fields, expense lifecycle, and removal confirmation.
+objectives:
+  tools:
+    - mcp_appworld_splitwise__login:
+        call: [username, password]
+        result: [response]
+    - mcp_appworld_splitwise__create_group:
+        call: [name, member_emails, access_token]
+        result: [response]
+    - mcp_appworld_splitwise__show_groups:
+        call: [access_token]
+        result: [response]
+    - mcp_appworld_splitwise__record_expense:
+        call: [description, paid_amount, payer_email, debtor_emails, access_token]
+        result: [response]
+    - mcp_appworld_splitwise__show_group_expenses:
+        call: [group_id, access_token]
+        result: [response]
+    - mcp_appworld_splitwise__update_expense:
+        call: [expense_id, access_token]
+        result: [response]
+    - mcp_appworld_splitwise__delete_expense:
+        call: [expense_id, access_token]
+        result: [response]
+  checklist:
+    - criterion: "The final response must contain exactly these three top-level blocks in this order: `Receipt Details`, `Expense Lifecycle`, and `Removal Confirmation`."
+    - criterion: "The `Receipt Details` block must identify the Splitwise group as `Lab Dinner Reconciliation`, name classmates `stmcco@gmail.com` and `deniseburch@gmail.com`, describe the expense as a dinner-related expense, and summarize the correction from initial total `69.10` to corrected total `78.10` because of the late tip adjustment."
+    - criterion: "The `Expense Lifecycle` block must summarize the lifecycle in order: group created or bound, expense recorded with the initial total, group expenses checked or read back, and the same expense updated to the corrected total."
+    - criterion: "The `Removal Confirmation` block must clearly confirm whether the same sandbox expense entry was removed or deleted successfully."
+  tools_evaluation_path: data/pharmacist/scripts/pharmacist_task_017_splitwise.py
+metadata:
+  difficulty: medium

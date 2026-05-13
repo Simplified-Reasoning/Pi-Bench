@@ -1,0 +1,2 @@
+["UPDATE products SET record_hash=?, inventory_quantity=? WHERE products.id = ?",["ta9/XDKt/kk=",1,42],false]
+["UPDATE products SET record_hash=?, inventory_quantity=? WHERE products.id = ?",["zoNANtI1RXA=",1,1469],false]

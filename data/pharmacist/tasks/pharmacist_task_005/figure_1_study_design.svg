@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="320" viewBox="0 0 980 320">
+  <rect width="980" height="320" fill="#f5f3ef"/>
+  <text x="40" y="42" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#1f2a1f">Figure 1. Peptide-Density Targeting Strategy</text>
+  <text x="40" y="70" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#4b5a4b">DV1-functionalized liposomes are engineered as a 3D peptide array to target CXCR4-positive TNBC cells.</text>
+
+  <rect x="40" y="100" rx="16" ry="16" width="220" height="140" fill="#e3e8f7" stroke="#476086" stroke-width="2"/>
+  <text x="65" y="132" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#20375a">Module A</text>
+  <text x="65" y="162" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#20375a">DV1 peptide</text>
+  <text x="65" y="186" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#20375a">CXCR4 recognition</text>
+  <text x="65" y="210" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#20375a">Click-conjugated liposome</text>
+  <text x="65" y="234" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#496588">Defined surface density</text>
+
+  <rect x="380" y="100" rx="16" ry="16" width="220" height="140" fill="#d8ead8" stroke="#466b46" stroke-width="2"/>
+  <text x="405" y="132" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#183018">Module B</text>
+  <text x="405" y="162" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#183018">Binding / uptake screen</text>
+  <text x="405" y="186" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#183018">Migration inhibition</text>
+  <text x="405" y="210" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#183018">Density optimization</text>
+  <text x="405" y="234" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#365036">MDA-MB-231 and MDA-MB-436; lower-CXCR4 comparison</text>
+
+  <rect x="720" y="100" rx="16" ry="16" width="220" height="140" fill="#f6ddd2" stroke="#8a5640" stroke-width="2"/>
+  <text x="745" y="132" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#5a2f1f">Module C</text>
+  <text x="745" y="162" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#5a2f1f">Primary tumor model</text>
+  <text x="745" y="186" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#5a2f1f">Metastasis follow-up</text>
+  <text x="745" y="210" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#5a2f1f">Peptide-density effect</text>
+  <text x="745" y="234" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#7b4f3a">27-day metastasis suppression</text>
+
+  <line x1="260" y1="170" x2="380" y2="170" stroke="#6b7e6b" stroke-width="4"/>
+  <polygon points="380,170 362,160 362,180" fill="#6b7e6b"/>
+  <line x1="600" y1="170" x2="720" y2="170" stroke="#6b7e6b" stroke-width="4"/>
+  <polygon points="720,170 702,160 702,180" fill="#6b7e6b"/>
+
+  <text x="42" y="286" font-family="Helvetica, Arial, sans-serif" font-size="14" fill="#455245">Key idea: targeting and signaling regulation depend on the density of DV1 peptides displayed on the liposome surface, not just on whether DV1 is present.</text>
+</svg>

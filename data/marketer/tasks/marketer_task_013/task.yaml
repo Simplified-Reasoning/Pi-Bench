@@ -1,0 +1,27 @@
+schema_version: v2
+task_id: marketer_task_013
+user_id: marketer
+environment_id: env_marketer
+title: "Extract Market Signals from the Web"
+description: ''
+task_type: long_term
+trigger:
+  type: user
+
+intent:
+  initial_input: "I just treated myself to the new Dyson Airstrait to speed up my morning routine as a busy media manager, and I've also just moved my home media studio to '7914 Carla Crossing Suite 507'. Before writing the script, please search for the Dyson's core technology and common user complaints. Then, write a 60-second TikTok vlog script sharing my honest experience based on TikTok formatting preferences."
+  hidden_intent:
+  - content: "The script begins with a strong hook that contextualizes the user's high-stress media manager persona."
+  - content: "The research portion must extract deep, specific technical data of the product rather than superficial marketing claims."
+  - content: "The script must logically connect the product's core advantage to the user's specific professional persona by contrasting it with a traditional multi-step hair routine."
+  - content: "The script must explicitly integrate nuanced, specific usage complaints beyond just price and weight, such as performance on hair roots or environmental factors."
+objectives:
+  checklist:
+    - criterion: "The script begins with a strong hook or counter-intuitive statement."
+    - criterion: "The research section explicitly includes specific technical specifications or quantitative data, such as motor RPM, air volume, or the use of glass bead thermistors."
+    - criterion: "The script explicitly highlights the time-saving benefit by contrasting the device with a traditional two-step routine."
+    - criterion: "The script explicitly incorporates a nuanced styling limitation found in the research, such as difficulty reaching the roots or frizz caused by humidity."
+    - criterion: "The script explicitly mentions a physical or experiential drawback, such as the device being loud near the ears or bulkier than expected."
+
+metadata:
+  difficulty: easy

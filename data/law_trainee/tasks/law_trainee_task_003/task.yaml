@@ -1,0 +1,23 @@
+schema_version: v2
+task_id: law_trainee_task_003
+user_id: law_trainee
+environment_id: env_law_trainee
+
+title: "Revise a Compliance Review Report: Add Overall Opinion and Project-Level Compliance Risk Rating"
+description: "The user has a first-draft compliance review report with topical findings and piecemeal remediation ideas, but it lacks a deliverable overall project compliance opinion and an explicit project-wide compliance risk rating. The Agent should revise or rewrite the report while preserving substantive analysis so it meets internal circulation standards."
+
+task_type: long_term
+
+trigger:
+  type: user
+
+intent:
+  initial_input: |
+    My supervising attorney asked me to revise the project compliance review report I wrote earlier. The draft is in Compliance_Report_Draft.md.
+
+  hidden_intent:
+
+    - content: "The compliance review report must state an overall compliance risk rating for the entire project development effort."
+    - content: "The final project compliance review opinion must be stated in binary form: pass or fail."
+metadata:
+  difficulty: easy

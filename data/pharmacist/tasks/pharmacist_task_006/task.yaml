@@ -1,0 +1,22 @@
+schema_version: v2
+task_id: pharmacist_task_006
+user_id: pharmacist
+environment_id: env_pharmacist
+title: Clinical Study Workflow and Result Interpretation
+description: "The user has trouble following a specific clinical study. The task directory now provides the original clinical-study PDF, two survival-figure extracts, and a flawed study-breakdown draft. The task is intentionally more complex: the agent must separate what the study actually set out to measure, what the survival figures do and do not prove, and correct the draft so the paper can be explained coherently."
+task_type: short_term_independent
+trigger:
+  type: user
+intent:
+  initial_input: First read `clinical_study_source.pdf`, `figure_2_survival_curves.png`, `figure_2_overall_survival_km.jpg`, and `clinical_study_breakdown.md` in the current task directory; if anything is missing, say so first. Then revise the current study breakdown instead of starting from zero. Please update `clinical_study_breakdown.md` and briefly summarize what you changed after you finish.
+  hidden_intent:
+  - content: Treat `clinical_study_breakdown.md` as a flawed draft to be corrected rather than a trusted study note.
+  - content: Organize the study by workflow, results, and interpretation rather than mixing everything together.
+  - content: Distinguish what the paper names as the primary endpoint from what the survival figures show later, instead of letting a survival panel overwrite the study's original design logic.
+  - content: If the two figure extracts emphasize different survival views, explain how they relate to each other rather than treating one panel as the whole study.
+  - content: Make clear which parts of the interpretation come from the study text and which come from the Kaplan-Meier style figure evidence.
+  - content: Correct any draft tendency to let one survival plot stand in for the whole study design.
+  - content: Keep the output at the level of study interpretation and do not slide into individualized treatment advice.
+
+metadata:
+  difficulty: hard

@@ -1,0 +1,19 @@
+schema_version: v2
+task_id: researcher_task_019
+user_id: researcher
+environment_id: env_researcher
+
+title: "Paper-Organization Preference Task (paper_record)"
+description: "Collect OpenClaw updates from news and WeChat official accounts, write openclaw_info.md in the workspace, and after each subsequent discussion briefly report additions/changes to paper-related entries in that file."
+
+task_type: short_term_independent
+
+trigger:
+  type: user
+
+intent:
+  initial_input: "There's been a flood of OpenClaw-related news and blog posts lately. Search for a few relevant news articles or WeChat Official Account posts, and summarize the latest developments of OpenClaw."
+  hidden_intent:
+    - content: "Give GitHub links and arxiv for the OpenClaw-related papers."
+metadata:
+  difficulty: easy

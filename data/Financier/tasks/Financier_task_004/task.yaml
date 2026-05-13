@@ -1,0 +1,23 @@
+schema_version: v2
+task_id: Financier_task_004
+user_id: Financier
+environment_id: env_Financier
+title: VaR Backtesting Risk-Priority Framework
+description: "The user is preparing to review a 1-day 99% VaR model and wants a Basel-style\
+  \ risk-priority checklist before formula-heavy analysis. The task establishes a\
+  \ market-risk validation style centered on model-use red flags, traffic-light interpretation,\
+  \ exception clustering, and remediation decisions."
+task_type: short_term_independent
+trigger:
+  type: user
+intent:
+  initial_input: |
+    First read `var_backtesting_priority_draft.md` in the current task directory; if it is missing, say so first. Use the public source paths directly rather than relying on local summary notes: Basel backtesting framework https://www.bis.org/publ/bcbs22.htm, Basel backtesting PDF https://www.bis.org/publ/bcbs22.pdf, Basel market-risk standard https://www.bis.org/bcbs/publ/d457.htm, and FRED S and P 500 series https://fred.stlouisfed.org/series/SP500. Then revise the current draft instead of starting from zero. Please update `var_backtesting_priority_draft.md`, and in your final reply use exactly these blocks in this order: `Priority Checks`, `High-Risk Red Flags`, `Use-Decision Lens`. I am going to review a 1-day 99% VaR market-risk model from an independent validation perspective, but I care most about which issues could affect continued model use or require remediation, not a long formula derivation. Based on a Basel backtesting perspective, list 4 to 5 points that should be checked first and identify which ones are high-risk red flags. Keep the answer conclusion-first and risk-first.
+  hidden_intent:
+    - content: Treat the draft as too formula-first and revise it toward a model-use validation lens.
+    - content: Use Basel backtesting traffic-light logic as an anchor, but do not reduce validation to exception count only.
+    - content: Prioritize P and L definition, exception level, exception clustering, volatility-regime robustness, data /valuation consistency, and use-decision implications.
+    - content: Preserve the user's preference for risk-first and approval/remediation-oriented writing.
+    - content: Use S and P 500 / FRED only as market-data context, not as proof that the portfolio model is valid.
+metadata:
+  difficulty: medium

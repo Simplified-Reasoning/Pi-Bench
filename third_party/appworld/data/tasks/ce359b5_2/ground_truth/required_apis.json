@@ -1,0 +1,12 @@
+[
+    "supervisor.complete_task",
+    "supervisor.show_account_passwords",
+    "supervisor.show_profile",
+    "spotify.login",
+    "spotify.remove_song_from_library",
+    "spotify.remove_song_from_playlist",
+    "spotify.show_playlist",
+    "spotify.show_playlist_library",
+    "spotify.show_song",
+    "spotify.show_song_library"
+]

@@ -1,0 +1,1 @@
+["UPDATE music_players SET record_hash=?, is_playing=? WHERE music_players.id = ?",["cCrBx2OfVVs=",0,24],false]

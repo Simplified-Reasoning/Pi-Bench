@@ -1,0 +1,8 @@
+["DELETE FROM payment_cards WHERE payment_cards.id = ?",[[185],[186],[187],[188]],true]
+["DELETE FROM friendships WHERE friendships.id = ?",[[415],[416],[417],[418],[419],[420],[421],[422],[423],[424],[425],[426],[427],[428],[429]],true]
+["DELETE FROM notifications WHERE notifications.id = ?",[[4075],[6131],[6132],[6135],[6143],[6144],[6145],[6146],[6160],[6161],[6187],[6188],[6196],[6197],[6201],[6202],[6209],[8096],[10663],[14423]],true]
+["DELETE FROM users WHERE users.id = ?",[42],false]
+["DELETE FROM payment_cards WHERE payment_cards.id = ?",[[202],[203],[204],[205]],true]
+["DELETE FROM friendships WHERE friendships.id = ?",[[461],[462],[463],[464],[465],[466],[467],[468],[469],[470]],true]
+["DELETE FROM notifications WHERE notifications.id = ?",[[6773],[6774],[6775],[6776],[6798],[6799],[6810],[6811],[6848],[7306],[8682],[9205],[9208],[9212],[9213],[11187],[13202],[15588],[15593],[15595]],true]
+["DELETE FROM users WHERE users.id = ?",[46],false]

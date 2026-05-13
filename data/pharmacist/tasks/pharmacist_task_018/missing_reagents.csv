@@ -1,0 +1,10 @@
+module,item_name,status,priority,substitution_note,risk_if_missing
+RNA extraction,TRIzol,low_stock,must_buy,Do not switch extraction systems casually at the last minute,It will directly affect extraction-batch continuity
+RNA extraction,RNase-free filter tips,low_stock,must_buy,Do not casually substitute ordinary tips,Contamination risk will rise and qPCR results may be affected
+qPCR,Target gene primers x2,missing,must_buy,No real substitute,Without the primers the assay cannot start
+qPCR,Sealing film,low_stock,must_buy,Do not try to make do with a generic sealing film,Amplification consistency and evaporation control may be affected
+Cell assay,CCK-8 reagent,low_stock,must_buy,Do not switch to a different viability assay in this round,The comparison framework would be disrupted
+Cell assay,96-well cell plate,low_stock,must_buy,A different brand of the same format is acceptable,Insufficient inventory will affect the cell-experiment schedule
+Cell culture,FBS,low_stock,backup_buy,Temporary sharing is possible but should not be delayed too long,Culture continuity will be affected
+Cell culture,Trypsin,low_stock,backup_buy,A similar product can be borrowed for a short period,Cell passaging will be affected
+General,0.22 um sterile filter,low_stock,backup_buy,A different brand of the same specification is acceptable,Filtration and sterile handling of prepared solutions will be affected

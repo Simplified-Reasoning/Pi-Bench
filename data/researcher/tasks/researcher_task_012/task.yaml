@@ -1,0 +1,39 @@
+schema_version: v2
+task_id: researcher_task_012
+user_id: researcher
+environment_id: env_researcher
+title: Amazon
+description: "Amazon purchase"
+task_type: short_term_independent
+
+trigger:
+  type: user
+  
+intent:
+  initial_input: "Our research group is going hiking for team building next week, but I don't have any hiking pants yet.
+  My Amazon login info:
+  Email: la-mcco@gmail.com
+  Password: v[=NdO3
+  Please give me some advices."
+  hidden_intent:
+    - content: "Choose a product with the high rating possible"
+    - content: "The inventory should be sufficient, not the kind with only one item left in stock"
+    - content: "I prefer pants that are not too tight and are more comfortable to wear"
+    - content: "I prefer something more budget-friendly and cost-effective, ideally no more than 65 dollars"
+    - content: "Add one pair of Columbia Anytime Outdoor Boot Cut Pants hiking pants to the shopping cart for me."
+    - content: "When you are done, show me the items currently in my shopping cart."
+   
+objectives:
+  tools:
+    - mcp_appworld_amazon__add_product_to_cart:
+        call: [product_id, quantity]
+        result: [response.message]
+    - mcp_appworld_amazon__show_cart:
+        result: [response.cart_items]
+  checklist:
+    - criterion: "Display the ratings, inventory, and prices of different products in a table format."
+    - criterion: "After adding hiking pants, display the final cart."
+  tools_evaluation_path: "data/researcher/scripts/researcher_task_012_amazon.py"
+      
+metadata:
+  difficulty: easy
