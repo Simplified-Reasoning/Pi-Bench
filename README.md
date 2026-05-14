@@ -6,6 +6,36 @@
 
 ---
 
+## 🧭 Intro
+
+`π-BENCH` is a benchmark for **proactive personal assistant agents** in
+long-horizon workflows. Following the paper, it contains **100 multi-turn
+tasks** across **5 domain-specific personas** (`researcher`, `marketer`,
+`pharmacist`, `law_trainee`, `financier`), organized as multi-session episodes
+in persistent workspaces.
+
+It jointly evaluates two capabilities:
+
+- **Proactivity (PROC):** whether the agent resolves hidden intents early
+  (by inference or focused elicitation), reducing avoidable user burden.
+- **Completeness (COMP):** whether the final outputs satisfy task checklist
+  requirements and artifact-level obligations.
+
+In the paper's evaluation design, scoring combines rubric-based hidden-intent
+judgment and deterministic checklist validation. The judge reliability study
+(Appendix F.1) reports low disagreement (**<4%**) under expert audits and
+independent frontier-model audits. This should be interpreted as a reliability
+signal for the benchmark protocol, not as a claim of perfect evaluation.
+
+Compared with prior agent, memory, or mobile proactivity benchmarks, the main
+difference of `π-BENCH` is its focus on **persistent artifact-centric
+workflows** with **hidden intents**, **inter-task dependencies**, and
+**cross-session continuity**, so proactivity and final task completion can be
+analyzed separately in long-horizon settings.
+
+As noted in the paper limitations, users are simulated (not live users), and
+the main experiments use one adapted agent scaffold for controlled comparison.
+
 ## 🚀 Bench Public Code
 
 This directory contains the public code release for running the Agent Arena
