@@ -9,32 +9,28 @@
 ## 🧭 Intro
 
 `π-BENCH` is a benchmark for **proactive personal assistant agents** in
-long-horizon workflows. Following the paper, it contains **100 multi-turn
+long-horizon workflows, where users start with underspecified requests and
+important requirements emerge across interaction. It contains **100 multi-turn
 tasks** across **5 domain-specific personas** (`researcher`, `marketer`,
-`pharmacist`, `law_trainee`, `financier`), organized as multi-session episodes
-in persistent workspaces.
+`pharmacist`, `law_trainee`, `financier`) and organizes them as multi-session
+episodes in persistent workspaces.
 
-It jointly evaluates two capabilities:
+The benchmark jointly measures **Proactivity (PROC)** and **Completeness
+(COMP)**. PROC evaluates whether an agent resolves hidden intents early (through
+inference or focused elicitation) to reduce avoidable user burden, while COMP
+evaluates whether final deliverables satisfy checklist requirements and
+artifact-level obligations. Scoring combines rubric-based hidden-intent
+judgment with deterministic checklist validation, and audit results show low
+judge disagreement (**<4%**), which supports evaluation reliability but does not
+imply perfect measurement.
 
-- **Proactivity (PROC):** whether the agent resolves hidden intents early
-  (by inference or focused elicitation), reducing avoidable user burden.
-- **Completeness (COMP):** whether the final outputs satisfy task checklist
-  requirements and artifact-level obligations.
-
-In the paper's evaluation design, scoring combines rubric-based hidden-intent
-judgment and deterministic checklist validation. The judge reliability study
-(Appendix F.1) reports low disagreement (**<4%**) under expert audits and
-independent frontier-model audits. This should be interpreted as a reliability
-signal for the benchmark protocol, not as a claim of perfect evaluation.
-
-Compared with prior agent, memory, or mobile proactivity benchmarks, the main
-difference of `π-BENCH` is its focus on **persistent artifact-centric
-workflows** with **hidden intents**, **inter-task dependencies**, and
-**cross-session continuity**, so proactivity and final task completion can be
-analyzed separately in long-horizon settings.
-
-As noted in the paper limitations, users are simulated (not live users), and
-the main experiments use one adapted agent scaffold for controlled comparison.
+Compared with benchmarks focused mainly on short-horizon tasks, GUI/mobile
+interactions, or memory retrieval alone, `π-BENCH` emphasizes **persistent,
+artifact-centric workflows** with **hidden intents**, **inter-task
+dependencies**, and **cross-session continuity**, enabling clearer separation
+between reactive task completion and proactive assistance quality. The current
+setup uses simulated users and a single adapted agent scaffold for controlled
+comparison.
 
 ## 🚀 Bench Public Code
 
