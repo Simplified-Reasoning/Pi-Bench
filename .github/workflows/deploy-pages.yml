@@ -1,0 +1,130 @@
+name: Deploy Project Page
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - page/**
+      - .github/workflows/deploy-pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  preflight:
+    name: Preflight checks
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-name: pibench-project-page
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check required site files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          required_files=(
+            "page/index.html"
+            "page/styles.css"
+            "page/main.js"
+            "page/.nojekyll"
+          )
+
+          for file in "${required_files[@]}"; do
+            if [[ ! -f "$file" ]]; then
+              echo "::error file=$file::Required Pages file is missing."
+              exit 1
+            fi
+          done
+
+      - name: Check relative asset references
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if grep -RInE '(href|src)="/[^/]' page/*.html page/*.css page/*.js 2>/dev/null; then
+            echo "::error::Root-relative asset references were found. Use relative paths so the site works under /Pi-Bench/."
+            exit 1
+          fi
+
+      - name: Check for accidental secrets or local files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          blocked_patterns=(
+            ".env"
+            ".env."
+            "*.pem"
+            "*.key"
+            "secrets.json"
+            "*.log"
+          )
+
+          for pattern in "${blocked_patterns[@]}"; do
+            if find page -name "$pattern" -print -quit | grep -q .; then
+              echo "::error::Blocked local or secret-like file matched pattern: $pattern"
+              exit 1
+            fi
+          done
+
+      - name: Summarize project page
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          {
+            echo "## Pi-Bench Project Page"
+            echo
+            echo "- Source directory: \`page/\`"
+            echo "- Entry point: \`page/index.html\`"
+            echo "- Target URL: https://simplified-reasoning.github.io/Pi-Bench/"
+            echo
+            echo "### Files"
+            find page -maxdepth 3 -type f | sort | sed 's/^/- `/' | sed 's/$/`/'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  deploy:
+    name: Publish to GitHub Pages
+    needs: preflight
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload static site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          name: ${{ needs.preflight.outputs.artifact-name }}
+          path: page
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ needs.preflight.outputs.artifact-name }}
+
+      - name: Deployment summary
+        shell: bash
+        run: |
+          {
+            echo "## Deployment Complete"
+            echo
+            echo "Published URL: ${{ steps.deployment.outputs.page_url }}"
+          } >> "$GITHUB_STEP_SUMMARY"
