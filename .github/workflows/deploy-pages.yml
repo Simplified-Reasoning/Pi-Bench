@@ -98,6 +98,8 @@ jobs:
     name: Publish to GitHub Pages
     needs: preflight
     runs-on: ubuntu-latest
+    env:
+      PAGES_ENABLEMENT_TOKEN: ${{ secrets.PAGES_ENABLEMENT_TOKEN }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -106,7 +108,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Verify GitHub Pages is enabled
-        if: ${{ secrets.PAGES_ENABLEMENT_TOKEN == '' }}
+        if: ${{ env.PAGES_ENABLEMENT_TOKEN == '' }}
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
@@ -130,15 +132,15 @@ jobs:
           fi
 
       - name: Configure GitHub Pages
-        if: ${{ secrets.PAGES_ENABLEMENT_TOKEN == '' }}
+        if: ${{ env.PAGES_ENABLEMENT_TOKEN == '' }}
         uses: actions/configure-pages@v5
 
       - name: Enable and configure GitHub Pages
-        if: ${{ secrets.PAGES_ENABLEMENT_TOKEN != '' }}
+        if: ${{ env.PAGES_ENABLEMENT_TOKEN != '' }}
         uses: actions/configure-pages@v5
         with:
           enablement: true
-          token: ${{ secrets.PAGES_ENABLEMENT_TOKEN }}
+          token: ${{ env.PAGES_ENABLEMENT_TOKEN }}
 
       - name: Upload static site artifact
         uses: actions/upload-pages-artifact@v3
