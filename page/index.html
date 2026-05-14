@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pi-Bench: Evaluating Proactive Personal Assistant Agents</title>
+  <meta name="description" content="Pi-Bench is a benchmark for evaluating proactive personal assistant agents in long-horizon workflows.">
+  <meta property="og:title" content="Pi-Bench">
+  <meta property="og:description" content="Evaluating proactive personal assistant agents in long-horizon workflows.">
+  <meta property="og:image" content="assets/img/pibench-banner.png">
+  <link rel="icon" href="assets/img/pibench-banner.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="progress" id="progressBar"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Pi-Bench home">
+      <span class="brand-mark">π</span>
+      <span>Pi-Bench</span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="#overview" data-i18n-en="Overview" data-i18n-zh="概览">Overview</a>
+      <a href="#leaderboard" data-i18n-en="Leaderboard" data-i18n-zh="排行榜">Leaderboard</a>
+      <a href="#taxonomy" data-i18n-en="Tasks" data-i18n-zh="任务">Tasks</a>
+      <a href="#run" data-i18n-en="Run" data-i18n-zh="运行">Run</a>
+    </nav>
+    <div class="header-actions">
+      <button class="chip-button" id="themeToggle" type="button" aria-label="Toggle theme">
+        <span id="themeLabel" data-i18n-en="Dark" data-i18n-zh="深色">Dark</span>
+      </button>
+      <div class="segmented" role="group" aria-label="Language">
+        <button type="button" data-lang="en" class="active">EN</button>
+        <button type="button" data-lang="zh">中文</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow" data-i18n-en="Benchmark for proactive personal assistants" data-i18n-zh="面向主动式个人助手的长程评测基准">Benchmark for proactive personal assistants</p>
+        <h1>
+          <span>π-Bench</span>
+          <small data-i18n-en="Evaluating Proactive Personal Assistant Agents in Long-Horizon Workflows" data-i18n-zh="评测长程工作流中的主动式个人助手智能体">Evaluating Proactive Personal Assistant Agents in Long-Horizon Workflows</small>
+        </h1>
+        <p class="hero-summary" data-i18n-en="Pi-Bench evaluates whether agents can uncover hidden user intents, reuse cross-session context, and complete artifact-grounded work in persistent personal workspaces." data-i18n-zh="Pi-Bench 评测智能体能否发现隐含用户意图、复用跨会话上下文，并在持久个人工作区中完成以产物为中心的任务。">Pi-Bench evaluates whether agents can uncover hidden user intents, reuse cross-session context, and complete artifact-grounded work in persistent personal workspaces.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://github.com/Simplified-Reasoning/Pi-Bench" target="_blank" rel="noreferrer" data-i18n-en="Code" data-i18n-zh="代码">Code</a>
+          <a class="button" href="https://osf.io/dnb5k/overview?view_only=5ff4eeb8c32a417fad136a54735c44db" target="_blank" rel="noreferrer" data-i18n-en="Docker Image" data-i18n-zh="Docker 镜像">Docker Image</a>
+          <a class="button" href="#run" data-i18n-en="Run Benchmark" data-i18n-zh="运行基准">Run Benchmark</a>
+          <span class="button disabled" aria-disabled="true" data-i18n-en="Paper Coming Soon" data-i18n-zh="论文即将发布">Paper Coming Soon</span>
+        </div>
+      </div>
+      <figure class="hero-media">
+        <img src="assets/img/pibench-banner.png" alt="Pi-Bench banner">
+      </figure>
+    </section>
+
+    <section class="authors section-compact" aria-label="Authors">
+      <p>
+        Haoran Zhang*, Luxin Xu*, Zhilin Wang*, Runquan Gui*, Shunkai Zhang, Haodi Lei, Zihao He, Bingsu He, Chicheng Qin, Tong Zhu, Xiaoye Qu, Yang Yang†, Yu Cheng†, Yafu Li†
+      </p>
+      <p class="muted" data-i18n-en="Shanghai Jiao Tong University, Shanghai AI Laboratory, Fudan University, USTC, Peking University, Nanjing University, Zhejiang University, Tongji University, Soochow University, CUHK" data-i18n-zh="上海交通大学、上海人工智能实验室、复旦大学、中国科学技术大学、北京大学、南京大学、浙江大学、同济大学、苏州大学、香港中文大学">Shanghai Jiao Tong University, Shanghai AI Laboratory, Fudan University, USTC, Peking University, Nanjing University, Zhejiang University, Tongji University, Soochow University, CUHK</p>
+    </section>
+
+    <section id="overview" class="section">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n-en="Benchmark Design" data-i18n-zh="基准设计">Benchmark Design</p>
+        <h2 data-i18n-en="Long-horizon assistance with hidden intents" data-i18n-zh="带有隐含意图的长程个人助手任务">Long-horizon assistance with hidden intents</h2>
+        <p data-i18n-en="Each task starts from a natural but underspecified request. The agent must decide what can be inferred from prior context, what needs targeted clarification, and how to turn the interaction into correct files, tool actions, and deliverables." data-i18n-zh="每个任务从自然但不完整的用户请求开始。智能体需要判断哪些需求可由历史上下文推断，哪些需要有针对性地澄清，并把交互转化为正确的文件、工具操作和交付物。">Each task starts from a natural but underspecified request. The agent must decide what can be inferred from prior context, what needs targeted clarification, and how to turn the interaction into correct files, tool actions, and deliverables.</p>
+      </div>
+
+      <div class="metric-grid">
+        <article class="metric-card"><strong>100</strong><span data-i18n-en="multi-turn tasks" data-i18n-zh="多轮任务">multi-turn tasks</span></article>
+        <article class="metric-card"><strong>5</strong><span data-i18n-en="user personas" data-i18n-zh="用户角色">user personas</span></article>
+        <article class="metric-card"><strong>524</strong><span data-i18n-en="hidden intents" data-i18n-zh="隐含意图">hidden intents</span></article>
+        <article class="metric-card"><strong>678</strong><span data-i18n-en="rubric and rule graders" data-i18n-zh="规则与 rubric 评分器">rubric and rule graders</span></article>
+        <article class="metric-card"><strong>187</strong><span data-i18n-en="unique tools" data-i18n-zh="独立工具">unique tools</span></article>
+        <article class="metric-card"><strong>21</strong><span data-i18n-en="agent skills" data-i18n-zh="智能体技能">agent skills</span></article>
+      </div>
+
+      <div class="figure-grid">
+        <figure class="paper-figure wide">
+          <img src="assets/figures/overview.png" alt="Pi-Bench benchmark overview">
+          <figcaption data-i18n-en="Benchmark construction and evaluation overview." data-i18n-zh="基准构建与评测流程概览。">Benchmark construction and evaluation overview.</figcaption>
+        </figure>
+        <figure class="paper-figure wide">
+          <img src="assets/figures/interaction.png" alt="Pi-Bench user-agent interaction loop">
+          <figcaption data-i18n-en="Turn-based interaction loop with hidden-intent tracking." data-i18n-zh="带有隐含意图追踪的回合式交互流程。">Turn-based interaction loop with hidden-intent tracking.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="metrics" class="section split-section">
+      <div>
+        <p class="eyebrow" data-i18n-en="Evaluation" data-i18n-zh="评测指标">Evaluation</p>
+        <h2 data-i18n-en="Proactivity and task completion are separated" data-i18n-zh="主动性与任务完成度被显式区分">Proactivity and task completion are separated</h2>
+        <p data-i18n-en="Proc measures who drives requirement discovery: hidden intents count when the agent directly completes them or asks targeted questions before the user simply provides them. Comp measures whether the final trajectory and artifacts satisfy checklist requirements." data-i18n-zh="Proc 衡量需求发现由谁推动：当智能体直接满足隐含意图，或在用户直接给出前提出有针对性的澄清问题时，该意图计入主动解决。Comp 衡量最终轨迹和产物是否满足 checklist 要求。">Proc measures who drives requirement discovery: hidden intents count when the agent directly completes them or asks targeted questions before the user simply provides them. Comp measures whether the final trajectory and artifacts satisfy checklist requirements.</p>
+      </div>
+      <div class="definition-grid">
+        <article class="definition-card">
+          <h3>Proc</h3>
+          <p data-i18n-en="Completed or inferred hidden intents divided by all hidden intents." data-i18n-zh="已完成或已主动澄清的隐含意图，占全部隐含意图的比例。">Completed or inferred hidden intents divided by all hidden intents.</p>
+        </article>
+        <article class="definition-card">
+          <h3>Comp</h3>
+          <p data-i18n-en="Average checklist pass rate over the full trajectory and produced artifacts." data-i18n-zh="基于完整轨迹和产物的 checklist 平均通过率。">Average checklist pass rate over the full trajectory and produced artifacts.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="leaderboard" class="section">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n-en="Results" data-i18n-zh="实验结果">Results</p>
+        <h2 data-i18n-en="Leaderboard" data-i18n-zh="排行榜">Leaderboard</h2>
+        <p data-i18n-en="Overall Proc / Comp scores are averaged over three runs. Values are manuscript draft results and should be updated if the paper table changes." data-i18n-zh="整体 Proc / Comp 分数为三次运行平均值。当前数值来自论文草稿；若论文表格更新，应同步更新页面。">Overall Proc / Comp scores are averaged over three runs. Values are manuscript draft results and should be updated if the paper table changes.</p>
+      </div>
+      <div class="table-wrap">
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th data-i18n-en="Model" data-i18n-zh="模型">Model</th>
+              <th>Proc</th>
+              <th>Comp</th>
+              <th data-i18n-en="Researcher" data-i18n-zh="研究员">Researcher</th>
+              <th data-i18n-en="Marketer" data-i18n-zh="市场营销">Marketer</th>
+              <th data-i18n-en="Pharmacist" data-i18n-zh="药剂师">Pharmacist</th>
+              <th data-i18n-en="Law Trainee" data-i18n-zh="法律实习生">Law Trainee</th>
+              <th data-i18n-en="Financier" data-i18n-zh="金融从业者">Financier</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th>GPT-5.4</th><td class="best">67.0</td><td>65.6</td><td>46.0 / 66.4</td><td class="best">78.2 / 67.1</td><td>75.9 / 71.5</td><td class="best">56.9 / 61.9</td><td class="best">78.1 / 61.2</td></tr>
+            <tr><th>Gemini 3.1 Pro</th><td>57.1</td><td>60.0</td><td>41.1 / 59.2</td><td>65.0 / 62.1</td><td>71.0 / 72.1</td><td>50.0 / 55.3</td><td>58.6 / 51.1</td></tr>
+            <tr><th>Claude Opus 4.6</th><td>65.5</td><td class="best">67.6</td><td class="best">50.3 / 74.5</td><td>75.0 / 74.6</td><td class="best">82.8 / 68.6</td><td>45.7 / 57.2</td><td>73.8 / 63.2</td></tr>
+            <tr><th>DeepSeek V3.2</th><td>53.3</td><td>57.8</td><td>29.0 / 66.9</td><td>69.1 / 59.4</td><td>75.9 / 62.6</td><td>33.2 / 51.1</td><td>59.1 / 48.9</td></tr>
+            <tr><th>MiniMax M2.7</th><td>55.6</td><td>60.0</td><td>33.4 / 63.9</td><td>71.9 / 61.9</td><td>77.1 / 63.6</td><td>38.6 / 52.5</td><td>57.2 / 58.1</td></tr>
+            <tr><th>Kimi K2.5</th><td>43.1</td><td>61.6</td><td>28.9 / 63.5</td><td>41.2 / 62.3</td><td>70.1 / 74.8</td><td>34.8 / 54.4</td><td>40.4 / 52.9</td></tr>
+            <tr><th>Seed2.0 Pro</th><td>58.4</td><td>52.1</td><td>38.9 / 59.6</td><td>71.4 / 44.2</td><td>77.0 / 67.6</td><td>46.0 / 44.7</td><td>58.7 / 44.5</td></tr>
+            <tr><th>GLM-5.1</th><td>58.4</td><td>63.6</td><td>41.8 / 61.6</td><td>62.6 / 69.1</td><td>75.2 / 70.3</td><td>45.5 / 57.3</td><td>66.7 / 59.8</td></tr>
+            <tr><th>Qwen3.6 Plus</th><td>64.0</td><td>64.1</td><td>40.1 / 70.0</td><td>77.5 / 66.6</td><td>79.7 / 70.2</td><td>45.7 / 60.2</td><td>77.1 / 53.6</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="insight-grid">
+        <article><strong>67.0 Proc</strong><span data-i18n-en="Best average proactivity: GPT-5.4" data-i18n-zh="最佳平均主动性：GPT-5.4">Best average proactivity: GPT-5.4</span></article>
+        <article><strong>67.6 Comp</strong><span data-i18n-en="Best average completion: Claude Opus 4.6" data-i18n-zh="最佳平均完成度：Claude Opus 4.6">Best average completion: Claude Opus 4.6</span></article>
+        <article><strong>-9.5 Proc</strong><span data-i18n-en="Average drop when dependency history is removed" data-i18n-zh="移除依赖历史后的平均 Proc 下降">Average drop when dependency history is removed</span></article>
+      </div>
+    </section>
+
+    <section id="analysis" class="section figure-section">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n-en="Analysis" data-i18n-zh="分析">Analysis</p>
+        <h2 data-i18n-en="Where agents struggle" data-i18n-zh="智能体在哪些任务中受限">Where agents struggle</h2>
+      </div>
+      <div class="figure-grid">
+        <figure class="paper-figure">
+          <img src="assets/figures/task_type.png" alt="Task type performance scatter plot">
+          <figcaption data-i18n-en="Workflow-type results show that high completion can coexist with weak proactivity." data-i18n-zh="不同工作流类型的结果显示，高完成度可能与低主动性同时出现。">Workflow-type results show that high completion can coexist with weak proactivity.</figcaption>
+        </figure>
+        <figure class="paper-figure">
+          <img src="assets/figures/ablation_study.png" alt="Ablation study">
+          <figcaption data-i18n-en="Dependency history is especially important for proactive intent resolution." data-i18n-zh="依赖历史对主动式意图解决尤其重要。">Dependency history is especially important for proactive intent resolution.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="taxonomy" class="section">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n-en="Task Coverage" data-i18n-zh="任务覆盖">Task Coverage</p>
+        <h2 data-i18n-en="18 workflow categories across five personas" data-i18n-zh="覆盖五类用户角色的 18 个工作流类别">18 workflow categories across five personas</h2>
+      </div>
+      <div class="taxonomy-grid">
+        <article><span>A</span><strong data-i18n-en="AI research intelligence" data-i18n-zh="AI 研究前沿情报">AI research intelligence</strong><em>7</em></article>
+        <article><span>B</span><strong data-i18n-en="Experiment and rebuttal artifacts" data-i18n-zh="实验与 rebuttal 产物">Experiment and rebuttal artifacts</strong><em>4</em></article>
+        <article><span>C</span><strong data-i18n-en="Research life and career planning" data-i18n-zh="研究生活与职业规划">Research life and career planning</strong><em>4</em></article>
+        <article><span>D</span><strong data-i18n-en="Financial model validation" data-i18n-zh="金融模型验证">Financial model validation</strong><em>6</em></article>
+        <article><span>E</span><strong data-i18n-en="Quant data engineering" data-i18n-zh="量化数据工程">Quant data engineering</strong><em>9</em></article>
+        <article><span>F</span><strong data-i18n-en="Legal pleading and contracts" data-i18n-zh="法律文书与合同">Legal pleading and contracts</strong><em>7</em></article>
+        <article><span>G</span><strong data-i18n-en="Legal compliance and evidence" data-i18n-zh="法律合规与证据策略">Legal compliance and evidence</strong><em>6</em></article>
+        <article><span>H</span><strong data-i18n-en="Legal operations and handoffs" data-i18n-zh="法律事务操作与交接">Legal operations and handoffs</strong><em>5</em></article>
+        <article><span>I</span><strong data-i18n-en="Biomedical and clinical evidence" data-i18n-zh="生物医学与临床证据">Biomedical and clinical evidence</strong><em>5</em></article>
+        <article><span>J</span><strong data-i18n-en="Assay and lab reasoning" data-i18n-zh="实验设计与结果推理">Assay and lab reasoning</strong><em>2</em></article>
+        <article><span>K</span><strong data-i18n-en="Drug design and formulation" data-i18n-zh="药物设计与制剂">Drug design and formulation</strong><em>5</em></article>
+        <article><span>L</span><strong data-i18n-en="Lab procurement logistics" data-i18n-zh="实验室采购与物流">Lab procurement logistics</strong><em>3</em></article>
+        <article><span>M</span><strong data-i18n-en="Market and brand research" data-i18n-zh="市场与品牌研究">Market and brand research</strong><em>4</em></article>
+        <article><span>N</span><strong data-i18n-en="Marketing content systems" data-i18n-zh="营销内容系统">Marketing content systems</strong><em>7</em></article>
+        <article><span>O</span><strong data-i18n-en="Co-branding governance" data-i18n-zh="联名策略与创意治理">Co-branding governance</strong><em>3</em></article>
+        <article><span>P</span><strong data-i18n-en="Crisis and reputation comms" data-i18n-zh="危机与声誉传播">Crisis and reputation comms</strong><em>3</em></article>
+        <article><span>Q</span><strong data-i18n-en="Consumer commerce actions" data-i18n-zh="消费选择与电商操作">Consumer commerce actions</strong><em>9</em></article>
+        <article><span>R</span><strong data-i18n-en="Tool-mediated admin workflows" data-i18n-zh="工具介导的行政工作流">Tool-mediated admin workflows</strong><em>11</em></article>
+      </div>
+    </section>
+
+    <section id="run" class="section">
+      <div class="section-heading">
+        <p class="eyebrow" data-i18n-en="Reproducibility" data-i18n-zh="复现">Reproducibility</p>
+        <h2 data-i18n-en="Run the benchmark" data-i18n-zh="运行基准">Run the benchmark</h2>
+        <p data-i18n-en="Full benchmark runs require Docker or Podman, provider credentials, Brave Search credentials, and the prebuilt localhost/bench:v1 image." data-i18n-zh="完整基准运行需要 Docker 或 Podman、模型服务凭据、Brave Search 凭据，以及预构建的 localhost/bench:v1 镜像。">Full benchmark runs require Docker or Podman, provider credentials, Brave Search credentials, and the prebuilt localhost/bench:v1 image.</p>
+      </div>
+      <div class="command-grid">
+        <article class="command-card">
+          <h3 data-i18n-en="Load image" data-i18n-zh="加载镜像">Load image</h3>
+          <pre><code>bash load_bench_image.sh /path/to/docker-image.tar.gz</code></pre>
+          <button class="copy-button" type="button" data-copy="bash load_bench_image.sh /path/to/docker-image.tar.gz" data-i18n-en="Copy" data-i18n-zh="复制">Copy</button>
+        </article>
+        <article class="command-card">
+          <h3 data-i18n-en="Run one model" data-i18n-zh="运行单个模型">Run one model</h3>
+          <pre><code>bash scripts/run_parallel_models_docker.sh --model-id deepseek-v3.2</code></pre>
+          <button class="copy-button" type="button" data-copy="bash scripts/run_parallel_models_docker.sh --model-id deepseek-v3.2" data-i18n-en="Copy" data-i18n-zh="复制">Copy</button>
+        </article>
+        <article class="command-card">
+          <h3 data-i18n-en="Run one user and model" data-i18n-zh="运行指定用户与模型">Run one user and model</h3>
+          <pre><code>bash scripts/run_parallel_models_docker.sh --user-id law_trainee --model-id deepseek-v3.2</code></pre>
+          <button class="copy-button" type="button" data-copy="bash scripts/run_parallel_models_docker.sh --user-id law_trainee --model-id deepseek-v3.2" data-i18n-en="Copy" data-i18n-zh="复制">Copy</button>
+        </article>
+        <article class="command-card">
+          <h3 data-i18n-en="Local package entry" data-i18n-zh="本地 Python 入口">Local package entry</h3>
+          <pre><code>python -m src.main \
+  --config config/bench/nanobot.yaml \
+  --history-config-path config/bench/evaluation/trace_history.yaml</code></pre>
+          <button class="copy-button" type="button" data-copy="python -m src.main --config config/bench/nanobot.yaml --history-config-path config/bench/evaluation/trace_history.yaml" data-i18n-en="Copy" data-i18n-zh="复制">Copy</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="links" class="section link-section">
+      <div>
+        <p class="eyebrow" data-i18n-en="Resources" data-i18n-zh="资源">Resources</p>
+        <h2 data-i18n-en="Code, data, and deployment" data-i18n-zh="代码、数据与部署">Code, data, and deployment</h2>
+      </div>
+      <div class="resource-grid">
+        <a href="https://github.com/Simplified-Reasoning/Pi-Bench/tree/main/src" target="_blank" rel="noreferrer"><strong>src/</strong><span data-i18n-en="benchmark package" data-i18n-zh="基准 Python 包">benchmark package</span></a>
+        <a href="https://github.com/Simplified-Reasoning/Pi-Bench/tree/main/data" target="_blank" rel="noreferrer"><strong>data/</strong><span data-i18n-en="personas, episodes, tasks" data-i18n-zh="用户、episode 与任务">personas, episodes, tasks</span></a>
+        <a href="https://github.com/Simplified-Reasoning/Pi-Bench/tree/main/config" target="_blank" rel="noreferrer"><strong>config/</strong><span data-i18n-en="runtime and model configs" data-i18n-zh="运行与模型配置">runtime and model configs</span></a>
+        <a href="GITHUB_PAGES.md"><strong data-i18n-en="Pages guide" data-i18n-zh="Pages 指南">Pages guide</strong><span data-i18n-en="GitHub workflow setup" data-i18n-zh="GitHub workflow 配置">GitHub workflow setup</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p data-i18n-en="Pi-Bench is released as an evaluation resource for proactive personal assistant agents. Use real-world proactive systems with user control, privacy safeguards, and domain review." data-i18n-zh="Pi-Bench 作为主动式个人助手的评测资源发布。真实部署主动式系统时，应配套用户控制、隐私保护与领域审查。">Pi-Bench is released as an evaluation resource for proactive personal assistant agents. Use real-world proactive systems with user control, privacy safeguards, and domain review.</p>
+  </footer>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
+  <script src="main.js"></script>
+</body>
+</html>
