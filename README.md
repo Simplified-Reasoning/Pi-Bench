@@ -6,7 +6,7 @@
 
 ---
 
-## 🧭 Intro
+## 🧭 Introduction
 
 `π-BENCH` is a benchmark for **proactive personal assistant agents** in
 long-horizon workflows, where users start with underspecified requests and
@@ -20,17 +20,14 @@ The benchmark jointly measures **Proactivity (PROC)** and **Completeness
 inference or focused elicitation) to reduce avoidable user burden, while COMP
 evaluates whether final deliverables satisfy checklist requirements and
 artifact-level obligations. Scoring combines rubric-based hidden-intent
-judgment with deterministic checklist validation, and audit results show low
-judge disagreement (**<4%**), which supports evaluation reliability but does not
-imply perfect measurement.
+judgment and checklist validation, and audit results show low
+judge disagreement (**<4%**), which supports evaluation reliability.
 
 Compared with benchmarks focused mainly on short-horizon tasks, GUI/mobile
 interactions, or memory retrieval alone, `π-BENCH` emphasizes **persistent,
 artifact-centric workflows** with **hidden intents**, **inter-task
 dependencies**, and **cross-session continuity**, enabling clearer separation
-between reactive task completion and proactive assistance quality. The current
-setup uses simulated users and a single adapted agent scaffold for controlled
-comparison.
+between reactive task completion and proactive assistance quality.
 
 ## 🚀 Bench Public Code
 
