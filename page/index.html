@@ -16,329 +16,205 @@
 
   <header class="site-header">
     <a class="brand" href="#top" aria-label="Pi-Bench home">
-      <span class="brand-mark">π</span>
+      <span class="brand-mark">pi</span>
       <span>Pi-Bench</span>
     </a>
     <nav class="site-nav" aria-label="Primary navigation">
-      <a href="#overview" data-i18n-en="Overview" data-i18n-zh="概览">Overview</a>
-      <a href="#design" data-i18n-en="Design" data-i18n-zh="设计">Design</a>
-      <a href="#results" data-i18n-en="Results" data-i18n-zh="结果">Results</a>
-      <a href="#analysis" data-i18n-en="Analysis" data-i18n-zh="分析">Analysis</a>
-      <a href="#run" data-i18n-en="Run" data-i18n-zh="运行">Run</a>
-      <a href="#citation" data-i18n-en="Citation" data-i18n-zh="引用">Citation</a>
+      <a href="#overview">Overview</a>
+      <a href="#design">Design</a>
+      <a href="#results">Results</a>
+      <a href="#citation">Resources</a>
     </nav>
     <div class="header-actions">
       <button class="chip-button" id="themeToggle" type="button" aria-label="Toggle theme">
-        <span id="themeLabel" data-i18n-en="Dark" data-i18n-zh="深色">Dark</span>
+        <span id="themeLabel">Dark</span>
       </button>
-      <div class="segmented" role="group" aria-label="Language">
-        <button type="button" data-lang="en" class="active">EN</button>
-        <button type="button" data-lang="zh">中文</button>
-      </div>
     </div>
   </header>
 
   <main id="top">
     <section class="hero paper-hero">
-      <p class="eyebrow hero-eyebrow" data-i18n-en="Benchmark for proactive personal assistant agents" data-i18n-zh="面向主动式个人助手智能体的评测基准">Benchmark for proactive personal assistant agents</p>
+      <p class="eyebrow hero-eyebrow">Proactive Personal Assistant Benchmark</p>
       <h1 class="page-title">
         <span>Pi-Bench</span>
-        <small data-i18n-en="Evaluating Proactive Personal Assistant Agents in Long-Horizon Workflows" data-i18n-zh="评测长程工作流中的主动式个人助手智能体">Evaluating Proactive Personal Assistant Agents in Long-Horizon Workflows</small>
+        <small>Evaluating Proactive Personal Assistant Agents in Long-Horizon Workflows</small>
       </h1>
 
       <section class="authors section-compact hero-authors" aria-label="Authors">
-        <p>Haoran Zhang*, Luxin Xu*, Zhilin Wang*, Runquan Gui*, Shunkai Zhang, Haodi Lei, Zihao He, Bingsu He, Chicheng Qin, Tong Zhu, Xiaoye Qu, Yang Yang†, Yu Cheng†, Yafu Li†</p>
-        <p class="muted" data-i18n-en="Shanghai Jiao Tong University, Shanghai AI Laboratory, Fudan University, USTC, Peking University, Nanjing University, Zhejiang University, Tongji University, Soochow University, CUHK" data-i18n-zh="上海交通大学、上海人工智能实验室、复旦大学、中国科学技术大学、北京大学、南京大学、浙江大学、同济大学、苏州大学、香港中文大学">Shanghai Jiao Tong University, Shanghai AI Laboratory, Fudan University, USTC, Peking University, Nanjing University, Zhejiang University, Tongji University, Soochow University, CUHK</p>
+        <p>Haoran Zhang*, Luxin Xu*, Zhilin Wang*, Runquan Gui*, Shunkai Zhang, Haodi Lei, Zihao He, Bingsu He, Chicheng Qin, Tong Zhu, Xiaoye Qu, Yang Yang&dagger;, Yu Cheng&dagger;, Yafu Li&dagger;</p>
+        <p class="muted">Shanghai Jiao Tong University, Shanghai AI Laboratory, Fudan University, USTC, Peking University, Nanjing University, Zhejiang University, Tongji University, Soochow University, CUHK</p>
       </section>
 
       <div class="hero-actions resource-actions">
-        <a class="button primary" href="https://github.com/Simplified-Reasoning/Pi-Bench" target="_blank" rel="noreferrer" data-i18n-en="Code" data-i18n-zh="代码">Code</a>
-        <a class="button" href="https://github.com/Simplified-Reasoning/Pi-Bench/tree/main/data" target="_blank" rel="noreferrer" data-i18n-en="Data" data-i18n-zh="数据">Data</a>
-        <a class="button" href="https://osf.io/dnb5k/overview?view_only=5ff4eeb8c32a417fad136a54735c44db" target="_blank" rel="noreferrer" data-i18n-en="Docker Image" data-i18n-zh="Docker 镜像">Docker Image</a>
-        <a class="button" href="#run" data-i18n-en="Run Benchmark" data-i18n-zh="运行基准">Run Benchmark</a>
-        <span class="button disabled" aria-disabled="true" data-i18n-en="Paper Coming Soon" data-i18n-zh="论文即将发布">Paper Coming Soon</span>
-      </div>
-
-      <div class="metric-grid hero-stats">
-        <article class="metric-card"><strong>100</strong><span data-i18n-en="long-horizon tasks" data-i18n-zh="长程任务">long-horizon tasks</span></article>
-        <article class="metric-card"><strong>5</strong><span data-i18n-en="personal user domains" data-i18n-zh="个人用户领域">personal user domains</span></article>
-        <article class="metric-card"><strong>524</strong><span data-i18n-en="hidden intents" data-i18n-zh="隐含意图">hidden intents</span></article>
-        <article class="metric-card"><strong>678</strong><span data-i18n-en="rubric and rule graders" data-i18n-zh="rubric 与规则评分器">rubric and rule graders</span></article>
-        <article class="metric-card"><strong>187</strong><span data-i18n-en="unique tools" data-i18n-zh="独立工具">unique tools</span></article>
-        <article class="metric-card"><strong>21</strong><span data-i18n-en="agent skills" data-i18n-zh="智能体技能">agent skills</span></article>
+        <a class="button primary" href="https://github.com/Simplified-Reasoning/Pi-Bench" target="_blank" rel="noreferrer">Code</a>
+        <a class="button" href="https://github.com/Simplified-Reasoning/Pi-Bench/tree/main/data" target="_blank" rel="noreferrer">Data</a>
+        <span class="button disabled" aria-disabled="true">Paper Coming Soon</span>
       </div>
 
       <figure class="paper-figure wide figure-showcase overview-figure">
         <div class="figure-crop figure-crop-overview">
           <img src="assets/figures/overview.png" alt="Pi-Bench benchmark overview">
         </div>
-        <figcaption data-i18n-en="Overview of Pi-Bench task construction, interaction, and evaluation." data-i18n-zh="Pi-Bench 任务构建、交互与评测流程总览。">Overview of Pi-Bench task construction, interaction, and evaluation.</figcaption>
       </figure>
+
+      <div class="content-section hero-intro">
+        <p>
+          Personal assistant agents are expected to help with work that unfolds over files,
+          tools, preferences, and prior interactions. In these settings, success often depends
+          on noticing constraints that users do not state explicitly, recovering relevant context,
+          and asking the right question before acting.
+        </p>
+        <p>
+          <strong>Pi-Bench</strong> turns this capability into a controlled evaluation. Each task
+          starts from a natural underspecified request inside a persistent personal workspace.
+          The agent must complete the visible request while resolving latent requirements that are
+          embedded in the user's profile, history, workspace state, and domain-specific tools.
+        </p>
+        <p>
+          The benchmark contains <em>100</em> long-horizon tasks across <em>5</em> personal user
+          domains, with <em>524</em> hidden intents, <em>187</em> tools, <em>21</em> agent skills,
+          and <em>678</em> checklist and rule-based graders. Pi-Bench reports both proactive
+          intent coverage and final task completion.
+        </p>
+      </div>
     </section>
 
-    <section id="overview" class="section">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n-en="Abstract" data-i18n-zh="摘要">Abstract</p>
-        <h2 data-i18n-en="A benchmark for assistant agents that must notice what users leave unsaid" data-i18n-zh="评测智能体能否发现用户未明说需求的基准">A benchmark for assistant agents that must notice what users leave unsaid</h2>
-        <p data-i18n-en="Pi-Bench studies long-horizon personal assistance in persistent workspaces. Each episode begins from a natural underspecified user request; the agent must recover latent preferences, dependencies, and constraints from history, ask targeted follow-up questions when needed, use tools, and deliver verifiable artifacts." data-i18n-zh="Pi-Bench 研究持久工作区中的长程个人助手能力。每个 episode 都从自然但不完整的用户请求开始；智能体需要从历史中恢复潜在偏好、依赖关系与约束，必要时提出有针对性的追问，使用工具并交付可验证产物。">Pi-Bench studies long-horizon personal assistance in persistent workspaces. Each episode begins from a natural underspecified user request; the agent must recover latent preferences, dependencies, and constraints from history, ask targeted follow-up questions when needed, use tools, and deliver verifiable artifacts.</p>
-      </div>
-      <div class="grid">
-        <article class="overview-card">
-          <h3 data-i18n-en="Hidden-intent driven" data-i18n-zh="隐含意图驱动">Hidden-intent driven</h3>
-          <p data-i18n-en="Tasks contain private requirements that users may reveal only after suitable agent behavior, making proactivity measurable rather than rhetorical." data-i18n-zh="任务包含用户可能只在合适交互后才透露的私有需求，使主动性成为可度量目标，而不是笼统描述。">Tasks contain private requirements that users may reveal only after suitable agent behavior, making proactivity measurable rather than rhetorical.</p>
-        </article>
-        <article class="overview-card">
-          <h3 data-i18n-en="Persistent personal context" data-i18n-zh="持久个人上下文">Persistent personal context</h3>
-          <p data-i18n-en="Profiles, episodes, notes, files, tools, and prior sessions define realistic dependencies that agents must reuse across turns and tasks." data-i18n-zh="用户画像、episode、笔记、文件、工具和历史会话共同构成真实依赖，智能体需要跨轮次和任务复用这些信息。">Profiles, episodes, notes, files, tools, and prior sessions define realistic dependencies that agents must reuse across turns and tasks.</p>
-        </article>
-        <article class="overview-card">
-          <h3 data-i18n-en="Separated evaluation" data-i18n-zh="分离式评测">Separated evaluation</h3>
-          <p data-i18n-en="Proc measures proactive intent resolution; Comp measures checklist completion over the trajectory and final artifacts." data-i18n-zh="Proc 衡量主动解决隐含意图的能力；Comp 衡量轨迹和最终产物对 checklist 的完成度。">Proc measures proactive intent resolution; Comp measures checklist completion over the trajectory and final artifacts.</p>
-        </article>
-      </div>
+    <section id="overview" class="section narrative-section">
+      <h2>Benchmark Overview</h2>
+      <p>
+        Pi-Bench focuses on the gap between solving a prompt and acting as a personal assistant.
+        The agent sees only ordinary user-facing messages, but the environment contains persistent
+        state: profile information, previous sessions, workspace files, app data, tools, and
+        domain-specific skills. This makes the evaluation depend on grounded behavior rather than
+        isolated text generation.
+      </p>
+      <p>
+        The central object of evaluation is the hidden intent. A hidden intent is a private
+        preference, dependency, or constraint that matters for the user's real goal. Strong agents
+        should infer these intents from context, verify uncertainty through targeted follow-up
+        questions, and carry the constraints through to the final artifact.
+      </p>
+      <p>
+        We separate the benchmark into two complementary scores. <strong>Proc</strong> measures
+        proactive hidden-intent resolution, while <strong>Comp</strong> measures checklist
+        completion over the final trajectory and delivered artifacts. This separation makes it
+        possible to distinguish agents that finish visible work from agents that genuinely
+        understand what the user needed.
+      </p>
     </section>
 
-    <section id="design" class="section">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n-en="Method / Benchmark Design" data-i18n-zh="方法 / 基准设计">Method / Benchmark Design</p>
-        <h2 data-i18n-en="Turn-based interaction with terminal hidden-intent tracking" data-i18n-zh="带终态隐含意图追踪的回合式交互">Turn-based interaction with terminal hidden-intent tracking</h2>
-        <p data-i18n-en="The simulated user tracks hidden intents throughout the interaction. Agents receive only normal user-facing messages, while evaluators score whether each intent was completed, inferred by the agent, or merely provided by the user." data-i18n-zh="模拟用户在交互过程中持续追踪隐含意图。智能体只能看到普通用户消息；评测器则判断每个意图最终是被完成、由智能体主动推断，还是仅由用户直接提供。">The simulated user tracks hidden intents throughout the interaction. Agents receive only normal user-facing messages, while evaluators score whether each intent was completed, inferred by the agent, or merely provided by the user.</p>
-      </div>
+    <section id="design" class="section narrative-section">
+      <h2>Benchmark Design</h2>
 
       <figure class="paper-figure wide figure-showcase interaction-figure">
         <div class="figure-crop figure-crop-interaction">
           <img src="assets/figures/interaction.png" alt="Pi-Bench user-agent interaction loop">
         </div>
-        <figcaption data-i18n-en="Interaction loop between the agent, simulated user, hidden-intent judge, and final evaluators." data-i18n-zh="智能体、模拟用户、隐含意图判断器与最终评测器之间的交互循环。">Interaction loop between the agent, simulated user, hidden-intent judge, and final evaluators.</figcaption>
       </figure>
 
-      <div class="process-list">
-        <article class="process-step">
-          <h3 data-i18n-en="Build personal episodes" data-i18n-zh="构建个人 episode">Build personal episodes</h3>
-          <p data-i18n-en="Each user domain combines a profile, workspace files, app state, prior history, tasks, hidden intents, tools, and skills." data-i18n-zh="每个用户领域组合用户画像、工作区文件、应用状态、历史记录、任务、隐含意图、工具和技能。">Each user domain combines a profile, workspace files, app state, prior history, tasks, hidden intents, tools, and skills.</p>
-        </article>
-        <article class="process-step">
-          <h3 data-i18n-en="Run agents in persistent workspaces" data-i18n-zh="在持久工作区中运行智能体">Run agents in persistent workspaces</h3>
-          <p data-i18n-en="Agents interact with files, apps, and the simulated user across multiple turns, rather than solving isolated prompt-only questions." data-i18n-zh="智能体跨多轮与文件、应用和模拟用户交互，而不是只回答孤立的纯文本问题。">Agents interact with files, apps, and the simulated user across multiple turns, rather than solving isolated prompt-only questions.</p>
-        </article>
-        <article class="process-step">
-          <h3 data-i18n-en="Evaluate proactivity and completion" data-i18n-zh="评测主动性与完成度">Evaluate proactivity and completion</h3>
-          <p data-i18n-en="Proc is computed from hidden-intent coverage; Comp is computed from rubric and rule graders over the final trajectory and artifacts." data-i18n-zh="Proc 由隐含意图覆盖率计算；Comp 由最终轨迹和产物上的 rubric 与规则评分器计算。">Proc is computed from hidden-intent coverage; Comp is computed from rubric and rule graders over the final trajectory and artifacts.</p>
-        </article>
-      </div>
+      <h3>Persistent Personal Episodes</h3>
+      <p>
+        Each episode is built around a user domain such as research, marketing, pharmacy, legal
+        work, or finance. The user profile, task request, workspace files, application state, and
+        tool inventory are designed together so that the task cannot be solved reliably from the
+        initial message alone.
+      </p>
+
+      <h3>Hidden-Intent Tracking</h3>
+      <p>
+        During the interaction, the simulated user maintains hidden intents and reveals information
+        only when the agent's behavior makes it natural to do so. The agent therefore has to decide
+        when to proceed, when to inspect context, and when to ask a specific clarification.
+      </p>
+
+      <h3>Separated Evaluation</h3>
+      <p>
+        Final scoring combines trajectory-level evidence with artifact-level checks. Proactivity is
+        evaluated through hidden-intent coverage, while completion is evaluated with rubric and
+        rule graders. The design makes proactive assistance observable without exposing private
+        intents directly to the agent.
+      </p>
     </section>
 
-    <section id="results" class="section">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n-en="Results" data-i18n-zh="实验结果">Results</p>
-        <h2 data-i18n-en="Overall results across five user domains" data-i18n-zh="五个用户领域上的整体结果">Overall results across five user domains</h2>
-        <p data-i18n-en="Overall Proc / Comp scores are averaged over three runs. The average columns include standard deviations from the paper table; domain columns report Proc / Comp." data-i18n-zh="整体 Proc / Comp 为三次运行平均值。平均列包含论文表格中的标准差；用户领域列展示 Proc / Comp。">Overall Proc / Comp scores are averaged over three runs. The average columns include standard deviations from the paper table; domain columns report Proc / Comp.</p>
-      </div>
+    <section id="results" class="section narrative-section">
+      <h2>Results</h2>
+      <p>
+        Current frontier agents achieve substantial task completion, but proactive intent recovery
+        remains difficult. The table reports average Proc and Comp scores together with domain-level
+        Proc / Comp scores across the five Pi-Bench user domains.
+      </p>
 
       <section class="paper-table-section" aria-labelledby="overall-table-title">
         <div class="paper-table-card">
           <div class="paper-table-header">
-            <div class="paper-table-kicker" data-i18n-en="Table 1" data-i18n-zh="表 1">Table 1</div>
-            <h3 id="overall-table-title" class="paper-table-title" data-i18n-en="Overall results on Pi-Bench" data-i18n-zh="Pi-Bench 整体结果">Overall results on Pi-Bench</h3>
-            <p class="paper-table-note" data-i18n-en="Each cell reports Proc / Comp in percentages for a user domain. Average columns report mean +/- standard deviation over three runs." data-i18n-zh="用户领域列展示 Proc / Comp 百分比。平均列展示三次运行的均值 +/- 标准差。">Each cell reports Proc / Comp in percentages for a user domain. Average columns report mean +/- standard deviation over three runs.</p>
+            <div class="paper-table-kicker">Table 1</div>
+            <h3 id="overall-table-title" class="paper-table-title">Overall Results on Pi-Bench</h3>
           </div>
           <div class="paper-table-scroll">
-        <table class="paper-table leaderboard-table">
-          <thead>
-            <tr>
-              <th data-i18n-en="Model" data-i18n-zh="模型">Model</th>
-              <th data-i18n-en="Avg Proc" data-i18n-zh="平均 Proc">Avg Proc</th>
-              <th data-i18n-en="Avg Comp" data-i18n-zh="平均 Comp">Avg Comp</th>
-              <th data-i18n-en="Researcher" data-i18n-zh="研究员">Researcher</th>
-              <th data-i18n-en="Marketer" data-i18n-zh="市场营销">Marketer</th>
-              <th data-i18n-en="Pharmacist" data-i18n-zh="药剂师">Pharmacist</th>
-              <th data-i18n-en="Law Trainee" data-i18n-zh="法律实习生">Law Trainee</th>
-              <th data-i18n-en="Financier" data-i18n-zh="金融从业者">Financier</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th>GPT-5.4</th><td class="best">67.0 +/- 2.1</td><td>65.6 +/- 1.8</td><td>46.0 / 66.4</td><td class="best">78.2 / 67.1</td><td>75.9 / 71.5</td><td class="best">56.9 / 61.9</td><td class="best">78.1 / 61.2</td></tr>
-            <tr><th>Gemini 3.1 Pro</th><td>57.1 +/- 0.9</td><td>60.0 +/- 0.8</td><td>41.1 / 59.2</td><td>65.0 / 62.1</td><td>71.0 / 72.1</td><td>50.0 / 55.3</td><td>58.6 / 51.1</td></tr>
-            <tr><th>Claude Opus 4.6</th><td>65.5 +/- 1.4</td><td class="best">67.6 +/- 1.5</td><td class="best">50.3 / 74.5</td><td>75.0 / 74.6</td><td class="best">82.8 / 68.6</td><td>45.7 / 57.2</td><td>73.8 / 63.2</td></tr>
-            <tr><th>DeepSeek V3.2</th><td>53.3 +/- 1.9</td><td>57.8 +/- 3.0</td><td>29.0 / 66.9</td><td>69.1 / 59.4</td><td>75.9 / 62.6</td><td>33.2 / 51.1</td><td>59.1 / 48.9</td></tr>
-            <tr><th>MiniMax M2.7</th><td>55.6 +/- 3.2</td><td>60.0 +/- 1.8</td><td>33.4 / 63.9</td><td>71.9 / 61.9</td><td>77.1 / 63.6</td><td>38.6 / 52.5</td><td>57.2 / 58.1</td></tr>
-            <tr><th>Kimi K2.5</th><td>43.1 +/- 0.2</td><td>61.6 +/- 1.9</td><td>28.9 / 63.5</td><td>41.2 / 62.3</td><td>70.1 / 74.8</td><td>34.8 / 54.4</td><td>40.4 / 52.9</td></tr>
-            <tr><th>Seed2.0 Pro</th><td>58.4 +/- 0.9</td><td>52.1 +/- 3.8</td><td>38.9 / 59.6</td><td>71.4 / 44.2</td><td>77.0 / 67.6</td><td>46.0 / 44.7</td><td>58.7 / 44.5</td></tr>
-            <tr><th>GLM-5.1</th><td>58.4 +/- 0.8</td><td>63.6 +/- 2.9</td><td>41.8 / 61.6</td><td>62.6 / 69.1</td><td>75.2 / 70.3</td><td>45.5 / 57.3</td><td>66.7 / 59.8</td></tr>
-            <tr><th>Qwen3.6 Plus</th><td>64.0 +/- 1.1</td><td>64.1 +/- 0.6</td><td>40.1 / 70.0</td><td>77.5 / 66.6</td><td>79.7 / 70.2</td><td>45.7 / 60.2</td><td>77.1 / 53.6</td></tr>
-          </tbody>
-        </table>
+            <table class="paper-table leaderboard-table">
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Avg Proc</th>
+                  <th>Avg Comp</th>
+                  <th>Researcher</th>
+                  <th>Marketer</th>
+                  <th>Pharmacist</th>
+                  <th>Law Trainee</th>
+                  <th>Financier</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th>GPT-5.4</th><td class="best">67.0 +/- 2.1</td><td>65.6 +/- 1.8</td><td>46.0 / 66.4</td><td class="best">78.2 / 67.1</td><td>75.9 / 71.5</td><td class="best">56.9 / 61.9</td><td class="best">78.1 / 61.2</td></tr>
+                <tr><th>Gemini 3.1 Pro</th><td>57.1 +/- 0.9</td><td>60.0 +/- 0.8</td><td>41.1 / 59.2</td><td>65.0 / 62.1</td><td>71.0 / 72.1</td><td>50.0 / 55.3</td><td>58.6 / 51.1</td></tr>
+                <tr><th>Claude Opus 4.6</th><td>65.5 +/- 1.4</td><td class="best">67.6 +/- 1.5</td><td class="best">50.3 / 74.5</td><td>75.0 / 74.6</td><td class="best">82.8 / 68.6</td><td>45.7 / 57.2</td><td>73.8 / 63.2</td></tr>
+                <tr><th>DeepSeek V3.2</th><td>53.3 +/- 1.9</td><td>57.8 +/- 3.0</td><td>29.0 / 66.9</td><td>69.1 / 59.4</td><td>75.9 / 62.6</td><td>33.2 / 51.1</td><td>59.1 / 48.9</td></tr>
+                <tr><th>MiniMax M2.7</th><td>55.6 +/- 3.2</td><td>60.0 +/- 1.8</td><td>33.4 / 63.9</td><td>71.9 / 61.9</td><td>77.1 / 63.6</td><td>38.6 / 52.5</td><td>57.2 / 58.1</td></tr>
+                <tr><th>Kimi K2.5</th><td>43.1 +/- 0.2</td><td>61.6 +/- 1.9</td><td>28.9 / 63.5</td><td>41.2 / 62.3</td><td>70.1 / 74.8</td><td>34.8 / 54.4</td><td>40.4 / 52.9</td></tr>
+                <tr><th>Seed2.0 Pro</th><td>58.4 +/- 0.9</td><td>52.1 +/- 3.8</td><td>38.9 / 59.6</td><td>71.4 / 44.2</td><td>77.0 / 67.6</td><td>46.0 / 44.7</td><td>58.7 / 44.5</td></tr>
+                <tr><th>GLM-5.1</th><td>58.4 +/- 0.8</td><td>63.6 +/- 2.9</td><td>41.8 / 61.6</td><td>62.6 / 69.1</td><td>75.2 / 70.3</td><td>45.5 / 57.3</td><td>66.7 / 59.8</td></tr>
+                <tr><th>Qwen3.6 Plus</th><td>64.0 +/- 1.1</td><td>64.1 +/- 0.6</td><td>40.1 / 70.0</td><td>77.5 / 66.6</td><td>79.7 / 70.2</td><td>45.7 / 60.2</td><td>77.1 / 53.6</td></tr>
+              </tbody>
+            </table>
           </div>
-          <div class="paper-table-footnote" data-i18n-en="Bold highlights the best score in each reported column. Source: paper table overall.tex." data-i18n-zh="加粗高亮表示对应列中的最佳分数。来源：论文表格 overall.tex。">Bold highlights the best score in each reported column. Source: paper table overall.tex.</div>
         </div>
       </section>
 
-      <div class="insight-grid">
-        <article><strong>67.0 +/- 2.1</strong><span data-i18n-en="Best average Proc: GPT-5.4" data-i18n-zh="最佳平均 Proc：GPT-5.4">Best average Proc: GPT-5.4</span></article>
-        <article><strong>67.6 +/- 1.5</strong><span data-i18n-en="Best average Comp: Claude Opus 4.6" data-i18n-zh="最佳平均 Comp：Claude Opus 4.6">Best average Comp: Claude Opus 4.6</span></article>
-        <article><strong>82.8 / 68.6</strong><span data-i18n-en="Strongest Pharmacist Proc/Comp pair: Claude Opus 4.6" data-i18n-zh="药剂师领域最强 Proc/Comp：Claude Opus 4.6">Strongest Pharmacist Proc/Comp pair: Claude Opus 4.6</span></article>
-      </div>
-    </section>
-
-    <section id="hidden-status" class="section">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n-en="Terminal Hidden-Intent Status" data-i18n-zh="隐含意图终态">Terminal Hidden-Intent Status</p>
-        <h2 data-i18n-en="How hidden intents end: completed, inferred, or provided" data-i18n-zh="隐含意图如何结束：完成、推断或用户提供">How hidden intents end: completed, inferred, or provided</h2>
-        <p data-i18n-en="The stacked bars redraw the paper table as native HTML. Completed and inferred intents count toward proactive coverage, while provided intents indicate requirements surfaced by the user." data-i18n-zh="下方堆叠条用 HTML 重绘论文表格。Completed 与 Inferred 计入主动覆盖；Provided 表示需求由用户直接给出。">The stacked bars redraw the paper table as native HTML. Completed and inferred intents count toward proactive coverage, while provided intents indicate requirements surfaced by the user.</p>
-      </div>
-      <div class="overview-card hidden-intent-panel">
-        <div class="stacked-legend" aria-label="Legend">
-          <span><i class="legend-swatch completed"></i>Completed</span>
-          <span><i class="legend-swatch inferred"></i>Inferred</span>
-          <span><i class="legend-swatch provided"></i>Provided</span>
+      <section class="results-visual" aria-labelledby="overall-scatter-title">
+        <div class="results-visual-header">
+          <div class="paper-table-kicker">Figure 1</div>
+          <h3 id="overall-scatter-title">Overall Performance Trade-off</h3>
         </div>
-        <div class="hidden-intent-bars">
-          <div class="stacked-bar-row"><strong class="stacked-bar-label">GPT-5.4</strong><div class="stacked-bar"><span class="bar-segment completed" data-value="56.84" title="Completed 56.84%"></span><span class="bar-segment inferred" data-value="12.29" title="Inferred 12.29%"></span><span class="bar-segment provided" data-value="30.87" title="Provided 30.87%"></span></div></div>
-          <div class="stacked-bar-row"><strong class="stacked-bar-label">Gemini 3.1 Pro</strong><div class="stacked-bar"><span class="bar-segment completed" data-value="44.25" title="Completed 44.25%"></span><span class="bar-segment inferred" data-value="8.36" title="Inferred 8.36%"></span><span class="bar-segment provided" data-value="47.39" title="Provided 47.39%"></span></div></div>
-          <div class="stacked-bar-row"><strong class="stacked-bar-label">Claude Opus 4.6</strong><div class="stacked-bar"><span class="bar-segment completed" data-value="60.56" title="Completed 60.56%"></span><span class="bar-segment inferred" data-value="11.24" title="Inferred 11.24%"></span><span class="bar-segment provided" data-value="28.20" title="Provided 28.20%"></span></div></div>
-          <div class="stacked-bar-row"><strong class="stacked-bar-label">DeepSeek V3.2</strong><div class="stacked-bar"><span class="bar-segment completed" data-value="54.58" title="Completed 54.58%"></span><span class="bar-segment inferred" data-value="9.35" title="Inferred 9.35%"></span><span class="bar-segment provided" data-value="36.07" title="Provided 36.07%"></span></div></div>
-          <div class="stacked-bar-row"><strong class="stacked-bar-label">MiniMax M2.7</strong><div class="stacked-bar"><span class="bar-segment completed" data-value="45.42" title="Completed 45.42%"></span><span class="bar-segment inferred" data-value="10.77" title="Inferred 10.77%"></span><span class="bar-segment provided" data-value="43.81" title="Provided 43.81%"></span></div></div>
-          <div class="stacked-bar-row"><strong class="stacked-bar-label">Kimi K2.5</strong><div class="stacked-bar"><span class="bar-segment completed" data-value="44.28" title="Completed 44.28%"></span><span class="bar-segment inferred" data-value="9.87" title="Inferred 9.87%"></span><span class="bar-segment provided" data-value="45.85" title="Provided 45.85%"></span></div></div>
-          <div class="stacked-bar-row"><strong class="stacked-bar-label">Seed2.0 Pro</strong><div class="stacked-bar"><span class="bar-segment completed" data-value="50.24" title="Completed 50.24%"></span><span class="bar-segment inferred" data-value="11.30" title="Inferred 11.30%"></span><span class="bar-segment provided" data-value="38.46" title="Provided 38.46%"></span></div></div>
-          <div class="stacked-bar-row"><strong class="stacked-bar-label">GLM-5.1</strong><div class="stacked-bar"><span class="bar-segment completed" data-value="56.50" title="Completed 56.50%"></span><span class="bar-segment inferred" data-value="8.86" title="Inferred 8.86%"></span><span class="bar-segment provided" data-value="34.64" title="Provided 34.64%"></span></div></div>
-          <div class="stacked-bar-row"><strong class="stacked-bar-label">Qwen3.6 Plus</strong><div class="stacked-bar"><span class="bar-segment completed" data-value="63.18" title="Completed 63.18%"></span><span class="bar-segment inferred" data-value="10.45" title="Inferred 10.45%"></span><span class="bar-segment provided" data-value="26.37" title="Provided 26.37%"></span></div></div>
+        <div class="scatter-layout">
+          <div
+            id="overallScatter"
+            class="scatter-plot"
+            role="img"
+            aria-label="Scatter plot comparing average proactive intent recovery and completion performance by model"
+          ></div>
+          <aside id="scatterDetails" class="scatter-details" aria-live="polite"></aside>
         </div>
-      </div>
-    </section>
-
-    <section id="statistics" class="section">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n-en="Benchmark Statistics" data-i18n-zh="基准统计">Benchmark Statistics</p>
-        <h2 data-i18n-en="Compact per-user task and grader inventory" data-i18n-zh="按用户汇总的任务与评分器统计">Compact per-user task and grader inventory</h2>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th data-i18n-en="User" data-i18n-zh="用户">User</th>
-              <th data-i18n-en="Tasks" data-i18n-zh="任务">Tasks</th>
-              <th data-i18n-en="Sessions" data-i18n-zh="会话">Sessions</th>
-              <th data-i18n-en="Hidden Intents" data-i18n-zh="隐含意图">Hidden Intents</th>
-              <th data-i18n-en="Rubrics" data-i18n-zh="Rubric">Rubrics</th>
-              <th data-i18n-en="Rules" data-i18n-zh="规则">Rules</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><th>Researcher</th><td>20</td><td>20</td><td>84</td><td>125</td><td>31</td></tr>
-            <tr><th>Marketer</th><td>20</td><td>20</td><td>74</td><td>58</td><td>11</td></tr>
-            <tr><th>Law Trainee</th><td>20</td><td>20</td><td>89</td><td>131</td><td>43</td></tr>
-            <tr><th>Pharmacist</th><td>20</td><td>20</td><td>195</td><td>85</td><td>25</td></tr>
-            <tr><th>Financier</th><td>20</td><td>20</td><td>82</td><td>111</td><td>58</td></tr>
-            <tr><th>Total</th><td><strong>100</strong></td><td><strong>100</strong></td><td><strong>524</strong></td><td><strong>510</strong></td><td><strong>168</strong></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="analysis" class="section">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n-en="Analysis" data-i18n-zh="分析">Analysis</p>
-        <h2 data-i18n-en="Workflow type and ablation findings" data-i18n-zh="工作流类别与消融发现">Workflow type and ablation findings</h2>
-        <p data-i18n-en="Instead of embedding paper screenshots, this section redraws representative task-type results and key ablation values as native HTML cards." data-i18n-zh="本节不嵌入论文截图，而是用网页原生图卡重绘代表性任务类别结果与关键消融数值。">Instead of embedding paper screenshots, this section redraws representative task-type results and key ablation values as native HTML cards.</p>
-      </div>
-
-      <div class="task-type-gap-cards">
-        <article class="task-type-gap-card">
-          <div class="gap-card-title"><span>H</span><h3 data-i18n-en="Legal matter operations" data-i18n-zh="法律事务操作">Legal matter operations</h3></div>
-          <div class="score-bar-row"><span>Proc</span><div class="score-track"><span class="score-fill proc" data-value="38.1"></span></div><strong>38.1</strong></div>
-          <div class="score-bar-row"><span>Comp</span><div class="score-track"><span class="score-fill comp" data-value="84.1"></span></div><strong>84.1</strong></div>
-        </article>
-        <article class="task-type-gap-card">
-          <div class="gap-card-title"><span>C</span><h3 data-i18n-en="Research life and career" data-i18n-zh="研究生活与职业规划">Research life and career</h3></div>
-          <div class="score-bar-row"><span>Proc</span><div class="score-track"><span class="score-fill proc" data-value="35.0"></span></div><strong>35.0</strong></div>
-          <div class="score-bar-row"><span>Comp</span><div class="score-track"><span class="score-fill comp" data-value="82.2"></span></div><strong>82.2</strong></div>
-        </article>
-        <article class="task-type-gap-card">
-          <div class="gap-card-title"><span>M</span><h3 data-i18n-en="Market intelligence" data-i18n-zh="市场情报">Market intelligence</h3></div>
-          <div class="score-bar-row"><span>Proc</span><div class="score-track"><span class="score-fill proc" data-value="58.1"></span></div><strong>58.1</strong></div>
-          <div class="score-bar-row"><span>Comp</span><div class="score-track"><span class="score-fill comp" data-value="96.1"></span></div><strong>96.1</strong></div>
-        </article>
-        <article class="task-type-gap-card">
-          <div class="gap-card-title"><span>K</span><h3 data-i18n-en="Drug design and formulation" data-i18n-zh="药物设计与制剂">Drug design and formulation</h3></div>
-          <div class="score-bar-row"><span>Proc</span><div class="score-track"><span class="score-fill proc" data-value="84.9"></span></div><strong>84.9</strong></div>
-          <div class="score-bar-row"><span>Comp</span><div class="score-track"><span class="score-fill comp" data-value="68.0"></span></div><strong>68.0</strong></div>
-        </article>
-        <article class="task-type-gap-card">
-          <div class="gap-card-title"><span>Q</span><h3 data-i18n-en="Consumer commerce actions" data-i18n-zh="消费与电商操作">Consumer commerce actions</h3></div>
-          <div class="score-bar-row"><span>Proc</span><div class="score-track"><span class="score-fill proc" data-value="58.2"></span></div><strong>58.2</strong></div>
-          <div class="score-bar-row"><span>Comp</span><div class="score-track"><span class="score-fill comp" data-value="70.8"></span></div><strong>70.8</strong></div>
-        </article>
-        <article class="task-type-gap-card">
-          <div class="gap-card-title"><span>R</span><h3 data-i18n-en="Tool-mediated admin workflows" data-i18n-zh="工具介导行政工作流">Tool-mediated admin workflows</h3></div>
-          <div class="score-bar-row"><span>Proc</span><div class="score-track"><span class="score-fill proc" data-value="61.2"></span></div><strong>61.2</strong></div>
-          <div class="score-bar-row"><span>Comp</span><div class="score-track"><span class="score-fill comp" data-value="66.1"></span></div><strong>66.1</strong></div>
-        </article>
-      </div>
-
-      <div class="ablation-cards">
-        <article class="ablation-card"><strong>-9.5 Proc</strong><span data-i18n-en="Average drop when dependency history is removed" data-i18n-zh="移除依赖历史后的平均 Proc 下降">Average drop when dependency history is removed</span></article>
-        <article class="ablation-card"><strong>-2.5 Comp</strong><span data-i18n-en="Average completion drop under the same ablation" data-i18n-zh="同一消融下平均 Comp 下降">Average completion drop under the same ablation</span></article>
-        <article class="ablation-card"><strong>78.5 -> 64.9</strong><span data-i18n-en="GPT Proc under dependency-history ablation" data-i18n-zh="GPT 在依赖历史消融下的 Proc">GPT Proc under dependency-history ablation</span></article>
-        <article class="ablation-card"><strong>64.8 -> 59.7</strong><span data-i18n-en="MiniMax Proc under dependency-history ablation" data-i18n-zh="MiniMax 在依赖历史消融下的 Proc">MiniMax Proc under dependency-history ablation</span></article>
-        <article class="ablation-card"><strong>61.9 -> 52.1</strong><span data-i18n-en="DeepSeek Proc under dependency-history ablation" data-i18n-zh="DeepSeek 在依赖历史消融下的 Proc">DeepSeek Proc under dependency-history ablation</span></article>
-        <article class="ablation-card"><strong data-i18n-en="History matters" data-i18n-zh="历史很关键">History matters</strong><span data-i18n-en="Proactivity is more sensitive than final completion to missing cross-session context." data-i18n-zh="相较最终完成度，主动性对缺失跨会话上下文更加敏感。">Proactivity is more sensitive than final completion to missing cross-session context.</span></article>
-      </div>
-    </section>
-
-    <section id="run" class="section">
-      <div class="section-heading">
-        <p class="eyebrow" data-i18n-en="Run" data-i18n-zh="运行">Run</p>
-        <h2 data-i18n-en="Reproduce benchmark runs" data-i18n-zh="复现基准运行">Reproduce benchmark runs</h2>
-        <p data-i18n-en="Full benchmark runs require Docker or Podman, provider credentials, Brave Search credentials, and the prebuilt localhost/bench:v1 image." data-i18n-zh="完整基准运行需要 Docker 或 Podman、模型服务凭据、Brave Search 凭据，以及预构建的 localhost/bench:v1 镜像。">Full benchmark runs require Docker or Podman, provider credentials, Brave Search credentials, and the prebuilt localhost/bench:v1 image.</p>
-      </div>
-      <div class="command-grid">
-        <article class="command-card">
-          <h3 data-i18n-en="Install minimal dependencies" data-i18n-zh="安装最小依赖">Install minimal dependencies</h3>
-          <pre><code>pip install -r src/requirements.txt</code></pre>
-          <button class="copy-button" type="button" data-copy="pip install -r src/requirements.txt" data-i18n-en="Copy" data-i18n-zh="复制">Copy</button>
-        </article>
-        <article class="command-card">
-          <h3 data-i18n-en="Run package entry" data-i18n-zh="运行 Python 入口">Run package entry</h3>
-          <pre><code>python -m src.main \
-  --config config/bench/nanobot.yaml \
-  --history-config-path config/bench/evaluation/trace_history.yaml</code></pre>
-          <button class="copy-button" type="button" data-copy="python -m src.main --config config/bench/nanobot.yaml --history-config-path config/bench/evaluation/trace_history.yaml" data-i18n-en="Copy" data-i18n-zh="复制">Copy</button>
-        </article>
-        <article class="command-card">
-          <h3 data-i18n-en="Run one Docker job" data-i18n-zh="运行单个 Docker 作业">Run one Docker job</h3>
-          <pre><code>bash scripts/run_parallel_models_docker.sh \
-  --user-id law_trainee \
-  --model-id MiniMax-M2.5</code></pre>
-          <button class="copy-button" type="button" data-copy="bash scripts/run_parallel_models_docker.sh --user-id law_trainee --model-id MiniMax-M2.5" data-i18n-en="Copy" data-i18n-zh="复制">Copy</button>
-        </article>
-        <article class="command-card">
-          <h3 data-i18n-en="Start local test channel" data-i18n-zh="启动本地测试通道">Start local test channel</h3>
-          <pre><code>python scripts/test_server.py</code></pre>
-          <button class="copy-button" type="button" data-copy="python scripts/test_server.py" data-i18n-en="Copy" data-i18n-zh="复制">Copy</button>
-        </article>
-      </div>
+      </section>
     </section>
 
     <section id="citation" class="section link-section">
       <div>
-        <p class="eyebrow" data-i18n-en="Citation / Resources" data-i18n-zh="引用 / 资源">Citation / Resources</p>
-        <h2 data-i18n-en="Project resources" data-i18n-zh="项目资源">Project resources</h2>
-        <p class="muted" data-i18n-en="Paper metadata will be updated when the manuscript URL is available." data-i18n-zh="论文 URL 可用后将更新正式元数据。">Paper metadata will be updated when the manuscript URL is available.</p>
+        <h2>Resources</h2>
+        <p class="muted">Paper metadata will be updated when the manuscript URL is available.</p>
       </div>
       <div class="resource-grid">
-        <a href="https://github.com/Simplified-Reasoning/Pi-Bench" target="_blank" rel="noreferrer"><strong>GitHub</strong><span data-i18n-en="code repository" data-i18n-zh="代码仓库">code repository</span></a>
-        <a href="https://github.com/Simplified-Reasoning/Pi-Bench/tree/main/data" target="_blank" rel="noreferrer"><strong>data/</strong><span data-i18n-en="users, episodes, tasks" data-i18n-zh="用户、episode 与任务">users, episodes, tasks</span></a>
-        <a href="https://osf.io/dnb5k/overview?view_only=5ff4eeb8c32a417fad136a54735c44db" target="_blank" rel="noreferrer"><strong data-i18n-en="Docker Image" data-i18n-zh="Docker 镜像">Docker Image</strong><span>localhost/bench:v1</span></a>
-        <span class="resource-card disabled-resource"><strong data-i18n-en="Paper Coming Soon" data-i18n-zh="论文即将发布">Paper Coming Soon</strong><span class="muted" data-i18n-en="disabled until a real URL exists" data-i18n-zh="真实 URL 发布前保持禁用">disabled until a real URL exists</span></span>
+        <a href="https://github.com/Simplified-Reasoning/Pi-Bench" target="_blank" rel="noreferrer"><strong>GitHub</strong><span>code repository</span></a>
+        <a href="https://github.com/Simplified-Reasoning/Pi-Bench/tree/main/data" target="_blank" rel="noreferrer"><strong>data/</strong><span>users, episodes, tasks</span></a>
+        <span class="resource-card disabled-resource"><strong>Paper Coming Soon</strong><span class="muted">disabled until a real URL exists</span></span>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p data-i18n-en="Pi-Bench is released as an evaluation resource for proactive personal assistant agents. Real-world proactive systems should include user control, privacy safeguards, and domain review." data-i18n-zh="Pi-Bench 作为主动式个人助手的评测资源发布。真实部署主动式系统时，应配套用户控制、隐私保护与领域审查。">Pi-Bench is released as an evaluation resource for proactive personal assistant agents. Real-world proactive systems should include user control, privacy safeguards, and domain review.</p>
+    <p>Pi-Bench is released as an evaluation resource for proactive personal assistant agents. Real-world proactive systems should include user control, privacy safeguards, and domain review.</p>
   </footer>
 
-  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">&uarr;</button>
   <script src="main.js"></script>
 </body>
 </html>

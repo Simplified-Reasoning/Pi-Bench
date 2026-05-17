@@ -1,81 +1,149 @@
 (function () {
   const root = document.documentElement;
-  const languageButtons = document.querySelectorAll("[data-lang]");
-  const i18nNodes = document.querySelectorAll(
-    "[data-i18n-en], [data-i18n-zh], [data-i18n-html-en], [data-i18n-html-zh]",
-  );
   const themeToggle = document.getElementById("themeToggle");
   const themeLabel = document.getElementById("themeLabel");
   const progressBar = document.getElementById("progressBar");
   const toTop = document.getElementById("toTop");
+  const scatterMount = document.getElementById("overallScatter");
+  const scatterDetails = document.getElementById("scatterDetails");
 
-  function getSavedLanguage() {
-    return localStorage.getItem("pibench-lang") || "en";
-  }
-
-  function sanitizeHTML(html) {
-    const template = document.createElement("template");
-    const allowedTags = new Set(["A", "B", "BR", "CODE", "EM", "I", "SPAN", "STRONG", "SUB", "SUP"]);
-    const allowedAttributes = {
-      A: new Set(["href", "rel", "target", "title"]),
-      SPAN: new Set(["class"]),
-    };
-
-    template.innerHTML = html;
-
-    function clean(node) {
-      Array.from(node.children).forEach((child) => {
-        if (!allowedTags.has(child.tagName)) {
-          child.replaceWith(document.createTextNode(child.textContent || ""));
-          return;
-        }
-
-        Array.from(child.attributes).forEach((attr) => {
-          const allowed = allowedAttributes[child.tagName];
-          const name = attr.name.toLowerCase();
-          if (!allowed || !allowed.has(name) || name.startsWith("on")) {
-            child.removeAttribute(attr.name);
-            return;
-          }
-
-          if (name === "href") {
-            const value = attr.value.trim();
-            const safe = value.startsWith("#") || /^(https?:|mailto:)/i.test(value);
-            if (!safe) child.removeAttribute(attr.name);
-          }
-        });
-
-        if (child.tagName === "A" && child.getAttribute("target") === "_blank") {
-          child.setAttribute("rel", "noopener noreferrer");
-        }
-
-        clean(child);
-      });
+  const resultData = [
+    {
+      model: "GPT-5.4",
+      proc: 67.0,
+      comp: 65.6,
+      procSd: 2.1,
+      compSd: 1.8,
+      color: "#2563eb",
+      domains: [
+        ["Researcher", 46.0, 66.4],
+        ["Marketer", 78.2, 67.1],
+        ["Pharmacist", 75.9, 71.5],
+        ["Law Trainee", 56.9, 61.9],
+        ["Financier", 78.1, 61.2]
+      ]
+    },
+    {
+      model: "Gemini 3.1 Pro",
+      proc: 57.1,
+      comp: 60.0,
+      procSd: 0.9,
+      compSd: 0.8,
+      color: "#0f766e",
+      domains: [
+        ["Researcher", 41.1, 59.2],
+        ["Marketer", 65.0, 62.1],
+        ["Pharmacist", 71.0, 72.1],
+        ["Law Trainee", 50.0, 55.3],
+        ["Financier", 58.6, 51.1]
+      ]
+    },
+    {
+      model: "Claude Opus 4.6",
+      proc: 65.5,
+      comp: 67.6,
+      procSd: 1.4,
+      compSd: 1.5,
+      color: "#b45309",
+      domains: [
+        ["Researcher", 50.3, 74.5],
+        ["Marketer", 75.0, 74.6],
+        ["Pharmacist", 82.8, 68.6],
+        ["Law Trainee", 45.7, 57.2],
+        ["Financier", 73.8, 63.2]
+      ]
+    },
+    {
+      model: "DeepSeek V3.2",
+      proc: 53.3,
+      comp: 57.8,
+      procSd: 1.9,
+      compSd: 3.0,
+      color: "#be123c",
+      domains: [
+        ["Researcher", 29.0, 66.9],
+        ["Marketer", 69.1, 59.4],
+        ["Pharmacist", 75.9, 62.6],
+        ["Law Trainee", 33.2, 51.1],
+        ["Financier", 59.1, 48.9]
+      ]
+    },
+    {
+      model: "MiniMax M2.7",
+      proc: 55.6,
+      comp: 60.0,
+      procSd: 3.2,
+      compSd: 1.8,
+      color: "#7c3aed",
+      domains: [
+        ["Researcher", 33.4, 63.9],
+        ["Marketer", 71.9, 61.9],
+        ["Pharmacist", 77.1, 63.6],
+        ["Law Trainee", 38.6, 52.5],
+        ["Financier", 57.2, 58.1]
+      ]
+    },
+    {
+      model: "Kimi K2.5",
+      proc: 43.1,
+      comp: 61.6,
+      procSd: 0.2,
+      compSd: 1.9,
+      color: "#475569",
+      domains: [
+        ["Researcher", 28.9, 63.5],
+        ["Marketer", 41.2, 62.3],
+        ["Pharmacist", 70.1, 74.8],
+        ["Law Trainee", 34.8, 54.4],
+        ["Financier", 40.4, 52.9]
+      ]
+    },
+    {
+      model: "Seed2.0 Pro",
+      proc: 58.4,
+      comp: 52.1,
+      procSd: 0.9,
+      compSd: 3.8,
+      color: "#15803d",
+      domains: [
+        ["Researcher", 38.9, 59.6],
+        ["Marketer", 71.4, 44.2],
+        ["Pharmacist", 77.0, 67.6],
+        ["Law Trainee", 46.0, 44.7],
+        ["Financier", 58.7, 44.5]
+      ]
+    },
+    {
+      model: "GLM-5.1",
+      proc: 58.4,
+      comp: 63.6,
+      procSd: 0.8,
+      compSd: 2.9,
+      color: "#0891b2",
+      domains: [
+        ["Researcher", 41.8, 61.6],
+        ["Marketer", 62.6, 69.1],
+        ["Pharmacist", 75.2, 70.3],
+        ["Law Trainee", 45.5, 57.3],
+        ["Financier", 66.7, 59.8]
+      ]
+    },
+    {
+      model: "Qwen3.6 Plus",
+      proc: 64.0,
+      comp: 64.1,
+      procSd: 1.1,
+      compSd: 0.6,
+      color: "#c2410c",
+      domains: [
+        ["Researcher", 40.1, 70.0],
+        ["Marketer", 77.5, 66.6],
+        ["Pharmacist", 79.7, 70.2],
+        ["Law Trainee", 45.7, 60.2],
+        ["Financier", 77.1, 53.6]
+      ]
     }
-
-    clean(template.content);
-    return template.innerHTML;
-  }
-
-  function setLanguage(lang) {
-    const key = lang === "zh" ? "i18nZh" : "i18nEn";
-    const htmlKey = lang === "zh" ? "i18nHtmlZh" : "i18nHtmlEn";
-    root.lang = lang === "zh" ? "zh-CN" : "en";
-    document.body.dataset.lang = lang;
-    i18nNodes.forEach((node) => {
-      if (node.dataset[htmlKey]) {
-        node.innerHTML = sanitizeHTML(node.dataset[htmlKey]);
-      } else if (node.dataset[key]) {
-        node.textContent = node.dataset[key];
-      }
-    });
-    languageButtons.forEach((button) => {
-      button.classList.toggle("active", button.dataset.lang === lang);
-      button.setAttribute("aria-pressed", String(button.dataset.lang === lang));
-    });
-    localStorage.setItem("pibench-lang", lang);
-    updateThemeLabel();
-  }
+  ];
 
   function getSavedTheme() {
     return localStorage.getItem("pibench-theme") || "light";
@@ -83,13 +151,8 @@
 
   function updateThemeLabel() {
     if (!themeLabel) return;
-    const lang = getSavedLanguage();
     const theme = root.dataset.theme || "light";
-    if (lang === "zh") {
-      themeLabel.textContent = theme === "dark" ? "浅色" : "深色";
-    } else {
-      themeLabel.textContent = theme === "dark" ? "Light" : "Dark";
-    }
+    themeLabel.textContent = theme === "dark" ? "Light" : "Dark";
   }
 
   function setTheme(theme) {
@@ -108,43 +171,252 @@
     }
   }
 
-  function initializeValueBars() {
-    document.querySelectorAll(".bar-segment[data-value], .score-fill[data-value]").forEach((node) => {
-      const value = Number.parseFloat(node.dataset.value || "0");
-      const width = Number.isFinite(value) ? Math.min(100, Math.max(0, value)) : 0;
-      node.style.width = `${width}%`;
-    });
+  function formatScore(value) {
+    return Number(value).toFixed(1);
   }
 
-  function copyText(button) {
-    const text = button.dataset.copy;
-    if (!text) return;
-    navigator.clipboard.writeText(text).then(() => {
-      const lang = getSavedLanguage();
-      const previous = button.textContent;
-      button.textContent = lang === "zh" ? "已复制" : "Copied";
-      setTimeout(() => {
-        button.textContent = previous;
-      }, 1400);
-    }).catch(() => {
-      const lang = getSavedLanguage();
-      button.textContent = lang === "zh" ? "复制失败" : "Copy failed";
-    });
+  function renderDetails(item) {
+    if (!scatterDetails || !item) return;
+
+    const domainRows = item.domains.map(([name, proc, comp]) => `
+      <div class="domain-score-row">
+        <span>${name}</span>
+        <strong>${formatScore(proc)} / ${formatScore(comp)}</strong>
+      </div>
+    `).join("");
+
+    scatterDetails.innerHTML = `
+      <div class="scatter-detail-model">
+        <span class="detail-swatch" style="--point-color: ${item.color}"></span>
+        <strong>${item.model}</strong>
+      </div>
+      <div class="overall-score-grid">
+        <div>
+          <span>Avg Proc</span>
+          <strong>${formatScore(item.proc)} <small>+/- ${formatScore(item.procSd)}</small></strong>
+        </div>
+        <div>
+          <span>Avg Comp</span>
+          <strong>${formatScore(item.comp)} <small>+/- ${formatScore(item.compSd)}</small></strong>
+        </div>
+      </div>
+      <div class="domain-score-list" aria-label="${item.model} domain performance">
+        ${domainRows}
+      </div>
+    `;
   }
 
-  languageButtons.forEach((button) => {
-    button.addEventListener("click", () => setLanguage(button.dataset.lang));
-  });
+  function initOverallScatter() {
+    if (!scatterMount) return;
+
+    const svgNS = "http://www.w3.org/2000/svg";
+    const width = 940;
+    const height = 580;
+    const margin = { top: 34, right: 46, bottom: 78, left: 78 };
+    const plotWidth = width - margin.left - margin.right;
+    const plotHeight = height - margin.top - margin.bottom;
+    const xDomain = [50, 70];
+    const yDomain = [40, 70];
+    const xTicks = [50, 55, 60, 65, 70];
+    const yTicks = [40, 45, 50, 55, 60, 65, 70];
+
+    const xScale = (value) => margin.left + ((value - xDomain[0]) / (xDomain[1] - xDomain[0])) * plotWidth;
+    const yScale = (value) => margin.top + (1 - ((value - yDomain[0]) / (yDomain[1] - yDomain[0]))) * plotHeight;
+    const create = (name, attrs = {}) => {
+      const node = document.createElementNS(svgNS, name);
+      Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, String(value)));
+      return node;
+    };
+
+    const svg = create("svg", {
+      class: "scatter-svg",
+      viewBox: `0 0 ${width} ${height}`,
+      "aria-labelledby": "overall-scatter-title"
+    });
+
+    const plotArea = create("rect", {
+      class: "scatter-plot-area",
+      x: margin.left,
+      y: margin.top,
+      width: plotWidth,
+      height: plotHeight,
+      rx: 8
+    });
+    svg.appendChild(plotArea);
+
+    xTicks.forEach((tick) => {
+      const x = xScale(tick);
+      svg.appendChild(create("line", {
+        class: "scatter-grid-line",
+        x1: x,
+        y1: margin.top,
+        x2: x,
+        y2: height - margin.bottom
+      }));
+      const label = create("text", {
+        class: "scatter-tick",
+        x,
+        y: height - margin.bottom + 28,
+        "text-anchor": "middle"
+      });
+      label.textContent = tick;
+      svg.appendChild(label);
+    });
+
+    yTicks.forEach((tick) => {
+      const y = yScale(tick);
+      svg.appendChild(create("line", {
+        class: "scatter-grid-line",
+        x1: margin.left,
+        y1: y,
+        x2: width - margin.right,
+        y2: y
+      }));
+      const label = create("text", {
+        class: "scatter-tick",
+        x: margin.left - 18,
+        y: y + 5,
+        "text-anchor": "end"
+      });
+      label.textContent = tick;
+      svg.appendChild(label);
+    });
+
+    svg.appendChild(create("line", {
+      class: "scatter-axis",
+      x1: margin.left,
+      y1: height - margin.bottom,
+      x2: width - margin.right,
+      y2: height - margin.bottom
+    }));
+    svg.appendChild(create("line", {
+      class: "scatter-axis",
+      x1: margin.left,
+      y1: margin.top,
+      x2: margin.left,
+      y2: height - margin.bottom
+    }));
+
+    svg.appendChild(create("line", {
+      class: "scatter-reference-line",
+      x1: xScale(50),
+      y1: yScale(50),
+      x2: xScale(70),
+      y2: yScale(70)
+    }));
+
+    const xLabel = create("text", {
+      class: "scatter-axis-label",
+      x: margin.left + plotWidth / 2,
+      y: height - 26,
+      "text-anchor": "middle"
+    });
+    xLabel.textContent = "Average task completion, Comp (%)";
+    svg.appendChild(xLabel);
+
+    const yLabel = create("text", {
+      class: "scatter-axis-label",
+      x: -margin.top - plotHeight / 2,
+      y: 24,
+      transform: "rotate(-90)",
+      "text-anchor": "middle"
+    });
+    yLabel.textContent = "Average proactive intent recovery, Proc (%)";
+    svg.appendChild(yLabel);
+
+    const tooltip = document.createElement("div");
+    tooltip.className = "scatter-tooltip";
+    tooltip.hidden = true;
+
+    const pointsLayer = create("g", { class: "scatter-points" });
+    const labelOffsets = [
+      [12, -14],
+      [12, 21],
+      [12, -14],
+      [12, 21],
+      [12, -18],
+      [12, -14],
+      [12, 21],
+      [12, -14],
+      [12, 21]
+    ];
+    const pointNodes = [];
+
+    function setActive(index, event) {
+      const item = resultData[index];
+      pointNodes.forEach((node, nodeIndex) => {
+        const active = nodeIndex === index;
+        node.classList.toggle("is-active", active);
+        node.querySelector(".scatter-point-dot").setAttribute("r", active ? "13" : "8.5");
+      });
+      renderDetails(item);
+
+      const tooltipDomains = item.domains.map(([name, proc, comp]) => `
+        <span>${name}: ${formatScore(proc)} / ${formatScore(comp)}</span>
+      `).join("");
+      tooltip.innerHTML = `
+        <strong>${item.model}</strong>
+        <span>Overall: Proc ${formatScore(item.proc)} +/- ${formatScore(item.procSd)}; Comp ${formatScore(item.comp)} +/- ${formatScore(item.compSd)}</span>
+        ${tooltipDomains}
+      `;
+      tooltip.hidden = false;
+
+      const bounds = scatterMount.getBoundingClientRect();
+      const pointX = xScale(item.comp) / width * bounds.width;
+      const pointY = yScale(item.proc) / height * bounds.height;
+      const eventX = event && "clientX" in event ? event.clientX - bounds.left : pointX;
+      const eventY = event && "clientY" in event ? event.clientY - bounds.top : pointY;
+      const tooltipX = Math.min(bounds.width - 272, Math.max(8, eventX + 14));
+      const tooltipY = Math.min(bounds.height - 190, Math.max(8, eventY - 82));
+      tooltip.style.transform = `translate(${tooltipX}px, ${tooltipY}px)`;
+    }
+
+    resultData.forEach((item, index) => {
+      const x = xScale(item.comp);
+      const y = yScale(item.proc);
+      const group = create("g", {
+        class: "scatter-point",
+        tabindex: "0",
+        role: "button",
+        "aria-label": `${item.model}: average Proc ${formatScore(item.proc)}, average Comp ${formatScore(item.comp)}`,
+        transform: `translate(${x} ${y})`
+      });
+      const halo = create("circle", { class: "scatter-point-halo", r: 18 });
+      const circle = create("circle", {
+        class: "scatter-point-dot",
+        r: 8.5,
+        fill: item.color
+      });
+      const [dx, dy] = labelOffsets[index];
+      const label = create("text", {
+        class: "scatter-point-label",
+        x: dx,
+        y: dy,
+        "text-anchor": "start"
+      });
+      label.textContent = item.model;
+      group.append(halo, circle, label);
+      group.addEventListener("mouseenter", (event) => setActive(index, event));
+      group.addEventListener("mousemove", (event) => setActive(index, event));
+      group.addEventListener("focus", (event) => setActive(index, event));
+      group.addEventListener("click", (event) => setActive(index, event));
+      group.addEventListener("mouseleave", () => {
+        tooltip.hidden = true;
+      });
+      pointsLayer.appendChild(group);
+      pointNodes.push(group);
+    });
+
+    svg.appendChild(pointsLayer);
+    scatterMount.replaceChildren(svg, tooltip);
+    setActive(resultData.findIndex((item) => item.model === "Claude Opus 4.6"));
+  }
 
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
       setTheme(root.dataset.theme === "dark" ? "light" : "dark");
     });
   }
-
-  document.querySelectorAll(".copy-button").forEach((button) => {
-    button.addEventListener("click", () => copyText(button));
-  });
 
   if (toTop) {
     toTop.addEventListener("click", () => {
@@ -156,7 +428,6 @@
   window.addEventListener("resize", updateProgress);
 
   setTheme(getSavedTheme());
-  setLanguage(getSavedLanguage());
-  initializeValueBars();
+  initOverallScatter();
   updateProgress();
 }());
