@@ -1,7 +1,9 @@
 (function () {
   const root = document.documentElement;
   const languageButtons = document.querySelectorAll("[data-lang]");
-  const i18nNodes = document.querySelectorAll("[data-i18n-en]");
+  const i18nNodes = document.querySelectorAll(
+    "[data-i18n-en], [data-i18n-zh], [data-i18n-html-en], [data-i18n-html-zh]",
+  );
   const themeToggle = document.getElementById("themeToggle");
   const themeLabel = document.getElementById("themeLabel");
   const progressBar = document.getElementById("progressBar");
@@ -11,11 +13,59 @@
     return localStorage.getItem("pibench-lang") || "en";
   }
 
+  function sanitizeHTML(html) {
+    const template = document.createElement("template");
+    const allowedTags = new Set(["A", "B", "BR", "CODE", "EM", "I", "SPAN", "STRONG", "SUB", "SUP"]);
+    const allowedAttributes = {
+      A: new Set(["href", "rel", "target", "title"]),
+      SPAN: new Set(["class"]),
+    };
+
+    template.innerHTML = html;
+
+    function clean(node) {
+      Array.from(node.children).forEach((child) => {
+        if (!allowedTags.has(child.tagName)) {
+          child.replaceWith(document.createTextNode(child.textContent || ""));
+          return;
+        }
+
+        Array.from(child.attributes).forEach((attr) => {
+          const allowed = allowedAttributes[child.tagName];
+          const name = attr.name.toLowerCase();
+          if (!allowed || !allowed.has(name) || name.startsWith("on")) {
+            child.removeAttribute(attr.name);
+            return;
+          }
+
+          if (name === "href") {
+            const value = attr.value.trim();
+            const safe = value.startsWith("#") || /^(https?:|mailto:)/i.test(value);
+            if (!safe) child.removeAttribute(attr.name);
+          }
+        });
+
+        if (child.tagName === "A" && child.getAttribute("target") === "_blank") {
+          child.setAttribute("rel", "noopener noreferrer");
+        }
+
+        clean(child);
+      });
+    }
+
+    clean(template.content);
+    return template.innerHTML;
+  }
+
   function setLanguage(lang) {
     const key = lang === "zh" ? "i18nZh" : "i18nEn";
+    const htmlKey = lang === "zh" ? "i18nHtmlZh" : "i18nHtmlEn";
     root.lang = lang === "zh" ? "zh-CN" : "en";
+    document.body.dataset.lang = lang;
     i18nNodes.forEach((node) => {
-      if (node.dataset[key]) {
+      if (node.dataset[htmlKey]) {
+        node.innerHTML = sanitizeHTML(node.dataset[htmlKey]);
+      } else if (node.dataset[key]) {
         node.textContent = node.dataset[key];
       }
     });
@@ -56,6 +106,14 @@
     if (toTop) {
       toTop.classList.toggle("visible", window.scrollY > 600);
     }
+  }
+
+  function initializeValueBars() {
+    document.querySelectorAll(".bar-segment[data-value], .score-fill[data-value]").forEach((node) => {
+      const value = Number.parseFloat(node.dataset.value || "0");
+      const width = Number.isFinite(value) ? Math.min(100, Math.max(0, value)) : 0;
+      node.style.width = `${width}%`;
+    });
   }
 
   function copyText(button) {
@@ -99,5 +157,6 @@
 
   setTheme(getSavedTheme());
   setLanguage(getSavedLanguage());
+  initializeValueBars();
   updateProgress();
 }());
