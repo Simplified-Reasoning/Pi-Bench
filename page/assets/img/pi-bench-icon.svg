@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="π-Bench icon">
+  <rect width="128" height="128" rx="24" fill="#f8fafc"/>
+  <rect x="8" y="8" width="112" height="112" rx="20" fill="#eef5ff" stroke="#2563eb" stroke-width="6"/>
+  <text x="64" y="84" text-anchor="middle" font-family="Georgia, Times New Roman, serif" font-size="82" font-weight="700" fill="#1d4ed8">π</text>
+  <circle cx="96" cy="92" r="7" fill="#8a5a20"/>
+</svg>

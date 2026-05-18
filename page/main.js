@@ -181,7 +181,10 @@
     const domainRows = item.domains.map(([name, proc, comp]) => `
       <div class="domain-score-row">
         <span>${name}</span>
-        <strong>${formatScore(proc)} / ${formatScore(comp)}</strong>
+        <div class="domain-score-values">
+          <span><b>Proc:</b> ${formatScore(proc)}</span>
+          <span><b>Comp:</b> ${formatScore(comp)}</span>
+        </div>
       </div>
     `).join("");
 
@@ -352,7 +355,7 @@
       renderDetails(item);
 
       const tooltipDomains = item.domains.map(([name, proc, comp]) => `
-        <span>${name}: ${formatScore(proc)} / ${formatScore(comp)}</span>
+        <span>${name}: Proc ${formatScore(proc)}; Comp ${formatScore(comp)}</span>
       `).join("");
       tooltip.innerHTML = `
         <strong>${item.model}</strong>
