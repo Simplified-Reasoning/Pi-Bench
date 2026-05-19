@@ -1,0 +1,18 @@
+model:
+  model: doubao-seed-2-0-pro-260215
+  base_url: https://api.example.com/v1
+  api_key: __SET_BY_CONFIG__
+user_agent:
+  model: gpt-5.4
+  base_url: https://api.example.com/v1
+  api_key: __SET_BY_CONFIG__
+judger:
+  model: gpt-5.4
+  base_url: https://api.example.com/v1
+  api_key: __SET_BY_CONFIG__
+tools:
+  brave_search_api_key: ''
+proxy:
+  http_proxy: null
+  https_proxy: null
+  no_proxy: null

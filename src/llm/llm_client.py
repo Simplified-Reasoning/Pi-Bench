@@ -71,6 +71,7 @@ class LLMClient:
         *,
         model: str,
         base_url: str,
+        api_key: str | None = None,
         temperature: float,
         max_retries: int = 16,
         backoff_base: float = 1.0,
@@ -81,9 +82,9 @@ class LLMClient:
         extra_kwargs: Dict[str, Any] | None = None,
         **payload_kwargs: Any,
     ):
-        self.api_key = os.getenv("OPENAI_API_KEY", "").strip()
+        self.api_key = str(api_key or os.getenv("OPENAI_API_KEY", "")).strip()
         if not self.api_key:
-            raise RuntimeError("OPENAI_API_KEY is required")
+            raise RuntimeError("LLM api_key is required")
         self.base_url = str(base_url).strip().rstrip("/")
         self.model = str(model).strip()
         self.default_temperature = float(temperature)

@@ -1,0 +1,63 @@
+# Copy this file to config/models/<model-id>.yaml and edit the values you need.
+# The filename stem is the model id used by pibench.
+
+model:
+  model: provider/model-name
+  base_url: https://api.example.com/v1
+  api_key: __SET_BY_CONFIG__
+  provider: custom
+  max_tokens: 16384
+  max_tool_iterations: 120
+  memory_window: 100
+  reasoning_effort: null
+  extra_headers: null
+
+user_agent:
+  model: gpt-5.4
+  base_url: https://api.example.com/v1
+  api_key: __SET_BY_CONFIG__
+  temperature: 0.0
+  request_timeout: 360.0
+  max_concurrency: 32
+  max_retries: 4
+
+judger:
+  model: gpt-5.4
+  base_url: https://api.example.com/v1
+  api_key: __SET_BY_CONFIG__
+  temperature: 0.0
+  request_timeout: 360.0
+  max_concurrency: 128
+  max_retries: 4
+  reasoning_effort: high
+
+tools:
+  brave_search_api_key: ""
+  web_search_max_results: 10
+  exec_timeout: 60
+  exec_path_append: ""
+  restrict_to_workspace: false
+
+proxy:
+  http_proxy: null
+  https_proxy: null
+  no_proxy: null
+
+nanobot:
+  trace_logs_dir: ~/.nanobot/trace_logs
+  workspace_dir: ~/.nanobot/workspace
+  copy_task_assets_to_workspace: true
+  gateway_host: 0.0.0.0
+  gateway_port: 18790
+  heartbeat_enabled: true
+  heartbeat_interval_seconds: 1800
+
+run:
+  output_dir: outputs
+  log_level: INFO
+  user_id: law_trainee
+  user_mode: llm
+  turn_timeout: 2400.0
+  task_ids: []
+  scoring: both
+  history_config_path: config/bench/evaluation/trace_history.yaml

@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any
 
 from ..utils import load_yaml_mapping, resolve_path
+from .model_config import build_bench_runtime_config, load_model_config, resolve_model_config_path
 
 EVALUATION_SCORING_CHOICES = ("checklist", "proactiveness", "both")
 REEVALUATION_SCORING_CHOICES = ("checklist", "both")
@@ -63,22 +64,24 @@ class RunConfig:
 def parse_llm_config(raw: Any, *, section_name: str) -> dict[str, Any]:
     if not isinstance(raw, dict):
         raise ValueError(f"{section_name} must be a mapping")
-    if "api_key" in raw:
-        raise ValueError(f"{section_name}.api_key is forbidden; use OPENAI_API_KEY env var")
 
     model = str(raw.get("model", "")).strip()
     base_url = str(raw.get("base_url", "")).strip()
+    api_key = str(raw.get("api_key", "")).strip()
     temperature = raw.get("temperature")
     if not model:
         raise ValueError(f"{section_name}.model is required")
     if not base_url:
         raise ValueError(f"{section_name}.base_url is required")
+    if not api_key:
+        raise ValueError(f"{section_name}.api_key is required")
     if temperature is None:
         raise ValueError(f"{section_name}.temperature is required")
 
     parsed: dict[str, Any] = {
         "model": model,
         "base_url": base_url,
+        "api_key": api_key,
         "temperature": float(temperature),
     }
     for key, value in raw.items():
@@ -253,7 +256,29 @@ def read_reevaluation_config(
 
 
 def build_run_config(args: argparse.Namespace) -> RunConfig:
-    cfg = load_yaml_mapping(args.config)
+    config_path = getattr(args, "config", None)
+    model_config_path = getattr(args, "model_config", None)
+    if config_path is not None:
+        cfg = load_yaml_mapping(config_path)
+    else:
+        model_id = str(getattr(args, "model_id", "") or "").strip()
+        if not model_id and model_config_path is None:
+            raise ValueError("--model-id or --model-config is required when --config is not provided")
+        if model_config_path is None:
+            model_config_path = resolve_model_config_path(model_id)
+        if not model_config_path.is_file():
+            raise ValueError(f"model config not found: {model_config_path}")
+        if not model_id:
+            model_id = model_config_path.stem
+        model_cfg = load_model_config(model_config_path, model_id=model_config_path.stem)
+        cfg = build_bench_runtime_config(
+            model_cfg,
+            model_id=model_id,
+            user_id=getattr(args, "user_id", None),
+            task_ids=getattr(args, "task_id", None),
+            output_dir=getattr(args, "output_dir", None),
+            history_config_path=getattr(args, "history_config_path", None),
+        )
     run_cfg = cfg.get("run") or {}
     if not isinstance(run_cfg, dict):
         raise ValueError("config.run must be a mapping")
