@@ -80,6 +80,7 @@ dist/
 build/
 target/
 .gradle/
+*.egg-info/
 
 # Generated benchmark outputs
 outputs/
