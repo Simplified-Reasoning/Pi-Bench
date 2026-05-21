@@ -11,6 +11,9 @@ class BaseChannel(ABC):
 
     def __init__(self, config: dict):
         self.config = config
+        self.reset_timeout = float(config.get("reset_timeout", 10.0))
+        if self.reset_timeout <= 0:
+            raise ValueError("reset_timeout must be > 0")
         self._queue: asyncio.Queue[str] = asyncio.Queue()
         self._prefetched_replies: deque[str] = deque()
         self._reset_response_policies = self.build_reset_response_policies()
@@ -85,7 +88,11 @@ class BaseChannel(ABC):
             policy.reset()
 
         # Reset only consumes one incoming response.
-        reply = await self._take_queue_reply(timeout=None)
+        try:
+            reply = await self._take_queue_reply(timeout=self.reset_timeout)
+        except asyncio.TimeoutError:
+            self.logger.warning("[reset] no acknowledgement received within {:.1f}s", self.reset_timeout)
+            return
         policy = self._match_reset_policy(reply)
         if policy is not None:
             self.logger.info(

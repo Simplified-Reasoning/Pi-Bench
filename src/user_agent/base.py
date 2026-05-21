@@ -109,6 +109,12 @@ class BaseUserAgent(ABC):
     def current_task_id(self) -> Optional[str]:
         return self.active_task_id
 
+    def start_next_task(self) -> tuple[str, str] | None:
+        task_id = self._pop_next_task_id()
+        if task_id is None:
+            return None
+        return task_id, self.initial_user_message(task_id)
+
     def initial_user_message(self, task_id: Optional[str]) -> str:
         if task_id is None:
             task_id = self._next_task_id()
@@ -239,13 +245,19 @@ class BaseUserAgent(ABC):
         return ", ".join(values)
 
     def _next_task_id(self) -> str:
+        task_id = self._pop_next_task_id()
+        if task_id is None:
+            raise KeyError("No remaining task_id in episode.task_order.")
+        return task_id
+
+    def _pop_next_task_id(self) -> str | None:
         order = self.episode.task_order
         while self._task_cursor < len(order):
             task_id = order[self._task_cursor]
             self._task_cursor += 1
             if task_id in self.tasks:
                 return task_id
-        raise KeyError("No remaining task_id in episode.task_order.")
+        return None
 
     def _set_cursor_after(self, task_id: str) -> None:
         try:

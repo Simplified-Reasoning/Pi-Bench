@@ -4,6 +4,7 @@ import argparse
 import datetime as dt
 import json
 import math
+import os
 import re
 import subprocess
 import sys
@@ -19,7 +20,8 @@ from rich.spinner import Spinner
 from rich.table import Table
 from rich.text import Text
 
-from .runtime.model_config import load_model_config, model_proxy_env
+from .runtime.model_config import load_model_config, model_proxy_env, referenced_config_env_vars
+from .utils import load_yaml_mapping
 
 
 IMAGE_NAME = "zzzhr97/pi-bench:latest"
@@ -339,7 +341,7 @@ def _build_header(*, image: str, users: list[str], models: list[str], run_count:
     details.add_row("models", f"{len(models)}: {', '.join(models)}")
     details.add_row("runs/model", str(run_count))
     details.add_row("output", str(output_root))
-    return Panel(details, title="pibench docker-run", title_align="left", border_style="cyan", box=box.ROUNDED)
+    return Panel(details, title="pibench", title_align="left", border_style="cyan", box=box.ROUNDED)
 
 
 def _inspect_finished_job(job: Job, start_code: int) -> tuple[int, str]:
@@ -404,17 +406,19 @@ def _docker_available() -> None:
         raise SystemExit("[pibench] docker command not found or unavailable") from exc
 
 
-def _ensure_image(image_name: str, *, console: Console | None = None) -> None:
-    inspected = _run(["docker", "image", "inspect", image_name], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+def _require_image(image_name: str) -> None:
+    inspected = _run(
+        ["docker", "image", "inspect", image_name],
+        check=False,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
     if inspected.returncode == 0:
         return
-    output = console or Console(highlight=False)
-    output.print(f"[yellow]image not found locally[/yellow] {image_name}")
-    output.print(f"[cyan]pulling image[/cyan] {image_name}")
-    _run(["docker", "pull", image_name])
-    verified = _run(["docker", "image", "inspect", image_name], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    if verified.returncode != 0:
-        raise SystemExit(f"[pibench] image unavailable after pull: {image_name}")
+    raise SystemExit(
+        f"[pibench] docker image not found locally: {image_name}\n"
+        "[pibench] run the Docker image setup step before launching experiments"
+    )
 
 
 def _validate_repo_paths(repo_root: Path) -> None:
@@ -495,23 +499,15 @@ def _container_model_config_path(repo_root: Path, host_path: Path) -> str:
     return f"{CONFIG_ROOT_CONTAINER}/{host_path.relative_to(repo_root / 'config')}"
 
 
-def _create_container(
+def _build_container_env_args(
     *,
     repo_root: Path,
-    output_root: Path,
-    image_name: str,
     job: Job,
     task_ids: list[str],
     enable_appworld: bool,
-    remove_existing_runtime: bool,
-) -> tuple[str, subprocess.Popen]:
-    if remove_existing_runtime and job.runtime_dir.exists():
-        import shutil
-
-        shutil.rmtree(job.runtime_dir)
-    job.service_logs_dir.mkdir(parents=True, exist_ok=True)
-
+) -> list[str]:
     model_cfg = load_model_config(job.model_config_host_path, model_id=job.model_id)
+    raw_model_cfg = load_yaml_mapping(job.model_config_host_path)
     env_args = [
         "-e",
         f"MODEL_ID={job.run_model_id}",
@@ -534,6 +530,26 @@ def _create_container(
         env_args.extend(["-e", f"BENCH_TASK_IDS={','.join(task_ids)}"])
     for key, value in model_proxy_env(model_cfg).items():
         env_args.extend(["-e", f"{key}={value}"])
+    for key in sorted(referenced_config_env_vars(raw_model_cfg)):
+        env_args.extend(["-e", f"{key}={os.getenv(key, '')}"])
+    return env_args
+
+
+def _create_container(
+    *,
+    repo_root: Path,
+    output_root: Path,
+    image_name: str,
+    job: Job,
+    task_ids: list[str],
+    enable_appworld: bool,
+    remove_existing_runtime: bool,
+) -> tuple[str, subprocess.Popen]:
+    if remove_existing_runtime and job.runtime_dir.exists():
+        import shutil
+
+        shutil.rmtree(job.runtime_dir)
+    job.service_logs_dir.mkdir(parents=True, exist_ok=True)
 
     create_cmd = [
         "docker",
@@ -542,7 +558,12 @@ def _create_container(
         job.container_name,
         "--entrypoint",
         ENTRYPOINT_CONTAINER_FILE,
-        *env_args,
+        *_build_container_env_args(
+            repo_root=repo_root,
+            job=job,
+            task_ids=task_ids,
+            enable_appworld=enable_appworld,
+        ),
         "-v",
         f"{job.service_logs_dir}:/root/.nanobot/logs",
         "-v",
@@ -568,7 +589,15 @@ def _create_container(
     )
     log_file = job.runtime_dir / "container.log"
     log_handle = log_file.open("w", encoding="utf-8")
-    proc = subprocess.Popen(["docker", "start", "-a", job.container_name], stdout=log_handle, stderr=subprocess.STDOUT, text=True)
+    try:
+        proc = subprocess.Popen(
+            ["docker", "start", "-a", job.container_name],
+            stdout=log_handle,
+            stderr=subprocess.STDOUT,
+            text=True,
+        )
+    finally:
+        log_handle.close()
     return cid, proc
 
 
@@ -588,7 +617,7 @@ def run_docker(args: argparse.Namespace) -> int:
     _validate_users(repo_root, users)
     for model_id in models:
         load_model_config(_model_config_path(repo_root, model_id), model_id=model_id)
-    _ensure_image(args.image, console=console)
+    _require_image(args.image)
 
     output_root.mkdir(parents=True, exist_ok=True)
     timestamp = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -670,8 +699,7 @@ def run_docker(args: argparse.Namespace) -> int:
     return overall_code
 
 
-def add_docker_run_parser(subparsers: argparse._SubParsersAction) -> None:
-    parser = subparsers.add_parser("docker-run", help="Run benchmark jobs in Docker containers.")
+def add_launcher_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--model-id", required=True, help="Comma-separated model ids from config/models/<model-id>.yaml.")
     parser.add_argument("--user-id", default="law_trainee", help="Comma-separated user ids.")
     parser.add_argument("--run", type=int, default=1, help="Number of repeated runs per model.")
@@ -685,9 +713,8 @@ def add_docker_run_parser(subparsers: argparse._SubParsersAction) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="pibench", description="Pi-Bench command line tools.")
-    subparsers = parser.add_subparsers(dest="command", required=True)
-    add_docker_run_parser(subparsers)
+    parser = argparse.ArgumentParser(prog="pibench", description="Run Pi-Bench jobs in Docker containers.")
+    add_launcher_args(parser)
     args = parser.parse_args(argv)
     return int(args.func(args))
 

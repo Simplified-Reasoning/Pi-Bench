@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 import asyncio
-import os
 import json
-import urllib.request
 import urllib.error
+import urllib.request
 from typing import List, Dict, Any
 from ..utils import get_logger
 
@@ -63,6 +62,10 @@ class LLMResponse:
         )
 
 
+class LLMResponseError(ValueError):
+    """Raised when the provider returns a syntactically invalid chat response."""
+
+
 class LLMClient:
     """Minimal OpenAI-compatible async client with retry/backoff."""
 
@@ -82,19 +85,29 @@ class LLMClient:
         extra_kwargs: Dict[str, Any] | None = None,
         **payload_kwargs: Any,
     ):
-        self.api_key = str(api_key or os.getenv("OPENAI_API_KEY", "")).strip()
+        self.api_key = str(api_key or "").strip()
         if not self.api_key:
             raise RuntimeError("LLM api_key is required")
         self.base_url = str(base_url).strip().rstrip("/")
+        if not self.base_url:
+            raise ValueError("base_url is required")
         self.model = str(model).strip()
+        if not self.model:
+            raise ValueError("model is required")
         self.default_temperature = float(temperature)
         self.max_retries = int(max_retries)
         if self.max_retries < 1:
             raise ValueError("max_retries must be >= 1")
-        self.backoff_base = backoff_base
-        self.backoff_factor = backoff_factor
-        self.retry_statuses = retry_statuses
+        self.backoff_base = float(backoff_base)
+        if self.backoff_base <= 0:
+            raise ValueError("backoff_base must be > 0")
+        self.backoff_factor = float(backoff_factor)
+        if self.backoff_factor < 1:
+            raise ValueError("backoff_factor must be >= 1")
+        self.retry_statuses = tuple(int(status) for status in retry_statuses)
         self.request_timeout = float(request_timeout)
+        if self.request_timeout <= 0:
+            raise ValueError("request_timeout must be > 0")
         self.max_concurrency = int(max_concurrency)
         if self.max_concurrency < 1:
             raise ValueError("max_concurrency must be >= 1")
@@ -142,26 +155,69 @@ class LLMClient:
             attempt += 1
             try:
                 data = await self._post_json_async(url, payload, headers)
-                content = data["choices"][0]["message"]["content"]
-                usage = data.get("usage") or {}
-                return LLMResponse(
-                    content=content,
-                    input_tokens=int(usage.get("prompt_tokens", 0)),
-                    output_tokens=int(usage.get("completion_tokens", 0)),
-                    total_tokens=int(usage.get("total_tokens", 0)),
-                )
-            except Exception as exc:
-                logger.warning(
-                    "LLM request failed: attempt={}/{} type={} url={} error={}",
-                    attempt,
-                    self.max_retries,
-                    type(exc).__name__,
-                    url,
-                    str(exc) or "(no detail)",
-                )
+                return self._parse_chat_response(data)
+            except LLMResponseError:
+                logger.exception("LLM response parsing failed: url={}", url)
+                raise
+            except urllib.error.HTTPError as exc:
+                if not self._should_retry_http_error(exc):
+                    raise
+                self._log_retry(attempt=attempt, url=url, exc=exc)
                 if attempt >= self.max_retries:
                     raise
-                await asyncio.sleep(_retry_delay_seconds(attempt))
+                await asyncio.sleep(self._retry_delay_seconds(attempt))
+            except Exception as exc:
+                self._log_retry(attempt=attempt, url=url, exc=exc)
+                if attempt >= self.max_retries:
+                    raise
+                await asyncio.sleep(self._retry_delay_seconds(attempt))
+
+    def _log_retry(self, *, attempt: int, url: str, exc: Exception) -> None:
+        logger.warning(
+            "LLM request failed: attempt={}/{} type={} url={} error={}",
+            attempt,
+            self.max_retries,
+            type(exc).__name__,
+            url,
+            str(exc) or "(no detail)",
+        )
+
+    def _should_retry_http_error(self, exc: urllib.error.HTTPError) -> bool:
+        return int(getattr(exc, "code", 0) or 0) in self.retry_statuses
+
+    def _retry_delay_seconds(self, attempt: int) -> float:
+        if attempt < 1:
+            raise ValueError("attempt must be >= 1")
+        configured = self.backoff_base * (self.backoff_factor ** (attempt - 1))
+        legacy_cap = _retry_delay_seconds(attempt)
+        return min(configured, legacy_cap)
+
+    def _parse_chat_response(self, data: Dict[str, Any]) -> LLMResponse:
+        if not isinstance(data, dict):
+            raise LLMResponseError("LLM response must be a JSON object")
+        choices = data.get("choices")
+        if not isinstance(choices, list) or not choices:
+            raise LLMResponseError("LLM response missing choices[0]")
+        first_choice = choices[0]
+        if not isinstance(first_choice, dict):
+            raise LLMResponseError("LLM response choices[0] must be an object")
+        message = first_choice.get("message")
+        if not isinstance(message, dict):
+            raise LLMResponseError("LLM response choices[0].message must be an object")
+        content = message.get("content")
+        if content is None:
+            raise LLMResponseError("LLM response choices[0].message.content is required")
+        if not isinstance(content, str):
+            raise LLMResponseError("LLM response choices[0].message.content must be a string")
+        usage = data.get("usage") or {}
+        if not isinstance(usage, dict):
+            raise LLMResponseError("LLM response usage must be an object when present")
+        return LLMResponse(
+            content=content,
+            input_tokens=int(usage.get("prompt_tokens", 0)),
+            output_tokens=int(usage.get("completion_tokens", 0)),
+            total_tokens=int(usage.get("total_tokens", 0)),
+        )
 
     async def _post_json_async(
         self,
@@ -178,7 +234,13 @@ class LLMClient:
         try:
             with urllib.request.urlopen(req, timeout=self.request_timeout) as resp:
                 raw = resp.read()
-            return json.loads(raw.decode("utf-8"))
+            try:
+                data = json.loads(raw.decode("utf-8"))
+            except json.JSONDecodeError as exc:
+                raise LLMResponseError("LLM response body is not valid JSON") from exc
+            if not isinstance(data, dict):
+                raise LLMResponseError("LLM response body must be a JSON object")
+            return data
         except urllib.error.HTTPError as exc:
             detail = ""
             try:

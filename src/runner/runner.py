@@ -133,12 +133,11 @@ class BenchmarkRunner:
         )
 
     def _load_next_task(self) -> PendingTask | None:
-        try:
-            initial_message = self.user_agent.initial_user_message(task_id=None)
-        except KeyError:
+        started = self.user_agent.start_next_task()
+        if started is None:
             return None
 
-        task_id = self.user_agent.current_task_id or "unknown_task"
+        task_id, initial_message = started
         return PendingTask(task_id=task_id, initial_message=initial_message)
 
     async def _finish_task(self, result: TaskRunResult) -> None:

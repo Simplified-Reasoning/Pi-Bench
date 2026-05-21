@@ -1,14 +1,13 @@
 from __future__ import annotations
 
 import argparse
-import json
 import os
 from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from typing import Any
 
 from ..utils import load_yaml_mapping, resolve_path
-from .model_config import build_bench_runtime_config, load_model_config, resolve_model_config_path
+from .model_config import build_bench_runtime_config, load_model_config, normalize_llm_config, resolve_model_config_path
 
 EVALUATION_SCORING_CHOICES = ("checklist", "proactiveness", "both")
 REEVALUATION_SCORING_CHOICES = ("checklist", "both")
@@ -64,47 +63,7 @@ class RunConfig:
 def parse_llm_config(raw: Any, *, section_name: str) -> dict[str, Any]:
     if not isinstance(raw, dict):
         raise ValueError(f"{section_name} must be a mapping")
-
-    model = str(raw.get("model", "")).strip()
-    base_url = str(raw.get("base_url", "")).strip()
-    api_key = str(raw.get("api_key", "")).strip()
-    temperature = raw.get("temperature")
-    if not model:
-        raise ValueError(f"{section_name}.model is required")
-    if not base_url:
-        raise ValueError(f"{section_name}.base_url is required")
-    if not api_key:
-        raise ValueError(f"{section_name}.api_key is required")
-    if temperature is None:
-        raise ValueError(f"{section_name}.temperature is required")
-
-    parsed: dict[str, Any] = {
-        "model": model,
-        "base_url": base_url,
-        "api_key": api_key,
-        "temperature": float(temperature),
-    }
-    for key, value in raw.items():
-        if key in {"model", "base_url", "temperature", "api_key"}:
-            continue
-        if key == "max_concurrency":
-            parsed_value = int(value)
-            if parsed_value < 1:
-                raise ValueError(f"{section_name}.max_concurrency must be >= 1")
-            parsed[key] = parsed_value
-            continue
-        if key == "extra_kwargs":
-            if isinstance(value, str):
-                try:
-                    value = json.loads(value)
-                except json.JSONDecodeError as exc:
-                    raise ValueError(f"{section_name}.extra_kwargs must be valid JSON object string") from exc
-            if not isinstance(value, dict):
-                raise ValueError(f"{section_name}.extra_kwargs must be a mapping or JSON object string")
-            parsed[key] = value
-            continue
-        parsed[key] = value
-    return parsed
+    return normalize_llm_config(raw, section_name=section_name, default_temperature=None)
 
 
 def read_nanobot_config(cfg: dict[str, Any]) -> NanobotConfig:
@@ -270,7 +229,7 @@ def build_run_config(args: argparse.Namespace) -> RunConfig:
             raise ValueError(f"model config not found: {model_config_path}")
         if not model_id:
             model_id = model_config_path.stem
-        model_cfg = load_model_config(model_config_path, model_id=model_config_path.stem)
+        model_cfg = load_model_config(model_config_path, model_id=model_config_path.stem, resolve_env=True)
         cfg = build_bench_runtime_config(
             model_cfg,
             model_id=model_id,
