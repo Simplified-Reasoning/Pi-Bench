@@ -57,14 +57,14 @@ with subscripts denoting standard deviation.
 
 ## 🧰 Setup
 
-Create and activate a Python environment:
+1. Create and activate a Python environment:
 
 ```bash
 conda create -n pi-bench python=3.11
 conda activate pi-bench
 ```
 
-Install local dependencies:
+2. Install local dependencies and prepare AppWorld data:
 
 ```bash
 pip install -e .
@@ -72,42 +72,69 @@ pip install -e third_party/nanobot
 bash scripts/setup_appworld.sh
 ```
 
-Before running jobs, edit the target model file under `config/models/`.
-The filename is the model id passed to `pibench`. Each YAML config can set the
-tested model, user-agent LLM, judger LLM, Brave Search key, and optional proxy
-values. See `config/models/example.full.yaml` for the complete schema.
+3. Create a local environment file and fill in the provider credentials:
+
+```bash
+cp env.example.sh env.sh
+```
+
+The template leaves all values empty. Edit `env.sh` with your local credentials,
+then source it in every shell where you run the benchmark:
+
+```bash
+source env.sh
+```
+
+`env.sh` is ignored by git. The default model configs read credentials from
+`MODEL_BASE_URL`, `MODEL_API_KEY`, `USER_BASE_URL`, `USER_API_KEY`,
+`JUDGER_BASE_URL`, `JUDGER_API_KEY`, and `BRAVE_SEARCH_API_KEY`. These values
+fill the placeholders in `config/models/*.yaml`, such as
+`config/models/example.full.yaml`.
+
+4. Pull the benchmark Docker image:
+
+```bash
+docker pull zzzhr97/pi-bench:latest
+```
+
+5. Optionally edit the target model file under `config/models/`.
+
+Most users only need to configure `env.sh`. Edit `config/models/<model-id>.yaml`
+only when you need to change model names, endpoints, proxy settings, timeouts,
+or other per-model overrides. The YAML filename stem is the model id passed to
+`pibench`; see `config/models/example.full.yaml` for the complete schema.
 
 ## ▶️ Run
 
 Run from the repository root:
 
 ```bash
-pibench docker-run --model-id deepseek-v3.2
+pibench --model-id deepseek-v3.2
 ```
 
 Run multiple models:
 
 ```bash
-pibench docker-run --model-id deepseek-v3.2,MiniMax-M2.5
+pibench --model-id deepseek-v3.2,MiniMax-M2.5
 ```
 
 Run a specific user:
 
 ```bash
-pibench docker-run --user-id law_trainee --model-id deepseek-v3.2
+pibench --user-id law_trainee --model-id deepseek-v3.2
 ```
 
 Run multiple users and models in one command:
 
 ```bash
-pibench docker-run --user-id researcher,law_trainee --model-id deepseek-v3.2,MiniMax-M2.5
+pibench --user-id researcher,law_trainee --model-id deepseek-v3.2,MiniMax-M2.5
 ```
 
 Repeated runs can be requested with `--run`. The launcher writes each repeated
 run to a distinct output directory with a `__runNN` suffix:
 
 ```bash
-pibench docker-run --user-id law_trainee --model-id deepseek-v3.2 --run 3
+pibench --user-id law_trainee --model-id deepseek-v3.2 --run 3
 ```
 
 ## 📦 Outputs

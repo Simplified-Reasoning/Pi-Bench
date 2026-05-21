@@ -3,8 +3,8 @@
 
 model:
   model: provider/model-name
-  base_url: https://api.example.com/v1
-  api_key: __SET_BY_CONFIG__
+  base_url: "${MODEL_BASE_URL}"
+  api_key: "${MODEL_API_KEY}"
   provider: custom
   max_tokens: 16384
   max_tool_iterations: 120
@@ -14,8 +14,8 @@ model:
 
 user_agent:
   model: gpt-5.4
-  base_url: https://api.example.com/v1
-  api_key: __SET_BY_CONFIG__
+  base_url: "${USER_BASE_URL}"
+  api_key: "${USER_API_KEY}"
   temperature: 0.0
   request_timeout: 360.0
   max_concurrency: 32
@@ -23,8 +23,8 @@ user_agent:
 
 judger:
   model: gpt-5.4
-  base_url: https://api.example.com/v1
-  api_key: __SET_BY_CONFIG__
+  base_url: "${JUDGER_BASE_URL}"
+  api_key: "${JUDGER_API_KEY}"
   temperature: 0.0
   request_timeout: 360.0
   max_concurrency: 128
@@ -32,7 +32,7 @@ judger:
   reasoning_effort: high
 
 tools:
-  brave_search_api_key: ""
+  brave_search_api_key: "${BRAVE_SEARCH_API_KEY}"
   web_search_max_results: 10
   exec_timeout: 60
   exec_path_append: ""

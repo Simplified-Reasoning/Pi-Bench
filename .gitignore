@@ -66,6 +66,7 @@ yarn-error.log*
 .env
 .env.*
 !.env.example
+env.sh
 .venv/
 env/
 venv/

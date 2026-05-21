@@ -183,11 +183,9 @@ def _display_path(path: Path) -> str:
 
 def _build_runs_table(runs: list[RunningJob]) -> Table:
     table = Table(
-        title="Pi-Bench Docker Runs",
         box=box.SIMPLE,
         expand=True,
         show_lines=False,
-        title_style="bold cyan",
     )
     table.add_column("Run", style="cyan", no_wrap=True)
     table.add_column("Status", no_wrap=True)
@@ -203,7 +201,7 @@ def _build_runs_table(runs: list[RunningJob]) -> Table:
         run_label.append(run.job.run_model_id, style="cyan")
         run_label.append(f"\n-> {run.job.user_id}", style="dim cyan")
         output = Text()
-        output.append(f"runtime: {_display_path(run.job.runtime_dir)}\n")
+        output.append(f"service-logs: {_display_path(run.job.service_logs_dir)}/\n")
         output.append(f"logs: {bench_log_path.name}, {gateway_log_path.name}")
         table.add_row(
             run_label,
@@ -652,7 +650,7 @@ def run_docker(args: argparse.Namespace) -> int:
             running.append(RunningJob(job=job, cid=cid, proc=proc))
 
         if running:
-            with Live(_build_runs_table(running), console=console, refresh_per_second=4, transient=False) as live:
+            with Live(_build_runs_table(running), console=console, auto_refresh=False, transient=False) as live:
                 while True:
                     all_done = True
                     for run in running:
@@ -665,7 +663,7 @@ def run_docker(args: argparse.Namespace) -> int:
                         run.exit_code, run.inspect_summary = _inspect_finished_job(run.job, poll_code)
                         if run.exit_code != 0:
                             overall_code = 1
-                    live.update(_build_runs_table(running))
+                    live.update(_build_runs_table(running), refresh=True)
                     if all_done:
                         break
                     time.sleep(1.0)

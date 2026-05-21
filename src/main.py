@@ -107,7 +107,7 @@ def _prepare_runtime(argv: list[str]) -> int:
 def cli_main(argv: list[str] | None = None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
     invoked_as_pibench = Path(sys.argv[0]).name == "pibench"
-    if invoked_as_pibench or (argv and argv[0] == "docker-run"):
+    if invoked_as_pibench:
         from .docker_launcher import main as docker_main
 
         return docker_main(argv)

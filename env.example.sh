@@ -1,0 +1,7 @@
+export MODEL_BASE_URL=""
+export MODEL_API_KEY=""
+export USER_BASE_URL=""
+export USER_API_KEY=""
+export JUDGER_BASE_URL=""
+export JUDGER_API_KEY=""
+export BRAVE_SEARCH_API_KEY=""
