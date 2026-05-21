@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./image2.png" alt="Pi-Bench Banner" width="100%" />
+  <img src="./assets/image2.png" alt="Pi-Bench Banner" width="100%" />
 </p>
 
 <h1 align="center">Evaluating Proactive Personal Assistant Agents in Long-Horizon Workflow</h1>
