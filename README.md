@@ -1,8 +1,8 @@
+<h1 align="center">π-Bench: Evaluating Proactive Personal Assistant Agents in Long-Horizon Workflow</h1>
+
 <p align="center">
   <img src="./assets/pi-bench-overview.png" alt="Pi-Bench Overview" width="100%" />
 </p>
-
-<h1 align="center">Evaluating Proactive Personal Assistant Agents in Long-Horizon Workflow</h1>
 
 <p align="center">
   <a href="https://arxiv.org/abs/2605.14678">
