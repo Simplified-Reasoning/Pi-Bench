@@ -1,0 +1,18 @@
+model:
+  model: claude-opus-4-7
+  base_url: "${MODEL_BASE_URL}"
+  api_key: "${MODEL_API_KEY}"
+user_agent:
+  model: gpt-5.4
+  base_url: "${USER_BASE_URL}"
+  api_key: "${USER_API_KEY}"
+judger:
+  model: gpt-5.4
+  base_url: "${JUDGER_BASE_URL}"
+  api_key: "${JUDGER_API_KEY}"
+tools:
+  brave_search_api_key: "${BRAVE_SEARCH_API_KEY}"
+proxy:
+  http_proxy: null
+  https_proxy: null
+  no_proxy: null

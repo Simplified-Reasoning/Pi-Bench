@@ -106,36 +106,23 @@ or other per-model overrides. The YAML filename stem is the model id passed to
 
 ## ▶️ Run
 
-Run from the repository root:
+Run from the repository root. For benchmark reporting, use three repeated trials
+as the default run pattern:
 
 ```bash
-pibench --model-id deepseek-v3.2
+pibench --model-id deepseek-v3.2 --run 3
 ```
 
-Run multiple models:
+Each repeat is written to a separate output directory with a `__runNN` suffix.
 
-```bash
-pibench --model-id deepseek-v3.2,MiniMax-M2.5
-```
+Additional examples:
 
-Run a specific user:
-
-```bash
-pibench --user-id law_trainee --model-id deepseek-v3.2
-```
-
-Run multiple users and models in one command:
-
-```bash
-pibench --user-id researcher,law_trainee --model-id deepseek-v3.2,MiniMax-M2.5
-```
-
-Repeated runs can be requested with `--run`. The launcher writes each repeated
-run to a distinct output directory with a `__runNN` suffix:
-
-```bash
-pibench --user-id law_trainee --model-id deepseek-v3.2 --run 3
-```
+| Goal | Command |
+| --- | --- |
+| Single trial | `pibench --model-id deepseek-v3.2` |
+| Specific user | `pibench --user-id law_trainee --model-id deepseek-v3.2` |
+| Multiple models | `pibench --model-id deepseek-v3.2,MiniMax-M2.5` |
+| Multiple users and models | `pibench --user-id researcher,law_trainee --model-id deepseek-v3.2,MiniMax-M2.5` |
 
 ## 📦 Outputs
 
