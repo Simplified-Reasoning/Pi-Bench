@@ -171,7 +171,7 @@ outputs/<model-id>/<user-id>/run/<timestamp>-runtime/
 <a id="acknowledgement"></a>
 ## 🙏 Acknowledgement
 
-Pi-Bench is built on top of AppWorld and NanoBot. We thank the maintainers and contributors of these open ecosystems.
+Pi-Bench is built on top of AppWorld and NanoBot. We thank the contributors of these open-source project.
 
 <a id="citation"></a>
 ## 📚 Citation
