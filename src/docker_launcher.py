@@ -6,6 +6,7 @@ import json
 import math
 import os
 import re
+import statistics
 import subprocess
 import sys
 import time
@@ -69,6 +70,14 @@ class RunningJob:
 class ScorePair:
     comp: float | None
     proc: float | None
+
+
+@dataclass(frozen=True)
+class ScoreSummary:
+    comp: float | None
+    proc: float | None
+    comp_std: float | None = None
+    proc_std: float | None = None
 
 
 def _repo_root() -> Path:
@@ -259,7 +268,7 @@ def _read_overall_score_pair(job: Job) -> ScorePair | None:
     )
 
 
-def _mean_score_pair(pairs: list[ScorePair | None]) -> ScorePair | None:
+def _score_summary(pairs: list[ScorePair | None], *, include_std: bool) -> ScoreSummary | None:
     present = [pair for pair in pairs if pair is not None]
     if not present:
         return None
@@ -270,7 +279,13 @@ def _mean_score_pair(pairs: list[ScorePair | None]) -> ScorePair | None:
     proc = sum(proc_values) / len(proc_values) if proc_values else None
     if comp is None and proc is None:
         return None
-    return ScorePair(comp=comp, proc=proc)
+
+    return ScoreSummary(
+        comp=comp,
+        proc=proc,
+        comp_std=statistics.stdev(comp_values) if include_std and len(comp_values) > 1 else None,
+        proc_std=statistics.stdev(proc_values) if include_std and len(proc_values) > 1 else None,
+    )
 
 
 def _format_score(value: float | None) -> str:
@@ -279,26 +294,32 @@ def _format_score(value: float | None) -> str:
     return f"{value * 100:.2f}"
 
 
-def _score_pair_text(pair: ScorePair | None) -> Text:
-    if pair is None:
+def _format_score_with_std(value: float | None, std: float | None) -> str:
+    score = _format_score(value)
+    if value is None or std is None:
+        return score
+    return f"{score} +/- {_format_score(std)}"
+
+
+def _score_summary_text(summary: ScoreSummary | None) -> Text:
+    if summary is None:
         return Text("comp none\nproc none", style="dim")
 
-    style = "green" if (pair.comp or 0.0) >= 1.0 and (pair.proc or 0.0) >= 1.0 else "yellow"
+    style = "green" if (summary.comp or 0.0) >= 1.0 and (summary.proc or 0.0) >= 1.0 else "yellow"
     text = Text(style=style)
-    text.append(f"comp {_format_score(pair.comp)}\n")
-    text.append(f"proc {_format_score(pair.proc)}")
+    text.append(f"comp {_format_score_with_std(summary.comp, summary.comp_std)}\n")
+    text.append(f"proc {_format_score_with_std(summary.proc, summary.proc_std)}")
     return text
 
 
-def _aggregate_result_cell(runs: list[RunningJob]) -> tuple[Text, ScorePair | None]:
-    pair = _mean_score_pair([_read_overall_score_pair(run.job) for run in runs])
-    return _score_pair_text(pair), pair
+def _aggregate_result_cell(pairs: list[ScorePair | None], *, include_std: bool) -> Text:
+    return _score_summary_text(_score_summary(pairs, include_std=include_std))
 
 
 def _build_results_table(runs: list[RunningJob], users: list[str]) -> Table:
     table = Table(
         title="Model Results",
-        caption="comp/proc are overall checklist and proactiveness scores from eval result JSON",
+        caption="comp/proc are overall checklist and proactiveness scores; repeated runs show mean +/- std",
         box=box.SIMPLE,
         expand=True,
         title_style="bold cyan",
@@ -317,15 +338,16 @@ def _build_results_table(runs: list[RunningJob], users: list[str]) -> Table:
         row_by_user = runs_by_model[model_id]
         cells: list[Text] = []
         score_pairs: list[ScorePair | None] = []
+        repeated_runs = any(len(row_by_user.get(user_id, [])) > 1 for user_id in users)
         for user_id in users:
             user_runs = row_by_user.get(user_id)
             if not user_runs:
                 cells.append(Text("-", style="dim"))
                 continue
-            cell, pair = _aggregate_result_cell(user_runs)
-            cells.append(cell)
-            score_pairs.append(pair)
-        table.add_row(model_id, _score_pair_text(_mean_score_pair(score_pairs)), *cells)
+            user_score_pairs = [_read_overall_score_pair(run.job) for run in user_runs]
+            cells.append(_aggregate_result_cell(user_score_pairs, include_std=len(user_runs) > 1))
+            score_pairs.extend(user_score_pairs)
+        table.add_row(model_id, _score_summary_text(_score_summary(score_pairs, include_std=repeated_runs)), *cells)
 
     return table
 
