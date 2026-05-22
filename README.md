@@ -1,20 +1,46 @@
 <p align="center">
-  <img src="./assets/image2.png" alt="Pi-Bench Banner" width="100%" />
+  <img src="./assets/pi-bench-overview.png" alt="Pi-Bench Overview" width="100%" />
 </p>
 
 <h1 align="center">Evaluating Proactive Personal Assistant Agents in Long-Horizon Workflow</h1>
 
 <p align="center">
   <a href="https://arxiv.org/abs/2605.14678">
-    <img alt="arXiv" src="https://img.shields.io/badge/arXiv-2605.14678-b31b1b?logo=arxiv&logoColor=white" />
+    <img alt="arXiv" src="https://img.shields.io/badge/arXiv-2605.14678-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white" />
   </a>
   <a href="https://simplified-reasoning.github.io/Pi-Bench/">
-    <img alt="Project Page" src="https://img.shields.io/badge/Project-Page-2f80ed?logo=githubpages&logoColor=white" />
+    <img alt="Project Page" src="https://img.shields.io/badge/PROJECT_PAGE-3B82F6?style=for-the-badge&logo=googlechrome&logoColor=white" />
   </a>
+  <a href="https://github.com/Simplified-Reasoning/Pi-Bench">
+    <img alt="GitHub" src="https://img.shields.io/badge/GITHUB-181717?style=for-the-badge&logo=github&logoColor=white" />
+  </a>
+  <a href="https://huggingface.co/papers/2605.14678">
+    <img alt="HF Daily Paper" src="https://img.shields.io/badge/HF--DAILY--PAPER-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="#news">📢 News</a> •
+  <a href="#introduction">🧭 Introduction</a> •
+  <a href="#leaderboard">🏆 Leaderboard</a> •
+  <a href="#setup">🚀 Getting Started</a>
+</p>
+<p align="center">
+  <a href="#run">🛠️ Run</a> •
+  <a href="#outputs">📦 Outputs</a> •
+  <a href="#acknowledgement">🙏 Acknowledgement</a> •
+  <a href="#citation">📚 Citation</a>
 </p>
 
 ---
 
+<a id="news"></a>
+## 📢 News
+
+- [May 2026] `π-BENCH` is available on arXiv: [2605.14678](https://arxiv.org/abs/2605.14678).
+- [May 2026] Project page is online: https://simplified-reasoning.github.io/Pi-Bench/
+
+<a id="introduction"></a>
 ## 🧭 Introduction
 
 `π-BENCH` is a benchmark for **proactive personal assistant agents** in
@@ -38,6 +64,7 @@ artifact-centric workflows** with **hidden intents**, **inter-task
 dependencies**, and **cross-session continuity**, enabling clearer separation
 between reactive task completion and proactive assistance quality.
 
+<a id="leaderboard"></a>
 ## 🏆 Leaderboard
 
 Overall results for `Proc / Comp` (%). Results are averaged over three runs,
@@ -55,6 +82,7 @@ with subscripts denoting standard deviation.
 | GLM-5.1 | 58.4<sub>0.8</sub> | 63.6<sub>2.9</sub> | 41.8&nbsp;/&nbsp;61.6 | 62.6&nbsp;/&nbsp;69.1 | 75.2&nbsp;/&nbsp;70.3 | 45.5&nbsp;/&nbsp;57.3 | 66.7&nbsp;/&nbsp;59.8 |
 | Qwen3.6&nbsp;Plus | 64.0<sub>1.1</sub> | 64.1<sub>0.6</sub> | 40.1&nbsp;/&nbsp;70.0 | 77.5&nbsp;/&nbsp;66.6 | 79.7&nbsp;/&nbsp;70.2 | 45.7&nbsp;/&nbsp;60.2 | 77.1&nbsp;/&nbsp;53.6 |
 
+<a id="setup"></a>
 ## 🧰 Setup
 
 1. Create and activate a Python environment:
@@ -104,6 +132,7 @@ only when you need to change model names, endpoints, proxy settings, timeouts,
 or other per-model overrides. The YAML filename stem is the model id passed to
 `pibench`; see `config/models/example.full.yaml` for the complete schema.
 
+<a id="run"></a>
 ## ▶️ Run
 
 Run from the repository root. For benchmark reporting, use three repeated trials
@@ -124,6 +153,7 @@ Additional examples:
 | Multiple models | `pibench --model-id deepseek-v3.2,MiniMax-M2.5` |
 | Multiple users and models | `pibench --user-id researcher,law_trainee --model-id deepseek-v3.2,MiniMax-M2.5` |
 
+<a id="outputs"></a>
 ## 📦 Outputs
 
 Results and logs are written under:
@@ -136,4 +166,24 @@ Runtime logs for each container run are under:
 
 ```text
 outputs/<model-id>/<user-id>/run/<timestamp>-runtime/
+```
+
+<a id="acknowledgement"></a>
+## 🙏 Acknowledgement
+
+Pi-Bench is built on top of AppWorld and NanoBot. We thank the maintainers and contributors of these open ecosystems.
+
+<a id="citation"></a>
+## 📚 Citation
+
+```bibtex
+@misc{zhang2026pibenchevaluatingproactivepersonal,
+  title={$\pi$-Bench: Evaluating Proactive Personal Assistant Agents in Long-Horizon Workflows},
+  author={Haoran Zhang and Luxin Xu and Zhilin Wang and Runquan Gui and Shunkai Zhang and Haodi Lei and Zihao He and Bingsu He and Chicheng Qin and Tong Zhu and Xiaoye Qu and Yang Yang and Yu Cheng and Yafu Li},
+  year={2026},
+  eprint={2605.14678},
+  archivePrefix={arXiv},
+  primaryClass={cs.AI},
+  url={https://arxiv.org/abs/2605.14678}
+}
 ```
