@@ -14,6 +14,9 @@
   <a href="https://github.com/Simplified-Reasoning/Pi-Bench">
     <img alt="GitHub" src="https://img.shields.io/badge/GITHUB-181717?style=for-the-badge&logo=github&logoColor=white" />
   </a>
+  <a href="https://huggingface.co/datasets/zzzhr97/Pi-Bench">
+    <img alt="Dataset" src="https://img.shields.io/badge/DATASET-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" />
+  </a>
   <a href="https://huggingface.co/papers/2605.14678">
     <img alt="HF Daily Paper" src="https://img.shields.io/badge/HF--DAILY--PAPER-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" />
   </a>
