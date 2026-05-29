@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import asyncio
+import json
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any
 
 import httpx
@@ -15,6 +18,7 @@ from nanobot.providers.base import LLMProvider, LLMResponse, ToolCallRequest
 _BEDROCK_INT_MIN = -(2**31)
 _BEDROCK_INT_MAX = 2**31 - 1
 _MAX_ATTEMPTS = 16
+_PARSE_FAILURE_LOG_DIR = Path.home() / ".nanobot" / "logs" / "custom_provider"
 
 
 def _sanitize_tool_schema_for_bedrock(obj: Any) -> Any:
@@ -206,6 +210,81 @@ class CustomProvider(LLMProvider):
         )
         return any(marker in text for marker in transient_markers)
 
+    @staticmethod
+    def _response_debug_payload(response: Any) -> Any:
+        if hasattr(response, "model_dump"):
+            try:
+                return response.model_dump(mode="json")
+            except TypeError:
+                return response.model_dump()
+
+        if isinstance(response, dict):
+            return response
+
+        payload: dict[str, Any] = {
+            "type": f"{type(response).__module__}.{type(response).__name__}"
+        }
+        for key in ("id", "model", "object", "created", "choices", "usage", "error", "router_detail"):
+            if hasattr(response, key):
+                payload[key] = getattr(response, key)
+        if len(payload) > 1:
+            return payload
+        return repr(response)
+
+    @classmethod
+    def _response_debug_preview(cls, response: Any, max_chars: int = 4000) -> str:
+        try:
+            text = json.dumps(
+                cls._response_debug_payload(response),
+                ensure_ascii=False,
+                default=str,
+            )
+        except Exception:
+            text = repr(response)
+        if len(text) <= max_chars:
+            return text
+        return text[:max_chars] + "...[truncated]"
+
+    def _save_parse_failure_payload(
+        self,
+        response: Any,
+        error: Exception,
+        attempt: int,
+    ) -> Path | None:
+        payload = {
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "attempt": attempt,
+            "model": self.default_model,
+            "api_base": self.api_base,
+            "error": repr(error),
+            "response": self._response_debug_payload(response),
+        }
+        try:
+            _PARSE_FAILURE_LOG_DIR.mkdir(parents=True, exist_ok=True)
+            ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S_%f")
+            path = _PARSE_FAILURE_LOG_DIR / f"parse_failure_{ts}_attempt_{attempt}.json"
+            path.write_text(
+                json.dumps(payload, ensure_ascii=False, indent=2, default=str),
+                encoding="utf-8",
+            )
+            return path
+        except Exception as save_error:
+            logger.warning("Failed to save custom provider parse payload: {}", repr(save_error))
+            return None
+
+    @staticmethod
+    def _first_choice(response: Any) -> Any:
+        choices = response.get("choices") if isinstance(response, dict) else getattr(response, "choices", None)
+        if choices is None:
+            raise ValueError("Custom provider returned invalid response: choices is None")
+        if not isinstance(choices, list):
+            raise ValueError(
+                f"Custom provider returned invalid response: choices must be a list, got {type(choices).__name__}"
+            )
+        if not choices:
+            raise ValueError("Custom provider returned invalid response: choices is empty")
+        return choices[0]
+
     async def _chat_with_retry(self, kwargs: dict[str, Any]) -> LLMResponse:
         for attempt in range(1, self._max_attempts + 1):
             try:
@@ -229,14 +308,26 @@ class CustomProvider(LLMProvider):
             try:
                 return self._parse(response)
             except Exception as error:
+                payload_path = self._save_parse_failure_payload(response, error, attempt)
+                payload_preview = self._response_debug_preview(response)
                 if attempt >= self._max_attempts:
+                    logger.error(
+                        "Custom provider response parse failed (attempt {}/{}): {}. Debug payload saved to {}. Response preview: {}",
+                        attempt,
+                        self._max_attempts,
+                        repr(error),
+                        payload_path or "[save failed]",
+                        payload_preview,
+                    )
                     raise
                 delay_s = self._retry_delay_seconds(attempt)
                 logger.warning(
-                    "Custom provider response parse failed (attempt {}/{}): {}. Retrying in {}s",
+                    "Custom provider response parse failed (attempt {}/{}): {}. Debug payload saved to {}. Response preview: {}. Retrying in {}s",
                     attempt,
                     self._max_attempts,
                     repr(error),
+                    payload_path or "[save failed]",
+                    payload_preview,
                     delay_s,
                 )
                 await asyncio.sleep(delay_s)
@@ -290,7 +381,7 @@ class CustomProvider(LLMProvider):
             return LLMResponse(content=f"Error: {e}", finish_reason="error")
 
     def _parse(self, response: Any) -> LLMResponse:
-        choice = response.choices[0]
+        choice = self._first_choice(response)
         msg = choice.message
         tool_calls = [
             ToolCallRequest(id=tc.id,

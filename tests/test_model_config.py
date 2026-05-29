@@ -72,7 +72,10 @@ def test_write_runtime_files_resolves_env_only_at_runtime(tmp_path: Path, monkey
     for key, value in env_values.items():
         monkeypatch.setenv(key, value)
 
-    config_path = _write_yaml(tmp_path / "demo.yaml", {"model": {"model": "provider/demo"}})
+    config_path = _write_yaml(
+        tmp_path / "demo.yaml",
+        {"model": {"model": "provider/demo", "temperature": 1.0}},
+    )
     bench_path = tmp_path / "runtime" / "bench.yaml"
     nanobot_path = tmp_path / "runtime" / "nanobot.json"
 
@@ -98,4 +101,5 @@ def test_write_runtime_files_resolves_env_only_at_runtime(tmp_path: Path, monkey
     assert bench_cfg["run"]["interaction"]["llm"]["base_url"] == "https://user.example/v1"
     assert bench_cfg["run"]["evaluation"]["llm"]["api_key"] == "judge-key"
     assert nanobot_cfg["providers"]["custom"]["apiBase"] == "https://model.example/v1"
+    assert nanobot_cfg["agents"]["defaults"]["temperature"] == 1.0
     assert nanobot_cfg["tools"]["web"]["search"]["apiKey"] == "brave-key"
