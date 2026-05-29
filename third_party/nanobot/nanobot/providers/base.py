@@ -29,6 +29,24 @@ class LLMResponse:
         return len(self.tool_calls) > 0
 
 
+@dataclass(frozen=True)
+class LLMGenerationConfig:
+    """Generation options shared by all agent-side LLM calls."""
+
+    temperature: float = 0.1
+    max_tokens: int = 4096
+    reasoning_effort: str | None = None
+
+    def as_chat_kwargs(self) -> dict[str, Any]:
+        kwargs: dict[str, Any] = {
+            "temperature": self.temperature,
+            "max_tokens": self.max_tokens,
+        }
+        if self.reasoning_effort:
+            kwargs["reasoning_effort"] = self.reasoning_effort
+        return kwargs
+
+
 class LLMProvider(ABC):
     """
     Abstract base class for LLM providers.

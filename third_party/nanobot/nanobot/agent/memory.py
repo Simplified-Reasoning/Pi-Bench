@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 
 from loguru import logger
 
+from nanobot.providers.base import LLMGenerationConfig
 from nanobot.utils.helpers import ensure_dir
 
 if TYPE_CHECKING:
@@ -74,6 +75,10 @@ class MemoryStore:
         *,
         archive_all: bool = False,
         memory_window: int = 50,
+        generation_config: LLMGenerationConfig | None = None,
+        temperature: float = 0.1,
+        max_tokens: int = 4096,
+        reasoning_effort: str | None = None,
     ) -> bool:
         """Consolidate old messages into MEMORY.md + HISTORY.md via LLM tool call.
 
@@ -110,6 +115,12 @@ class MemoryStore:
 ## Conversation to Process
 {chr(10).join(lines)}"""
 
+        generation_config = generation_config or LLMGenerationConfig(
+            temperature=temperature,
+            max_tokens=max_tokens,
+            reasoning_effort=reasoning_effort,
+        )
+
         try:
             response = await provider.chat(
                 messages=[
@@ -118,6 +129,7 @@ class MemoryStore:
                 ],
                 tools=_SAVE_MEMORY_TOOL,
                 model=model,
+                **generation_config.as_chat_kwargs(),
             )
 
             if not response.has_tool_calls:

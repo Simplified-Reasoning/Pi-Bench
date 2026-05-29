@@ -8,6 +8,8 @@ from typing import TYPE_CHECKING, Any, Callable, Coroutine
 
 from loguru import logger
 
+from nanobot.providers.base import LLMGenerationConfig
+
 if TYPE_CHECKING:
     from nanobot.providers.base import LLMProvider
 
@@ -59,10 +61,22 @@ class HeartbeatService:
         on_notify: Callable[[str], Coroutine[Any, Any, None]] | None = None,
         interval_s: int = 30 * 60,
         enabled: bool = True,
+        generation_config: LLMGenerationConfig | None = None,
+        temperature: float = 0.1,
+        max_tokens: int = 4096,
+        reasoning_effort: str | None = None,
     ):
         self.workspace = workspace
         self.provider = provider
         self.model = model
+        self.generation_config = generation_config or LLMGenerationConfig(
+            temperature=temperature,
+            max_tokens=max_tokens,
+            reasoning_effort=reasoning_effort,
+        )
+        self.temperature = self.generation_config.temperature
+        self.max_tokens = self.generation_config.max_tokens
+        self.reasoning_effort = self.generation_config.reasoning_effort
         self.on_execute = on_execute
         self.on_notify = on_notify
         self.interval_s = interval_s
@@ -97,13 +111,30 @@ class HeartbeatService:
             ],
             tools=_HEARTBEAT_TOOL,
             model=self.model,
+            **self.generation_config.as_chat_kwargs(),
         )
 
         if not response.has_tool_calls:
             return "skip", ""
 
         args = response.tool_calls[0].arguments
-        return args.get("action", "skip"), args.get("tasks", "")
+        if isinstance(args, str):
+            import json
+            try:
+                args = json.loads(args)
+            except json.JSONDecodeError:
+                logger.warning("Heartbeat: invalid tool arguments JSON")
+                return "skip", ""
+        if not isinstance(args, dict):
+            logger.warning("Heartbeat: unexpected tool arguments type {}", type(args).__name__)
+            return "skip", ""
+
+        action = args.get("action", "skip")
+        if action not in {"skip", "run"}:
+            logger.warning("Heartbeat: unexpected action {}, skipping", action)
+            action = "skip"
+        tasks = args.get("tasks", "")
+        return action, tasks if isinstance(tasks, str) else str(tasks)
 
     async def start(self) -> None:
         """Start the heartbeat service."""
