@@ -468,6 +468,19 @@ def _validate_users(repo_root: Path, user_ids: list[str]) -> None:
         raise SystemExit("[pibench] user data check failed:\n  - " + "\n  - ".join(missing))
 
 
+def _discover_user_ids(repo_root: Path) -> list[str]:
+    data_root = repo_root / "data"
+    users = [
+        path.name
+        for path in data_root.iterdir()
+        if path.is_dir() and (path / "profile.yaml").is_file() and (path / "episode.yaml").is_file()
+    ]
+    users.sort()
+    if not users:
+        raise SystemExit(f"[pibench] no user data found under {data_root}")
+    return users
+
+
 def _model_config_path(repo_root: Path, model_id: str) -> Path:
     yaml_path = repo_root / "config" / "models" / f"{model_id}.yaml"
     if yaml_path.is_file():
@@ -625,7 +638,7 @@ def run_docker(args: argparse.Namespace) -> int:
     console = Console(highlight=False)
     repo_root = _repo_root()
     output_root = (repo_root / args.output_dir).resolve() if not args.output_dir.is_absolute() else args.output_dir
-    users = _trimmed_csv(args.user_id, arg_name="user-id")
+    users = _trimmed_csv(args.user_id, arg_name="user-id") if args.user_id else _discover_user_ids(repo_root)
     models = _trimmed_csv(args.model_id, arg_name="model-id")
     if len(set(models)) != len(models):
         raise SystemExit("[pibench] duplicate --model-id values are not supported; use --run for repeated runs")
@@ -721,7 +734,7 @@ def run_docker(args: argparse.Namespace) -> int:
 
 def add_launcher_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--model-id", required=True, help="Comma-separated model ids from config/models/<model-id>.yaml.")
-    parser.add_argument("--user-id", default="law_trainee", help="Comma-separated user ids.")
+    parser.add_argument("--user-id", default=None, help="Comma-separated user ids; defaults to every user under data/.")
     parser.add_argument("--run", type=int, default=1, help="Number of repeated runs per model.")
     parser.add_argument("--task-id", action="append", default=None, help="Limit to task id; repeat for multiple tasks.")
     parser.add_argument("--image", default=IMAGE_NAME, help="Docker image to run.")
