@@ -2011,6 +2011,22 @@ blockquote {
   box-shadow: var(--shadow-sm);
 }
 
+.citation-box {
+  display: grid;
+  gap: 14px;
+}
+
+.citation-box h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.15rem;
+  line-height: 1.25;
+}
+
+.citation-box pre {
+  border-radius: var(--radius-sm);
+}
+
 .insight-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 18px;
