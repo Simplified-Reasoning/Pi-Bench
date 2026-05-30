@@ -405,7 +405,7 @@
         r: 8.5,
         fill: item.color
       });
-      const [dx, dy] = labelOffsets[index];
+      const [dx, dy] = labelOffsets[index] || [12, index % 2 === 0 ? -14 : 21];
       const label = create("text", {
         class: "scatter-point-label",
         x: dx,
