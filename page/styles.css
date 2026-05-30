@@ -1620,8 +1620,12 @@ table tbody tr:last-child th {
   padding: 1px 4px;
   border-radius: 4px;
   background: var(--best-bg);
+  color: var(--text);
+}
+
+.best-score {
   color: var(--accent-strong);
-  font-weight: 840;
+  font-weight: 860;
 }
 
 td.best,
