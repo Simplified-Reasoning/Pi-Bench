@@ -193,7 +193,9 @@ def _display_path(path: Path) -> str:
 def _build_runs_table(runs: list[RunningJob]) -> Table:
     table = Table(
         box=box.SIMPLE,
-        expand=True,
+        padding=(0, 1),
+        collapse_padding=True,
+        expand=False,
         show_lines=False,
     )
     table.add_column("Run", style="cyan", no_wrap=True)
@@ -316,12 +318,44 @@ def _aggregate_result_cell(pairs: list[ScorePair | None], *, include_std: bool) 
     return _score_summary_text(_score_summary(pairs, include_std=include_std))
 
 
+def _score_summary_by_run_average(
+    pairs_by_run_model: dict[str, list[ScorePair | None]],
+    *,
+    include_std: bool,
+) -> ScoreSummary | None:
+    run_average_pairs: list[ScorePair | None] = []
+    for run_model_id in sorted(pairs_by_run_model):
+        run_summary = _score_summary(pairs_by_run_model[run_model_id], include_std=False)
+        if run_summary is None:
+            run_average_pairs.append(None)
+        else:
+            run_average_pairs.append(ScorePair(comp=run_summary.comp, proc=run_summary.proc))
+
+    return _score_summary(run_average_pairs, include_std=include_std)
+
+
+def _run_average_score_summary(
+    row_by_user: dict[str, list[RunningJob]],
+    users: list[str],
+    *,
+    include_std: bool,
+) -> ScoreSummary | None:
+    pairs_by_run_model: dict[str, list[ScorePair | None]] = {}
+    for user_id in users:
+        for run in row_by_user.get(user_id, []):
+            pairs_by_run_model.setdefault(run.job.run_model_id, []).append(_read_overall_score_pair(run.job))
+
+    return _score_summary_by_run_average(pairs_by_run_model, include_std=include_std)
+
+
 def _build_results_table(runs: list[RunningJob], users: list[str]) -> Table:
     table = Table(
         title="Model Results",
         caption="comp/proc are overall checklist and proactiveness scores; repeated runs show mean +/- std",
         box=box.SIMPLE,
-        expand=True,
+        padding=(0, 1),
+        collapse_padding=True,
+        expand=False,
         title_style="bold cyan",
         caption_style="dim",
     )
@@ -337,7 +371,6 @@ def _build_results_table(runs: list[RunningJob], users: list[str]) -> Table:
     for model_id in sorted(runs_by_model):
         row_by_user = runs_by_model[model_id]
         cells: list[Text] = []
-        score_pairs: list[ScorePair | None] = []
         repeated_runs = any(len(row_by_user.get(user_id, [])) > 1 for user_id in users)
         for user_id in users:
             user_runs = row_by_user.get(user_id)
@@ -345,9 +378,12 @@ def _build_results_table(runs: list[RunningJob], users: list[str]) -> Table:
                 cells.append(Text("-", style="dim"))
                 continue
             user_score_pairs = [_read_overall_score_pair(run.job) for run in user_runs]
-            cells.append(_aggregate_result_cell(user_score_pairs, include_std=len(user_runs) > 1))
-            score_pairs.extend(user_score_pairs)
-        table.add_row(model_id, _score_summary_text(_score_summary(score_pairs, include_std=repeated_runs)), *cells)
+            cells.append(_aggregate_result_cell(user_score_pairs, include_std=False))
+        table.add_row(
+            model_id,
+            _score_summary_text(_run_average_score_summary(row_by_user, users, include_std=repeated_runs)),
+            *cells,
+        )
 
     return table
 
