@@ -234,9 +234,9 @@
     const plotWidth = width - margin.left - margin.right;
     const plotHeight = height - margin.top - margin.bottom;
     const xDomain = [50, 70];
-    const yDomain = [40, 70];
+    const yDomain = [50, 70];
     const xTicks = [50, 55, 60, 65, 70];
-    const yTicks = [40, 45, 50, 55, 60, 65, 70];
+    const yTicks = [50, 55, 60, 65, 70];
 
     const xScale = (value) => margin.left + ((value - xDomain[0]) / (xDomain[1] - xDomain[0])) * plotWidth;
     const yScale = (value) => margin.top + (1 - ((value - yDomain[0]) / (yDomain[1] - yDomain[0]))) * plotHeight;
