@@ -85,17 +85,32 @@
     },
     {
       model: "Kimi K2.5",
-      proc: 43.1,
-      comp: 61.6,
-      procSd: 0.2,
-      compSd: 1.9,
+      proc: 61.4,
+      comp: 53.9,
+      procSd: 2.1,
+      compSd: 0.8,
       color: "#475569",
       domains: [
-        ["Researcher", 28.9, 63.5],
-        ["Marketer", 41.2, 62.3],
-        ["Pharmacist", 70.1, 74.8],
-        ["Law Trainee", 34.8, 54.4],
-        ["Financier", 40.4, 52.9]
+        ["Researcher", 39.4, 52.6],
+        ["Marketer", 68.2, 59.7],
+        ["Pharmacist", 81.8, 78.3],
+        ["Law Trainee", 46.5, 44.4],
+        ["Financier", 71.1, 34.4]
+      ]
+    },
+    {
+      model: "Kimi K2.6",
+      proc: 63.8,
+      comp: 62.0,
+      procSd: 1.3,
+      compSd: 1.2,
+      color: "#64748b",
+      domains: [
+        ["Researcher", 43.9, 60.3],
+        ["Marketer", 69.5, 69.6],
+        ["Pharmacist", 77.8, 85.3],
+        ["Law Trainee", 48.7, 55.5],
+        ["Financier", 79.2, 39.4]
       ]
     },
     {
