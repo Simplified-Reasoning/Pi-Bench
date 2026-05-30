@@ -349,10 +349,10 @@
     const pointsLayer = create("g", { class: "scatter-points" });
     const labelOffsets = [
       [12, -14],
-      [12, 21],
+      [22, 26],
       [12, -14],
       [12, 21],
-      [12, -18],
+      [22, 30],
       [12, -14],
       [12, 21],
       [12, -14],
