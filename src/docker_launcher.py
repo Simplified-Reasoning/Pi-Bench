@@ -61,7 +61,7 @@ class TaskProgress:
 class RunningJob:
     job: Job
     cid: str
-    proc: subprocess.Popen
+    proc: subprocess.Popen | None
     exit_code: int | None = None
     inspect_summary: str = ""
 
@@ -78,6 +78,13 @@ class ScoreSummary:
     proc: float | None
     comp_std: float | None = None
     proc_std: float | None = None
+
+
+@dataclass(frozen=True)
+class RuntimeStatus:
+    runtime_dir: Path
+    exit_code: int | None
+    inspect_summary: str
 
 
 def _repo_root() -> Path:
@@ -223,6 +230,75 @@ def _build_runs_table(runs: list[RunningJob]) -> Table:
             output,
         )
     return table
+
+
+def _parse_exit_code_from_summary(summary: str) -> int | None:
+    for part in summary.split():
+        if part.startswith("exit_code="):
+            try:
+                return int(part.split("=", 1)[1])
+            except ValueError:
+                return None
+    return None
+
+
+def _read_runtime_status(runtime_dir: Path) -> RuntimeStatus:
+    summary_path = runtime_dir / "inspect.summary.log"
+    try:
+        summary = summary_path.read_text(encoding="utf-8").strip()
+    except OSError:
+        summary = ""
+    return RuntimeStatus(
+        runtime_dir=runtime_dir,
+        exit_code=_parse_exit_code_from_summary(summary),
+        inspect_summary=summary,
+    )
+
+
+def _latest_runtime_status(job: Job) -> RuntimeStatus | None:
+    run_root = job.runtime_dir.parent
+    try:
+        runtime_dirs = sorted(path for path in run_root.glob("*-runtime") if path.is_dir())
+    except OSError:
+        return None
+    if not runtime_dirs:
+        return None
+    return _read_runtime_status(runtime_dirs[-1])
+
+
+def _cached_passed_run(job: Job, status: RuntimeStatus) -> RunningJob:
+    cached_job = Job(
+        user_id=job.user_id,
+        model_id=job.model_id,
+        run_model_id=job.run_model_id,
+        model_config_host_path=job.model_config_host_path,
+        runtime_dir=status.runtime_dir,
+        service_logs_dir=status.runtime_dir / "service-logs",
+        container_name=job.container_name,
+    )
+    return RunningJob(
+        job=cached_job,
+        cid="cached",
+        proc=None,
+        exit_code=0,
+        inspect_summary=status.inspect_summary,
+    )
+
+
+def _split_rerun_failed_jobs(jobs: list[Job]) -> tuple[list[RunningJob], list[Job]]:
+    cached_runs: list[RunningJob] = []
+    jobs_to_run: list[Job] = []
+    jobs_by_run: dict[str, list[Job]] = {}
+    for job in jobs:
+        jobs_by_run.setdefault(job.run_model_id, []).append(job)
+
+    for run_jobs in jobs_by_run.values():
+        statuses = [(job, _latest_runtime_status(job)) for job in run_jobs]
+        if all(status is not None and status.exit_code == 0 for _, status in statuses):
+            cached_runs.extend(_cached_passed_run(job, status) for job, status in statuses if status is not None)
+        else:
+            jobs_to_run.extend(run_jobs)
+    return cached_runs, jobs_to_run
 
 
 def _base_model_id(model_id: str) -> str:
@@ -428,7 +504,7 @@ def _inspect_finished_job(job: Job, start_code: int) -> tuple[int, str]:
 
 
 def _shutdown_running_jobs(runs: list[RunningJob], *, console: Console) -> None:
-    active_runs = [run for run in runs if run.exit_code is None]
+    active_runs = [run for run in runs if run.exit_code is None and run.proc is not None]
     if not active_runs:
         return
 
@@ -439,12 +515,15 @@ def _shutdown_running_jobs(runs: list[RunningJob], *, console: Console) -> None:
 
     for run in active_runs:
         try:
+            assert run.proc is not None
             start_code = run.proc.wait(timeout=15)
         except subprocess.TimeoutExpired:
+            assert run.proc is not None
             run.proc.terminate()
             try:
                 start_code = run.proc.wait(timeout=5)
             except subprocess.TimeoutExpired:
+                assert run.proc is not None
                 run.proc.kill()
                 start_code = run.proc.wait(timeout=5)
 
@@ -681,12 +760,10 @@ def run_docker(args: argparse.Namespace) -> int:
     if args.run < 1:
         raise SystemExit("[pibench] --run must be >= 1")
 
-    _docker_available()
     _validate_repo_paths(repo_root)
     _validate_users(repo_root, users)
     for model_id in models:
         load_model_config(_model_config_path(repo_root, model_id), model_id=model_id)
-    _require_image(args.image)
 
     output_root.mkdir(parents=True, exist_ok=True)
     timestamp = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -701,10 +778,28 @@ def run_docker(args: argparse.Namespace) -> int:
 
     console.print(_build_header(image=args.image, users=users, models=models, run_count=args.run, output_root=output_root))
 
-    running: list[RunningJob] = []
+    running: list[RunningJob]
+    jobs_to_run = jobs
+    if args.rerun_failed:
+        cached_runs, jobs_to_run = _split_rerun_failed_jobs(jobs)
+        running = cached_runs
+        console.print(
+            f"[cyan]rerun-failed[/cyan] cached_passed={len(cached_runs)} "
+            f"to_run={len(jobs_to_run)} total={len(jobs)}"
+        )
+        if not jobs_to_run:
+            console.print(_build_runs_table(running))
+            console.print(_build_results_table(running, users))
+            return 0
+    else:
+        running = []
+
+    _docker_available()
+    _require_image(args.image)
+
     overall_code = 0
     try:
-        for job in jobs:
+        for job in jobs_to_run:
             console.print(
                 f"[cyan]launching[/cyan] user={job.user_id} model={job.model_id} "
                 f"run_model_id={job.run_model_id} container={job.container_name}"
@@ -727,6 +822,8 @@ def run_docker(args: argparse.Namespace) -> int:
                     for run in running:
                         if run.exit_code is not None:
                             continue
+                        if run.proc is None:
+                            raise RuntimeError(f"running job has no process: {run.job.run_model_id}/{run.job.user_id}")
                         poll_code = run.proc.poll()
                         if poll_code is None:
                             all_done = False
@@ -763,7 +860,7 @@ def run_docker(args: argparse.Namespace) -> int:
         )
 
     for run in running:
-        if args.remove_container:
+        if args.remove_container and run.proc is not None:
             _run(["docker", "rm", run.job.container_name], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     return overall_code
 
@@ -775,6 +872,14 @@ def add_launcher_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--task-id", action="append", default=None, help="Limit to task id; repeat for multiple tasks.")
     parser.add_argument("--image", default=IMAGE_NAME, help="Docker image to run.")
     parser.add_argument("--output-dir", type=Path, default=Path("outputs"), help="Output directory.")
+    parser.add_argument(
+        "--rerun-failed",
+        action="store_true",
+        help=(
+            "Reuse complete repeats whose latest runtime passed for every user and launch containers only for "
+            "repeats with any missing or failed latest runtime."
+        ),
+    )
     parser.add_argument("--disable-appworld", action="store_true", help="Disable AppWorld MCP integration.")
     parser.add_argument("--keep-runtime", action="store_true", help="Do not delete an existing timestamp runtime dir.")
     parser.add_argument("--remove-container", action="store_true", help="Remove containers after they exit.")

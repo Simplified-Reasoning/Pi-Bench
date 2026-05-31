@@ -147,6 +147,15 @@ pibench --model-id deepseek-v3.2 --run 3
 ```
 
 Each repeat is written to a separate output directory with a `__runNN` suffix.
+If a repeated run is interrupted or fails, rerun only the missing/failed repeat
+with:
+
+```bash
+pibench --model-id deepseek-v3.2 --run 3 --rerun-failed
+```
+
+Repeats whose latest attempt passed for every user are reused in the live table
+and are not launched again.
 
 Additional examples:
 
