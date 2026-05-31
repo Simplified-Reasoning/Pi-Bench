@@ -1,5 +1,5 @@
 model:
-  model: kimi-k2.5
+  model: kimi-k2.6
   base_url: "${MODEL_BASE_URL}"
   api_key: "${MODEL_API_KEY}"
   temperature: 1.0
