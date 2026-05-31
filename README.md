@@ -1,4 +1,4 @@
-<h1 align="center">π-Bench: Evaluating Proactive Personal Assistant Agents in Long-Horizon Workflow</h1>
+<h1 align="center">π-Bench: Evaluating Proactive Personal Assistant Agents in Long-Horizon Workflows</h1>
 
 <p align="center">
   <img src="./assets/pi-bench-overview.png" alt="Pi-Bench Overview" width="100%" />
@@ -46,32 +46,25 @@
 <a id="introduction"></a>
 ## 🧭 Introduction
 
-`π-BENCH` is a benchmark for **proactive personal assistant agents** in
-long-horizon workflows, where users start with underspecified requests and
-important requirements emerge across interaction. It contains **100 multi-turn
-tasks** across **5 domain-specific personas** (`researcher`, `marketer`,
-`pharmacist`, `law_trainee`, `financier`) and organizes them as multi-session
-episodes in persistent workspaces.
+`π-BENCH` evaluates **proactive personal assistant agents** in long-horizon,
+multi-session workflows. It contains **100 multi-turn tasks** across **5
+personas** (`researcher`, `marketer`, `pharmacist`, `law_trainee`,
+`financier`) in persistent workspaces where user requirements are often
+underspecified and emerge over time.
 
-The benchmark jointly measures **Proactivity (PROC)** and **Completeness
-(COMP)**. PROC evaluates whether an agent resolves hidden intents early (through
-inference or focused elicitation) to reduce avoidable user burden, while COMP
-evaluates whether final deliverables satisfy checklist requirements and
-artifact-level obligations. Scoring combines rubric-based hidden-intent
-judgment and checklist validation, and audit results show low
-judge disagreement (**<4%**), which supports evaluation reliability.
-
-Compared with benchmarks focused mainly on short-horizon tasks, GUI/mobile
-interactions, or memory retrieval alone, `π-BENCH` emphasizes **persistent,
-artifact-centric workflows** with **hidden intents**, **inter-task
-dependencies**, and **cross-session continuity**, enabling clearer separation
-between reactive task completion and proactive assistance quality.
+The benchmark reports **Proactivity (PROC)** and **Completeness (COMP)**. PROC
+measures whether an agent discovers or infers hidden intents early; COMP
+measures whether final artifacts satisfy checklist requirements. Unlike
+short-horizon, GUI/mobile, or memory-only benchmarks, `π-BENCH` focuses on
+persistent artifact workflows with hidden intents, inter-task dependencies, and
+cross-session continuity.
 
 <a id="leaderboard"></a>
 ## 🏆 Leaderboard
 
-Overall results for `Proc / Comp` (%). Results are averaged over three runs,
-with subscripts denoting standard deviation.
+Overall `Proc / Comp` results (%). Leaderboard scores are the mean of three
+runs, e.g. `pibench --model-id deepseek-v3.2 --run 3`; small subscripts show
+the standard deviation.
 
 | Model | Average&nbsp;Proc | Average&nbsp;Comp | Researcher | Marketer | Pharmacist | Law&nbsp;Trainee | Financier |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -104,24 +97,16 @@ pip install -e third_party/nanobot
 bash scripts/setup_appworld.sh
 ```
 
-3. Create a local environment file and fill in the provider credentials:
+3. Create a local environment file:
 
 ```bash
 cp env.example.sh env.sh
 ```
 
-The template leaves all values empty. Edit `env.sh` with your local credentials,
-then source it in every shell where you run the benchmark:
-
-```bash
-source env.sh
-```
-
-`env.sh` is ignored by git. The default model configs read credentials from
-`MODEL_BASE_URL`, `MODEL_API_KEY`, `USER_BASE_URL`, `USER_API_KEY`,
-`JUDGER_BASE_URL`, `JUDGER_API_KEY`, and `BRAVE_SEARCH_API_KEY`. These values
-fill the placeholders in `config/models/*.yaml`, such as
-`config/models/example.full.yaml`.
+Edit `env.sh` with your credentials, then run `source env.sh`. The default
+model configs read `MODEL_BASE_URL`, `MODEL_API_KEY`, `USER_BASE_URL`,
+`USER_API_KEY`, `JUDGER_BASE_URL`, `JUDGER_API_KEY`, and
+`BRAVE_SEARCH_API_KEY`.
 
 4. Pull the benchmark Docker image:
 
@@ -129,33 +114,27 @@ fill the placeholders in `config/models/*.yaml`, such as
 docker pull zzzhr97/pi-bench:latest
 ```
 
-5. Optionally edit the target model file under `config/models/`.
-
-Most users only need to configure `env.sh`. Edit `config/models/<model-id>.yaml`
-only when you need to change model names, endpoints, proxy settings, timeouts,
-or other per-model overrides. The YAML filename stem is the model id passed to
-`pibench`; see `config/models/example.full.yaml` for the complete schema.
+5. Optional: edit `config/models/<model-id>.yaml` for model-specific names,
+endpoints, proxy settings, or timeouts. The filename stem is the `pibench`
+model id; see `config/models/example.full.yaml` for the full schema.
 
 <a id="run"></a>
 ## ▶️ Run
 
-Run from the repository root. For benchmark reporting, use three repeated trials
-as the default run pattern:
+Run from the repository root. Use `--run 3` for leaderboard-style reporting:
 
 ```bash
 pibench --model-id deepseek-v3.2 --run 3
 ```
 
-Each repeat is written to a separate output directory with a `__runNN` suffix.
-If a repeated run is interrupted or fails, rerun only the missing/failed repeat
-with:
+Each repeat is written to a separate `__runNN` output directory. If a repeated
+run is interrupted or fails, rerun only the missing/failed repeat with:
 
 ```bash
 pibench --model-id deepseek-v3.2 --run 3 --rerun-failed
 ```
 
-Repeats whose latest attempt passed for every user are reused in the live table
-and are not launched again.
+Completed repeats are reused and are not launched again.
 
 Additional examples:
 
@@ -169,13 +148,13 @@ Additional examples:
 <a id="outputs"></a>
 ## 📦 Outputs
 
-Results and logs are written under:
+Main outputs:
 
 ```text
 outputs/<model-id>/<user-id>/
 ```
 
-Runtime logs for each container run are under:
+Container runtime logs:
 
 ```text
 outputs/<model-id>/<user-id>/run/<timestamp>-runtime/
@@ -184,7 +163,8 @@ outputs/<model-id>/<user-id>/run/<timestamp>-runtime/
 <a id="acknowledgement"></a>
 ## 🙏 Acknowledgement
 
-Pi-Bench is built on top of AppWorld and NanoBot. We thank the contributors to these open-source projects.
+Pi-Bench is built on AppWorld and NanoBot. We thank the contributors to these
+open-source projects.
 
 <a id="citation"></a>
 ## 📚 Citation
