@@ -211,44 +211,34 @@
       <h2>Results</h2>
       <p>
         Current frontier agents achieve substantial task completion, but proactive intent recovery
-        remains difficult. The table reports average Proc and Comp scores together with domain-level
-        Proc / Comp scores across the five π-Bench user domains. In each domain cell, Proc is shown
-        first and Comp second; blue cells mark the strongest score within a reported column.
+        remains difficult. The leaderboard reports average Proc and Comp scores together with
+        domain-level views across the five π-Bench user domains.
       </p>
 
-      <section class="paper-table-section" aria-labelledby="overall-table-title">
-        <div class="paper-table-card">
-          <div class="paper-table-header">
-            <div class="paper-table-kicker">Table 1</div>
-            <h3 id="overall-table-title" class="paper-table-title">Overall Results on π-Bench</h3>
+      <section class="leaderboard-section" aria-labelledby="leaderboard-title">
+        <div class="leaderboard-card">
+          <div class="leaderboard-header">
+            <div>
+              <div class="leaderboard-kicker">Leaderboard</div>
+              <h3 id="leaderboard-title">Benchmark Leaderboard</h3>
+              <p id="leaderboardSummary">Ranked by Avg Proc across all tasks.</p>
+            </div>
+            <div class="leaderboard-sort-control">
+              <span class="leaderboard-sort-label">Rank by</span>
+              <div class="leaderboard-actions" aria-label="Leaderboard ranking metric">
+                <button class="leaderboard-action is-active" type="button" data-sort="proc" aria-pressed="true">Avg Proc</button>
+                <button class="leaderboard-action" type="button" data-sort="comp" aria-pressed="false">Avg Comp</button>
+              </div>
+            </div>
           </div>
-          <div class="paper-table-scroll">
-            <table class="paper-table leaderboard-table">
-              <thead>
-                <tr>
-                  <th>Model</th>
-                  <th>Avg Proc</th>
-                  <th>Avg Comp</th>
-                  <th>Researcher</th>
-                  <th>Marketer</th>
-                  <th>Pharmacist</th>
-                  <th>Law Trainee</th>
-                  <th>Financier</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><th>GPT-5.4</th><td class="best"><strong class="best-score">67.0</strong> +/- 2.1</td><td>65.6 +/- 1.8</td><td><span class="score-pair"><span><b>Proc:</b> 46.0</span><span><b>Comp:</b> 66.4</span></span></td><td class="best"><span class="score-pair"><span><b>Proc:</b> <strong class="best-score">78.2</strong></span><span><b>Comp:</b> 67.1</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 75.9</span><span><b>Comp:</b> 71.5</span></span></td><td class="best"><span class="score-pair"><span><b>Proc:</b> <strong class="best-score">56.9</strong></span><span><b>Comp:</b> <strong class="best-score">61.9</strong></span></span></td><td><span class="score-pair"><span><b>Proc:</b> 78.1</span><span><b>Comp:</b> 61.2</span></span></td></tr>
-                <tr><th>Gemini 3.1 Pro</th><td>57.1 +/- 0.9</td><td>60.0 +/- 0.8</td><td><span class="score-pair"><span><b>Proc:</b> 41.1</span><span><b>Comp:</b> 59.2</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 65.0</span><span><b>Comp:</b> 62.1</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 71.0</span><span><b>Comp:</b> 72.1</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 50.0</span><span><b>Comp:</b> 55.3</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 58.6</span><span><b>Comp:</b> 51.1</span></span></td></tr>
-                <tr><th>Claude Opus 4.6</th><td>65.5 +/- 1.4</td><td class="best"><strong class="best-score">67.6</strong> +/- 1.5</td><td class="best"><span class="score-pair"><span><b>Proc:</b> <strong class="best-score">50.3</strong></span><span><b>Comp:</b> <strong class="best-score">74.5</strong></span></span></td><td class="best"><span class="score-pair"><span><b>Proc:</b> 75.0</span><span><b>Comp:</b> <strong class="best-score">74.6</strong></span></span></td><td class="best"><span class="score-pair"><span><b>Proc:</b> <strong class="best-score">82.8</strong></span><span><b>Comp:</b> 68.6</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 45.7</span><span><b>Comp:</b> 57.2</span></span></td><td class="best"><span class="score-pair"><span><b>Proc:</b> 73.8</span><span><b>Comp:</b> <strong class="best-score">63.2</strong></span></span></td></tr>
-                <tr><th>DeepSeek V3.2</th><td>53.3 +/- 1.9</td><td>57.8 +/- 3.0</td><td><span class="score-pair"><span><b>Proc:</b> 29.0</span><span><b>Comp:</b> 66.9</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 69.1</span><span><b>Comp:</b> 59.4</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 75.9</span><span><b>Comp:</b> 62.6</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 33.2</span><span><b>Comp:</b> 51.1</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 59.1</span><span><b>Comp:</b> 48.9</span></span></td></tr>
-                <tr><th>MiniMax M2.7</th><td>55.6 +/- 3.2</td><td>60.0 +/- 1.8</td><td><span class="score-pair"><span><b>Proc:</b> 33.4</span><span><b>Comp:</b> 63.9</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 71.9</span><span><b>Comp:</b> 61.9</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 77.1</span><span><b>Comp:</b> 63.6</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 38.6</span><span><b>Comp:</b> 52.5</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 57.2</span><span><b>Comp:</b> 58.1</span></span></td></tr>
-                <tr><th>Kimi K2.5</th><td>61.4 +/- 2.1</td><td>53.9 +/- 0.8</td><td><span class="score-pair"><span><b>Proc:</b> 39.4</span><span><b>Comp:</b> 52.6</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 68.2</span><span><b>Comp:</b> 59.7</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 81.8</span><span><b>Comp:</b> 78.3</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 46.5</span><span><b>Comp:</b> 44.4</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 71.1</span><span><b>Comp:</b> 34.4</span></span></td></tr>
-                <tr><th>Kimi K2.6</th><td>63.8 +/- 1.3</td><td>62.0 +/- 1.2</td><td><span class="score-pair"><span><b>Proc:</b> 43.9</span><span><b>Comp:</b> 60.3</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 69.5</span><span><b>Comp:</b> 69.6</span></span></td><td class="best"><span class="score-pair"><span><b>Proc:</b> 77.8</span><span><b>Comp:</b> <strong class="best-score">85.3</strong></span></span></td><td><span class="score-pair"><span><b>Proc:</b> 48.7</span><span><b>Comp:</b> 55.5</span></span></td><td class="best"><span class="score-pair"><span><b>Proc:</b> <strong class="best-score">79.2</strong></span><span><b>Comp:</b> 39.4</span></span></td></tr>
-                <tr><th>Seed2.0 Pro</th><td>58.4 +/- 0.9</td><td>52.1 +/- 3.8</td><td><span class="score-pair"><span><b>Proc:</b> 38.9</span><span><b>Comp:</b> 59.6</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 71.4</span><span><b>Comp:</b> 44.2</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 77.0</span><span><b>Comp:</b> 67.6</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 46.0</span><span><b>Comp:</b> 44.7</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 58.7</span><span><b>Comp:</b> 44.5</span></span></td></tr>
-                <tr><th>GLM-5.1</th><td>58.4 +/- 0.8</td><td>63.6 +/- 2.9</td><td><span class="score-pair"><span><b>Proc:</b> 41.8</span><span><b>Comp:</b> 61.6</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 62.6</span><span><b>Comp:</b> 69.1</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 75.2</span><span><b>Comp:</b> 70.3</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 45.5</span><span><b>Comp:</b> 57.3</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 66.7</span><span><b>Comp:</b> 59.8</span></span></td></tr>
-                <tr><th>Qwen3.6 Plus</th><td>64.0 +/- 1.1</td><td>64.1 +/- 0.6</td><td><span class="score-pair"><span><b>Proc:</b> 40.1</span><span><b>Comp:</b> 70.0</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 77.5</span><span><b>Comp:</b> 66.6</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 79.7</span><span><b>Comp:</b> 70.2</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 45.7</span><span><b>Comp:</b> 60.2</span></span></td><td><span class="score-pair"><span><b>Proc:</b> 77.1</span><span><b>Comp:</b> 53.6</span></span></td></tr>
-              </tbody>
-            </table>
+
+          <div class="leaderboard-tabs" id="leaderboardTabs" aria-label="Leaderboard views"></div>
+          <div class="leaderboard-status" id="leaderboardStatus" role="status">Loading leaderboard...</div>
+          <div class="leaderboard-table-wrap" id="leaderboardTableWrap" hidden></div>
+          <div class="leaderboard-formula">
+            <span>Metric</span>
+            <code id="leaderboardFormula">Avg Proc = proactive hidden-intent resolution</code>
+            <span class="leaderboard-threshold">higher is better</span>
           </div>
         </div>
       </section>

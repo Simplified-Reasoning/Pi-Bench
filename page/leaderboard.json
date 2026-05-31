@@ -1,0 +1,173 @@
+{
+  "version": "2026-05-31",
+  "defaultSort": "proc",
+  "domains": [
+    { "id": "researcher", "label": "Researcher" },
+    { "id": "marketer", "label": "Marketer" },
+    { "id": "pharmacist", "label": "Pharmacist" },
+    { "id": "law_trainee", "label": "Law Trainee" },
+    { "id": "financier", "label": "Financier" }
+  ],
+  "models": [
+    {
+      "name": "GPT-5.4",
+      "organization": "OpenAI",
+      "color": "#2563eb",
+      "overall": {
+        "proc": { "mean": 67.0, "sd": 2.1 },
+        "comp": { "mean": 65.6, "sd": 1.8 }
+      },
+      "domains": {
+        "researcher": { "proc": 46.0, "comp": 66.4 },
+        "marketer": { "proc": 78.2, "comp": 67.1 },
+        "pharmacist": { "proc": 75.9, "comp": 71.5 },
+        "law_trainee": { "proc": 56.9, "comp": 61.9 },
+        "financier": { "proc": 78.1, "comp": 61.2 }
+      }
+    },
+    {
+      "name": "Gemini 3.1 Pro",
+      "organization": "Google",
+      "color": "#0f766e",
+      "overall": {
+        "proc": { "mean": 57.1, "sd": 0.9 },
+        "comp": { "mean": 60.0, "sd": 0.8 }
+      },
+      "domains": {
+        "researcher": { "proc": 41.1, "comp": 59.2 },
+        "marketer": { "proc": 65.0, "comp": 62.1 },
+        "pharmacist": { "proc": 71.0, "comp": 72.1 },
+        "law_trainee": { "proc": 50.0, "comp": 55.3 },
+        "financier": { "proc": 58.6, "comp": 51.1 }
+      }
+    },
+    {
+      "name": "Claude Opus 4.6",
+      "organization": "Anthropic",
+      "color": "#b45309",
+      "overall": {
+        "proc": { "mean": 65.5, "sd": 1.4 },
+        "comp": { "mean": 67.6, "sd": 1.5 }
+      },
+      "domains": {
+        "researcher": { "proc": 50.3, "comp": 74.5 },
+        "marketer": { "proc": 75.0, "comp": 74.6 },
+        "pharmacist": { "proc": 82.8, "comp": 68.6 },
+        "law_trainee": { "proc": 45.7, "comp": 57.2 },
+        "financier": { "proc": 73.8, "comp": 63.2 }
+      }
+    },
+    {
+      "name": "DeepSeek V3.2",
+      "organization": "DeepSeek",
+      "color": "#be123c",
+      "overall": {
+        "proc": { "mean": 53.3, "sd": 1.9 },
+        "comp": { "mean": 57.8, "sd": 3.0 }
+      },
+      "domains": {
+        "researcher": { "proc": 29.0, "comp": 66.9 },
+        "marketer": { "proc": 69.1, "comp": 59.4 },
+        "pharmacist": { "proc": 75.9, "comp": 62.6 },
+        "law_trainee": { "proc": 33.2, "comp": 51.1 },
+        "financier": { "proc": 59.1, "comp": 48.9 }
+      }
+    },
+    {
+      "name": "MiniMax M2.7",
+      "organization": "MiniMax",
+      "color": "#7c3aed",
+      "overall": {
+        "proc": { "mean": 55.6, "sd": 3.2 },
+        "comp": { "mean": 60.0, "sd": 1.8 }
+      },
+      "domains": {
+        "researcher": { "proc": 33.4, "comp": 63.9 },
+        "marketer": { "proc": 71.9, "comp": 61.9 },
+        "pharmacist": { "proc": 77.1, "comp": 63.6 },
+        "law_trainee": { "proc": 38.6, "comp": 52.5 },
+        "financier": { "proc": 57.2, "comp": 58.1 }
+      }
+    },
+    {
+      "name": "Kimi K2.5",
+      "organization": "Moonshot AI",
+      "color": "#475569",
+      "overall": {
+        "proc": { "mean": 61.4, "sd": 2.1 },
+        "comp": { "mean": 53.9, "sd": 0.8 }
+      },
+      "domains": {
+        "researcher": { "proc": 39.4, "comp": 52.6 },
+        "marketer": { "proc": 68.2, "comp": 59.7 },
+        "pharmacist": { "proc": 81.8, "comp": 78.3 },
+        "law_trainee": { "proc": 46.5, "comp": 44.4 },
+        "financier": { "proc": 71.1, "comp": 34.4 }
+      }
+    },
+    {
+      "name": "Kimi K2.6",
+      "organization": "Moonshot AI",
+      "color": "#64748b",
+      "overall": {
+        "proc": { "mean": 63.8, "sd": 1.3 },
+        "comp": { "mean": 62.0, "sd": 1.2 }
+      },
+      "domains": {
+        "researcher": { "proc": 43.9, "comp": 60.3 },
+        "marketer": { "proc": 69.5, "comp": 69.6 },
+        "pharmacist": { "proc": 77.8, "comp": 85.3 },
+        "law_trainee": { "proc": 48.7, "comp": 55.5 },
+        "financier": { "proc": 79.2, "comp": 39.4 }
+      }
+    },
+    {
+      "name": "Seed2.0 Pro",
+      "organization": "ByteDance",
+      "color": "#15803d",
+      "overall": {
+        "proc": { "mean": 58.4, "sd": 0.9 },
+        "comp": { "mean": 52.1, "sd": 3.8 }
+      },
+      "domains": {
+        "researcher": { "proc": 38.9, "comp": 59.6 },
+        "marketer": { "proc": 71.4, "comp": 44.2 },
+        "pharmacist": { "proc": 77.0, "comp": 67.6 },
+        "law_trainee": { "proc": 46.0, "comp": 44.7 },
+        "financier": { "proc": 58.7, "comp": 44.5 }
+      }
+    },
+    {
+      "name": "GLM-5.1",
+      "organization": "Zhipu AI",
+      "color": "#0891b2",
+      "overall": {
+        "proc": { "mean": 58.4, "sd": 0.8 },
+        "comp": { "mean": 63.6, "sd": 2.9 }
+      },
+      "domains": {
+        "researcher": { "proc": 41.8, "comp": 61.6 },
+        "marketer": { "proc": 62.6, "comp": 69.1 },
+        "pharmacist": { "proc": 75.2, "comp": 70.3 },
+        "law_trainee": { "proc": 45.5, "comp": 57.3 },
+        "financier": { "proc": 66.7, "comp": 59.8 }
+      }
+    },
+    {
+      "name": "Qwen3.6 Plus",
+      "organization": "Alibaba",
+      "color": "#c2410c",
+      "overall": {
+        "proc": { "mean": 64.0, "sd": 1.1 },
+        "comp": { "mean": 64.1, "sd": 0.6 }
+      },
+      "domains": {
+        "researcher": { "proc": 40.1, "comp": 70.0 },
+        "marketer": { "proc": 77.5, "comp": 66.6 },
+        "pharmacist": { "proc": 79.7, "comp": 70.2 },
+        "law_trainee": { "proc": 45.7, "comp": 60.2 },
+        "financier": { "proc": 77.1, "comp": 53.6 }
+      }
+    }
+  ]
+}
