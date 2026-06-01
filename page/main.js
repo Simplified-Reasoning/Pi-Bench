@@ -358,9 +358,9 @@
   function initOverallScatter(resultData) {
     if (!scatterMount || !resultData || resultData.length === 0) return;
 
-    const width = 940;
-    const height = 580;
-    const margin = { top: 34, right: 46, bottom: 78, left: 78 };
+    const width = 980;
+    const height = 600;
+    const margin = { top: 48, right: 122, bottom: 92, left: 96 };
     const plotWidth = width - margin.left - margin.right;
     const plotHeight = height - margin.top - margin.bottom;
     const xRange = getTickRange(resultData.map((item) => item.comp));
@@ -461,7 +461,7 @@
     const yLabel = createSvgNode("text", {
       class: "scatter-axis-label",
       x: -margin.top - plotHeight / 2,
-      y: 24,
+      y: 30,
       transform: "rotate(-90)",
       "text-anchor": "middle"
     });
@@ -472,18 +472,135 @@
     tooltip.hidden = true;
 
     const pointsLayer = createSvgNode("g", { class: "scatter-points" });
-    const labelOffsets = [
-      [12, -14],
-      [22, 26],
-      [12, -14],
-      [12, 21],
-      [22, 30],
-      [12, -14],
-      [12, 21],
-      [12, -14],
-      [12, 21]
-    ];
+    const labelLayer = createSvgNode("g", { class: "scatter-labels" });
+    const labelBoxes = [];
+    const pointPositions = resultData.map((item) => ({
+      x: xScale(item.comp),
+      y: yScale(item.proc)
+    }));
+    const pointBoxes = pointPositions.map((point) => ({
+      x: point.x - 12,
+      y: point.y - 12,
+      width: 24,
+      height: 24
+    }));
+    const labelPlacements = new Array(resultData.length);
     const pointNodes = [];
+    const labelNodes = [];
+
+    function estimateLabelWidth(text) {
+      return Math.max(42, text.length * 7.15);
+    }
+
+    function boxOverlapArea(a, b) {
+      const x = Math.max(0, Math.min(a.x + a.width, b.x + b.width) - Math.max(a.x, b.x));
+      const y = Math.max(0, Math.min(a.y + a.height, b.y + b.height) - Math.max(a.y, b.y));
+      return x * y;
+    }
+
+    function paddedBox(box, pad) {
+      return {
+        x: box.x - pad,
+        y: box.y - pad,
+        width: box.width + pad * 2,
+        height: box.height + pad * 2
+      };
+    }
+
+    function boxOverflowAmount(box) {
+      const pad = 6;
+      return (
+        Math.max(0, margin.left + pad - box.x) +
+        Math.max(0, margin.top + pad - box.y) +
+        Math.max(0, box.x + box.width - (width - margin.right - pad)) +
+        Math.max(0, box.y + box.height - (height - margin.bottom - pad))
+      );
+    }
+
+    function pointDistanceToBox(point, box) {
+      const dx = Math.max(box.x - point.x, 0, point.x - (box.x + box.width));
+      const dy = Math.max(box.y - point.y, 0, point.y - (box.y + box.height));
+      return Math.hypot(dx, dy);
+    }
+
+    function scoreLabelBox(box, pointIndex, option) {
+      const point = pointPositions[pointIndex];
+      const labelCollisionBox = paddedBox(box, 5);
+      const labelCollision = labelBoxes.reduce((sum, placed) => sum + boxOverlapArea(labelCollisionBox, placed), 0);
+      const pointCollision = pointBoxes.reduce((sum, placed) => sum + boxOverlapArea(box, placed), 0);
+      const overflow = boxOverflowAmount(box);
+      const distance = pointDistanceToBox(point, box);
+      const distancePenalty = Math.max(0, distance - 22) ** 2 + Math.max(0, 8 - distance) ** 2 * 3;
+      return (
+        overflow * 20000 +
+        labelCollision * 900 +
+        pointCollision * 180 +
+        distancePenalty +
+        option.priority
+      );
+    }
+
+    function labelCandidate(item, x, y, option) {
+      const widthEstimate = estimateLabelWidth(item.name);
+      const heightEstimate = 15;
+      const labelX = x + option.dx;
+      const labelY = y + option.dy;
+      const boxX = option.anchor === "end"
+        ? labelX - widthEstimate
+        : option.anchor === "middle"
+          ? labelX - widthEstimate / 2
+          : labelX;
+      return {
+        x: boxX,
+        y: labelY - 11,
+        width: widthEstimate,
+        height: heightEstimate,
+        labelX,
+        labelY,
+        anchor: option.anchor,
+        leader: option.leader,
+        priority: option.priority
+      };
+    }
+
+    function placeLabel(item, x, y, pointIndex) {
+      const candidates = [
+        { dx: 0, dy: -18, anchor: "middle", priority: 0 },
+        { dx: 0, dy: 25, anchor: "middle", priority: 1 },
+        { dx: 16, dy: -12, anchor: "start", priority: 4 },
+        { dx: -16, dy: -12, anchor: "end", priority: 4 },
+        { dx: 16, dy: 22, anchor: "start", priority: 5 },
+        { dx: -16, dy: 22, anchor: "end", priority: 5 },
+        { dx: 24, dy: 4, anchor: "start", priority: 8 },
+        { dx: -24, dy: 4, anchor: "end", priority: 8 },
+        { dx: 0, dy: -36, anchor: "middle", leader: true, priority: 18 },
+        { dx: 0, dy: 43, anchor: "middle", leader: true, priority: 19 },
+        { dx: 28, dy: -30, anchor: "start", leader: true, priority: 24 },
+        { dx: -28, dy: -30, anchor: "end", leader: true, priority: 24 },
+        { dx: 28, dy: 40, anchor: "start", leader: true, priority: 25 },
+        { dx: -28, dy: 40, anchor: "end", leader: true, priority: 25 }
+      ].map((option) => labelCandidate(item, x, y, option));
+
+      candidates.sort((a, b) => scoreLabelBox(a, pointIndex, a) - scoreLabelBox(b, pointIndex, b));
+      const chosen = candidates[0];
+      labelBoxes.push(paddedBox(chosen, 5));
+      return chosen;
+    }
+
+    pointPositions
+      .map((point, index) => {
+        const density = pointPositions.reduce((sum, other, otherIndex) => {
+          if (index === otherIndex) return sum;
+          const distance = Math.hypot(point.x - other.x, point.y - other.y);
+          return sum + 1 / Math.max(16, distance);
+        }, 0);
+        return { index, density, labelWidth: estimateLabelWidth(resultData[index].name) };
+      })
+      .sort((a, b) => (b.density - a.density) || (b.labelWidth - a.labelWidth))
+      .forEach(({ index }) => {
+        const point = pointPositions[index];
+        labelPlacements[index] = placeLabel(resultData[index], point.x, point.y, index);
+      });
 
     function setActive(index, event) {
       const item = resultData[index];
@@ -492,6 +609,7 @@
         const active = nodeIndex === index;
         node.classList.toggle("is-active", active);
         node.querySelector(".scatter-point-dot").setAttribute("r", active ? "13" : "8.5");
+        if (labelNodes[nodeIndex]) labelNodes[nodeIndex].classList.toggle("is-active", active);
       });
       renderDetails(item);
 
@@ -523,8 +641,7 @@
     }
 
     resultData.forEach((item, index) => {
-      const x = xScale(item.comp);
-      const y = yScale(item.proc);
+      const { x, y } = pointPositions[index];
       const group = createSvgNode("g", {
         class: "scatter-point",
         tabindex: "0",
@@ -538,15 +655,30 @@
         r: 8.5,
         fill: item.color
       });
-      const [dx, dy] = labelOffsets[index] || [12, index % 2 === 0 ? -14 : 21];
+      const labelPlacement = labelPlacements[index];
+      if (labelPlacement.leader) {
+        labelLayer.appendChild(createSvgNode("line", {
+          class: "scatter-label-leader",
+          x1: labelPlacement.anchor === "end"
+            ? labelPlacement.labelX + 4
+            : labelPlacement.anchor === "middle"
+              ? labelPlacement.labelX
+              : labelPlacement.labelX - 4,
+          y1: labelPlacement.labelY - 4,
+          x2: x,
+          y2: y
+        }));
+      }
       const label = createSvgNode("text", {
         class: "scatter-point-label",
-        x: dx,
-        y: dy,
-        "text-anchor": "start"
+        x: labelPlacement.labelX,
+        y: labelPlacement.labelY,
+        "text-anchor": labelPlacement.anchor
       });
       label.textContent = item.name;
-      group.append(halo, circle, label);
+      labelLayer.appendChild(label);
+      labelNodes.push(label);
+      group.append(halo, circle);
       group.addEventListener("mouseenter", (event) => setActive(index, event));
       group.addEventListener("mousemove", (event) => setActive(index, event));
       group.addEventListener("focus", (event) => setActive(index, event));
@@ -558,7 +690,7 @@
       pointNodes.push(group);
     });
 
-    svg.appendChild(pointsLayer);
+    svg.append(pointsLayer, labelLayer);
     scatterMount.replaceChildren(svg, tooltip);
     const defaultIndex = resultData.findIndex((item) => item.name === "Claude Opus 4.6");
     setActive(defaultIndex >= 0 ? defaultIndex : 0);

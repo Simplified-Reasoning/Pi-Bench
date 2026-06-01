@@ -1261,6 +1261,13 @@ section h3 {
   pointer-events: none;
 }
 
+.scatter-label-leader {
+  stroke: color-mix(in srgb, var(--text-muted) 58%, transparent);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
 .scatter-point.is-active .scatter-point-dot,
 .scatter-point:focus-visible .scatter-point-dot {
   stroke: var(--text);
@@ -1268,7 +1275,7 @@ section h3 {
   filter: drop-shadow(0 8px 12px rgba(15, 23, 42, 0.28));
 }
 
-.scatter-point.is-active .scatter-point-label,
+.scatter-point-label.is-active,
 .scatter-point:focus-visible .scatter-point-label {
   fill: var(--text);
 }
