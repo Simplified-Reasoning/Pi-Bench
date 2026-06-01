@@ -1,5 +1,5 @@
 {
-  "version": "2026-05-31",
+  "version": "2026-06-01",
   "defaultSort": "proc",
   "domains": [
     { "id": "researcher", "label": "Researcher" },
@@ -71,6 +71,38 @@
         "pharmacist": { "proc": 75.9, "comp": 62.6 },
         "law_trainee": { "proc": 33.2, "comp": 51.1 },
         "financier": { "proc": 59.1, "comp": 48.9 }
+      }
+    },
+    {
+      "name": "DeepSeek V4 Pro",
+      "organization": "DeepSeek",
+      "color": "#dc2626",
+      "overall": {
+        "proc": { "mean": 67.0, "sd": 1.8 },
+        "comp": { "mean": 62.4, "sd": 1.9 }
+      },
+      "domains": {
+        "researcher": { "proc": 47.5, "comp": 67.8 },
+        "marketer": { "proc": 72.3, "comp": 63.3 },
+        "pharmacist": { "proc": 85.0, "comp": 84.3 },
+        "law_trainee": { "proc": 49.0, "comp": 56.2 },
+        "financier": { "proc": 81.2, "comp": 40.6 }
+      }
+    },
+    {
+      "name": "DeepSeek V4 Flash",
+      "organization": "DeepSeek",
+      "color": "#ea580c",
+      "overall": {
+        "proc": { "mean": 60.6, "sd": 1.1 },
+        "comp": { "mean": 57.7, "sd": 5.3 }
+      },
+      "domains": {
+        "researcher": { "proc": 43.2, "comp": 64.1 },
+        "marketer": { "proc": 69.3, "comp": 66.3 },
+        "pharmacist": { "proc": 76.6, "comp": 67.9 },
+        "law_trainee": { "proc": 46.3, "comp": 55.2 },
+        "financier": { "proc": 67.8, "comp": 35.3 }
       }
     },
     {
