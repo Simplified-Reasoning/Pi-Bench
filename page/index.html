@@ -45,7 +45,7 @@
     <nav class="site-nav" aria-label="Primary navigation">
       <a href="#overview">Overview</a>
       <a href="#design">Design</a>
-      <a href="#results">Results</a>
+      <a href="#results">Evaluation</a>
       <a href="#citation">Resources</a>
     </nav>
     <div class="header-actions">
@@ -83,148 +83,181 @@
         <div class="figure-crop figure-crop-overview">
           <img src="assets/figures/overview.png" alt="π-Bench benchmark overview">
         </div>
+        <figcaption>
+          π-Bench evaluates whether a personal assistant can recover hidden user intents across
+          persistent sessions, act through tools and workspace artifacts, and finish the task.
+        </figcaption>
       </figure>
 
-      <div class="content-section hero-intro">
-        <p>
-          Personal assistant agents are expected to help with work that unfolds over files,
-          tools, preferences, and prior interactions. In these settings, success often depends
-          on noticing constraints that users do not state explicitly, recovering relevant context,
-          and asking the right question before acting.
-        </p>
-        <p>
-          <strong>π-Bench</strong> turns this capability into a controlled evaluation. Each task
-          starts from a natural underspecified request inside a persistent personal workspace, and
-          the agent must complete the visible request while resolving latent requirements embedded
-          in the user's profile, history, files, application state, and domain tools. The benchmark
-          contains <em>100</em> long-horizon tasks across <em>5</em> personal domains, with
-          <em>524</em> hidden intents, <em>187</em> tools, <em>21</em> agent skills, and
-          <em>678</em> checklist and rule-based graders.
-        </p>
-        <div class="setup-strip" aria-label="π-Bench task setting">
-          <article>
-            <span class="item-tag">Task</span>
-            <p>Natural underspecified requests that require the agent to inspect, ask, and act across a long-horizon personal episode.</p>
-          </article>
-          <article>
-            <span class="item-tag">Context</span>
-            <p>Persistent profile, history, workspace files, application state, domain tools, and preferences that are not restated in the prompt.</p>
-          </article>
-        </div>
-      </div>
     </section>
 
     <section id="overview" class="section narrative-section">
       <h2>Benchmark Overview</h2>
-      <p>
-        π-Bench focuses on the gap between solving a prompt and acting as a personal assistant.
-        The agent receives ordinary user-facing messages, but the environment contains persistent
-        state: profile information, previous sessions, workspace files, app data, tools, and
-        domain-specific skills. This makes the evaluation depend on grounded behavior rather than
-        isolated text generation.
+      <div class="overview-stat-grid" aria-label="π-Bench scale">
+        <div><strong>100</strong><span>multi-turn tasks</span></div>
+        <div><strong>5</strong><span>domain personas</span></div>
+        <div><strong>524</strong><span>hidden intents</span></div>
+        <div><strong>678</strong><span>checklist and rule graders</span></div>
+      </div>
+      <div class="motivation-grid" aria-label="π-Bench motivation">
+        <article>
+          <span class="step-label">01</span>
+          <h3>Initial request</h3>
+          <p>
+            The user gives a short request that names the visible deliverable, but not every
+            preference, constraint, or dependency.
+          </p>
+        </article>
+        <article>
+          <span class="step-label">02</span>
+          <h3>Hidden intents</h3>
+          <p>
+            Missing habits, preferences, constraints, and task dependencies are recoverable from
+            profiles, prior sessions, workspace files, app state, tool results, and cross-session
+            context.
+          </p>
+        </article>
+        <article>
+          <span class="step-label">03</span>
+          <h3>Agent behavior</h3>
+          <p>
+            π-Bench tests whether the agent infers what it can, asks focused questions when needed,
+            and carries those decisions through later turns, tool use, and artifact revisions.
+          </p>
+        </article>
+      </div>
+      <p class="section-lead">
+        π-Bench evaluates long-horizon personal assistant workflows in persistent project
+        environments. The user gives a short request, but completing it well may depend on
+        preferences, constraints, files, and decisions revealed in earlier sessions and reused
+        later.
       </p>
       <p>
-        The central object of evaluation is the hidden intent: a private preference, dependency, or
-        constraint that matters for the user's real goal. Strong agents should infer these intents
-        from context, verify uncertainty through targeted follow-up questions, and carry the
-        constraints through to the final artifact.
+        Each task starts with a natural but underspecified instruction. The agent works inside a
+        persistent workspace, interacts with the user, uses tools, and creates or revises artifacts.
+        Hidden intents are the missing but recoverable requirements: for example, a deck template,
+        preferred metrics, naming conventions, project-specific constraints, or dependencies
+        established in prior work. Some hidden intents are available from the start, while others
+        are revealed gradually through interaction, tool use, or workspace inspection.
       </p>
-      <figure class="html-figure benchmark-flow" aria-label="π-Bench evaluation flow">
-        <div class="flow-cluster setup-cluster">
-          <span class="flow-label">Benchmark setting</span>
-          <div class="source-chips">
-            <span>Task</span>
-            <span>Profile</span>
-            <span>History</span>
-            <span>Workspace</span>
-            <span>Apps</span>
-            <span>Tools</span>
-          </div>
-        </div>
-        <div class="map-arrow" aria-hidden="true"></div>
-        <div class="agent-node">
-          <span>Agent</span>
-          <strong>ask · inspect · act</strong>
-        </div>
-        <div class="map-arrow" aria-hidden="true"></div>
-        <div class="flow-cluster output-cluster">
-          <span class="flow-label">Evaluation outputs</span>
-          <div class="metric-capsules">
-            <div class="metric-pill">
-              <span>Proc</span>
-              <strong>proactive intent resolution</strong>
-              <i class="meter" style="--value: 67%;"></i>
-            </div>
-            <div class="metric-pill comp">
-              <span>Comp</span>
-              <strong>completed task requirements</strong>
-              <i class="meter" style="--value: 68%;"></i>
-            </div>
-          </div>
-        </div>
-      </figure>
       <p>
-        We report <strong>Proc</strong> and <strong>Comp</strong> as independent evaluation
-        outputs. Proc measures proactive hidden-intent resolution in the trajectory, while Comp
-        measures checklist completion over the trajectory and delivered artifacts. Keeping these
-        scores separate makes it possible to distinguish agents that finish visible work from
-        agents that genuinely understand what the user needed.
+        This is different from evaluating only explicit instructions, isolated memory recall, or
+        short GUI actions. π-Bench asks whether an agent can decide which context matters, when to
+        ask for clarification, and how to carry those decisions into workspace artifacts.
+      </p>
+      <p>
+        The benchmark separates two questions. <strong>Completeness</strong> measures whether the
+        final workflow succeeds, including the explicit request and the relevant hidden intents.
+        <strong>Proactivity</strong> measures whether the agent reduces the user's specification
+        burden by inferring hidden intents from context or asking targeted clarifying questions
+        early enough to guide later work.
       </p>
     </section>
 
     <section id="design" class="section narrative-section">
       <h2>Benchmark Design</h2>
-
-      <figure class="paper-figure wide figure-showcase interaction-figure">
-        <div class="figure-crop figure-crop-interaction">
-          <img src="assets/figures/interaction.png" alt="π-Bench user-agent interaction loop">
-        </div>
-      </figure>
-
-      <h3>Persistent Personal Episodes</h3>
-      <p>
-        Each episode is built around a user domain such as research, marketing, pharmacy, legal
-        work, or finance. The user profile, task request, workspace files, application state, and
-        tool inventory are designed together so that the task cannot be solved reliably from the
-        initial message alone.
+      <p class="section-lead">
+        π-Bench is organized around persistent user episodes, underspecified task sessions, and two
+        complementary scores: proactive intent recovery and task completion.
       </p>
 
-      <h3>Hidden-Intent Tracking</h3>
-      <p>
-        During the interaction, the simulated user maintains hidden intents and reveals information
-        only when the agent's behavior makes it natural to do so. The agent therefore has to decide
-        when to proceed, when to inspect context, and when to ask a specific clarification.
-      </p>
-
-      <h3>Separated Evaluation</h3>
-      <p>
-        Final scoring combines trajectory-level evidence with artifact-level checks. Proactivity is
-        evaluated through hidden-intent coverage, while completion is evaluated with rubric and
-        rule graders. This separation is important: a model can produce a plausible artifact while
-        missing a private constraint, or it can ask useful questions yet still fail part of the
-        deliverable. The design makes both behaviors observable without exposing private intents
-        directly to the agent.
-      </p>
+      <div class="design-flow" aria-label="π-Bench benchmark design flow">
+        <article class="design-node">
+          <span class="flow-label">Episode</span>
+          <h3>Persistent user workflow</h3>
+          <p>
+            Each persona has one 20-session episode in a shared workspace. Preferences,
+            files, prior outputs, and dependencies can carry over.
+          </p>
+          <div class="role-list" aria-label="User roles">
+            <span>Researcher</span>
+            <span>Marketer</span>
+            <span>Law Trainee</span>
+            <span>Pharmacist</span>
+            <span>Financier</span>
+          </div>
+        </article>
+        <div class="flow-arrow" aria-hidden="true"></div>
+        <article class="design-node">
+          <span class="flow-label">Session</span>
+          <h3>Interaction with hidden intents</h3>
+          <p>
+            A natural initial request leaves some requirements unstated. The agent uses context,
+            tools, files, and focused clarification while hidden intents are tracked.
+          </p>
+          <div class="source-chips compact">
+            <span>history</span>
+            <span>workspace</span>
+            <span>apps</span>
+            <span>tools</span>
+            <span>skills</span>
+          </div>
+        </article>
+        <div class="flow-arrow" aria-hidden="true"></div>
+        <article class="design-node">
+          <span class="flow-label">Scoring</span>
+          <h3>Proactivity and completeness</h3>
+          <p>
+            Proc counts agent-driven hidden-intent resolution. Comp checks verifiable requirements
+            across the full trajectory, tool records, and artifacts.
+          </p>
+          <div class="metric-capsules">
+            <div class="metric-pill">
+              <span>Proc</span>
+              <strong>completed or elicited hidden intents</strong>
+            </div>
+            <div class="metric-pill comp">
+              <span>Comp</span>
+              <strong>satisfied checklist criteria</strong>
+            </div>
+          </div>
+        </article>
+      </div>
     </section>
 
     <section id="results" class="section narrative-section">
-      <h2>Results</h2>
+      <h2>Evaluation</h2>
       <p>
-        Current frontier agents achieve substantial task completion, but proactive intent recovery
-        remains difficult. The leaderboard reports average Proc and Comp scores together with
-        domain-level views across the five π-Bench user domains.
+        π-Bench reports <strong>Proc</strong> and <strong>Comp</strong> as two main metrics.
       </p>
-
+      <div class="metric-relation-grid" aria-label="Proc and Comp relationship">
+        <article class="metric-relation-card proc-card">
+          <span class="metric-relation-label">Proc</span>
+          <h3>Did the agent reduce underspecification?</h3>
+          <p>
+            Proc measures the share of hidden intents resolved proactively: an intent counts when
+            the agent <strong>satisfies it directly</strong> through its response, tool use, or
+            artifacts, or <strong>elicits it through a focused clarification</strong> that targets
+            the missing requirement. Intents surfaced only by user-provided information are not
+            counted as proactive.
+          </p>
+        </article>
+        <article class="metric-relation-card comp-card">
+          <span class="metric-relation-label">Comp</span>
+          <h3>Did the final trajectory satisfy the task?</h3>
+          <p>
+            Comp is the average <strong>checklist score</strong> over verifiable task requirements.
+            Checklist graders read the <strong>full trajectory</strong>, including tool records and
+            produced artifacts, to assess whether the resulting workflow satisfies the required
+            outcomes.
+          </p>
+        </article>
+      </div>
       <section class="leaderboard-section" aria-labelledby="leaderboard-title">
         <div class="leaderboard-card">
           <div class="leaderboard-header">
-            <div>
+            <div class="leaderboard-heading">
               <div class="leaderboard-kicker">Leaderboard</div>
               <h3 id="leaderboard-title">Benchmark Leaderboard</h3>
-              <p id="leaderboardSummary">Ranked by Avg Proc across all tasks.</p>
+              <p class="leaderboard-ranking-note">
+                The leaderboard ranks by <strong>Avg Proc by default</strong>. Use the
+                <strong>Rank by</strong> control to switch to <strong>Avg Comp</strong>; the two
+                rankings can differ, so model quality should be read across both metrics.
+              </p>
+              <p id="leaderboardSummary">Current view: ranked by Avg Proc on all tasks.</p>
             </div>
             <div class="leaderboard-sort-control">
-              <span class="leaderboard-sort-label">Rank by</span>
+              <span class="leaderboard-sort-label">Rank by metric</span>
               <div class="leaderboard-actions" aria-label="Leaderboard ranking metric">
                 <button class="leaderboard-action is-active" type="button" data-sort="proc" aria-pressed="true">Avg Proc</button>
                 <button class="leaderboard-action" type="button" data-sort="comp" aria-pressed="false">Avg Comp</button>
@@ -237,7 +270,7 @@
           <div class="leaderboard-table-wrap" id="leaderboardTableWrap" hidden></div>
           <div class="leaderboard-formula">
             <span>Metric</span>
-            <code id="leaderboardFormula">Avg Proc = proactive hidden-intent resolution</code>
+            <code id="leaderboardFormula">Avg Proc = hidden intents completed by the agent or elicited through focused clarification</code>
             <span class="leaderboard-threshold">higher is better</span>
           </div>
         </div>
@@ -245,7 +278,6 @@
 
       <section class="results-visual" aria-labelledby="overall-scatter-title">
         <div class="results-visual-header">
-          <div class="paper-table-kicker">Figure 1</div>
           <h3 id="overall-scatter-title">Overall Performance</h3>
         </div>
         <div class="scatter-layout">

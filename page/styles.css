@@ -33,6 +33,7 @@
   --radius-lg: 8px;
   --max-width: 1280px;
   --content-width: 1280px;
+  --prose-width: 880px;
   --nav-height: 64px;
   --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-serif: Charter, Georgia, "Times New Roman", serif;
@@ -369,6 +370,7 @@ nav li a:hover {
 
 .content-section p,
 .narrative-section > p {
+  width: min(100%, var(--content-width));
   max-width: var(--content-width);
   margin: 12px auto 0;
   color: var(--text-muted);
@@ -395,16 +397,198 @@ nav li a:hover {
 }
 
 .narrative-section > h2 {
+  width: min(100%, var(--content-width));
   max-width: var(--content-width);
   margin-inline: auto;
 }
 
 .narrative-section > h3 {
+  width: min(100%, var(--content-width));
   max-width: var(--content-width);
   margin: clamp(20px, 3vw, 32px) auto 6px;
   color: var(--text);
   font-size: 1.45rem;
   font-weight: 760;
+}
+
+.section-lead {
+  color: var(--text) !important;
+  font-size: 1.24rem !important;
+  line-height: 1.58 !important;
+}
+
+.motivation-grid,
+.overview-stat-grid {
+  display: grid;
+  width: min(100%, var(--content-width));
+  margin: 18px auto 0;
+  gap: 14px;
+}
+
+.motivation-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.motivation-grid article,
+.design-node {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.motivation-grid article {
+  display: grid;
+  gap: 9px;
+  align-content: start;
+  padding: 18px 18px 19px;
+}
+
+.step-label {
+  display: inline-grid;
+  width: 38px;
+  height: 28px;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 860;
+  line-height: 1;
+}
+
+.motivation-grid article:nth-child(2) .step-label {
+  background: var(--accent-warm-soft);
+  color: var(--accent-warm);
+}
+
+.motivation-grid article:nth-child(3) .step-label {
+  background: var(--best-bg);
+  color: var(--completed);
+}
+
+.motivation-grid h3,
+.design-node h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.08rem;
+  font-weight: 790;
+  line-height: 1.25;
+  overflow-wrap: break-word;
+}
+
+.motivation-grid p,
+.design-node p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.55;
+  overflow-wrap: break-word;
+}
+
+.overview-stat-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--border));
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent-soft) 62%, transparent), transparent 68%),
+    var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.overview-stat-grid div {
+  min-width: 0;
+  padding: 7px 10px;
+  border-right: 1px solid var(--border);
+}
+
+.overview-stat-grid div:last-child {
+  border-right: 0;
+}
+
+.overview-stat-grid strong {
+  display: block;
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 780;
+  line-height: 1;
+}
+
+.overview-stat-grid span {
+  display: block;
+  margin-top: 5px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-weight: 720;
+  line-height: 1.3;
+}
+
+.design-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 34px minmax(0, 1fr) 34px minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+  width: min(100%, var(--content-width));
+  margin: 20px auto 0;
+}
+
+.design-node {
+  display: grid;
+  gap: 11px;
+  align-content: start;
+  padding: 18px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--surface-tint) 58%, transparent), transparent 58%),
+    var(--surface);
+}
+
+.design-node .flow-label {
+  width: fit-content;
+}
+
+.flow-arrow {
+  position: relative;
+  align-self: center;
+  height: 2px;
+  background: color-mix(in srgb, var(--accent) 58%, var(--border));
+}
+
+.flow-arrow::after {
+  position: absolute;
+  top: 50%;
+  right: -1px;
+  width: 9px;
+  height: 9px;
+  border-top: 2px solid color-mix(in srgb, var(--accent) 72%, var(--border));
+  border-right: 2px solid color-mix(in srgb, var(--accent) 72%, var(--border));
+  content: "";
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.role-list,
+.source-chips.compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.role-list span,
+.source-chips.compact span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 760;
+  line-height: 1.15;
+  box-shadow: none;
 }
 
 .hero-intro {
@@ -1067,10 +1251,6 @@ section h3 {
   box-shadow: none;
 }
 
-.interaction-figure.figure-showcase {
-  margin: 0 auto 22px;
-}
-
 .figure-showcase .figure-crop,
 .figure-showcase .figure-bleed,
 .figure-showcase .pipeline-figure {
@@ -1114,11 +1294,6 @@ section h3 {
   max-height: none;
 }
 
-.figure-crop-interaction {
-  aspect-ratio: auto;
-  max-height: none;
-}
-
 .pipeline-figure img,
 .figure-bleed img,
 .figure-crop img {
@@ -1130,17 +1305,11 @@ section h3 {
   background: #ffffff;
 }
 
-.figure-crop-overview img,
-.figure-crop-interaction img {
+.figure-crop-overview img {
   object-position: center;
 }
 
 .figure-crop-overview img {
-  transform: none;
-  transform-origin: center;
-}
-
-.figure-crop-interaction img {
   transform: none;
   transform-origin: center;
 }
@@ -1648,9 +1817,87 @@ table tbody tr:last-child th {
   margin: 20px auto 30px;
 }
 
+.metric-relation-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  width: min(100%, var(--content-width));
+  margin: 18px auto 12px;
+}
+
+.metric-relation-card {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  min-width: 0;
+  padding: 18px 19px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.metric-relation-card.proc-card {
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--border));
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--accent-soft) 55%, transparent), transparent 62%),
+    var(--surface);
+}
+
+.metric-relation-card.comp-card {
+  border-color: color-mix(in srgb, var(--completed) 34%, var(--border));
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--best-bg) 45%, transparent), transparent 62%),
+    var(--surface);
+}
+
+.metric-relation-label {
+  display: inline-grid;
+  width: fit-content;
+  min-width: 64px;
+  min-height: 32px;
+  place-items: center;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 0.82rem;
+  font-weight: 860;
+  line-height: 1;
+}
+
+.comp-card .metric-relation-label {
+  background: var(--best-bg);
+  color: var(--completed);
+}
+
+.metric-relation-card h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.08rem;
+  font-weight: 780;
+  line-height: 1.25;
+}
+
+.metric-relation-card p {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.metric-relation-card strong {
+  color: var(--accent-strong);
+  font-weight: 820;
+}
+
+.comp-card strong {
+  color: var(--completed);
+}
+
 .leaderboard-card {
   overflow: hidden;
-  border: 1px solid var(--border);
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
   border-radius: var(--radius-md);
   background: var(--surface);
   box-shadow: var(--shadow-sm);
@@ -1661,8 +1908,15 @@ table tbody tr:last-child th {
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  padding: 18px 20px 16px;
+  padding: 19px 20px 17px;
   border-bottom: 1px solid var(--border);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--accent-soft) 62%, transparent), transparent 70%),
+    var(--surface);
+}
+
+.leaderboard-heading {
+  min-width: 0;
 }
 
 .leaderboard-kicker {
@@ -1683,6 +1937,25 @@ table tbody tr:last-child th {
   font-weight: 780;
   letter-spacing: 0;
   line-height: 1.2;
+}
+
+.leaderboard-header .leaderboard-ranking-note {
+  max-width: 700px;
+  margin: 10px 0 0;
+  padding: 11px 13px;
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--accent-soft) 50%, var(--surface));
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+.leaderboard-header .leaderboard-ranking-note strong {
+  color: var(--accent-strong);
+  font-weight: 830;
 }
 
 .leaderboard-header p {
@@ -1706,14 +1979,20 @@ table tbody tr:last-child th {
 .leaderboard-sort-control {
   display: grid;
   flex: 0 0 auto;
-  gap: 5px;
+  gap: 8px;
   justify-items: end;
+  min-width: 306px;
+  padding: 13px;
+  border: 1px solid color-mix(in srgb, var(--accent) 44%, var(--border));
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--accent-soft) 34%, var(--surface));
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--accent) 10%, transparent);
 }
 
 .leaderboard-sort-label {
-  color: var(--text-subtle);
-  font-size: 0.7rem;
-  font-weight: 760;
+  color: var(--text);
+  font-size: 0.76rem;
+  font-weight: 820;
   letter-spacing: 0.05em;
   line-height: 1;
   text-transform: uppercase;
@@ -1721,6 +2000,10 @@ table tbody tr:last-child th {
 
 .leaderboard-actions {
   flex: 0 0 auto;
+  width: 100%;
+  padding: 5px;
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+  background: var(--surface);
 }
 
 .leaderboard-action,
@@ -1737,6 +2020,15 @@ table tbody tr:last-child th {
   white-space: nowrap;
 }
 
+.leaderboard-action {
+  flex: 1 1 0;
+  min-height: 42px;
+  padding: 9px 17px;
+  color: var(--text);
+  font-size: 0.94rem;
+  font-weight: 840;
+}
+
 .leaderboard-action:hover,
 .leaderboard-tab:hover {
   color: var(--text);
@@ -1747,6 +2039,12 @@ table tbody tr:last-child th {
   background: var(--surface);
   color: var(--text);
   box-shadow: var(--shadow-sm);
+}
+
+.leaderboard-action.is-active {
+  background: var(--accent);
+  color: #ffffff;
+  box-shadow: 0 5px 12px color-mix(in srgb, var(--accent) 24%, transparent);
 }
 
 .leaderboard-tabs {
@@ -1795,10 +2093,17 @@ table tbody tr:last-child th {
   position: static;
   background: var(--surface);
   color: var(--text-subtle);
-  font-size: 0.68rem;
-  font-weight: 780;
+  font-size: 0.72rem;
+  font-weight: 820;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+}
+
+.dynamic-leaderboard thead th:nth-child(3),
+.dynamic-leaderboard thead th:nth-child(4) {
+  color: var(--text);
+  font-size: 0.78rem;
+  font-weight: 860;
 }
 
 .dynamic-leaderboard thead th:first-child,
@@ -1934,11 +2239,15 @@ table tbody tr:last-child th {
 
 .leaderboard-score-value {
   color: var(--text);
-  font-weight: 760;
+  font-size: 1rem;
+  font-weight: 820;
+  line-height: 1;
 }
 
 .leaderboard-metric.is-primary .leaderboard-score-value {
   color: var(--completed);
+  font-size: 1.08rem;
+  font-weight: 900;
 }
 
 .leaderboard-score-error {
@@ -1953,19 +2262,26 @@ table tbody tr:last-child th {
   gap: 12px;
   margin: 14px 20px 18px;
   padding: 10px 12px;
-  border: 1px solid var(--border);
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--border));
+  border-left: 3px solid color-mix(in srgb, var(--completed) 58%, var(--border));
   border-radius: var(--radius-md);
-  background: var(--surface-soft);
+  background: color-mix(in srgb, var(--best-bg) 24%, var(--surface-soft));
   color: var(--text-subtle);
   font-size: 0.78rem;
   line-height: 1.4;
 }
 
+.leaderboard-formula > span:first-child {
+  color: var(--text);
+  font-weight: 800;
+}
+
 .leaderboard-formula code {
   flex: 1;
   min-width: 0;
-  color: var(--accent);
+  color: var(--accent-strong);
   font-size: 0.78rem;
+  font-weight: 720;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2530,6 +2846,8 @@ footer {
   }
 
   .competition-grid,
+  .metric-relation-grid,
+  .motivation-grid,
   .overall-results,
   .domain-results,
   .domain-result-grid,
@@ -2545,13 +2863,30 @@ footer {
     grid-template-columns: 1fr;
   }
 
+  .design-flow {
+    grid-template-columns: 1fr;
+  }
+
   .map-arrow {
     width: 2px;
     height: 32px;
     justify-self: center;
   }
 
+  .flow-arrow {
+    width: 2px;
+    height: 32px;
+    justify-self: center;
+  }
+
   .map-arrow::after {
+    top: auto;
+    right: 50%;
+    bottom: -1px;
+    transform: translateX(50%) rotate(135deg);
+  }
+
+  .flow-arrow::after {
     top: auto;
     right: 50%;
     bottom: -1px;
@@ -2682,11 +3017,20 @@ footer {
     font-size: 1.08rem;
   }
 
+  .hero-eyebrow {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    white-space: normal;
+  }
+
   .content-section p,
   .narrative-section > p,
   .hero .content-section p {
     font-size: 1.04rem;
     line-height: 1.62;
+    overflow-wrap: break-word;
   }
 
   .setup-strip {
@@ -2730,8 +3074,23 @@ footer {
   .stats-grid,
   .taxonomy-grid,
   #taxonomy .grid,
-  .definition-grid {
+  .definition-grid,
+  .overview-stat-grid {
     grid-template-columns: 1fr;
+  }
+
+  .overview-stat-grid {
+    padding: 10px 14px;
+  }
+
+  .overview-stat-grid div {
+    padding: 11px 2px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .overview-stat-grid div:last-child {
+    border-bottom: 0;
   }
 
   .paper-table-scroll,
@@ -2801,6 +3160,12 @@ footer {
     max-height: none;
   }
 
+  .figure-showcase .figure-crop,
+  .figure-showcase .figure-bleed,
+  .figure-showcase .pipeline-figure {
+    overflow: hidden;
+  }
+
   .pipeline-figure img,
   .figure-bleed img,
   .figure-crop img {
@@ -2828,6 +3193,10 @@ footer {
 }
 
 @media (max-width: 760px) {
+  .to-top {
+    display: none;
+  }
+
   .leaderboard-header {
     align-items: stretch;
     flex-direction: column;
@@ -2836,6 +3205,8 @@ footer {
 
   .leaderboard-sort-control {
     justify-items: stretch;
+    width: 100%;
+    min-width: 0;
   }
 
   .leaderboard-actions {

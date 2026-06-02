@@ -280,12 +280,12 @@
     }
     if (leaderboardSummary) {
       const metric = state.sort === "proc" ? "Avg Proc" : "Avg Comp";
-      leaderboardSummary.textContent = `Ranked by ${metric} on ${getViewLabel(state.view)}.`;
+      leaderboardSummary.textContent = `Current view: ranked by ${metric} on ${getViewLabel(state.view)}.`;
     }
     if (leaderboardFormula) {
       leaderboardFormula.textContent = state.sort === "proc"
-        ? "Avg Proc = proactive hidden-intent resolution"
-        : "Avg Comp = task requirement completion";
+        ? "Avg Proc = hidden intents completed by the agent or elicited through focused clarification"
+        : "Avg Comp = verifiable checklist items satisfied by the full trajectory and artifacts";
     }
   }
 
