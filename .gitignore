@@ -90,6 +90,7 @@ outputs/
 
 # Local-only helper artifacts
 scripts/export_results.sh
+# Local Codex/agent guidance; keep it out of repository commits.
 AGENTS.md
 
 # third_party/nanobot local ignores
