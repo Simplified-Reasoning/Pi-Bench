@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-01",
+  "version": "2026-06-03",
   "defaultSort": "proc",
   "domains": [
     { "id": "researcher", "label": "Researcher" },
@@ -55,6 +55,22 @@
         "pharmacist": { "proc": 82.8, "comp": 68.6 },
         "law_trainee": { "proc": 45.7, "comp": 57.2 },
         "financier": { "proc": 73.8, "comp": 63.2 }
+      }
+    },
+    {
+      "name": "Step 3.7 Flash",
+      "organization": "StepFun",
+      "color": "#9333ea",
+      "overall": {
+        "proc": { "mean": 63.80, "sd": 1.27 },
+        "comp": { "mean": 62.32, "sd": 0.80 }
+      },
+      "domains": {
+        "researcher": { "proc": 72.18, "comp": 43.95 },
+        "marketer": { "proc": 48.13, "comp": 55.40 },
+        "pharmacist": { "proc": 77.98, "comp": 61.63 },
+        "law_trainee": { "proc": 79.00, "comp": 89.92 },
+        "financier": { "proc": 41.71, "comp": 60.69 }
       }
     },
     {
