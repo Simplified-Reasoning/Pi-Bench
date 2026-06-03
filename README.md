@@ -59,6 +59,14 @@ short-horizon, GUI/mobile, or memory-only benchmarks, `π-BENCH` focuses on
 persistent artifact workflows with hidden intents, inter-task dependencies, and
 cross-session continuity.
 
+<a id="leaderboard"></a>
+## 🏆 Leaderboard
+
+Model results are maintained on the online leaderboard, with overall and
+per-persona PROC/COMP scores:
+
+https://simplified-reasoning.github.io/Pi-Bench/#results
+
 <a id="setup"></a>
 ## 🧰 Setup
 
