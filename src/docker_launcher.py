@@ -612,6 +612,20 @@ def _prepare_runtime_data_dir(repo_root: Path, job: Job, *, reset: bool) -> Path
     return destination
 
 
+def _prepare_runtime_appworld_dir(repo_root: Path, job: Job, *, reset: bool) -> Path:
+    source = repo_root / "third_party" / "appworld"
+    destination = job.runtime_dir / "appworld"
+    if reset and destination.exists():
+        shutil.rmtree(destination)
+    if destination.exists():
+        if not destination.is_dir():
+            raise SystemExit(f"[pibench] runtime AppWorld path is not a directory: {destination}")
+        return destination
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(source, destination, symlinks=True, ignore=shutil.ignore_patterns(".git", "__pycache__"))
+    return destination
+
+
 def _model_config_path(repo_root: Path, model_id: str) -> Path:
     yaml_path = repo_root / "config" / "models" / f"{model_id}.yaml"
     if yaml_path.is_file():
@@ -712,6 +726,7 @@ def _create_container(
     if remove_existing_runtime and job.runtime_dir.exists():
         shutil.rmtree(job.runtime_dir)
     runtime_data_dir = _prepare_runtime_data_dir(repo_root, job, reset=remove_existing_runtime)
+    runtime_appworld_dir = _prepare_runtime_appworld_dir(repo_root, job, reset=remove_existing_runtime)
     job.service_logs_dir.mkdir(parents=True, exist_ok=True)
 
     create_cmd = [
@@ -742,7 +757,7 @@ def _create_container(
         "-v",
         f"{repo_root / 'third_party' / 'nanobot'}:{PROACTIVE_ROOT_CONTAINER}/nanobot",
         "-v",
-        f"{repo_root / 'third_party' / 'appworld'}:{APPWORLD_ROOT_CONTAINER}",
+        f"{runtime_appworld_dir}:{APPWORLD_ROOT_CONTAINER}",
         image_name,
     ]
     cid = subprocess.check_output(create_cmd, text=True).strip()

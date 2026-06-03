@@ -5,10 +5,13 @@ from pathlib import Path
 from pytest import approx
 
 from src.docker_launcher import (
+    APPWORLD_ROOT_CONTAINER,
     Job,
     ScorePair,
+    _create_container,
     _discover_user_ids,
     _latest_runtime_status,
+    _prepare_runtime_appworld_dir,
     _prepare_runtime_data_dir,
     _score_summary,
     _score_summary_by_run_average,
@@ -80,6 +83,88 @@ def test_prepare_runtime_data_dir_replaces_existing_copy_when_reset_is_true(tmp_
     _prepare_runtime_data_dir(tmp_path, job, reset=True)
 
     assert runtime_file.read_text(encoding="utf-8") == "source\n"
+
+
+def test_prepare_runtime_appworld_dir_uses_isolated_copy(tmp_path: Path) -> None:
+    source_root = tmp_path / "third_party" / "appworld"
+    source_root.mkdir(parents=True)
+    source_file = source_root / "pyproject.toml"
+    source_file.write_text("source\n", encoding="utf-8")
+    (source_root / ".git").mkdir()
+    (source_root / ".git" / "config").write_text("git metadata\n", encoding="utf-8")
+    job = _job(tmp_path / "outputs", "model__run01", "researcher")
+
+    runtime_appworld_dir = _prepare_runtime_appworld_dir(tmp_path, job, reset=True)
+    runtime_file = runtime_appworld_dir / "pyproject.toml"
+    runtime_file.write_text("container edit\n", encoding="utf-8")
+
+    assert runtime_appworld_dir == job.runtime_dir / "appworld"
+    assert runtime_file.read_text(encoding="utf-8") == "container edit\n"
+    assert source_file.read_text(encoding="utf-8") == "source\n"
+    assert not (runtime_appworld_dir / ".git").exists()
+
+
+def test_create_container_mounts_runtime_appworld_copy(tmp_path: Path, monkeypatch) -> None:
+    repo_root = tmp_path
+    _write_user(repo_root, "researcher")
+    (repo_root / "src").mkdir()
+    (repo_root / "config" / "models").mkdir(parents=True)
+    (repo_root / "config" / "models" / "example.yaml").write_text(
+        "model:\n  provider: custom\n  model: openai/gpt-test\n  api_key: test-key\n",
+        encoding="utf-8",
+    )
+    (repo_root / "config" / "bench" / "evaluation").mkdir(parents=True)
+    (repo_root / "scripts").mkdir()
+    (repo_root / "scripts" / "entrypoint.sh").write_text("#!/bin/sh\n", encoding="utf-8")
+    (repo_root / "third_party" / "nanobot").mkdir(parents=True)
+    source_appworld = repo_root / "third_party" / "appworld"
+    source_appworld.mkdir(parents=True)
+    (source_appworld / "pyproject.toml").write_text("source\n", encoding="utf-8")
+    job = Job(
+        user_id="researcher",
+        model_id="example",
+        run_model_id="example",
+        model_config_host_path=repo_root / "config" / "models" / "example.yaml",
+        runtime_dir=repo_root / "outputs" / "example" / "researcher" / "run" / "20260101_000000-runtime",
+        service_logs_dir=repo_root / "outputs" / "example" / "researcher" / "run" / "20260101_000000-runtime" / "service-logs",
+        container_name="bench-test",
+    )
+    commands: list[list[str]] = []
+
+    def fake_check_output(cmd, *, text):
+        commands.append(cmd)
+        return "container-id\n"
+
+    def fake_run(cmd, **kwargs):
+        class Result:
+            stdout = "inspect\n"
+
+        commands.append(cmd)
+        return Result()
+
+    class FakePopen:
+        def __init__(self, cmd, **kwargs):
+            commands.append(cmd)
+
+    monkeypatch.setattr("src.docker_launcher.subprocess.check_output", fake_check_output)
+    monkeypatch.setattr("src.docker_launcher.subprocess.run", fake_run)
+    monkeypatch.setattr("src.docker_launcher.subprocess.Popen", FakePopen)
+
+    _create_container(
+        repo_root=repo_root,
+        output_root=repo_root / "outputs",
+        image_name="image",
+        job=job,
+        task_ids=[],
+        enable_appworld=True,
+        remove_existing_runtime=True,
+    )
+
+    create_cmd = commands[0]
+    runtime_appworld = job.runtime_dir / "appworld"
+    assert f"{runtime_appworld}:{APPWORLD_ROOT_CONTAINER}" in create_cmd
+    assert f"{source_appworld}:{APPWORLD_ROOT_CONTAINER}" not in create_cmd
+    assert runtime_appworld.is_dir()
 
 
 def test_run_average_summary_std_uses_run_level_averages() -> None:
