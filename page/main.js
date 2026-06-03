@@ -487,6 +487,11 @@
     const labelPlacements = new Array(resultData.length);
     const pointNodes = [];
     const labelNodes = [];
+    const labelPlacementOverrides = {
+      "DeepSeek V4 Flash": [
+        { dx: 18, dy: -22, anchor: "end", leader: true, priority: -80 }
+      ]
+    };
 
     function estimateLabelWidth(text) {
       return Math.max(42, text.length * 7.15);
@@ -564,6 +569,13 @@
     }
 
     function placeLabel(item, x, y, pointIndex) {
+      const override = labelPlacementOverrides[item.name] && labelPlacementOverrides[item.name][0];
+      if (override) {
+        const chosen = labelCandidate(item, x, y, override);
+        labelBoxes.push(paddedBox(chosen, 5));
+        return chosen;
+      }
+
       const candidates = [
         { dx: 0, dy: -18, anchor: "middle", priority: 0 },
         { dx: 0, dy: 25, anchor: "middle", priority: 1 },
