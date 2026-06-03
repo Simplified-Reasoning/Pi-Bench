@@ -6,6 +6,7 @@ import json
 import math
 import os
 import re
+import shutil
 import statistics
 import subprocess
 import sys
@@ -596,6 +597,21 @@ def _discover_user_ids(repo_root: Path) -> list[str]:
     return users
 
 
+def _prepare_runtime_data_dir(repo_root: Path, job: Job, *, reset: bool) -> Path:
+    source = repo_root / "data" / job.user_id
+    destination = job.runtime_dir / "data"
+    destination_user = destination / job.user_id
+    if reset and destination.exists():
+        shutil.rmtree(destination)
+    if destination_user.exists():
+        if not destination_user.is_dir():
+            raise SystemExit(f"[pibench] runtime data path is not a directory: {destination_user}")
+        return destination
+    destination.mkdir(parents=True, exist_ok=True)
+    shutil.copytree(source, destination_user, symlinks=True)
+    return destination
+
+
 def _model_config_path(repo_root: Path, model_id: str) -> Path:
     yaml_path = repo_root / "config" / "models" / f"{model_id}.yaml"
     if yaml_path.is_file():
@@ -694,9 +710,8 @@ def _create_container(
     remove_existing_runtime: bool,
 ) -> tuple[str, subprocess.Popen]:
     if remove_existing_runtime and job.runtime_dir.exists():
-        import shutil
-
         shutil.rmtree(job.runtime_dir)
+    runtime_data_dir = _prepare_runtime_data_dir(repo_root, job, reset=remove_existing_runtime)
     job.service_logs_dir.mkdir(parents=True, exist_ok=True)
 
     create_cmd = [
@@ -719,7 +734,7 @@ def _create_container(
         "-v",
         f"{repo_root / 'src'}:{PROACTIVE_ROOT_CONTAINER}/src",
         "-v",
-        f"{repo_root / 'data'}:{PROACTIVE_ROOT_CONTAINER}/data",
+        f"{runtime_data_dir}:{PROACTIVE_ROOT_CONTAINER}/data",
         "-v",
         f"{repo_root / 'config'}:{CONFIG_ROOT_CONTAINER}",
         "-v",

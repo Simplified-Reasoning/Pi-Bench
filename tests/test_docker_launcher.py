@@ -9,6 +9,7 @@ from src.docker_launcher import (
     ScorePair,
     _discover_user_ids,
     _latest_runtime_status,
+    _prepare_runtime_data_dir,
     _score_summary,
     _score_summary_by_run_average,
     _split_rerun_failed_jobs,
@@ -29,6 +30,56 @@ def test_discover_user_ids_returns_all_valid_data_users(tmp_path: Path) -> None:
     (tmp_path / "data" / "scratch").mkdir()
 
     assert _discover_user_ids(tmp_path) == ["law_trainee", "researcher"]
+
+
+def test_prepare_runtime_data_dir_uses_isolated_copy(tmp_path: Path) -> None:
+    source_task = tmp_path / "data" / "researcher" / "tasks" / "task_001"
+    source_task.mkdir(parents=True)
+    source_file = source_task / "task.md"
+    source_file.write_text("original\n", encoding="utf-8")
+    other_user = tmp_path / "data" / "marketer"
+    other_user.mkdir(parents=True)
+    job = _job(tmp_path / "outputs", "model__run01", "researcher")
+
+    runtime_data_dir = _prepare_runtime_data_dir(tmp_path, job, reset=True)
+    runtime_file = runtime_data_dir / "researcher" / "tasks" / "task_001" / "task.md"
+    runtime_file.write_text("container edit\n", encoding="utf-8")
+
+    assert runtime_data_dir == job.runtime_dir / "data"
+    assert not (runtime_data_dir / "marketer").exists()
+    assert runtime_file.read_text(encoding="utf-8") == "container edit\n"
+    assert source_file.read_text(encoding="utf-8") == "original\n"
+
+
+def test_prepare_runtime_data_dir_keeps_existing_copy_when_reset_is_false(tmp_path: Path) -> None:
+    source_user = tmp_path / "data" / "researcher"
+    source_user.mkdir(parents=True)
+    (source_user / "profile.yaml").write_text("source\n", encoding="utf-8")
+    job = _job(tmp_path / "outputs", "model__run01", "researcher")
+    runtime_user = job.runtime_dir / "data" / "researcher"
+    runtime_user.mkdir(parents=True)
+    runtime_file = runtime_user / "profile.yaml"
+    runtime_file.write_text("kept\n", encoding="utf-8")
+
+    runtime_data_dir = _prepare_runtime_data_dir(tmp_path, job, reset=False)
+
+    assert runtime_data_dir == job.runtime_dir / "data"
+    assert runtime_file.read_text(encoding="utf-8") == "kept\n"
+
+
+def test_prepare_runtime_data_dir_replaces_existing_copy_when_reset_is_true(tmp_path: Path) -> None:
+    source_user = tmp_path / "data" / "researcher"
+    source_user.mkdir(parents=True)
+    (source_user / "profile.yaml").write_text("source\n", encoding="utf-8")
+    job = _job(tmp_path / "outputs", "model__run01", "researcher")
+    runtime_user = job.runtime_dir / "data" / "researcher"
+    runtime_user.mkdir(parents=True)
+    runtime_file = runtime_user / "profile.yaml"
+    runtime_file.write_text("stale\n", encoding="utf-8")
+
+    _prepare_runtime_data_dir(tmp_path, job, reset=True)
+
+    assert runtime_file.read_text(encoding="utf-8") == "source\n"
 
 
 def test_run_average_summary_std_uses_run_level_averages() -> None:
