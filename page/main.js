@@ -489,7 +489,7 @@
     const labelNodes = [];
     const labelPlacementOverrides = {
       "DeepSeek V4 Flash": [
-        { dx: 18, dy: -22, anchor: "end", leader: true, priority: -80 }
+        { dx: 34, dy: -22, anchor: "end", leader: true, priority: -80 }
       ]
     };
 
