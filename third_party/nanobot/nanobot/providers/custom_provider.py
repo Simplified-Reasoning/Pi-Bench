@@ -285,6 +285,18 @@ class CustomProvider(LLMProvider):
             raise ValueError("Custom provider returned invalid response: choices is empty")
         return choices[0]
 
+    @classmethod
+    def _sanitize_request_messages(cls, messages: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        sanitized = []
+        for msg in cls._sanitize_empty_content(messages):
+            if msg.get("role") == "tool" and "name" in msg:
+                clean = dict(msg)
+                clean.pop("name", None)
+                sanitized.append(clean)
+            else:
+                sanitized.append(msg)
+        return sanitized
+
     async def _chat_with_retry(self, kwargs: dict[str, Any]) -> LLMResponse:
         for attempt in range(1, self._max_attempts + 1):
             try:
@@ -343,7 +355,7 @@ class CustomProvider(LLMProvider):
                    reasoning_effort: str | None = None) -> LLMResponse:
         kwargs: dict[str, Any] = {
             "model": model or self.default_model,
-            "messages": self._sanitize_empty_content(messages),
+            "messages": self._sanitize_request_messages(messages),
             "max_tokens": max(1, max_tokens),
             "temperature": temperature,
         }
