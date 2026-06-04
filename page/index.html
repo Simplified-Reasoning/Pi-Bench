@@ -35,55 +35,66 @@
       <circle cx="12" cy="12" r="8" />
       <path d="M12 4v16" />
     </symbol>
+    <symbol id="icon-language" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3.6 9h16.8" />
+      <path d="M3.6 15h16.8" />
+      <path d="M12 3c2.1 2.4 3.2 5.4 3.2 9s-1.1 6.6-3.2 9" />
+      <path d="M12 3C9.9 5.4 8.8 8.4 8.8 12s1.1 6.6 3.2 9" />
+    </symbol>
   </svg>
 
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="π-Bench home">
+    <a class="brand" href="#top" aria-label="π-Bench home" data-i18n-aria="brandAria">
       <span class="brand-mark">π</span>
       <span>π-Bench</span>
     </a>
-    <nav class="site-nav" aria-label="Primary navigation">
-      <a href="#overview">Overview</a>
-      <a href="#design">Design</a>
-      <a href="#results">Evaluation</a>
-      <a href="#citation">Resources</a>
+    <nav class="site-nav" aria-label="Primary navigation" data-i18n-aria="primaryNavAria">
+      <a href="#overview" data-i18n="navOverview">Overview</a>
+      <a href="#design" data-i18n="navDesign">Design</a>
+      <a href="#results" data-i18n="navEvaluation">Evaluation</a>
+      <a href="#citation" data-i18n="navResources">Resources</a>
     </nav>
     <div class="header-actions">
-      <button class="chip-button" id="themeToggle" type="button" aria-label="Toggle theme">
+      <button class="chip-button" id="themeToggle" type="button" aria-label="Toggle theme" data-i18n-aria="themeToggleAria">
         <svg class="button-icon" aria-hidden="true"><use href="#icon-contrast"></use></svg>
         <span id="themeLabel">Dark</span>
+      </button>
+      <button class="chip-button language-button" id="languageToggle" type="button" aria-label="Switch language">
+        <svg class="button-icon" aria-hidden="true"><use href="#icon-language"></use></svg>
+        <span id="languageLabel">中文</span>
       </button>
     </div>
   </header>
 
   <main id="top">
     <section class="hero paper-hero">
-      <p class="eyebrow hero-eyebrow">Proactive Personal Assistant Benchmark</p>
+      <p class="eyebrow hero-eyebrow" data-i18n="heroEyebrow">Proactive Personal Assistant Benchmark</p>
       <h1 class="page-title">
         <span class="title-mark">π-Bench</span>
-        <small>Evaluating Proactive Personal Assistant Agents in Long-Horizon Workflows</small>
+        <small data-i18n="heroSubtitle">Evaluating Proactive Personal Assistant Agents in Long-Horizon Workflows</small>
       </h1>
 
       <div class="hero-actions resource-actions">
         <a class="button primary" href="https://github.com/Simplified-Reasoning/Pi-Bench" target="_blank" rel="noreferrer">
           <svg class="button-icon" aria-hidden="true"><use href="#icon-code"></use></svg>
-          <span>Code</span>
+          <span data-i18n="buttonCode">Code</span>
         </a>
         <a class="button" href="https://github.com/Simplified-Reasoning/Pi-Bench/tree/main/data" target="_blank" rel="noreferrer">
           <svg class="button-icon" aria-hidden="true"><use href="#icon-data"></use></svg>
-          <span>Data</span>
+          <span data-i18n="buttonData">Data</span>
         </a>
         <a class="button" href="https://arxiv.org/abs/2605.14678" target="_blank" rel="noreferrer">
           <svg class="button-icon" aria-hidden="true"><use href="#icon-paper"></use></svg>
-          <span>Paper</span>
+          <span data-i18n="buttonPaper">Paper</span>
         </a>
       </div>
 
       <figure class="paper-figure wide figure-showcase overview-figure">
         <div class="figure-crop figure-crop-overview">
-          <img src="assets/figures/overview.png" alt="π-Bench benchmark overview">
+          <img src="assets/figures/overview.png" alt="π-Bench benchmark overview" data-i18n-alt="overviewFigureAlt">
         </div>
-        <figcaption>
+        <figcaption data-i18n="overviewCaption">
           π-Bench evaluates whether a personal assistant can recover hidden user intents across
           persistent sessions, act through tools and workspace artifacts, and finish the task.
         </figcaption>
@@ -92,26 +103,26 @@
     </section>
 
     <section id="overview" class="section narrative-section">
-      <h2>Benchmark Overview</h2>
-      <div class="overview-stat-grid" aria-label="π-Bench scale">
-        <div><strong>100</strong><span>multi-turn tasks</span></div>
-        <div><strong>5</strong><span>domain personas</span></div>
-        <div><strong>524</strong><span>hidden intents</span></div>
-        <div><strong>678</strong><span>checklist and rule graders</span></div>
+      <h2 data-i18n="overviewTitle">Benchmark Overview</h2>
+      <div class="overview-stat-grid" aria-label="π-Bench scale" data-i18n-aria="scaleAria">
+        <div><strong>100</strong><span data-i18n="statTasks">multi-turn tasks</span></div>
+        <div><strong>5</strong><span data-i18n="statPersonas">domain personas</span></div>
+        <div><strong>524</strong><span data-i18n="statIntents">hidden intents</span></div>
+        <div><strong>678</strong><span data-i18n="statGraders">checklist and rule graders</span></div>
       </div>
-      <div class="motivation-grid" aria-label="π-Bench motivation">
+      <div class="motivation-grid" aria-label="π-Bench motivation" data-i18n-aria="motivationAria">
         <article>
           <span class="step-label">01</span>
-          <h3>Initial request</h3>
-          <p>
+          <h3 data-i18n="overviewStep1Title">Initial request</h3>
+          <p data-i18n="overviewStep1Body">
             The user gives a short request that names the visible deliverable, but not every
             preference, constraint, or dependency.
           </p>
         </article>
         <article>
           <span class="step-label">02</span>
-          <h3>Hidden intents</h3>
-          <p>
+          <h3 data-i18n="overviewStep2Title">Hidden intents</h3>
+          <p data-i18n="overviewStep2Body">
             Missing habits, preferences, constraints, and task dependencies are recoverable from
             profiles, prior sessions, workspace files, app state, tool results, and cross-session
             context.
@@ -119,20 +130,20 @@
         </article>
         <article>
           <span class="step-label">03</span>
-          <h3>Agent behavior</h3>
-          <p>
+          <h3 data-i18n="overviewStep3Title">Agent behavior</h3>
+          <p data-i18n="overviewStep3Body">
             π-Bench tests whether the agent infers what it can, asks focused questions when needed,
             and carries those decisions through later turns, tool use, and artifact revisions.
           </p>
         </article>
       </div>
-      <p class="section-lead">
+      <p class="section-lead" data-i18n="overviewLead">
         π-Bench evaluates long-horizon personal assistant workflows in persistent project
         environments. The user gives a short request, but completing it well may depend on
         preferences, constraints, files, and decisions revealed in earlier sessions and reused
         later.
       </p>
-      <p>
+      <p data-i18n="overviewBody1">
         Each task starts with a natural but underspecified instruction. The agent works inside a
         persistent workspace, interacts with the user, uses tools, and creates or revises artifacts.
         Hidden intents are the missing but recoverable requirements: for example, a deck template,
@@ -140,12 +151,12 @@
         established in prior work. Some hidden intents are available from the start, while others
         are revealed gradually through interaction, tool use, or workspace inspection.
       </p>
-      <p>
+      <p data-i18n="overviewBody2">
         This is different from evaluating only explicit instructions, isolated memory recall, or
         short GUI actions. π-Bench asks whether an agent can decide which context matters, when to
         ask for clarification, and how to carry those decisions into workspace artifacts.
       </p>
-      <p>
+      <p data-i18n-html="overviewBody3">
         The benchmark separates two questions. <strong>Completeness</strong> measures whether the
         final workflow succeeds, including the explicit request and the relevant hidden intents.
         <strong>Proactivity</strong> measures whether the agent reduces the user's specification
@@ -155,60 +166,60 @@
     </section>
 
     <section id="design" class="section narrative-section">
-      <h2>Benchmark Design</h2>
-      <p class="section-lead">
+      <h2 data-i18n="designTitle">Benchmark Design</h2>
+      <p class="section-lead" data-i18n="designLead">
         π-Bench is organized around persistent user episodes, underspecified task sessions, and two
         complementary scores: proactive intent recovery and task completion.
       </p>
 
-      <div class="design-flow" aria-label="π-Bench benchmark design flow">
+      <div class="design-flow" aria-label="π-Bench benchmark design flow" data-i18n-aria="designFlowAria">
         <article class="design-node">
-          <span class="flow-label">Episode</span>
-          <h3>Persistent user workflow</h3>
-          <p>
+          <span class="flow-label" data-i18n="designEpisodeLabel">Episode</span>
+          <h3 data-i18n="designEpisodeTitle">Persistent user workflow</h3>
+          <p data-i18n="designEpisodeBody">
             Each persona has one 20-session episode in a shared workspace. Preferences,
             files, prior outputs, and dependencies can carry over.
           </p>
-          <div class="role-list" aria-label="User roles">
-            <span>Researcher</span>
-            <span>Marketer</span>
-            <span>Law Trainee</span>
-            <span>Pharmacist</span>
-            <span>Financier</span>
+          <div class="role-list" aria-label="User roles" data-i18n-aria="userRolesAria">
+            <span data-i18n="domainResearcher">Researcher</span>
+            <span data-i18n="domainMarketer">Marketer</span>
+            <span data-i18n="domainLawTrainee">Law Trainee</span>
+            <span data-i18n="domainPharmacist">Pharmacist</span>
+            <span data-i18n="domainFinancier">Financier</span>
           </div>
         </article>
         <div class="flow-arrow" aria-hidden="true"></div>
         <article class="design-node">
-          <span class="flow-label">Session</span>
-          <h3>Interaction with hidden intents</h3>
-          <p>
+          <span class="flow-label" data-i18n="designSessionLabel">Session</span>
+          <h3 data-i18n="designSessionTitle">Interaction with hidden intents</h3>
+          <p data-i18n="designSessionBody">
             A natural initial request leaves some requirements unstated. The agent uses context,
             tools, files, and focused clarification while hidden intents are tracked.
           </p>
           <div class="source-chips compact">
-            <span>history</span>
-            <span>workspace</span>
-            <span>apps</span>
-            <span>tools</span>
-            <span>skills</span>
+            <span data-i18n="sourceHistory">history</span>
+            <span data-i18n="sourceWorkspace">workspace</span>
+            <span data-i18n="sourceApps">apps</span>
+            <span data-i18n="sourceTools">tools</span>
+            <span data-i18n="sourceSkills">skills</span>
           </div>
         </article>
         <div class="flow-arrow" aria-hidden="true"></div>
         <article class="design-node">
-          <span class="flow-label">Scoring</span>
-          <h3>Proactivity and completeness</h3>
-          <p>
+          <span class="flow-label" data-i18n="designScoringLabel">Scoring</span>
+          <h3 data-i18n="designScoringTitle">Proactivity and completeness</h3>
+          <p data-i18n="designScoringBody">
             Proc counts agent-driven hidden-intent resolution. Comp checks verifiable requirements
             across the full trajectory, tool records, and artifacts.
           </p>
           <div class="metric-capsules">
             <div class="metric-pill">
               <span>Proc</span>
-              <strong>completed or elicited hidden intents</strong>
+              <strong data-i18n="metricProcPill">completed or elicited hidden intents</strong>
             </div>
             <div class="metric-pill comp">
               <span>Comp</span>
-              <strong>satisfied checklist criteria</strong>
+              <strong data-i18n="metricCompPill">satisfied checklist criteria</strong>
             </div>
           </div>
         </article>
@@ -216,15 +227,15 @@
     </section>
 
     <section id="results" class="section narrative-section">
-      <h2>Evaluation</h2>
-      <p>
+      <h2 data-i18n="evaluationTitle">Evaluation</h2>
+      <p data-i18n-html="evaluationIntro">
         π-Bench reports <strong>Proc</strong> and <strong>Comp</strong> as two main metrics.
       </p>
-      <div class="metric-relation-grid" aria-label="Proc and Comp relationship">
+      <div class="metric-relation-grid" aria-label="Proc and Comp relationship" data-i18n-aria="metricRelationAria">
         <article class="metric-relation-card proc-card">
           <span class="metric-relation-label">Proc</span>
-          <h3>Did the agent reduce underspecification in a proactive way?</h3>
-          <p>
+          <h3 data-i18n="procCardTitle">Did the agent reduce underspecification in a proactive way?</h3>
+          <p data-i18n-html="procCardBody">
             Proc measures the share of hidden intents resolved proactively: an intent counts when
             the agent <strong>satisfies it directly</strong> through its response, tool use, or
             artifacts, or <strong>asks a targeted clarifying question</strong> about the specific
@@ -234,8 +245,8 @@
         </article>
         <article class="metric-relation-card comp-card">
           <span class="metric-relation-label">Comp</span>
-          <h3>Did the final trajectory satisfy the task?</h3>
-          <p>
+          <h3 data-i18n="compCardTitle">Did the final trajectory satisfy the task?</h3>
+          <p data-i18n-html="compCardBody">
             Comp is the average <strong>checklist score</strong> over verifiable task requirements.
             Checklist graders read the <strong>full trajectory</strong>, including tool records and
             produced artifacts, to assess whether the resulting workflow satisfies the required
@@ -247,9 +258,9 @@
         <div class="leaderboard-card">
           <div class="leaderboard-header">
             <div class="leaderboard-heading">
-              <div class="leaderboard-kicker">Leaderboard</div>
-              <h3 id="leaderboard-title">Benchmark Leaderboard</h3>
-              <p class="leaderboard-ranking-note">
+              <div class="leaderboard-kicker" data-i18n="leaderboardKicker">Leaderboard</div>
+              <h3 id="leaderboard-title" data-i18n="leaderboardTitle">Benchmark Leaderboard</h3>
+              <p class="leaderboard-ranking-note" data-i18n-html="leaderboardRankingNote">
                 The leaderboard ranks by <strong>Avg Proc by default</strong>. Use the
                 <strong>Rank by</strong> control to switch to <strong>Avg Comp</strong>; the two
                 rankings can differ, so model quality should be read across both metrics.
@@ -257,28 +268,28 @@
               <p id="leaderboardSummary">Current view: ranked by Avg Proc on all tasks.</p>
             </div>
             <div class="leaderboard-sort-control">
-              <span class="leaderboard-sort-label">Rank by metric</span>
-              <div class="leaderboard-actions" aria-label="Leaderboard ranking metric">
+              <span class="leaderboard-sort-label" data-i18n="rankByMetric">Rank by metric</span>
+              <div class="leaderboard-actions" aria-label="Leaderboard ranking metric" data-i18n-aria="leaderboardRankingAria">
                 <button class="leaderboard-action is-active" type="button" data-sort="proc" aria-pressed="true">Avg Proc</button>
                 <button class="leaderboard-action" type="button" data-sort="comp" aria-pressed="false">Avg Comp</button>
               </div>
             </div>
           </div>
 
-          <div class="leaderboard-tabs" id="leaderboardTabs" aria-label="Leaderboard views"></div>
+          <div class="leaderboard-tabs" id="leaderboardTabs" aria-label="Leaderboard views" data-i18n-aria="leaderboardViewsAria"></div>
           <div class="leaderboard-status" id="leaderboardStatus" role="status">Loading leaderboard...</div>
           <div class="leaderboard-table-wrap" id="leaderboardTableWrap" hidden></div>
           <div class="leaderboard-formula">
-            <span>Metric</span>
+            <span data-i18n="metricLabel">Metric</span>
             <code id="leaderboardFormula">Avg Proc = hidden intents completed by the agent or elicited through focused clarification</code>
-            <span class="leaderboard-threshold">higher is better</span>
+            <span class="leaderboard-threshold" data-i18n="higherBetter">higher is better</span>
           </div>
         </div>
       </section>
 
       <section class="results-visual" aria-labelledby="overall-scatter-title">
         <div class="results-visual-header">
-          <h3 id="overall-scatter-title">Overall Performance</h3>
+          <h3 id="overall-scatter-title" data-i18n="overallPerformanceTitle">Overall Performance</h3>
         </div>
         <div class="scatter-layout">
           <div
@@ -286,6 +297,7 @@
             class="scatter-plot"
             role="img"
             aria-label="Scatter plot comparing average proactive intent recovery and completion performance by model"
+            data-i18n-aria="scatterAria"
           ></div>
           <aside id="scatterDetails" class="scatter-details" aria-live="polite"></aside>
         </div>
@@ -294,27 +306,27 @@
 
     <section id="citation" class="section link-section resources-section">
       <div class="resources-header">
-        <h2>Resources</h2>
+        <h2 data-i18n="resourcesTitle">Resources</h2>
       </div>
       <div class="resource-grid">
         <a class="resource-primary" href="https://arxiv.org/abs/2605.14678" target="_blank" rel="noreferrer">
           <svg class="resource-icon" aria-hidden="true"><use href="#icon-paper"></use></svg>
-          <strong>Paper</strong>
+          <strong data-i18n="buttonPaper">Paper</strong>
           <span>arXiv:2605.14678</span>
         </a>
         <a href="https://github.com/Simplified-Reasoning/Pi-Bench" target="_blank" rel="noreferrer">
           <svg class="resource-icon" aria-hidden="true"><use href="#icon-code"></use></svg>
-          <strong>Code</strong>
-          <span>GitHub repository</span>
+          <strong data-i18n="buttonCode">Code</strong>
+          <span data-i18n="resourceCodeSub">GitHub repository</span>
         </a>
         <a href="https://github.com/Simplified-Reasoning/Pi-Bench/tree/main/data" target="_blank" rel="noreferrer">
           <svg class="resource-icon" aria-hidden="true"><use href="#icon-data"></use></svg>
-          <strong>Data</strong>
-          <span>users, episodes, tasks</span>
+          <strong data-i18n="buttonData">Data</strong>
+          <span data-i18n="resourceDataSub">users, episodes, tasks</span>
         </a>
       </div>
       <div class="citation-box">
-        <h3>Citation</h3>
+        <h3 data-i18n="citationTitle">Citation</h3>
         <pre><code>@misc{zhang2026pibenchevaluatingproactivepersonal,
   title={$\pi$-Bench: Evaluating Proactive Personal Assistant Agents in Long-Horizon Workflows},
   author={Haoran Zhang and Luxin Xu and Zhilin Wang and Runquan Gui and Shunkai Zhang and Haodi Lei and Zihao He and Bingsu He and Chicheng Qin and Tong Zhu and Xiaoye Qu and Yang Yang and Yu Cheng and Yafu Li},
@@ -329,10 +341,10 @@
   </main>
 
   <footer class="site-footer">
-    <p>π-Bench is intended for controlled evaluation of proactive personal assistant agents. Systems built for real users should preserve user agency, protect private data, and involve domain experts when decisions carry real-world consequences.</p>
+    <p data-i18n="footerText">π-Bench is intended for controlled evaluation of proactive personal assistant agents. Systems built for real users should preserve user agency, protect private data, and involve domain experts when decisions carry real-world consequences.</p>
   </footer>
 
-  <button class="to-top" id="toTop" type="button" aria-label="Back to top">&uarr;</button>
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top" data-i18n-aria="toTopAria">&uarr;</button>
   <script src="main.js"></script>
 </body>
 </html>
