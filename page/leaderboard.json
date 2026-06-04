@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-03",
+  "version": "2026-06-04",
   "defaultSort": "proc",
   "domains": [
     { "id": "researcher", "label": "Researcher" },
@@ -190,15 +190,15 @@
       "organization": "Zhipu AI",
       "color": "#0891b2",
       "overall": {
-        "proc": { "mean": 58.4, "sd": 0.8 },
-        "comp": { "mean": 63.6, "sd": 2.9 }
+        "proc": { "mean": 66.43, "sd": 1.38 },
+        "comp": { "mean": 60.06, "sd": 1.83 }
       },
       "domains": {
-        "researcher": { "proc": 41.8, "comp": 61.6 },
-        "marketer": { "proc": 62.6, "comp": 69.1 },
-        "pharmacist": { "proc": 75.2, "comp": 70.3 },
-        "law_trainee": { "proc": 45.5, "comp": 57.3 },
-        "financier": { "proc": 66.7, "comp": 59.8 }
+        "researcher": { "proc": 76.34, "comp": 42.59 },
+        "marketer": { "proc": 52.60, "comp": 55.82 },
+        "pharmacist": { "proc": 78.40, "comp": 67.31 },
+        "law_trainee": { "proc": 79.33, "comp": 74.05 },
+        "financier": { "proc": 45.46, "comp": 60.55 }
       }
     },
     {
