@@ -40,6 +40,7 @@
 <a id="news"></a>
 ## 📢 News
 
+- [Sep 2026] 🎉 π-BENCH has been accepted to **NeurIPS 2026**!
 - [May 2026] `π-BENCH` is available on arXiv: [2605.14678](https://arxiv.org/abs/2605.14678).
 - [May 2026] Project page is online: https://simplified-reasoning.github.io/Pi-Bench/
 
